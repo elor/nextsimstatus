@@ -2,19 +2,14 @@ stages:
   - build
   - deploy
 
-image: alpine:latest
+image: node:latest
 
-build:dev:
+build:
   stage: build
-  only:
-    - develop
-    - /^feature-.*$/
   script:
-    - apk update
-    - apk add nodejs nodejs-npm git
     - npm install
     - npm run build
   artifacts:
     paths:
       - build/
-    expire_in: 1 month
+    expire_in: 1 day
