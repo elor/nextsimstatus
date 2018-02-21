@@ -1,6 +1,6 @@
 {
     "name": "mainsimstatus",
-    "version": "1.0.0",
+    "version": "0.0.0",
     "description": "Mainsim Status",
     "author": "Erik E. Lorenz <erik@enas.fraunhofer.de.de>",
     "private": true,
