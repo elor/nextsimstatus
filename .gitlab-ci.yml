@@ -6,6 +6,8 @@ image: node:latest
 
 build:
   stage: build
+  tags:
+    - docker
   script:
     - npm install
     - npm run build
