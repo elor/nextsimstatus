@@ -1,8 +1,6 @@
 import Vue from "vue"
 import Router from "vue-router"
-import Simpcs from "@/components/Simpcs"
-import Simpc from "@/components/Simpc"
-import NewSimpc from "@/components/NewSimpc"
+import Home from "@/components/Home"
 
 Vue.use(Router)
 
@@ -10,15 +8,9 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "simpcs",
+      name: "home",
       component: Simpcs,
       icon: "list"
-    },
-    {
-      path: "/:simpcid",
-      name: "simpc",
-      component: Simpc,
-      icon: "add"
     }
   ],
   mode: "hash"

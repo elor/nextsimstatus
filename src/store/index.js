@@ -3,7 +3,6 @@ import Vue from "vue"
 
 import simpcs from "./testdata/simpcs"
 import profile from "./testdata/profile"
-import { getLocale, defaultLocale } from "../locales"
 
 import createMQTTPlugin from "./createMQTTPlugin"
 import createNowPlugin from "./createNowPlugin"
@@ -15,13 +14,9 @@ export default new Vuex.Store({
         simpcs,
         profile,
         now: new Date(),
-        showMenu: true,
-        strings: getLocale(defaultLocale)
+        showMenu: true
     },
     getters: {
-        strings(state) {
-            return state.strings
-        },
         now(state) {
             return state.now
         }
@@ -29,9 +24,6 @@ export default new Vuex.Store({
     mutations: {
         navtoggle(state) {
             state.showMenu = !state.showMenu;
-        },
-        setLocale(state, locale) {
-            state.strings = getLocale(locale);
         },
         newMessage(state, message) {
             state.simpcs[message.hostname].date = message.date;
