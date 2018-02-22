@@ -35,18 +35,13 @@
     <Compile Include="config\prod.env.js" />
     <Compile Include="config\test.env.js" />
     <Compile Include="src\main.js" />
-    <Content Include="src\assets\basic.png" />
-    <Content Include="src\assets\boule.png" />
+    <Content Include="src\App.vue" />
     <Content Include="src\assets\logo.png" />
-    <Content Include="src\assets\tac.png" />
-    <Content Include="src\assets\tuvero.png" />
     <Content Include="src\assets\vue.png" />
-    <Compile Include="src\locales\index.js" />
     <Compile Include="src\router\index.js" />
     <Compile Include="src\store\createMQTTPlugin.js" />
     <Compile Include="src\store\createNowPlugin.js" />
     <Compile Include="src\store\index.js" />
-    <Compile Include="src\locales\de\index.js" />
     <Compile Include="src\store\testdata\profile.js" />
     <Compile Include="src\store\testdata\simpcs.js" />
     <Compile Include="test\e2e\nightwatch.conf.js" />
@@ -56,6 +51,8 @@
     <Compile Include="test\e2e\custom-assertions\elementCount.js" />
     <Compile Include="test\e2e\specs\test.js" />
     <Compile Include="test\unit\specs\HelloWorld.spec.js" />
+    <Content Include="src\components\Navbar.vue" />
+    <Content Include="src\components\Simpcs.vue" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="build" />
@@ -64,8 +61,6 @@
     <Folder Include="src" />
     <Folder Include="src\assets" />
     <Folder Include="src\components" />
-    <Folder Include="src\locales" />
-    <Folder Include="src\locales\de" />
     <Folder Include="src\router" />
     <Folder Include="src\store" />
     <Folder Include="src\store\testdata" />
