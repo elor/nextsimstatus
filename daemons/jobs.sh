@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e -u
+
+jobs=$(scontrol show jobs)
+
+grep "No jobs" <<< "$jobs" &>/dev/null && exit 1
+
+sed -e 's/\(\S\+\)=\(\S*\)/"\1": "\2",/g' -e 's/^\(.\+\),\s*$/{\1},/' -e '1s/^/[/' -e '$s/},$/}]/' <<< "$jobs"
+
