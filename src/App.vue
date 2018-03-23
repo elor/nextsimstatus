@@ -32,8 +32,11 @@
       <v-fade-transition>
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       </v-fade-transition>
+
       <v-toolbar-title>MainSim {{$route.name}}</v-toolbar-title>
+
       <v-spacer></v-spacer>
+
       <v-badge overlap left color="red">
         <span slot="badge">{{errors.length+1}}</span>
         <v-icon large color="red">warning</v-icon>
