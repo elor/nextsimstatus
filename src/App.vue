@@ -30,7 +30,7 @@
 
     <v-toolbar app absolute>
       <v-fade-transition>
-        <v-toolbar-side-icon @click.stop="drawer = !drawer" :disabled="drawer"></v-toolbar-side-icon>
+        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       </v-fade-transition>
       <v-toolbar-title v-text="$route.name"></v-toolbar-title>
       <v-spacer></v-spacer>
