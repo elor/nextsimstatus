@@ -1,7 +1,7 @@
 import Vuex from "vuex";
 import Vue from "vue";
 
-import jsondata from "./testdata/jsondata";
+import nodes from "./testdata/nodes";
 
 import createEnssimPlugin from "./createEnssimPlugin";
 
@@ -9,7 +9,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    jsondata,
+    nodes,
     errors: []
   },
   getters: {
