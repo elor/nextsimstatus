@@ -23,7 +23,6 @@ export default new Vuex.Store({
         ...node,
         jobs: getters.jobstatus
           .filter(job => job.NodeNames.includes(node.NodeName))
-          .filter(job => job.State)
       })).map(node => ({
         ...node,
         users: uniq(node.jobs.map(job => job.UserId.replace(/\(\d+\)/, "")))
