@@ -14,15 +14,25 @@
                     :search="search"
                     hide-actions>
         <template slot="items" slot-scope="props">
-          <td>{{props.item.NodeName}}</td>
+          <td>
+            <a :href="`/nodes/${props.item.NodeName}`">{{props.item.NodeName}}</a>
+          </td>
           <td>
             <v-progress-circular :value="100*props.item.CPUAlloc/props.item.CPUTot"
-                                 :color="props.item.CPUAlloc == props.item.CPUTot ? 'light-blue' : 'green'" >
-            {{props.item.CPUAlloc}}
+                                 :color="props.item.CPUAlloc == props.item.CPUTot ? 'light-blue' : 'green'">
+              {{props.item.CPUAlloc}}
             </v-progress-circular>
           </td>
-          <td>{{props.item.jobs.join(' ')}}</td>
-          <td>{{props.item.users.join(' ')}}</td>
+          <td>
+            <a v-for="job in props.item.jobs"
+               :key="job.JobId"
+               :href="`/jobs/${job.JobId}`">{{job.JobId}}</a>
+          </td>
+          <td>
+            <a v-for="user in props.item.users"
+               :key="user"
+               :href="`/users/${user}`">{{user}}</a>
+          </td>
           <td>
             <v-progress-circular :value="100*props.item.CPULoad"
                                  :color="props.item.CPULoad > 0.9 ? 'light-blue' : 'green'">
