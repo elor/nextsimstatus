@@ -1,28 +1,34 @@
 <template>
   <v-container fluid>
-    <v-alert type="info" value="true">
-      This whole page is still under development.
-      <br />
-      Please report unexpected errors to Erik E. Lorenz.
-      <br />
-      Thank you!
-    </v-alert>
+    <v-card>
+      <v-card-title xs4>
+        <v-text-field append-icon="label_outline"
+                      label="NodeList definition"
+                      hide-details
+                      :error="!(nodenames && nodenames.length)"
+                      v-model="query">
+        </v-text-field>
+      </v-card-title>
+      <p class="text-xs-center">
+        {{nodenames.join(",")}}
+      </p>
+    </v-card>
   </v-container>
 </template>
 
 <script>
-  import { mapGetters } from "vuex";
+  import { nodels } from "./nodels";
 
   export default {
     data() {
       return {
+        query: "sim[02,04-05,22,28]"
       };
     },
     computed: {
-      ...mapGetters(["nodestatus", "queuestatus"])
+      nodenames() {
+        return nodels(this.query);
+      }
     }
   };
 </script>
-
-<style scoped>
-</style>
