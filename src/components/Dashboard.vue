@@ -16,14 +16,6 @@
   export default {
     data() {
       return {
-        headers: [
-          { text: "Name", value: "name" },
-          { text: "Usage", value: "usage" },
-          { text: "Status", value: "state" },
-          { text: "Queue", value: "properties" }
-        ],
-        search: "",
-        tabledata: this.nodestatus
       };
     },
     computed: {
