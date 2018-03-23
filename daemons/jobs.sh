@@ -2,7 +2,7 @@
 
 set -e -u
 
-jobs=$(scontrol show jobs)
+jobs=$(scontrol show jobs --oneliner)
 
 grep "No jobs" <<< "$jobs" &>/dev/null && exit 1
 
