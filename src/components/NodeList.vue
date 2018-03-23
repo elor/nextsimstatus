@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import { nodels } from "./nodels";
+  import { nodels } from "../utils/nodels";
 
   export default {
     data() {
