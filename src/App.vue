@@ -1,58 +1,70 @@
 <template>
-  <div id="app">
-    <md-app>
-      <md-app-drawer :md-active="showMenu" md-persistent="full">
-        <mainsimstatus-navbar></mainsimstatus-navbar>
-      </md-app-drawer>
+  <v-app>
 
-      <md-app-content style="padding: 0">
-        <router-view></router-view>
-      </md-app-content>
-    </md-app>
-  </div>
+    <v-navigation-drawer persistent :mini-variant="miniVariant" v-model="drawer" enable-resize-watcher app>
+      <v-toolbar>
+        <v-toolbar-side-icon @click.stop="drawer = !drawer">
+          <v-icon>close</v-icon>
+        </v-toolbar-side-icon>
+        <v-toolbar-title v-show="!miniVariant">MainSim</v-toolbar-title>
+      </v-toolbar>
+
+      <v-list>
+        <v-list-tile v-for="route in items" :key="route.path" :to="route.path">
+          <v-list-tile-action>
+            <v-icon v-html="route.icon"></v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title v-text="route.name"></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-btn icon @click.stop="miniVariant = !miniVariant">
+              <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
+            </v-btn>
+          </v-list-tile-action>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-toolbar app absolute>
+      <v-fade-transition>
+        <v-toolbar-side-icon @click.stop="drawer = !drawer" :disabled="drawer"></v-toolbar-side-icon>
+      </v-fade-transition>
+      <v-toolbar-title v-text="$route.name"></v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-badge overlap left color="red">
+        <span slot="badge">{{errors.length+1}}</span>
+        <v-icon large color="red">warning</v-icon>
+      </v-badge>
+    </v-toolbar>
+
+    <v-content>
+      <v-fade-transition>
+        <router-view />
+      </v-fade-transition>
+    </v-content>
+
+  </v-app>
 </template>
 
-<style lang="scss">
-  @import "~vue-material/dist/theme/engine";
-
-  @include md-register-theme("default", (
-    primary: md-get-palette-color(amber, 500),
-    accent: md-get-palette-color(red, 500),
-    warn: md-get-palette-color(red, 500),
-    background: md-get-palette-color(white, 500)
-  ));
-
-  @include md-register-theme("orange", (
-    primary: md-get-palette-color(grey, 200),
-    accent: md-get-palette-color(red, 500),
-    warn: md-get-palette-color(red, 500),
-    background: md-get-palette-color(orange, 500)
-  ));
-
-  @import "~vue-material/dist/theme/all";
-
-  .md-app {
-    min-height: 350px;
-    border: 1px solid rgba(#000, .12);
-  }
-</style>
-
 <script>
-  import { mapMutations } from "vuex"
-  import Navbar from "@/components/Navbar"
+  import { mapState } from "vuex";
 
   export default {
-    name: "app",
-    components: {
-      "mainsimstatus-navbar": Navbar
+    data() {
+      return {
+        drawer: false,
+        miniVariant: false
+      };
     },
     computed: {
-      showMenu() {
-        return this.$store.state.showMenu
+      ...mapState(["errors"]),
+      items() {
+        return this.$router.options.routes.filter(route => !route.path.match(/:/));
       }
     },
-    methods: {
-      ...mapMutations(["navtoggle"])
-    }
-  }
+    name: "App"
+  };
 </script>

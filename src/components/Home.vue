@@ -5,7 +5,7 @@
         <v-select :items="groups" item-value="data" v-model="tabledata">
         </v-select>
         <v-spacer></v-spacer>
-        <v-text-field append-icon="search" label="Search" single-line hide-details v-model="search"></v-text-field>
+        <v-text-field append-icon="search" label="Filter" single-line hide-details v-model="search"></v-text-field>
       </v-card-title>
 
       <v-data-table :headers="headers" :items="tabledata" item-key="name" :search="search" hide-actions disable-initial-sort>
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-  import { mapState, mapGetters } from "vuex";
+  import { mapGetters } from "vuex";
 
   export default {
     data() {
@@ -61,7 +61,6 @@
       };
     },
     computed: {
-      ...mapState(["errors"]),
       ...mapGetters(["nodestatus", "queuestatus"]),
 
       groups() {

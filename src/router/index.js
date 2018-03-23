@@ -1,17 +1,37 @@
-import Vue from "vue"
-import Router from "vue-router"
-import Home from "@/components/Home"
+import Vue from "vue";
+import Router from "vue-router";
 
-Vue.use(Router)
+import Home from "@/components/Home";
+import Nodes from "@/components/Nodes";
+import SimPCs from "@/components/SimPCs";
+
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
       path: "/",
-      name: "home",
-      component: Simpcs,
-      icon: "list"
+      name: "Home",
+      component: Home,
+      icon: "home"
+    },
+    {
+      path: "/nodes",
+      name: "Nodes",
+      component: Nodes,
+      icon: "dns"
+    },
+    {
+      path: "/simpcs",
+      name: "SimPCs",
+      component: SimPCs,
+      icon: "computer"
+    },
+    {
+      path: "/status",
+      name: "Status",
+      component: Home,
+      icon: "dashboard"
     }
-  ],
-  mode: "hash"
-})
+  ]
+});
