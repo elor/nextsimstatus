@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 
-import Home from "@/components/Home";
+import Dashboard from "@/components/Dashboard";
 import Nodes from "@/components/Nodes";
 import SimPCs from "@/components/SimPCs";
 
@@ -11,9 +11,9 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "Home",
-      component: Home,
-      icon: "home"
+      name: "Dashboard",
+      component: Dashboard,
+      icon: "dashboard"
     },
     {
       path: "/nodes",
@@ -26,12 +26,6 @@ export default new Router({
       name: "SimPCs",
       component: SimPCs,
       icon: "computer"
-    },
-    {
-      path: "/status",
-      name: "Status",
-      component: Home,
-      icon: "dashboard"
     }
   ]
 });
