@@ -3,6 +3,7 @@ import Vue from "vue";
 
 import nodes from "./testdata/nodes";
 import jobs from "./testdata/jobs";
+import { uniq } from "lodash";
 
 import createEnssimPlugin from "./createEnssimPlugin";
 
@@ -18,10 +19,10 @@ export default new Vuex.Store({
     nodestatus(state) {
       return state.nodes.map(node => ({
         ...node,
-        jobs: state.jobs(node.NodeName)
+        jobs: state.jobs
       })).map(node => ({
         ...node,
-        users: state.users(node.jobs)
+        users: uniq(node.jobs.map(job => job.UserId.replace(/\(\d+\)/, "")))
       }));
     }
   },
@@ -36,6 +37,7 @@ export default new Vuex.Store({
       });
     }
   },
+
   plugins: [
     createEnssimPlugin()
   ]

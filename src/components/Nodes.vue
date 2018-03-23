@@ -10,7 +10,7 @@
                       v-model="search"></v-text-field>
       </v-card-title>
       <v-data-table :headers="headers"
-                    :items="fullNodes"
+                    :items="nodestatus"
                     :search="search"
                     hide-actions>
         <template slot="items" slot-scope="props">
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-  import { mapState } from "vuex";
+  import { mapGetters } from "vuex";
 
   const warnstates = ["NoResp", "DRAIN", "FAILING", "MAINT", "POWER_UP"];
   const failstates = ["DOWN", "ERROR", "FAIL", "POWER_DOWN"];
@@ -105,8 +105,7 @@
       };
     },
     computed: {
-      ...mapState(["nodes"]),
-      }
+      ...mapGetters(["nodestatus"])
     },
     methods: {
       capitalize(word) {
@@ -124,12 +123,6 @@
       },
       isFailState(state) {
         return failstates.includes(state);
-      },
-      jobs(nodeName) {
-        return nodeName === "sim02" ? ["12345", "12345", "12345", "12345", "12345", "12345", "12345", "12345", "12345", "12345", "12345", "12345", "12345", "12345", "12345", "12345", "12345", "12345", "12345", "12345", "12345", "12345", "12345", "97531"] : [];
-      },
-      users(jobs) {
-        return jobs.map(job => "e.lorenz").sort().filter((value, index, users) => users[index + 1] !== value);
       }
     }
   };
