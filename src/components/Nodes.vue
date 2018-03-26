@@ -4,10 +4,7 @@
       <v-card-title>
         <v-layout wrap>
           <v-flex xs="12" md="6">
-            <v-btn to="/nodelist" flat color="primary" outline>
-              <v-icon>label_outline</v-icon>
-              <span>Nodels</span>
-            </v-btn>
+            <NodeList></NodeList>
           </v-flex>
           <v-flex xs="12" md="6">
             <v-text-field append-icon="search"
@@ -63,6 +60,7 @@
 
 <script>
   import { mapGetters } from "vuex";
+  import NodeList from "./NodeList";
 
   const warnstates = ["NoResp", "DRAIN", "FAILING", "MAINT", "POWER_UP"];
   const failstates = ["DOWN", "ERROR", "FAIL", "POWER_DOWN"];
@@ -143,6 +141,9 @@
       isFailState(state) {
         return failstates.includes(state);
       }
+    },
+    components: {
+      NodeList
     }
   };
 </script>
