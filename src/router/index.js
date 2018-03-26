@@ -27,7 +27,8 @@ export default new Router({
       path: "/nodelist",
       name: "Nodelist",
       component: Nodelist,
-      icon: "label_outline"
+      icon: "label_outline",
+      hidden: true
     },
     {
       path: "/simpcs",
