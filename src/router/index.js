@@ -45,6 +45,13 @@ export default new Router({
       name: "SimPCs",
       component: Todo,
       icon: "computer"
+    },
+    {
+      path: "/modules",
+      name: "Software",
+      component: Todo,
+      icon: "apps"
     }
+
   ]
 });
