@@ -24,11 +24,29 @@ export default new Router({
       icon: "dns"
     },
     {
+      path: "/jobs",
+      name: "Jobs",
+      component: Todo,
+      icon: "assignment"
+    },
+    {
       path: "/nodelist",
       name: "Nodelist",
       component: Nodelist,
       icon: "label_outline",
       hidden: true
+    },
+    {
+      path: "/users",
+      name: "Users",
+      component: Todo,
+      icon: "people"
+    },
+    {
+      path: "/stats",
+      name: "Stats",
+      component: Todo,
+      icon: "pie_chart"
     },
     {
       path: "/simpcs",
