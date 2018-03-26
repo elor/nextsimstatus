@@ -2,9 +2,9 @@ import Vue from "vue";
 import Router from "vue-router";
 
 import Dashboard from "@/components/Dashboard";
+import Todo from "@/components/Todo";
 import Nodes from "@/components/Nodes";
 import Nodelist from "@/components/Nodelist";
-import SimPCs from "@/components/SimPCs";
 
 Vue.use(Router);
 
@@ -33,7 +33,7 @@ export default new Router({
     {
       path: "/simpcs",
       name: "SimPCs",
-      component: SimPCs,
+      component: Todo,
       icon: "computer"
     }
   ]
