@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="500">
     <v-btn slot="activator" flat color="primary" outline>
-      <v-icon>label_outline</v-icon>NodeLS
+      NodeLS<v-icon>label_outline</v-icon>
     </v-btn>
     <v-card>
       <v-toolbar dark color="primary">
