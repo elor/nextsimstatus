@@ -35,9 +35,9 @@
 
       <v-spacer></v-spacer>
 
-      <v-toolbar-side-icon @click.stop="errorlist = !errorlist">
+      <v-toolbar-side-icon to="/errors" v-if="errors.length">
         <v-badge overlap right color="red">
-          <span slot="badge">{{errors.length+1}}</span>
+          <span slot="badge">{{errors.length}}</span>
           <v-icon large color="red">error</v-icon>
         </v-badge>
       </v-toolbar-side-icon>
@@ -57,7 +57,6 @@
     data() {
       return {
         drawer: false,
-        errorlist: false,
         miniVariant: false
       };
     },

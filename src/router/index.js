@@ -1,9 +1,11 @@
 import Vue from "vue";
 import Router from "vue-router";
 
-import Dashboard from "@/components/Dashboard";
 import Todo from "@/components/Todo";
+
+import Dashboard from "@/components/Dashboard";
 import Nodes from "@/components/Nodes";
+import ErrorList from "@/components/ErrorList";
 
 Vue.use(Router);
 
@@ -50,6 +52,12 @@ export default new Router({
       name: "Software",
       component: Todo,
       icon: "apps"
+    },
+    {
+      path: "/errors",
+      name: "Errors",
+      component: ErrorList,
+      icon: "error"
     }
   ]
 });

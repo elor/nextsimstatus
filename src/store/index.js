@@ -49,7 +49,7 @@ export default new Vuex.Store({
     newError(state, error) {
       state.errors.push({
         date: new Date(),
-        error
+        message: error
       });
     }
   },
