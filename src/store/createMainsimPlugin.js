@@ -8,18 +8,18 @@ export default function createMainsimPlugin() {
   return store => {
     let client = mqtt.connect(url);
 
-    client.on("connect", () => client.subscribe("slurm/*"));
+    client.on("connect", () => client.subscribe("#"));
 
     client.on("message", (topic, message) => {
       switch (topic) {
         case "slurm/nodes":
-          store.commit("updateNodes", JSON.parse(message));
+          store.commit("updateNodes", JSON.parse(message.toString()));
           break;
         case "slurm/jobs":
-          store.commit("updateJobs", JSON.parse(message));
+          store.commit("updateJobs", JSON.parse(message.toString()));
           break;
         case "slurm/users":
-          store.commit("updateUsers", JSON.parse(message));
+          store.commit("updateUsers", JSON.parse(message.toString()));
           break;
       }
     });
