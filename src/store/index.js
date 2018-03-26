@@ -6,7 +6,7 @@ import jobs from "./testdata/jobs";
 import { uniq } from "lodash";
 import { nodels } from "../utils/nodels";
 
-import createEnssimPlugin from "./createEnssimPlugin";
+import createMainsimPlugin from "./createMainsimPlugin";
 
 Vue.use(Vuex);
 
@@ -37,10 +37,16 @@ export default new Vuex.Store({
   },
 
   mutations: {
-    updateJSONData(state, message) {
-      state.simpcs[message.hostname].date = message.date;
+    updateNodes(state, nodes) {
+      state.nodes = nodes;
     },
-    serverError(state, error) {
+    updateJobs(state, jobs) {
+      state.jobs = jobs;
+    },
+    updateUsers(state, users) {
+      state.users = users;
+    },
+    newError(state, error) {
       state.errors.push({
         date: new Date(),
         error
@@ -49,6 +55,6 @@ export default new Vuex.Store({
   },
 
   plugins: [
-    createEnssimPlugin()
+    createMainsimPlugin()
   ]
 });
