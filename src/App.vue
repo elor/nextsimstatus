@@ -29,18 +29,18 @@
     </v-navigation-drawer>
 
     <v-toolbar app absolute dark color="primary">
-      <v-fade-transition>
-        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      </v-fade-transition>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
 
       <v-toolbar-title>MainSim {{$route.name}}</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
-      <v-badge overlap left color="red">
-        <span slot="badge">{{errors.length+1}}</span>
-        <v-icon large color="red">warning</v-icon>
-      </v-badge>
+      <v-toolbar-side-icon @click.stop="errorlist = !errorlist">
+        <v-badge overlap right color="red">
+          <span slot="badge">{{errors.length+1}}</span>
+          <v-icon large color="red">error</v-icon>
+        </v-badge>
+      </v-toolbar-side-icon>
     </v-toolbar>
 
     <v-content>
@@ -57,6 +57,7 @@
     data() {
       return {
         drawer: false,
+        errorlist: false,
         miniVariant: false
       };
     },
