@@ -2,12 +2,21 @@
   <v-container fluid>
     <v-card>
       <v-card-title>
-        <v-spacer></v-spacer>
-        <v-text-field append-icon="search"
-                      label="Search"
-                      single-line
-                      hide-details
-                      v-model="search"></v-text-field>
+        <v-layout wrap>
+          <v-flex xs="12" md="6">
+            <v-btn to="/nodelist" flat color="primary" outline>
+              <v-icon>label_outline</v-icon>
+              <span>Nodels</span>
+            </v-btn>
+          </v-flex>
+          <v-flex xs="12" md="6">
+            <v-text-field append-icon="search"
+                          label="Search"
+                          single-line
+                          hide-details
+                          v-model="search"></v-text-field>
+          </v-flex>
+        </v-layout>
       </v-card-title>
       <v-data-table :headers="headers"
                     :items="nodestatus"
