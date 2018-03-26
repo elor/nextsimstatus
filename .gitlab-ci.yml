@@ -25,7 +25,7 @@ deploy:mainsimweb:
 deploy:mainsim:
   stage: deploy
   tags:
-    - mainsimweb
+    - mainsim
     - httpd
   script:
     - rsync -arv --delete dist/ /var/www/html
