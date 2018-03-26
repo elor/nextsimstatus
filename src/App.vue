@@ -44,9 +44,7 @@
     </v-toolbar>
 
     <v-content>
-      <v-fade-transition>
-        <router-view />
-      </v-fade-transition>
+      <router-view />
     </v-content>
 
   </v-app>
