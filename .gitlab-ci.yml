@@ -13,3 +13,19 @@ build:
     paths:
       - dist/
     expire_in: 1 day
+
+deploy:mainsimweb:
+  stage: deploy
+  tags:
+    - mainsimweb
+    - httpd
+  script:
+    - rsync -arv --delete dist/ /var/www/html
+
+deploy:mainsim:
+  stage: deploy
+  tags:
+    - mainsimweb
+    - httpd
+  script:
+    - rsync -arv --delete dist/ /var/www/html
