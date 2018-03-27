@@ -30,14 +30,16 @@
             </v-progress-circular>
           </td>
           <td>
-            <a v-for="job in props.item.jobs"
-               :key="job.JobId"
-               :to="`/jobs/${job.JobId}`">{{job.JobId}}</a>
+            <template v-for="job in props.item.jobs" :key="job.JobId">
+              <a :to="`/jobs/${job.JobId}`">{{job.JobId}}</a>
+              &nbsp;
+            </template>
           </td>
           <td>
-            <a v-for="user in props.item.users"
-               :key="user"
-               :to="`/users/${user}`">{{user}}</a>
+            <template v-for="user in props.item.users" :key="user">
+              <a :to="`/users/${user}`">{{user}}</a>
+              &nbsp;
+            </template>
           </td>
           <td>
             <v-progress-circular :value="100*props.item.CPULoad"
