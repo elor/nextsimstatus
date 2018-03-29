@@ -21,7 +21,7 @@
                     hide-actions>
         <template slot="items" slot-scope="props">
           <td>
-            <a :to="`/nodes/${props.item.NodeName}`">{{props.item.NodeName}}</a>
+            <router-link :to="`/nodes`">{{props.item.NodeName}}</router-link>
           </td>
           <td>
             <v-progress-circular :value="100*props.item.CPUAlloc/props.item.CPUTot"
@@ -30,16 +30,16 @@
             </v-progress-circular>
           </td>
           <td>
-            <template v-for="job in props.item.jobs" :key="job.JobId">
-              <a :to="`/jobs/${job.JobId}`">{{job.JobId}}</a>
+            <span v-for="job in props.item.jobs" :key="job.JobId">
+              <router-link :to="`/jobs`">{{job.JobId}}</router-link>
               &nbsp;
-            </template>
+            </span>
           </td>
           <td>
-            <template v-for="user in props.item.users" :key="user">
-              <a :to="`/users/${user}`">{{user}}</a>
+            <span v-for="user in props.item.users" :key="user">
+              <router-link :to="`/users`">{{user}}</router-link>
               &nbsp;
-            </template>
+            </span>
           </td>
           <td>
             <v-progress-circular :value="100*props.item.CPULoad"
