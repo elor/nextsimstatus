@@ -1,9 +1,9 @@
 import Vuex from "vuex";
 import Vue from "vue";
 
-import nodes from "./testdata/nodes";
-import jobs from "./testdata/jobs";
-import { uniq } from "lodash";
+//import nodes from "./testdata/nodes";
+//import jobs from "./testdata/jobs";
+import { uniq, flatten } from "lodash";
 import { nodels } from "../utils/nodels";
 
 import createMainsimPlugin from "./createMainsimPlugin";
@@ -12,8 +12,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    nodes,
-    jobs,
+    nodes: [],
+    jobs: [],
     errors: []
   },
 
@@ -35,6 +35,24 @@ export default new Vuex.Store({
         NodeNames: nodels(job.NodeList),
         UserName: job.UserId.replace(/\(\d+\)/, "")
       }));
+    },
+    userstatus(state, getters) {
+      return uniq(getters.jobstatus
+        .map(job => job.UserName))
+        .map(UserName => ({
+          UserName,
+          Jobs: getters.jobstatus.filter(job => job.UserName === UserName)
+        }))
+        .map(user => ({
+          ...user,
+          RunningJobs: user.Jobs.filter(job => /running/i.test(job.JobState)),
+          OtherJobs: user.Jobs.filter(job => !/running/i.test(job.JobState))
+        }))
+        .map(user => ({
+          ...user,
+          NodeNames: uniq(flatten(user.RunningJobs.map(job => job.NodeNames))),
+          NumCPUs: user.RunningJobs.map(job => Number(job.NumCPUs)).reduce((a, b) => a + b, 0)
+        }));
     }
   },
 
