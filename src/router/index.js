@@ -5,6 +5,7 @@ import Todo from "@/components/Todo";
 
 import Dashboard from "@/components/Dashboard";
 import Nodes from "@/components/Nodes";
+import Jobs from "@/components/Jobs";
 import ErrorList from "@/components/ErrorList";
 
 Vue.use(Router);
@@ -26,7 +27,7 @@ export default new Router({
     {
       path: "/jobs",
       name: "Jobs",
-      component: Todo,
+      component: Jobs,
       icon: "assignment"
     },
     {
