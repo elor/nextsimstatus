@@ -3,6 +3,7 @@
     <v-card>
       <v-card-title>
         <v-layout wrap>
+          <v-spacer></v-spacer>
           <v-flex xs="12" md="6">
             <v-text-field append-icon="search"
                           label="Search"
