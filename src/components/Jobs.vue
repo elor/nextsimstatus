@@ -30,7 +30,6 @@
           <td>{{props.item.NumCPUs}}</td>
           <td>{{props.item.StartTime}}</td>
           <td>{{props.item.EndTime}}</td>
-          <td>{{props.item.Nodes}}</td>
         </template>
       </v-data-table>
     </v-card>
