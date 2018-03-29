@@ -22,7 +22,7 @@ export default new Vuex.Store({
       return state.nodes.map(node => ({
         ...node,
         jobs: getters.jobstatus
-          .filter(job => job.JobState == "RUNNING")
+          .filter(job => job.JobState === "RUNNING")
           .filter(job => job.NodeNames.includes(node.NodeName))
       })).map(node => ({
         ...node,
