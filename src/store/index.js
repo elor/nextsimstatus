@@ -7,6 +7,7 @@ import { uniq, flatten } from "lodash";
 import { nodels } from "../utils/nodels";
 
 import createMainsimPlugin from "./createMainsimPlugin";
+import createNowTimePlugin from "./createNowTimePlugin";
 
 Vue.use(Vuex);
 
@@ -14,7 +15,16 @@ export default new Vuex.Store({
   state: {
     nodes: [],
     jobs: [],
-    errors: []
+    errors: [],
+    dates: {
+      nodes: new Date(0),
+      jobs: new Date(0),
+      users: new Date(0),
+      now: new Date()
+    },
+    options: {
+      timeout: 5000
+    }
   },
 
   getters: {
@@ -59,12 +69,17 @@ export default new Vuex.Store({
   mutations: {
     updateNodes(state, nodes) {
       state.nodes = nodes;
+      state.dates.nodes = new Date();
     },
     updateJobs(state, jobs) {
       state.jobs = jobs;
+      state.dates.jobs = new Date();
     },
     updateUsers(state, users) {
       state.users = users;
+    },
+    updateNowDate(state, now) {
+      state.dates.now = now;
     },
     newError(state, error) {
       state.errors.push({
@@ -75,6 +90,7 @@ export default new Vuex.Store({
   },
 
   plugins: [
-    createMainsimPlugin()
+    createMainsimPlugin(),
+    createNowTimePlugin(500)
   ]
 });

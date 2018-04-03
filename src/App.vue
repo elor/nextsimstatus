@@ -35,6 +35,20 @@
 
       <v-spacer></v-spacer>
 
+      {{dates.now.toLocaleString()}}
+      <v-progress-circular :value="100 * (dates.now - dates.jobs) / options.timeout"
+                           :color="dates.now - dates.jobs > options.timeout ? 'red' : 'light-blue'">
+        J
+      </v-progress-circular>
+      <v-progress-circular :value="100 * (dates.now - dates.nodes) / options.timeout"
+                           :color="dates.now - dates.nodes > options.timeout ? 'red' : 'light-blue'">
+        N
+      </v-progress-circular>
+      <v-progress-circular :value="100 * (dates.now - dates.users) / options.timeout"
+                           :color="dates.now - dates.users > options.timeout ? 'red' : 'light-blue'">
+        U
+      </v-progress-circular>
+
       <v-toolbar-side-icon to="/errors" v-if="errors.length">
         <v-badge overlap right color="red">
           <span slot="badge">{{errors.length}}</span>
@@ -61,7 +75,7 @@
       };
     },
     computed: {
-      ...mapState(["errors"]),
+      ...mapState(["errors", "dates", "options"]),
       items() {
         return this.$router.options.routes.filter(route => !route.path.match(/:/));
       }
