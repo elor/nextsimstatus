@@ -91,6 +91,6 @@ export default new Vuex.Store({
 
   plugins: [
     createMainsimPlugin(),
-    createNowTimePlugin(500)
+    createNowTimePlugin(32)
   ]
 });

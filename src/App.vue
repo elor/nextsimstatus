@@ -36,15 +36,15 @@
       <v-spacer></v-spacer>
 
       {{dates.now.toLocaleString()}}
-      <v-progress-circular :value="100 * (dates.now - dates.jobs) / options.timeout"
+      <v-progress-circular class="noanimation" :value="100 * (dates.now - dates.jobs) / options.timeout"
                            :color="dates.now - dates.jobs > options.timeout ? 'red' : 'light-blue'">
         J
       </v-progress-circular>
-      <v-progress-circular :value="100 * (dates.now - dates.nodes) / options.timeout"
+      <v-progress-circular class="noanimation" :value="100 * (dates.now - dates.nodes) / options.timeout"
                            :color="dates.now - dates.nodes > options.timeout ? 'red' : 'light-blue'">
         N
       </v-progress-circular>
-      <v-progress-circular :value="100 * (dates.now - dates.users) / options.timeout"
+      <v-progress-circular class="noanimation" :value="100 * (dates.now - dates.users) / options.timeout"
                            :color="dates.now - dates.users > options.timeout ? 'red' : 'light-blue'">
         U
       </v-progress-circular>
@@ -83,3 +83,9 @@
     name: "App"
   };
 </script>
+
+<style>
+  .noanimation .progress-circular__overlay {
+    transition: none;
+  }
+</style>
