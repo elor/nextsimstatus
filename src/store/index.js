@@ -44,7 +44,7 @@ export default new Vuex.Store({
         ...job,
         NodeNames: nodels(job.NodeList),
         UserName: job.UserId.replace(/\(\d+\)/, "")
-      }));
+      })).reverse();
     },
     userstatus(state, getters) {
       return uniq(getters.jobstatus

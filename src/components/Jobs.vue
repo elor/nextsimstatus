@@ -16,7 +16,8 @@
       <v-data-table :headers="headers"
                     :items="jobstatus"
                     :search="search"
-                    hide-actions>
+                    hide-actions
+                    disable-initial-sort>
         <template slot="items" slot-scope="props">
           <td><router-link :to="`/jobs`">{{props.item.JobId}}</router-link></td>
           <td><router-link :to="`/users`">{{props.item.UserName}}</router-link></td>
