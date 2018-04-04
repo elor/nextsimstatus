@@ -37,19 +37,19 @@
 
       {{dates.now.toLocaleString()}}
       <v-progress-circular class="noanimation"
-                           rotate="-90"
+                           :rotate="270"
                            :value="100 * (dates.now - dates.jobs) / options.timeout"
                            :color="dates.now - dates.jobs > options.timeout ? 'red' : 'light-blue'">
         J
       </v-progress-circular>
       <v-progress-circular class="noanimation"
-                           rotate="-90"
+                           :rotate="270"
                            :value="100 * (dates.now - dates.nodes) / options.timeout"
                            :color="dates.now - dates.nodes > options.timeout ? 'red' : 'light-blue'">
         N
       </v-progress-circular>
       <v-progress-circular class="noanimation"
-                           rotate="-90"
+                           :rotate="270"
                            :value="100 * (dates.now - dates.users) / options.timeout"
                            :color="dates.now - dates.users > options.timeout ? 'red' : 'light-blue'">
         U
