@@ -18,7 +18,7 @@ old_nodes=""
 old_jobs=""
 last_jobs=0
 last_nodes=0
-interval=10
+interval=1
 
 while true; do
     nodes_json="$(./slurm/nodes.sh)"
@@ -26,15 +26,19 @@ while true; do
 
     now=$(date +%s)
 
-    if [ "$nodes_json" != "$old_nodes" ] || (( now > last_nodes + interval )); then
-        mosquitto_pub -h "$host" -u "$mqtt_user" -P "$mqtt_password" -t "slurm/nodes" -m "$nodes_json"
+    if [ "$nodes_json" != "$old_nodes" ] || (( now >= last_nodes + interval )); then
+        mosquitto_pub -h "$host" -u "$mqtt_user" -P "$mqtt_password" -t "slurm/nodes" -s << EOF
+$nodes_json
+EOF
         old_nodes="$nodes_json"
         last_nodes=$now
         echo "nodes $(date)"
     fi
 
-    if [ "$jobs_json" != "$old_jobs" ] || (( now > last_jobs + interval)); then
-        mosquitto_pub -h "$host" -u "$mqtt_user" -P "$mqtt_password" -t "slurm/jobs" -m "$jobs_json"
+    if [ "$jobs_json" != "$old_jobs" ] || (( now >= last_jobs + interval)); then
+        mosquitto_pub -h "$host" -u "$mqtt_user" -P "$mqtt_password" -t "slurm/jobs" -s << EOF
+$jobs_json
+EOF
         old_jobs="$jobs_json"
         last_jobs=$now
         echo "jobs $(date)"
