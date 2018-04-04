@@ -42,8 +42,8 @@
             </span>
           </td>
           <td>
-            <v-progress-circular :value="100*props.item.CPULoad"
-                                 :color="props.item.CPULoad > 0.9 ? 'light-blue' : 'green'">
+            <v-progress-circular :value="100*props.item.CPULoad/props.item.CPUTot"
+                                 :color="props.item.CPULoad/props.item.CPUTot > 0.9 ? 'light-blue' : 'green'">
             </v-progress-circular>
           </td>
           <td>{{props.item.Partitions}}</td>
