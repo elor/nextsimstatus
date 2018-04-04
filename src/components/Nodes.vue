@@ -43,7 +43,10 @@
           </td>
           <td>
             <v-progress-circular :value="100*props.item.CPULoad/props.item.CPUTot"
-                                 :color="props.item.CPULoad/props.item.CPUTot > 0.9 ? 'light-blue' : 'green'">
+                                 :color="props.item.CPULoad > 0.9*props.item.CPUTot ? 'light-blue' : 'green'">
+            </v-progress-circular>
+            <v-progress-circular :value="100*(1 - props.item.FreeMem/props.item.RealMemory)"
+                                 :color="props.item.FreeMem < 0.1*props.item.RealMemory ? 'red' : 'light-blue'">
             </v-progress-circular>
           </td>
           <td>{{props.item.Partitions}}</td>
@@ -96,7 +99,7 @@
             value: "users"
           },
           {
-            text: "CPU",
+            text: "CPU/Mem",
             align: "left",
             sortable: true,
             value: "CPULoad"
