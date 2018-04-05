@@ -7,6 +7,8 @@ import Dashboard from "@/components/Dashboard";
 import Nodes from "@/components/Nodes";
 import Jobs from "@/components/Jobs";
 import Users from "@/components/Users";
+import Software from "@/components/Software";
+import Periodinator from "@/components/Periodinator";
 import ErrorList from "@/components/ErrorList";
 
 Vue.use(Router);
@@ -50,16 +52,28 @@ export default new Router({
       icon: "computer"
     },
     {
-      path: "/modules",
+      path: "/apps",
       name: "Software",
-      component: Todo,
+      component: Software,
       icon: "apps"
+    },
+    {
+      path: "/apps/periodinator",
+      name: "Periodinator",
+      component: Periodinator,
+      hidden: true
     },
     {
       path: "/errors",
       name: "Errors",
       component: ErrorList,
       icon: "error"
+    },
+    {
+      path: "*",
+      name: "404",
+      component: Dashboard,
+      hidden: true
     }
   ]
 });
