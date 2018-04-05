@@ -141,10 +141,10 @@
         }
       },
       isWarningState(state) {
-        return warnstates.includes(state);
+        return warnstates.includes(state) || warnstates.map(state => `${state}*`).includes(state);
       },
       isFailState(state) {
-        return failstates.includes(state);
+        return failstates.includes(state) || failstates.map(state => `${state}*`).includes(state);
       }
     },
     components: {
