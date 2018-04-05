@@ -141,7 +141,7 @@
         }
       },
       isWarningState(state) {
-        return warnstates.includes(state) || warnstates.map(state => `${state}*`).includes(state);
+        return warnstates.includes(state) || state.endsWith('*');
       },
       isFailState(state) {
         return failstates.includes(state) || failstates.map(state => `${state}*`).includes(state);
