@@ -67,94 +67,95 @@
 </template>
 
 <script>
-  import { mapGetters } from "vuex";
-  import NodeList from "./NodeList";
+import { mapGetters } from "vuex";
+import NodeList from "./NodeList";
 
-  const warnstates = ["DRAIN", "MAINT", "DOWN", "POWER_UP", "POWER_DOWN"];
-  const failstates = ["NoResp", "FAILING", "ERROR", "FAIL"];
+const warnstates = ["DRAIN", "MAINT", "DOWN", "POWER_UP", "POWER_DOWN"];
+const failstates = ["*", "NoResp", "FAILING", "ERROR", "FAIL"];
 
-  export default {
-    data() {
-      return {
-        headers: [
-          {
-            text: "Node",
-            align: "left",
-            sortable: true,
-            value: "NodeName"
-          },
-          {
-            text: "Usage",
-            align: "left",
-            sortable: true,
-            value: "CPUAlloc"
-          },
-          {
-            text: "Jobs",
-            align: "left",
-            sortable: false,
-            value: "jobs"
-          },
-          {
-            text: "Users",
-            align: "left",
-            sortable: false,
-            value: "users"
-          },
-          {
-            text: "CPU/Mem",
-            align: "left",
-            sortable: true,
-            value: "CPULoad"
-          },
-          {
-            text: "Partitions",
-            align: "left",
-            sortable: true,
-            value: "Partitions"
-          },
-          {
-            text: "State",
-            align: "left",
-            sortable: true,
-            value: "State"
-          },
-          {
-            text: "BootTime",
-            align: "left",
-            sortable: true,
-            value: "BootTime"
-          }
-        ],
-        search: ""
-      };
-    },
-    computed: {
-      ...mapGetters(["nodestatus"])
-    },
-    methods: {
-      capitalize(word) {
-        switch (word.length) {
-          case 0:
-            return "";
-          case 1:
-            return word.toUpperCase();
-          default:
-            return `${word[0].toUpperCase() + word.slice(1).toLowerCase()}`;
+export default {
+  data() {
+    return {
+      headers: [
+        {
+          text: "Node",
+          align: "left",
+          sortable: true,
+          value: "NodeName"
+        },
+        {
+          text: "Usage",
+          align: "left",
+          sortable: true,
+          value: "CPUAlloc"
+        },
+        {
+          text: "Jobs",
+          align: "left",
+          sortable: false,
+          value: "jobs"
+        },
+        {
+          text: "Users",
+          align: "left",
+          sortable: false,
+          value: "users"
+        },
+        {
+          text: "CPU/Mem",
+          align: "left",
+          sortable: true,
+          value: "CPULoad"
+        },
+        {
+          text: "Partitions",
+          align: "left",
+          sortable: true,
+          value: "Partitions"
+        },
+        {
+          text: "State",
+          align: "left",
+          sortable: true,
+          value: "State"
+        },
+        {
+          text: "BootTime",
+          align: "left",
+          sortable: true,
+          value: "BootTime"
         }
-      },
-      isWarningState(state) {
-        return warnstates.includes(state) || warnstates.map(state => `${state}*`).includes(state);
-      },
-      isFailState(state) {
-        return state.endsWith("*") || failstates.includes(state);
+      ],
+      search: ""
+    };
+  },
+  computed: {
+    ...mapGetters(["nodestatus"])
+  },
+  methods: {
+    capitalize(word) {
+      switch (word.length) {
+        case 0:
+          return "";
+        case 1:
+          return word.toUpperCase();
+        default:
+          return `${word[0].toUpperCase() + word.slice(1).toLowerCase()}`;
       }
     },
-    components: {
-      NodeList
+    isWarningState(state) {
+      return warnstates.includes(state);
+    },
+    isFailState(state) {
+      return failstates.includes(state);
     }
-  };
+  },
+  components: {
+    NodeList
+  }
+};
 </script>
 
 <style scoped>
+
 </style>
