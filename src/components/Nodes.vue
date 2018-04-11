@@ -67,8 +67,8 @@
   import { mapGetters } from "vuex";
   import NodeList from "./NodeList";
 
-  const warnstates = ["NoResp", "DRAIN", "FAILING", "MAINT", "POWER_UP"];
-  const failstates = ["DOWN", "ERROR", "FAIL", "POWER_DOWN"];
+  const warnstates = ["DRAIN", "MAINT", "DOWN", "POWER_UP", "POWER_DOWN"];
+  const failstates = ["NoResp", "FAILING", "ERROR", "FAIL"];
 
   export default {
     data() {
@@ -141,10 +141,10 @@
         }
       },
       isWarningState(state) {
-        return warnstates.includes(state) || state.endsWith("*");
+        return warnstates.includes(state) || warnstates.map(state => `${state}*`).includes(state);
       },
       isFailState(state) {
-        return failstates.includes(state) || failstates.map(state => `${state}*`).includes(state);
+        return state.endsWith("*") || failstates.includes(state);
       }
     },
     components: {
