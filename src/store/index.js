@@ -33,7 +33,10 @@ export default new Vuex.Store({
         ...node,
         jobs: getters.jobstatus
           .filter(job => job.JobState === "RUNNING")
-          .filter(job => job.NodeNames.includes(node.NodeName))
+          .filter(job => job.NodeNames.includes(node.NodeName)),
+        States: flatten(node.State.split("+")
+          .map(state => state.endsWith("*") ? [state.replace(/\**$/, ""), "*"] : state)
+        )
       })).map(node => ({
         ...node,
         users: uniq(node.jobs.map(job => job.UserName))

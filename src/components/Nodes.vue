@@ -51,9 +51,12 @@
           </td>
           <td>{{props.item.Partitions}}</td>
           <td>
-            {{capitalize(props.item.State)}}
-            <v-icon color="warning" v-if="isWarningState(props.item.State)">warning</v-icon>
-            <v-icon color="error" v-if="isFailState(props.item.State)">error</v-icon>
+            <span v-for="state in props.item.States" :key="state">
+              <v-icon color="warning" v-if="isWarningState(state)">warning</v-icon>
+              <v-icon color="error" v-if="isFailState(state)">error</v-icon>
+              {{capitalize(state)}}
+              &nbsp;
+            </span>
           </td>
           <td>{{props.item.BootTime}}</td>
         </template>
