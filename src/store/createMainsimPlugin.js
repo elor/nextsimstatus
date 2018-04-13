@@ -1,6 +1,6 @@
 import mqtt from "mqtt";
 
-const host = "mainsimweb.etit.tu-chemnitz.de:8080";
+const host = "mainsimweb.etit.tu-chemnitz.de";
 const port = 8080;
 const url = `mqtt://${host}:${port}`;
 
