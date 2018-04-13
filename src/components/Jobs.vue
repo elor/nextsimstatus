@@ -31,7 +31,7 @@
           </td>
           <td>{{props.item.NumCPUs}}</td>
           <td>{{props.item.StartTime}}</td>
-          <td>{{props.item.EndTime}}</td>
+          <td><span v-if="props.item.JobState !== 'RUNNING'">{{props.item.EndTime}}</span></td>
         </template>
       </v-data-table>
     </v-card>
