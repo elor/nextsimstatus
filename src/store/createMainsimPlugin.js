@@ -1,7 +1,7 @@
 import mqtt from "mqtt";
 
 const host = "mainsimweb.etit.tu-chemnitz.de";
-const port = 8080;
+const port = 9001;
 const url = `mqtt://${host}:${port}`;
 
 export default function createMainsimPlugin() {
