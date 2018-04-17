@@ -2,16 +2,15 @@
   <v-container fluid>
     <v-card>
       <v-card-title>
-        <v-layout wrap>
-          <v-spacer></v-spacer>
-          <v-flex xs="12" md="6">
-            <v-text-field append-icon="search"
-                          label="Search"
-                          single-line
-                          hide-details
-                          v-model="search"></v-text-field>
-          </v-flex>
-        </v-layout>
+        {{jobstatus.length}} Jobs
+        <v-spacer></v-spacer>
+        <v-flex xs="12" md="6">
+          <v-text-field append-icon="search"
+                        label="Search"
+                        single-line
+                        hide-details
+                        v-model="search"></v-text-field>
+        </v-flex>
       </v-card-title>
       <v-data-table :headers="headers"
                     :items="jobstatus"
@@ -31,7 +30,7 @@
           </td>
           <td>{{props.item.NumCPUs}}</td>
           <td>{{props.item.StartTime}}</td>
-          <td><span v-if="props.item.JobState !== 'RUNNING'">{{props.item.EndTime}}</span></td>
+          <td><span v-if="props.item.JobState !== 'FINISHING'">{{props.item.EndTime}}</span></td>
         </template>
       </v-data-table>
     </v-card>
