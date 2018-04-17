@@ -45,7 +45,7 @@ $data_json
 EOF
         old_data="$data_json"
         last_data=$now
-        echo "$dataset $(date)"
+        echo "$dataset $(date) $(wc -c <<< "$data_json")B"
     fi
 done
 
