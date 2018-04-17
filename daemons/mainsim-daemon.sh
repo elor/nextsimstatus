@@ -39,8 +39,8 @@ while true; do
 
     now=$(date +%s)
 
-    if [ "$data_json" != "$old_data" ] || (( now >= last_data + interval )); then
-        mosquitto_pub -h "$host" -u "$mqtt_user" -P "$mqtt_password" -t "slurm/$dataset" -s << EOF
+    if ( [ "$data_json" != "$old_data" ] && (( now != last_data )) ) || (( now >= last_data + interval )); then
+        mosquitto_pub -h "$host" -u "$mqtt_user" -P "$mqtt_password" -q 0 -t "slurm/$dataset" -s << EOF
 $data_json
 EOF
         old_data="$data_json"
