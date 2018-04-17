@@ -35,7 +35,16 @@
 
       <v-spacer></v-spacer>
 
+      <span v-if="jobs.length > 200">
+        <v-icon color="orange">warning</v-icon>
+        Viele Jobs, Anzeige hängt. Jobs geht es gut.
+      </span>
+
+      <v-spacer></v-spacer>
+
       {{dates.now.toLocaleString()}}
+      &nbsp;
+      
       <v-progress-circular class="noanimation"
                            :rotate="270"
                            :value="100 * (dates.now - dates.jobs) / options.timeout"
@@ -81,7 +90,7 @@
       };
     },
     computed: {
-      ...mapState(["errors", "dates", "options"]),
+      ...mapState(["errors", "dates", "options", "jobs"]),
       items() {
         return this.$router.options.routes.filter(route => !route.path.match(/:/));
       }
