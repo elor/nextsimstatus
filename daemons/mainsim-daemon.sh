@@ -35,7 +35,7 @@ last_data=0
 interval=1
 
 while true; do
-    data_json="$(./slurm/$dataset.sh)"
+    data_json="$(./slurm/$dataset.sh | gzip -c | base64)"
 
     now=$(date +%s)
 
