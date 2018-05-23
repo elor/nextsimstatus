@@ -40,7 +40,13 @@ export default new Vuex.Store({
       })).map(node => ({
         ...node,
         users: uniq(node.jobs.map(job => job.UserName)),
-        jobarrays: uniq(node.jobs.map(job => job.ArrayJobId || job.JobId))
+        jobArrays: uniq(node.jobs.map(job => job.ArrayJobId))
+          .filter(job => job)
+          .map(array => ({
+            ArrayJobId: array,
+            jobs: node.jobs.filter(job => job.ArrayJobId === array)})),
+        pureJobs: node.jobs
+          .filter(job => !job.ArrayJobId)
       }));
     },
     jobstatus(state) {
