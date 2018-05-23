@@ -30,8 +30,8 @@
             </v-progress-circular>
           </td>
           <td>
-            <span v-for="job in props.item.jobs" :key="job.JobId">
-              <router-link :to="`/jobs`">{{job.JobId}}</router-link>
+            <span v-for="job in props.item.jobarrays" :key="job.JobId">
+              <router-link :to="`/jobs`">{{job}}</router-link>
               &nbsp;
             </span>
           </td>

@@ -39,7 +39,8 @@ export default new Vuex.Store({
         )
       })).map(node => ({
         ...node,
-        users: uniq(node.jobs.map(job => job.UserName))
+        users: uniq(node.jobs.map(job => job.UserName)),
+        jobarrays: uniq(node.jobs.map(job => job.ArrayJobId || job.JobId))
       }));
     },
     jobstatus(state) {
