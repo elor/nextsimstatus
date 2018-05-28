@@ -12,7 +12,7 @@
         </p>
 
         <div class="text-xs-center" v-for="(word, index) in words" :key="index+word.join()">
-          <Element v-for="(part, position) in word" :key="position+part" :symbol="part" />
+          <Element v-for="(part, position) in word" :key="position+part" :symbol="part" :color="colors[index][position]" />
         </div>
       </v-card-text>
 
@@ -84,6 +84,16 @@ export default {
         .map(word => (word.length > 64 ? word.substring(0, 64) + "…" : word))
         .map(word => possibilities(decomposition(word)).sort(sequenceSortFn)[0])
         .filter(word => word && word.length);
+    },
+    colors() {
+      const lengths = this.words.map(word => word.length);
+      const offsets = lengths.map((_, index) =>
+        lengths.slice(0, index).reduce((a, b) => a + b, 0)
+      );
+
+      return this.words.map((word, index) =>
+        word.map((_, position) => offsets[index] + position)
+      );
     }
   },
   components: {

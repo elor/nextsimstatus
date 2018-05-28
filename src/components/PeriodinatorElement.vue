@@ -1,5 +1,5 @@
 <template>
-    <span class="element" :class="{'error': !element.name}">
+    <span class="element" :class="`color-${color%8}`">
         <span class="symbol">{{element.symbol}}</span>
         <span class="name">{{element.name}}</span>
         <span class="number">{{element.number}}</span>
@@ -11,7 +11,7 @@
 import { elements } from "../utils/elements";
 
 export default {
-  props: ["symbol"],
+  props: ["symbol", "color"],
   computed: {
     element() {
       return (
@@ -40,7 +40,32 @@ export default {
   width: 48pt;
 }
 
-.element.error {
+.element.color-0 {
+  background-color: yellow;
+}
+.element.color-1 {
+  background-color: orange;
+}
+.element.color-2 {
+  background-color: red;
+}
+.element.color-3 {
+  background-color: magenta;
+}
+.element.color-4 {
+  background-color: violet;
+}
+.element.color-5 {
+  background-color: blue;
+}
+.element.color-6 {
+  background-color: cyan;
+}
+.element.color-7 {
+  background-color: green;
+}
+
+.element.color-error {
   background-color: red;
 }
 
