@@ -5,15 +5,14 @@
         <v-text-field append-icon="edit"
                       label="Input"
                       hide-details
-                      :error="!valid"
                       v-model="input">
         </v-text-field>
         <p class="text-xs-center mt-2 mb-1">
           <v-icon>arrow_downward</v-icon>
         </p>
 
-        <h2 class="text-xs-center mt-2" v-for="word in words">
-          <span v-for="part in word" :style="{color: part.valid ? '#11a621' : '#b92109'}">{{ part.text }} </span>
+        <h2 class="text-xs-center mt-2" v-for="(word, index) in words" :key="index+word.join()">
+          <span v-for="(part, position) in word" :key="position+part" :style="{color: part.toLowerCase() !== part ? '#11a621' : '#b92109'}">{{ part }} </span>
         </h2>
       </v-card-text>
 
@@ -22,89 +21,67 @@
 </template>
 
 <script>
-  const elements = ["Ac", "Ag", "Al", "Am", "Ar", "As", "At", "Au", "Ba", "Be", "Bh", "Bi", "Bk", "Br", "Ca", "Cd", "Ce", "Cf", "Cl", "Cn", "Cm", "Cs", "Co", "Cr", "Cu", "Db", "Ds", "Dy", "Er", "Es", "Eu", "Fe", "Fl", "Fm", "Fr", "Ga", "Gd", "Ge", "He", "Hf", "Hg", "Ho", "Hs", "In", "Ir", "Kr", "La", "Li", "Lr", "Lu", "Lv", "Mc", "Md", "Mg", "Mn", "Mo", "Mt", "Na", "Nb", "Nd", "Ne", "Nh", "Ni", "No", "Np", "Og", "Os", "Pa", "Pb", "Pd", "Pm", "Po", "Pr", "Pt", "Pu", "Ra", "Rb", "Re", "Rf", "Rg", "Rh", "Rn", "Ru", "Sb", "Sc", "Se", "Sg", "Si", "Sm", "Sn", "Sr", "Ta", "Tb", "Tc", "Te", "Th", "Ti", "Tl", "Tm", "Ts", "Xe", "Yb", "Zn", "Zr", "B", "C", "F", "H", "I", "K", "N", "O", "P", "S", "U", "V", "W", "Y"];
-  const fullRegex = new RegExp(`^(${elements.join("|")}|\\s)+$`, "i");
-  const partRegex = new RegExp(`(${elements.join("|")})+`, "i");
+import { elements } from "../utils/elements";
+import { flatten, range, uniq } from "lodash";
 
-  export default {
-    data() {
-      return {
-        input: "I am Banana Boy",
-        elements
-      };
-    },
-    computed: {
-      valid() {
-        return this.validate(this.input);
-      },
-      capitalized() {
-        return this.capitalize(this.input);
-      },
-      input_words() {
-        return this.input.replace(/\s+/g, " ").split(" ").filter(word => word.length);
-      },
-      words() {
-        return this.input_words.map(word => {
-          return [...this.extractParts(word)].map(part => {
-            if (part.valid) {
-              return this.capitalize(part.text).map(part => ({ text: part, valid: true }));
-            } else {
-              return [part];
-            }
-          }).reduce((a, b) => a.concat(b));
-        });
-      }
-    },
-    methods: {
-      extractParts: function* (string) {
-        while (string.length) {
-          let match = partRegex.exec(string);
+function capitalize(string) {
+  return string[0].toUpperCase() + string.substring(1).toLowerCase();
+}
 
-          if (!match) {
-            yield { text: string, valid: false };
-            break;
-          }
+function decomposition(word) {
+  return range(word.length)
+    .map(i => word.substring(i, i + 2))
+    .map(s => {
+      return [s, s.substring(0, 1)]
+        .filter(s => s.length)
+        .map(s => capitalize(s))
+        .filter(s => elements.includes(s));
+    })
+    .map(a => uniq(a))
+    .map((a, i) => (a.length ? a : [word[i].toLowerCase()]));
+}
 
-          if (match.index > 0) {
-            yield { text: string.slice(0, match.index), valid: false };
-          }
-          yield { text: match[0], valid: true };
+function possibilities(graph) {
+  if (graph.length === 0) {
+    return [];
+  }
+  if (graph.length === 1) {
+    return graph;
+  }
+  if (graph.length === 2 && graph[0][0].length === 2) {
+    return [[graph[0][0]]];
+  }
 
-          string = string.slice(match.index + match[0].length);
-        }
-      },
-      capitalize(string) {
-        if (!string) {
-          return [];
-        }
+  return flatten(
+    graph[0].map(s => {
+      const remainder = graph.slice(s.length);
 
-        string = string.replace(/^\s+/, "");
+      return possibilities(remainder).map(p => [s].concat(p));
+    })
+  );
+}
 
-        if (this.elements.some(element => string.toLowerCase() === element.toLowerCase())) {
-          return [string[0].toUpperCase() + string.slice(1).toLowerCase()];
-        }
+function numMismatches(sequence) {
+  return sequence.filter(part => part.toLowerCase() === part).length;
+}
 
-        let candidates = this.elements.filter(element => string.toLowerCase().startsWith(element.toLowerCase()));
-        if (candidates.length === 0) {
-          return undefined;
-        }
+function sequenceSortFn(a, b) {
+  return numMismatches(a) - numMismatches(b) || a.length - b.length;
+}
 
-        for (let candidate of candidates) {
-          let rest = this.capitalize(string.slice(candidate.length));
-
-          if (rest) {
-            return [candidate, ...rest];
-          }
-        }
-
-        return undefined;
-      },
-      validate(string) {
-        return fullRegex.test(string);
-      }
+export default {
+  data() {
+    return {
+      input: "Brain of Simcrew is Nerdy"
+    };
+  },
+  computed: {
+    words() {
+      return this.input
+        .split(" ")
+        .map(word => possibilities(decomposition(word)).sort(sequenceSortFn)[0])
+        .filter(word => word && word.length);
     }
-  };
+  }
+};
 </script>
-
-<style scoped>
-</style>
