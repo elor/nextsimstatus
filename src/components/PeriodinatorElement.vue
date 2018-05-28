@@ -55,7 +55,7 @@ export default {
 
 .element .name {
   bottom: 0pt;
-  font-size: 9pt;
+  font-size: 8pt;
   position: absolute;
   text-align: center;
   width: 100%;
