@@ -79,6 +79,7 @@ export default {
     words() {
       return this.input
         .split(" ")
+        .map(word => (word.length > 64 ? word.substring(0, 64) + "..." : word))
         .map(word => possibilities(decomposition(word)).sort(sequenceSortFn)[0])
         .filter(word => word && word.length);
     }
