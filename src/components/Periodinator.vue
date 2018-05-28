@@ -5,15 +5,19 @@
         <v-text-field append-icon="edit"
                       label="Input"
                       hide-details
+                      multi-line
                       v-model="input">
         </v-text-field>
         <p class="text-xs-center mt-2 mb-1">
           <v-icon>arrow_downward</v-icon>
         </p>
 
-        <div class="text-xs-center" v-for="(word, index) in words" :key="index+word.join()">
-          <Element v-for="(part, position) in word" :key="position+part" :symbol="part" :color="colors[index][position]" />
-        </div>
+        <p class="text-xs-center">
+          <span class="mr-4 mb-3" v-for="(word, index) in words" :key="index+word.join()">
+            <Element v-for="(part, position) in word" :key="position+part" v-if="part !== '\n'" :symbol="part" :color="colors[index][position]" />
+            <br v-else>
+          </span>
+        </p>
       </v-card-text>
 
 
@@ -74,7 +78,7 @@ function sequenceSortFn(a, b) {
 export default {
   data() {
     return {
-      input: "One SimCrew Brain is inherently nerdy"
+      input: "One SimCrew Brain is inherently\nnerdy"
     };
   },
   computed: {
@@ -92,7 +96,12 @@ export default {
       );
 
       return this.words.map((word, index) =>
-        word.map((_, position) => offsets[index] + position)
+        word.map(
+          (part, position) =>
+            part === part.toLowerCase()
+              ? "error"
+              : (offsets[index] + position) % 8
+        )
       );
     }
   },

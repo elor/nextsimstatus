@@ -1,5 +1,5 @@
 <template>
-    <span class="element" :class="`color-${color%8}`">
+    <span class="element" :class="`color-${color}`">
         <span class="symbol">{{element.symbol}}</span>
         <span class="name">{{element.name}}</span>
         <span class="number">{{element.number}}</span>
