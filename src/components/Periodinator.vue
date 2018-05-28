@@ -11,10 +11,11 @@
           <v-icon>arrow_downward</v-icon>
         </p>
 
-        <h2 class="text-xs-center mt-2" v-for="(word, index) in words" :key="index+word.join()">
-          <span v-for="(part, position) in word" :key="position+part" :style="{color: part.toLowerCase() !== part ? '#11a621' : '#b92109'}">{{ part }} </span>
-        </h2>
+        <div class="text-xs-center" v-for="(word, index) in words" :key="index+word.join()">
+          <Element v-for="(part, position) in word" :key="position+part" :symbol="part" />
+        </div>
       </v-card-text>
+
 
     </v-card>
   </v-container>
@@ -23,6 +24,7 @@
 <script>
 import { elements } from "../utils/elements";
 import { flatten, range, uniq } from "lodash";
+import Element from "./PeriodinatorElement";
 
 function capitalize(string) {
   return string[0].toUpperCase() + string.substring(1).toLowerCase();
@@ -35,7 +37,7 @@ function decomposition(word) {
       return [s, s.substring(0, 1)]
         .filter(s => s.length)
         .map(s => capitalize(s))
-        .filter(s => elements.includes(s));
+        .filter(s => elements[s]);
     })
     .map(a => uniq(a))
     .map((a, i) => (a.length ? a : [word[i].toLowerCase()]));
@@ -83,6 +85,9 @@ export default {
         .map(word => possibilities(decomposition(word)).sort(sequenceSortFn)[0])
         .filter(word => word && word.length);
     }
+  },
+  components: {
+    Element
   }
 };
 </script>
