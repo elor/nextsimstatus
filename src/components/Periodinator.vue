@@ -72,7 +72,7 @@ function sequenceSortFn(a, b) {
 export default {
   data() {
     return {
-      input: "Brain of Simcrew is Nerdy"
+      input: "A SimCrew Brain is inherently nerdy"
     };
   },
   computed: {
