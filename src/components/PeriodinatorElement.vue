@@ -74,6 +74,7 @@ export default {
   font-size: 24pt;
   font-weight: bold;
   position: absolute;
+  top: 8pt;
   text-align: center;
   width: 100%;
 }
