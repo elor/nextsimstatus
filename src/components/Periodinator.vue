@@ -12,8 +12,8 @@
           <v-icon>arrow_downward</v-icon>
         </p>
 
-        <p class="text-xs-center">
-          <span class="mr-4 mb-3" v-for="(word, index) in words" :key="index+word.join()">
+        <p class="text-xs-center mt-4">
+          <span class="mr-4 mb-3 word" v-for="(word, index) in words" :key="index+word.join()">
             <Element v-for="(part, position) in word" :key="position+part" v-if="part !== '\n'" :symbol="part" :color="colors[index][position]" />
             <br v-else>
           </span>
@@ -78,7 +78,7 @@ function sequenceSortFn(a, b) {
 export default {
   data() {
     return {
-      input: "One SimCrew Brain is inherently\nnerdy"
+      input: "und so schreiten wir ohne pause sicheren fusses gen promotion"
     };
   },
   computed: {
@@ -110,3 +110,10 @@ export default {
   }
 };
 </script>
+
+<style>
+.word {
+  display: inline-block;
+  white-space: nowrap;
+}
+</style>
