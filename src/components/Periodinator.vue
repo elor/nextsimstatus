@@ -36,7 +36,16 @@ function capitalize(string) {
   return string[0].toUpperCase() + string.substring(1).toLowerCase();
 }
 
+function deumlaut(string) {
+  return string
+    .replace(/ä/g, "ae")
+    .replace(/ö/g, "oe")
+    .replace(/ü/g, "ue")
+    .replace(/ß/g, "ss");
+}
+
 function decomposition(word) {
+  word = deumlaut(word.toLowerCase());
   return range(word.length)
     .map(i => word.substring(i, i + 2))
     .map(s => {
@@ -46,7 +55,7 @@ function decomposition(word) {
         .filter(s => elements[s]);
     })
     .map(a => uniq(a))
-    .map((a, i) => (a.length ? a : [word[i].toLowerCase()]));
+    .map((a, i) => (a.length ? a : [word[i]]));
 }
 
 function possibilities(graph) {
