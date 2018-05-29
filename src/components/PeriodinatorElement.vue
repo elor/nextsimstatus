@@ -41,32 +41,32 @@ export default {
 }
 
 .element.color-0 {
-  background-color: yellow;
+  background-color: hsl(60, 100%, 50%);
 }
 .element.color-1 {
-  background-color: orange;
+  background-color: hsl(30, 100%, 50%);
 }
 .element.color-2 {
-  background-color: red;
+  background-color: hsl(0, 100%, 50%);
 }
 .element.color-3 {
-  background-color: magenta;
+  background-color: hsl(300, 100%, 50%);
 }
 .element.color-4 {
-  background-color: violet;
+  background-color: hsl(270, 100%, 60%);
 }
 .element.color-5 {
-  background-color: blue;
+  background-color: hsl(200, 100%, 50%);
 }
 .element.color-6 {
-  background-color: cyan;
+  background-color: hsl(170, 100%, 50%);
 }
 .element.color-7 {
-  background-color: green;
+  background-color: hsl(120, 100%, 50%);
 }
 
 .element.color-error {
-  background-color: red;
+  background-color: hsl(0, 100%, 50%);
 }
 
 .element .symbol {
