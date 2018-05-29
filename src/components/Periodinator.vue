@@ -13,9 +13,11 @@
         </p>
 
         <p class="text-xs-center mt-4">
-          <span class="mr-4 mb-3 word" v-for="(word, index) in words" :key="index+word.join()">
-            <Element v-for="(part, position) in word" :key="position+part" v-if="part !== '\n'" :symbol="part" :color="colors[index][position]" />
-            <br v-else>
+          <span v-for="(line, lineno) in lines" :key="lineno">
+            <span class="mr-4 mb-3 word" v-for="(word, index) in line" :key="index+word.join()">
+              <Element v-for="(part, position) in word" :key="position+part" :symbol="part" :color="colors[lineno][index][position]" />
+            </span>
+            <br>
           </span>
         </p>
       </v-card-text>
@@ -82,27 +84,33 @@ export default {
     };
   },
   computed: {
-    words() {
-      return this.input
-        .split(" ")
-        .map(word => (word.length > 64 ? word.substring(0, 64) + "…" : word))
-        .map(word => possibilities(decomposition(word)).sort(sequenceSortFn)[0])
-        .filter(word => word && word.length);
+    lines() {
+      return this.input.split("\n").map(line => {
+        return line
+          .split(" ")
+          .map(word => (word.length > 64 ? word.substring(0, 64) + "…" : word))
+          .map(
+            word => possibilities(decomposition(word)).sort(sequenceSortFn)[0]
+          )
+          .filter(word => word && word.length);
+      });
     },
     colors() {
-      const lengths = this.words.map(word => word.length);
-      const offsets = lengths.map((_, index) =>
-        lengths.slice(0, index).reduce((a, b) => a + b, 0)
-      );
+      return this.lines.map(words => {
+        const lengths = words.map(word => word.length);
+        const offsets = lengths.map((_, index) =>
+          lengths.slice(0, index).reduce((a, b) => a + b, 0)
+        );
 
-      return this.words.map((word, index) =>
-        word.map(
-          (part, position) =>
-            part === part.toLowerCase()
-              ? "error"
-              : (offsets[index] + position) % 8
-        )
-      );
+        return words.map((word, index) =>
+          word.map(
+            (part, position) =>
+              part === part.toLowerCase()
+                ? "error"
+                : (offsets[index] + position) % 8
+          )
+        );
+      });
     }
   },
   components: {
