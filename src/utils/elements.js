@@ -367,7 +367,7 @@ export const elements = {
   },
   "Mo": {
     symbol: "Mo",
-    name: "Molybd\"an",
+    name: "Molybdän",
     number: "42",
     mass: "95,96"
   },
