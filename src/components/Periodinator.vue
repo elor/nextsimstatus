@@ -8,8 +8,18 @@
                       multi-line
                       v-model="input">
         </v-text-field>
-        <v-checkbox label="nur vollständige" v-model="filter.complete"></v-checkbox>
-        <v-checkbox label="als Text" v-model="filter.rawtext"></v-checkbox>
+
+        <v-layout wrap>
+          <v-flex xs="12" md="4">
+            <v-checkbox label="nur Vollständige" v-model="filter.complete"></v-checkbox>
+          </v-flex>
+          <v-flex xs="12" md="4">
+            <v-checkbox label="als Text" v-model="filter.rawtext"></v-checkbox>
+          </v-flex>
+          <v-flex xs="12" md="4">
+            <v-btn @click="pickRandom">Zufall</v-btn>
+          </v-flex>
+        </v-layout>
         <p class="text-xs-center mt-2 mb-1">
           <v-icon>arrow_downward</v-icon>
         </p>
@@ -40,6 +50,8 @@ import { elements } from "../utils/elements";
 import { flatten, range, uniq } from "lodash";
 import Element from "./PeriodinatorElement";
 import { capitalize } from "../utils/capitalize";
+import random from "../utils/random";
+import examples from "../assets/periodinator-examples";
 
 function deumlaut(string) {
   return string
@@ -94,7 +106,7 @@ function sequenceSortFn(a, b) {
 export default {
   data() {
     return {
-      input: "und so schreiten wir ohne pause sicheren fusses gen promotion",
+      input: random.pick(examples),
       filter: {
         complete: false,
         rawtext: false
@@ -132,7 +144,10 @@ export default {
     }
   },
   methods: {
-    numMismatches
+    numMismatches,
+    pickRandom() {
+      this.input = random.pick(examples.filter(sentence => sentence !== this.input));
+    }
   },
   components: {
     Element
