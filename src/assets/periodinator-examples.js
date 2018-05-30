@@ -7,7 +7,7 @@ export default [
   "This is one superfine page in this universe",
   "Arsen\nCer\nKupfer\nKrypton\nNiob\nNeon\nOganeson\nPlatin\nTitan\nTenness\nUran\nXenon",
   "Carbon\nNeon\nSilicon\nPhosphorus\nCopper\nArsenic\nKrypton\nSilver\nXenon\nBismuth\nAstatine\nTenessine\nOganesson",
-  "This site is brainwaste",
+  "This site is huge brainwaste",
   "Haufen\nKaufen\nLaufen\nRaufen\nSaufen\nTaufen",
   "Hier Beichten",
   "Pausenfunktionsseite",
