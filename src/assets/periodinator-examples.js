@@ -14,5 +14,6 @@ export default [
   "Brokkoliauflauf",
   "I watch rainbows",
   "Find more unusual sentences",
-  "This page is of no real use"
+  "This page is of no real use",
+  "Krasser Scheiß"
 ];
