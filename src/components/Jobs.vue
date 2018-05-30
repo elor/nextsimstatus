@@ -29,8 +29,8 @@
             </span>
           </td>
           <td>{{props.item.NumCPUs}}</td>
-          <td>{{props.item.StartTime}}</td>
-          <td><span v-if="props.item.JobState !== 'FINISHING'">{{props.item.EndTime}}</span></td>
+          <td>{{props.item.RunTime}}</td>
+          <td>{{props.item.StartTime === "Unknown" ? props.item.SubmitTime : props.item.StartTime}}</td>
         </template>
       </v-data-table>
     </v-card>
@@ -83,16 +83,16 @@ export default {
           value: "NumCPUs"
         },
         {
-          text: "Start",
+          text: "Runtime",
+          align: "left",
+          sortable: true,
+          value: "RunTime"
+        },
+        {
+          text: "Submit / Start",
           align: "left",
           sortable: true,
           value: "StartTime"
-        },
-        {
-          text: "End",
-          align: "left",
-          sortable: true,
-          value: "EndTime"
         }
       ],
       search: ""
