@@ -6,6 +6,7 @@ import Todo from "@/components/Todo";
 import Dashboard from "@/components/Dashboard";
 import Nodes from "@/components/Nodes";
 import Jobs from "@/components/Jobs";
+import Job from "@/components/Job";
 import Users from "@/components/Users";
 import Software from "@/components/Software";
 import Periodinator from "@/components/Periodinator";
@@ -32,6 +33,12 @@ export default new Router({
       name: "Jobs",
       component: Jobs,
       icon: "assignment"
+    },
+    {
+      path: "/jobs/:id",
+      name: "Job",
+      component: Job,
+      hidden: true
     },
     {
       path: "/users",
