@@ -18,7 +18,7 @@
                     hide-actions
                     disable-initial-sort>
         <template slot="items" slot-scope="props">
-          <td><router-link :to="`/jobs`">{{props.item.JobId}}</router-link></td>
+          <td><router-link :to="`/jobs/${props.item.JobId}`">{{props.item.JobId}}</router-link></td>
           <td><router-link :to="`/users`">{{props.item.UserName}}</router-link></td>
           <td>{{props.item.JobName}}</td>
           <td>{{capitalize(props.item.JobState)}}</td>
@@ -39,81 +39,74 @@
 </template>
 
 <script>
-  import { mapGetters } from "vuex";
+import { mapGetters } from "vuex";
+import { capitalize } from "../utils/capitalize";
 
-  export default {
-    data() {
-      return {
-        headers: [
-          {
-            text: "JobID",
-            align: "left",
-            sortable: true,
-            value: "JobId"
-          },
-          {
-            text: "User",
-            align: "left",
-            sortable: true,
-            value: "UserName"
-          },
-          {
-            text: "Name",
-            align: "left",
-            sortable: true,
-            value: "JobName"
-          },
-          {
-            text: "State",
-            align: "left",
-            sortable: true,
-            value: "JobState"
-          },
-          {
-            text: "Nodes",
-            align: "left",
-            sortable: true,
-            value: "NodeNames"
-          },
-          {
-            text: "Cores",
-            align: "left",
-            sortable: true,
-            value: "NumCPUs"
-          },
-          {
-            text: "Start",
-            align: "left",
-            sortable: true,
-            value: "StartTime"
-          },
-          {
-            text: "End",
-            align: "left",
-            sortable: true,
-            value: "EndTime"
-          }
-        ],
-        search: ""
-      };
-    },
-    computed: {
-      ...mapGetters(["jobstatus"])
-    },
-    methods: {
-      capitalize(word) {
-        switch (word.length) {
-          case 0:
-            return "";
-          case 1:
-            return word.toUpperCase();
-          default:
-            return `${word[0].toUpperCase() + word.slice(1).toLowerCase()}`;
+export default {
+  data() {
+    return {
+      headers: [
+        {
+          text: "JobID",
+          align: "left",
+          sortable: true,
+          value: "JobId"
+        },
+        {
+          text: "User",
+          align: "left",
+          sortable: true,
+          value: "UserName"
+        },
+        {
+          text: "Name",
+          align: "left",
+          sortable: true,
+          value: "JobName"
+        },
+        {
+          text: "State",
+          align: "left",
+          sortable: true,
+          value: "JobState"
+        },
+        {
+          text: "Nodes",
+          align: "left",
+          sortable: true,
+          value: "NodeNames"
+        },
+        {
+          text: "Cores",
+          align: "left",
+          sortable: true,
+          value: "NumCPUs"
+        },
+        {
+          text: "Start",
+          align: "left",
+          sortable: true,
+          value: "StartTime"
+        },
+        {
+          text: "End",
+          align: "left",
+          sortable: true,
+          value: "EndTime"
         }
-      }
-    }
-  };
+      ],
+      search: ""
+    };
+  },
+  computed: {
+    ...mapGetters(["jobstatus"])
+  },
+  methods: {
+    capitalize
+  }
+};
 </script>
 
 <style scoped>
+
 </style>

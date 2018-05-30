@@ -39,10 +39,7 @@
 import { elements } from "../utils/elements";
 import { flatten, range, uniq } from "lodash";
 import Element from "./PeriodinatorElement";
-
-function capitalize(string) {
-  return string[0].toUpperCase() + string.substring(1).toLowerCase();
-}
+import { capitalize } from "../utils/capitalize";
 
 function deumlaut(string) {
   return string
