@@ -8,14 +8,22 @@
                       multi-line
                       v-model="input">
         </v-text-field>
+        <v-checkbox label="nur vollständige" v-model="filter.complete"></v-checkbox>
+        <v-checkbox label="als Text" v-model="filter.rawtext"></v-checkbox>
         <p class="text-xs-center mt-2 mb-1">
           <v-icon>arrow_downward</v-icon>
         </p>
 
-        <p class="text-xs-center mt-4">
+        <p class="text-xs-center mt-5">
           <span v-for="(line, lineno) in lines" :key="lineno">
-            <span class="mr-4 mb-3 word" v-for="(word, index) in line" :key="index+word.join()">
-              <Element v-for="(part, position) in word" :key="position+part" :symbol="part" :color="colors[lineno][index][position]" />
+            <span class="mr-4 mb-3 word" v-for="(word, index) in line" :key="index+word.join()" v-if="!filter.complete || !numMismatches(word)">
+              <Element v-for="(part, position) in word"
+                       :key="position+part"
+                       :symbol="part"
+                       :color="colors[lineno][index][position]"
+                       v-if="!filter.rawtext"/>
+              <span v-else>{{part}}</span>
+              <span>&nbsp;</span>
             </span>
             <br>
           </span>
@@ -89,7 +97,11 @@ function sequenceSortFn(a, b) {
 export default {
   data() {
     return {
-      input: "und so schreiten wir ohne pause sicheren fusses gen promotion"
+      input: "und so schreiten wir ohne pause sicheren fusses gen promotion",
+      filter: {
+        complete: false,
+        rawtext: false
+      }
     };
   },
   computed: {
@@ -121,6 +133,9 @@ export default {
         );
       });
     }
+  },
+  methods: {
+    numMismatches
   },
   components: {
     Element
