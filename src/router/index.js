@@ -64,6 +64,12 @@ export default new Router({
       hidden: true
     },
     {
+      path: "/apps/periodyctionary",
+      name: "Periodyctionary",
+      component: Periodinator,
+      hidden: true
+    },
+    {
       path: "/errors",
       name: "Errors",
       component: ErrorList,

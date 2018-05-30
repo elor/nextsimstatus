@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-btn color="primary" to="apps/periodinator">Periodinator</v-btn>
+    <v-btn color="primary" to="apps/periodyctionary">Periodyctionary</v-btn>
   </v-container>
 </template>
 
