@@ -30,7 +30,11 @@
           </td>
           <td>{{props.item.NumCPUs}}</td>
           <td>{{props.item.RunTime}}</td>
-          <td>{{props.item.StartTime === "Unknown" ? props.item.SubmitTime : props.item.StartTime}}</td>
+          <td>
+            <time :datetime="props.item.StartTime === 'Unknown' ? props.item.SubmitTime : props.item.StartTime">
+              {{(props.item.StartTime === "Unknown" ? props.item.SubmitTime : props.item.StartTime).replace("T", " ")}}
+            </time>
+          </td>
         </template>
       </v-data-table>
     </v-card>
