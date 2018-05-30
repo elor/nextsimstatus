@@ -108,7 +108,7 @@ export default {
     lines() {
       return this.input.split("\n").map(line => {
         return line
-          .split(" ")
+          .split(/\s+/)
           .map(word => (word.length > 64 ? word.substring(0, 64) + "…" : word))
           .map(
             word => possibilities(decomposition(word)).sort(sequenceSortFn)[0]
