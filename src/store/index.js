@@ -3,8 +3,14 @@ import Vue from "vue";
 
 //import nodes from "./testdata/nodes";
 //import jobs from "./testdata/jobs";
-import { uniq, flatten } from "lodash";
-import { nodels } from "../utils/nodels";
+import {
+  uniq,
+  flatten,
+  sum
+} from "lodash";
+import {
+  nodels
+} from "../utils/nodels";
 
 import createMainsimPlugin from "./createMainsimPlugin";
 import createNowTimePlugin from "./createNowTimePlugin";
@@ -44,9 +50,23 @@ export default new Vuex.Store({
           .filter(job => job)
           .map(array => ({
             ArrayJobId: array,
-            jobs: node.jobs.filter(job => job.ArrayJobId === array)})),
+            jobs: node.jobs.filter(job => job.ArrayJobId === array)
+          })),
         pureJobs: node.jobs
           .filter(job => !job.ArrayJobId)
+      }));
+    },
+    partitions(state, getters) {
+      return uniq(state.nodes.map(node => node.Partitions));
+    },
+    partitionstatus(state, getters) {
+      return getters.partitions.map(partition => ({
+        PartitionName: partition,
+        Nodes: getters.nodestatus.filter(node => node.Partitions === partition)
+      })).map(partition => ({
+        ...partition,
+        CPUAlloc: sum(partition.Nodes.map(node => Number(node.CPUAlloc))),
+        CPUTot: sum(partition.Nodes.map(node => Number(node.CPUTot)))
       }));
     },
     jobstatus(state) {
@@ -57,8 +77,7 @@ export default new Vuex.Store({
       })).reverse();
     },
     userstatus(state, getters) {
-      return uniq(getters.jobstatus
-        .map(job => job.UserName))
+      return uniq(getters.jobstatus.map(job => job.UserName))
         .map(UserName => ({
           UserName,
           Jobs: getters.jobstatus.filter(job => job.UserName === UserName)
