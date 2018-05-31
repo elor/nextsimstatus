@@ -20,6 +20,7 @@
         <template slot="items" slot-scope="props">
           <td><router-link :to="`/jobs/${props.item.JobId}`">{{props.item.JobId}}</router-link></td>
           <td><router-link :to="`/users`">{{props.item.UserName}}</router-link></td>
+          <td>{{props.item.ArrayTaskId}}</td>
           <td>{{props.item.JobName}}</td>
           <td>{{capitalize(props.item.JobState)}}</td>
           <td>
@@ -62,6 +63,12 @@ export default {
           sortable: true,
           value: "UserName"
         },
+        {
+          text: "ArrayTaskId",
+          align: "left",
+          sortable: true,
+          value: "ArrayTaskId"
+        }
         {
           text: "Name",
           align: "left",
