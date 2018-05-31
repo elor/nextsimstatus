@@ -73,6 +73,7 @@
 <script>
 import { mapGetters } from "vuex";
 import NodeList from "./NodeList";
+import { capitalize } from "../utils/capitalize";
 
 const warnstates = ["DRAIN", "MAINT", "DOWN", "POWER_UP", "POWER_DOWN"];
 const failstates = ["*", "NoResp", "FAILING", "ERROR", "FAIL"];
@@ -137,16 +138,7 @@ export default {
     ...mapGetters(["nodestatus"])
   },
   methods: {
-    capitalize(word) {
-      switch (word.length) {
-        case 0:
-          return "";
-        case 1:
-          return word.toUpperCase();
-        default:
-          return `${word[0].toUpperCase() + word.slice(1).toLowerCase()}`;
-      }
-    },
+    capitalize,
     isWarningState(state) {
       return warnstates.includes(state);
     },
