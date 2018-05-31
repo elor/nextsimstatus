@@ -68,7 +68,7 @@ export default {
           align: "left",
           sortable: true,
           value: "ArrayTaskId"
-        }
+        },
         {
           text: "Name",
           align: "left",
