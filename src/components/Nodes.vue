@@ -31,11 +31,11 @@
           </td>
           <td>
             <span v-for="job in props.item.pureJobs" :key="job.JobId">
-              <router-link :to="`/jobs`">{{job.JobId}}</router-link>
+              <router-link :to="`/jobs/${job.JobId}`">{{job.JobId}}</router-link>
               &nbsp;
             </span>
             <span v-for="array in props.item.jobArrays" :key="array.JobId">
-              {{array.jobs.length}}x&nbsp;<router-link :to="`/jobs`">{{array.ArrayJobId}}</router-link>
+              {{array.jobs.length}}x&nbsp;<router-link :to="`/jobs/${array.ArrayJobId}`">{{array.ArrayJobId}}</router-link>
               &nbsp;
             </span>
           </td>
