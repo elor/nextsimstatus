@@ -21,7 +21,7 @@
           <td><router-link :to="`/users`">{{props.item.UserName}}</router-link></td>
           <td>
             <span v-for="job in props.item.RunningJobs" :key="job.JobId">
-              <router-link :to="`/jobs`">{{job.JobId}}</router-link>
+              <router-link :to="`/jobs/${job.JobId}`">{{job.JobId}}</router-link>
               &nbsp;
             </span>
           </td>
@@ -34,7 +34,7 @@
           <td>{{props.item.NumCPUs}}</td>
           <td>
             <span v-for="job in props.item.OtherJobs" :key="job.JobId">
-              <router-link :to="`/jobs`">{{job.JobId}}</router-link>
+              <router-link :to="`/jobs/${job.JobId}`">{{job.JobId}}</router-link>
               &nbsp;
             </span>
           </td>
