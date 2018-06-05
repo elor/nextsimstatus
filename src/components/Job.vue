@@ -9,18 +9,23 @@
         <pre v-if="Job">{{Job}}</pre>
         <span v-else>Keine Daten gefunden</span>
       </v-card-text>
-
     </v-card>
+
+    <JobList v-if="SubJobs.length"
+             :title="`${SubJobs.length} Array Jobs`"
+             :items="SubJobs">
+    </JobList>
 
   </v-container>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import JobList from "@/components/JobList";
 
 export default {
-  data() {
-    return {};
+  components: {
+    JobList
   },
   computed: {
     ...mapGetters(["jobstatus"]),
@@ -29,6 +34,9 @@ export default {
     },
     Job() {
       return this.jobstatus.filter(job => job.JobId === this.JobId)[0];
+    },
+    SubJobs() {
+      return this.jobstatus.filter(job => job.ArrayJobId === this.JobId);
     }
   }
 };
