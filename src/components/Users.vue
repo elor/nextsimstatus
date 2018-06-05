@@ -20,21 +20,29 @@
         <template slot="items" slot-scope="props">
           <td><router-link :to="`/users`">{{props.item.UserName}}</router-link></td>
           <td>
-            <span v-for="job in props.item.RunningJobs" :key="job.JobId">
+            <span v-for="job in props.item.RunningPureJobs" :key="job.JobId">
               <router-link :to="`/jobs/${job.JobId}`">{{job.JobId}}</router-link>
+              &nbsp;
+            </span>
+            <span v-for="array in props.item.RunningArrays" :key="array.JobId">
+              {{array.jobs.length}}x&nbsp;<router-link :to="`/jobs/${array.ArrayJobId}`">{{array.ArrayJobId}}</router-link>
               &nbsp;
             </span>
           </td>
           <td>
-            <span v-for="node in props.item.NodeNames" :key="node">
+            <span v-for="node in props.item.NodeNames.sort()" :key="node">
               <router-link :to="`/nodes`">{{node}}</router-link>
               &nbsp;
             </span>
           </td>
           <td>{{props.item.NumCPUs}}</td>
           <td>
-            <span v-for="job in props.item.OtherJobs" :key="job.JobId">
+            <span v-for="job in props.item.OtherPureJobs" :key="job.JobId">
               <router-link :to="`/jobs/${job.JobId}`">{{job.JobId}}</router-link>
+              &nbsp;
+            </span>
+            <span v-for="array in props.item.OtherArrays" :key="array.JobId">
+              {{array.jobs.length}}x&nbsp;<router-link :to="`/jobs/${array.ArrayJobId}`">{{array.ArrayJobId}}</router-link>
               &nbsp;
             </span>
           </td>

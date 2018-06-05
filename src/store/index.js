@@ -90,7 +90,21 @@ export default new Vuex.Store({
         .map(user => ({
           ...user,
           NodeNames: uniq(flatten(user.RunningJobs.map(job => job.NodeNames))),
-          NumCPUs: user.RunningJobs.map(job => Number(job.NumCPUs)).reduce((a, b) => a + b, 0)
+          NumCPUs: user.RunningJobs.map(job => Number(job.NumCPUs)).reduce((a, b) => a + b, 0),
+          RunningArrays: uniq(user.RunningJobs.map(job => job.ArrayJobId))
+            .filter(job => job)
+            .map(array => ({
+              ArrayJobId: array,
+              jobs: user.RunningJobs.filter(job => job.ArrayJobId === array)
+            })),
+          RunningPureJobs: user.RunningJobs.filter(job => !job.ArrayJobId),
+          OtherArrays: uniq(user.OtherJobs.map(job => job.ArrayJobId))
+            .filter(job => job)
+            .map(array => ({
+              ArrayJobId: array,
+              jobs: user.OtherJobs.filter(job => job.ArrayJobId === array)
+            })),
+          OtherPureJobs: user.OtherJobs.filter(job => !job.ArrayJobId)
         }));
     }
   },
