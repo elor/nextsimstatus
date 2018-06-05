@@ -30,7 +30,7 @@
             </span>
           </td>
           <td>
-            <span v-for="node in props.item.NodeNames.sort()" :key="node">
+            <span v-for="node in props.item.NodeNames" :key="node">
               <router-link :to="`/nodes`">{{node}}</router-link>
               &nbsp;
             </span>

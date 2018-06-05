@@ -89,7 +89,7 @@ export default new Vuex.Store({
         }))
         .map(user => ({
           ...user,
-          NodeNames: uniq(flatten(user.RunningJobs.map(job => job.NodeNames))),
+          NodeNames: uniq(flatten(user.RunningJobs.map(job => job.NodeNames))).sort(),
           NumCPUs: user.RunningJobs.map(job => Number(job.NumCPUs)).reduce((a, b) => a + b, 0),
           RunningArrays: uniq(user.RunningJobs.map(job => job.ArrayJobId))
             .filter(job => job)
