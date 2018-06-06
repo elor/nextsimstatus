@@ -14,7 +14,7 @@
     <v-data-table :headers="headers"
                   :items="items"
                   :search="search"
-                  :rows-per-page-items="[20,50,100, {text:'All', value:-1}]"
+                  :rows-per-page-items="[15,50,100, {text:'All', value:-1}]"
                   disable-initial-sort>
       <template slot="items" slot-scope="props">
         <td><router-link :to="`/jobs/${props.item.JobId}`">{{props.item.JobId}}</router-link></td>
