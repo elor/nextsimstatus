@@ -4,19 +4,19 @@ import Router from "vue-router";
 import Todo from "@/components/Todo";
 
 import Dashboard from "@/components/Dashboard";
-import Nodes from "@/components/Nodes";
-import Jobs from "@/components/Jobs";
-import Job from "@/components/Job";
-import Users from "@/components/Users";
-import Software from "@/components/Software";
-import Periodinator from "@/components/Periodinator";
 import ErrorList from "@/components/ErrorList";
+import Job from "@/components/Job";
+import Jobs from "@/components/Jobs";
+import Node from "@/components/Node";
+import Nodes from "@/components/Nodes";
+import Periodinator from "@/components/Periodinator";
+import Software from "@/components/Software";
+import Users from "@/components/Users";
 
 Vue.use(Router);
 
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: "/",
       name: "Dashboard",
       component: Dashboard,
@@ -27,6 +27,12 @@ export default new Router({
       name: "Nodes",
       component: Nodes,
       icon: "dns"
+    },
+    {
+      path: "/node/:id",
+      name: "Node",
+      component: Node,
+      hidden: true
     },
     {
       path: "/jobs",

@@ -21,7 +21,7 @@
                     hide-actions>
         <template slot="items" slot-scope="props">
           <td>
-            <router-link :to="`/nodes`">{{props.item.NodeName}}</router-link>
+            <router-link :to="`/node/${props.item.NodeName}`">{{props.item.NodeName}}</router-link>
           </td>
           <td>
             <v-progress-circular :value="100*props.item.CPUAlloc/props.item.CPUTot"
