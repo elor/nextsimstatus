@@ -4,13 +4,10 @@ import json
 import sys
 
 allowed = [
-    "Account",
     "ArrayJobId",
     "ArrayTaskId",
-    "BatchFlag",
     "BatchHost",
     "Command",
-    "Contiguous",
     "CPUs/Task",
     "Dependency",
     "EligibleTime",
@@ -22,16 +19,12 @@ allowed = [
     "JobName",
     "JobState",
     "Licenses",
-    "Network",
     "NodeList",
     "NumCPUs",
     "NumNodes",
     "NumTasks",
     "Partition",
-    "Power",
-    "QOS",
     "Reason",
-    "Reservation",
     "RunTime",
     "StartTime",
     "SubmitTime",
@@ -44,7 +37,7 @@ allowed = [
 def filterfunc(job):
     newjob = {}
     for key in job:
-        if key in allowed and job[key] and job[key] != '(null)':
+        if key in allowed and job[key]:
             newjob[key] = job[key]
     return newjob
 
