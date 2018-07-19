@@ -32,8 +32,8 @@
           </td>
           <td>
             <div v-if="props.item.mounts">
-            <span v-for="mount in props.item.mounts.sort((a,b)=>a.mount > b.mount)" :key="mount">
-              {{mount.mount}} - {{mount.type}}
+            <span v-for="mount in props.item.mounts" :key="mount">
+              {{mount.mount}} ({{mount.type}})
               <br>
             </span>
             </div>
