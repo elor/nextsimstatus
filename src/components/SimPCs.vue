@@ -20,7 +20,7 @@
           <td>
             <router-link :to="`/simpc/${props.item.hostname}`">{{props.item.hostname}}</router-link>
           </td>
-          <td>{{props.item.uptime}}</td>
+          <td>{{props.item.release}}</td>
           <td>
             <span v-for="user in props.item.users" :key="user">
               {{user}}
@@ -35,9 +35,8 @@
             </span>
             </div>
           </td>
-          <td>
-            {{props.item.datetime}}
-          </td>
+          <td>{{props.item.uptime}}</td>
+          <td>{{props.item.datetime}}</td>
         </template>
       </v-data-table>
     </v-card>
@@ -52,6 +51,7 @@ export default {
     return {
       headers: [
         { text: "Name", value: "hostname" },
+        { text: "Release", value: "release" },
         { text: "Users", value: "users" },
         { text: "Mounts", value: "mounts" },
         { text: "Uptime", value: "uptime" },
