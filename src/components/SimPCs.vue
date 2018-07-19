@@ -4,9 +4,6 @@
       <v-card-title>
         <v-layout wrap>
           <v-flex xs="12" md="6">
-            <NodeList></NodeList>
-          </v-flex>
-          <v-flex xs="12" md="6">
             <v-text-field append-icon="search"
                           label="Search"
                           single-line
@@ -32,7 +29,7 @@
           </td>
           <td>
             <div v-if="props.item.mounts">
-            <span v-for="mount in props.item.mounts" :key="mount">
+            <span v-for="mount in props.item.mounts" :key="mount.mount">
               {{mount.mount}} ({{mount.type}})
               <br>
             </span>
