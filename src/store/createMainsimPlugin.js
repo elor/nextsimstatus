@@ -5,9 +5,14 @@ const host = "mainsimweb.etit.tu-chemnitz.de";
 const port = 9001;
 const url = `mqtt://${host}:${port}`;
 
-function unpack(message) {
+function unpack64(message) {
   const binary = Buffer.from(message.toString(), "base64");
   const json = zlib.gunzipSync(binary).toString();
+  return JSON.parse(json);
+}
+
+function unpack(message) {
+  const json = zlib.gunzipSync(message).toString();
   return JSON.parse(json);
 }
 
@@ -20,13 +25,16 @@ export default function createMainsimPlugin() {
     client.on("message", (topic, message) => {
       switch (topic) {
         case "slurm/nodes":
-          store.commit("updateNodes", unpack(message));
+          store.commit("updateNodes", unpack64(message));
           break;
         case "slurm/jobs":
-          store.commit("updateJobs", unpack(message));
+          store.commit("updateJobs", unpack64(message));
           break;
         case "slurm/users":
-          store.commit("updateUsers", unpack(message));
+          store.commit("updateUsers", unpack64(message));
+          break;
+        case (topic.match(/simpc\/simpc\d+/) || {}).input:
+          store.commit("updateSimPC", unpack(message));
           break;
       }
     });

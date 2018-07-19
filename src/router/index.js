@@ -9,9 +9,11 @@ import Job from "@/components/Job";
 import Jobs from "@/components/Jobs";
 import Node from "@/components/Node";
 import Nodes from "@/components/Nodes";
+import SimPCs from "@/components/SimPCs";
 import Periodinator from "@/components/Periodinator";
 import Software from "@/components/Software";
 import Users from "@/components/Users";
+import Manual from "@/components/Manual";
 
 Vue.use(Router);
 
@@ -61,7 +63,7 @@ export default new Router({
     {
       path: "/simpcs",
       name: "SimPCs",
-      component: Todo,
+      component: SimPCs,
       icon: "computer"
     },
     {
@@ -69,6 +71,12 @@ export default new Router({
       name: "Software",
       component: Software,
       icon: "apps"
+    },
+    {
+      path: "/manual",
+      name: "Manual",
+      component: Manual,
+      icon: "help_outline"
     },
     {
       path: "/apps/periodinator",

@@ -1,12 +1,11 @@
 import Vuex from "vuex";
 import Vue from "vue";
 
-//import nodes from "./testdata/nodes";
-//import jobs from "./testdata/jobs";
 import {
   uniq,
   flatten,
-  sum
+  sum,
+  range
 } from "lodash";
 import {
   nodels
@@ -17,11 +16,23 @@ import createNowTimePlugin from "./createNowTimePlugin";
 
 Vue.use(Vuex);
 
+const initialSimpcs = range(16, 42)
+  .map(n => `simpc${n}`)
+  .map(name => ({
+    [name]: {
+      hostname: name
+    }
+  })).reduce((a, b) => ({
+    ...a,
+    ...b
+  }), {});
+
 export default new Vuex.Store({
   state: {
     nodes: [],
     jobs: [],
     errors: [],
+    simpcs: initialSimpcs,
     dates: {
       nodes: new Date(0),
       jobs: new Date(0),
@@ -123,6 +134,9 @@ export default new Vuex.Store({
     },
     updateNowDate(state, now) {
       state.dates.now = now;
+    },
+    updateSimPC(state, simpc) {
+      state.simpcs[simpc.hostname] = simpc;
     },
     newError(state, error) {
       state.errors.push({
