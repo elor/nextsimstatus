@@ -14,6 +14,7 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "commonmark": "^0.28.1",
     "mersenne": "0.0.4",
     "mqtt": "^2.18.2",
     "vue": "^2.5.16",
