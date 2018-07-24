@@ -16,13 +16,16 @@
                     :items="simpcstatus"
                     :search="search"
                     hide-actions>
-        <template slot="items" slot-scope="props">
+        <tr slot="items"
+            slot-scope="props"
+            :class="{'grey--text':props.item.inactive}"
+            >
           <td>
             <router-link :to="`/simpc/${props.item.hostname}`">{{props.item.hostname}}</router-link>
           </td>
           <td>{{props.item.release}}</td>
           <td>
-            <span v-for="user in props.item.users" :key="user">
+            <span v-for="user in props.item.usernames" :key="user">
               {{user}}
               <br>
             </span>
@@ -37,14 +40,14 @@
           </td>
           <td>{{props.item.uptime}}</td>
           <td>{{props.item.datetime}}</td>
-        </template>
+        </tr>
       </v-data-table>
     </v-card>
   </v-container>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -62,10 +65,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["simpcs"]),
-    simpcstatus() {
-      return Object.values(this.simpcs);
-    }
+    ...mapGetters(["simpcstatus"])
   },
   created() {
     this.tabledata = this.simpcstatus;

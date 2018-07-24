@@ -14,6 +14,8 @@ import {
 import createMainsimPlugin from "./createMainsimPlugin";
 import createNowTimePlugin from "./createNowTimePlugin";
 
+const ONE_MINUTE = 60000;
+
 Vue.use(Vuex);
 
 const initialSimpcs = range(16, 42)
@@ -117,6 +119,13 @@ export default new Vuex.Store({
             })),
           OtherPureJobs: user.OtherJobs.filter(job => !job.ArrayJobId)
         }));
+    },
+    simpcstatus(state, getters) {
+      return Object.values(state.simpcs).map(pc => ({
+        ...pc,
+        usernames: uniq((pc.users || []).map(user => user.split(" ")[0])),
+        inactive: state.dates.now - new Date(pc.datetime) > ONE_MINUTE
+      }));
     }
   },
 
