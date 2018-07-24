@@ -124,7 +124,7 @@ export default new Vuex.Store({
       return Object.values(state.simpcs).map(pc => ({
         ...pc,
         usernames: uniq((pc.users || []).map(user => user.split(" ")[0])),
-        inactive: state.dates.now - new Date(pc.datetime) > ONE_MINUTE
+        inactive: !pc.datetime || state.dates.now - new Date(pc.datetime) > ONE_MINUTE
       }));
     }
   },

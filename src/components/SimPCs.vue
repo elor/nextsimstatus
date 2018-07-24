@@ -3,7 +3,17 @@
     <v-card>
       <v-card-title>
         <v-layout wrap>
-          <v-flex xs="12" md="6">
+          <v-flex xs="12" md="4">
+            <v-radio-group v-model="visibility">
+              <v-layout row wrap>
+                <v-radio label="all" value="all"/>
+                <v-radio label="recent" value="recent"/>
+                <v-radio label="current" value="current"/>
+                <v-radio label="login" value="login"/>
+              </v-layout>
+            </v-radio-group>
+          </v-flex>
+          <v-flex xs="12" md="8">
             <v-text-field append-icon="search"
                           label="Search"
                           single-line
@@ -19,6 +29,7 @@
         <tr slot="items"
             slot-scope="props"
             :class="{'grey--text':props.item.inactive}"
+            v-if="visible(props.item)"
             >
           <td>
             <router-link :to="`/simpc/${props.item.hostname}`">{{props.item.hostname}}</router-link>
@@ -61,11 +72,28 @@ export default {
         { text: "Last Update", value: "datetime" }
       ],
       search: "",
+      visibility: "recent",
       tabledata: this.simpcstatus
     };
   },
   computed: {
     ...mapGetters(["simpcstatus"])
+  },
+  methods: {
+    visible(pc) {
+      switch (this.visibility) {
+        case "all":
+          return true;
+        case "recent":
+          return !!pc.datetime;
+        case "current":
+          return !!pc.datetime && !pc.inactive;
+        case "login":
+          return !pc.inactive && pc.usernames.length > 0;
+        default:
+          return true;
+      }
+    }
   },
   created() {
     this.tabledata = this.simpcstatus;
