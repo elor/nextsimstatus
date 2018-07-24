@@ -100,7 +100,7 @@
 </script>
 
 <style>
-  .noanimation .progress-circular__overlay {
+  .noanimation .v-progress-circular__overlay {
     transition: none;
   }
 </style>
