@@ -44,7 +44,6 @@ In diesem Fall einfach die Dateien und Order nochmal *kopieren*, dann übernehme
   },
 
   {
-    active: true,
     title: "Backup",
     markdown: `
 Es werden automatisch jede Nacht **Backups** aller Nutzerverzeichnisse und Austauschverzeichnisse unter \`/beegfs-home\` angelegt.
