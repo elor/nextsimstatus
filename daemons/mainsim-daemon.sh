@@ -4,9 +4,9 @@ set -e -u
 
 cd "$(dirname "$0")"
 
-if (( ${#@} != 1 )); then
+if (( ${#@} != 1 )) && (( ${#@} != 2 )); then
     cat <<EOF >&2
-Syntax: $(basename "$0") <DATASET>
+Syntax: $(basename "$0") <DATASET> [MQTT password]
 
 Where DATASET can be "nodes" or "jobs"
 EOF
@@ -15,6 +15,10 @@ fi
 
 host=mainsimweb.etit.tu-chemnitz.de
 dataset="$1"
+mqtt_password=""
+if (( ${#@} == 2 )); then
+    mqtt_password="$2"
+fi
 
 case "$dataset" in
     jobs|nodes)
@@ -26,9 +30,11 @@ esac
 
 mqtt_user=mqtt
 
-read -sp "password for $mqtt_user@$host: " mqtt_password
-echo
-[ -z "$mqtt_password" ] && { echo "you must provide a password to the mqtt host"; exit 1; }
+while [ -z "$mqtt_password" ]; do
+    read -sp "password for $mqtt_user@$host: " mqtt_password
+    echo
+    [ -z "$mqtt_password" ] && { echo "you must provide a password to the mqtt host"; exit 1; }
+done
 
 old_data=""
 last_data=0
