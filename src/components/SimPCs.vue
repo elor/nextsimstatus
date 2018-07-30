@@ -47,7 +47,7 @@
           <td>
             <div v-if="props.item.mounts">
             <span v-for="mount in props.item.mounts" :key="mount.mount">
-              {{mount.mount}} ({{mount.type}})
+              {{mount.mount}} ({{mount.source.replace(".etit.tu-chemnitz.de", "")}})
               <br>
             </span>
             </div>
