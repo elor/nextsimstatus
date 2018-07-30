@@ -15,6 +15,7 @@ import createMainsimPlugin from "./createMainsimPlugin";
 import createNowTimePlugin from "./createNowTimePlugin";
 
 const ONE_MINUTE = 60000;
+const CURRENT_SIMPC_RELEASE = "18.04";
 
 Vue.use(Vuex);
 
@@ -124,7 +125,8 @@ export default new Vuex.Store({
       return Object.values(state.simpcs).map(pc => ({
         ...pc,
         usernames: uniq((pc.users || []).map(user => user.split(" ")[0])),
-        inactive: !pc.datetime || state.dates.now - new Date(pc.datetime) > ONE_MINUTE
+        inactive: !pc.datetime || state.dates.now - new Date(pc.datetime) > ONE_MINUTE,
+        isoldrelease: pc.release !== CURRENT_SIMPC_RELEASE
       }));
     }
   },

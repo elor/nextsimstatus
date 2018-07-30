@@ -34,7 +34,10 @@
           <td>
             <router-link :to="`/simpc/${props.item.hostname}`">{{props.item.hostname}}</router-link>
           </td>
-          <td>{{props.item.release}}</td>
+          <td>
+            {{props.item.release}}
+            <v-icon color="warning" v-if="props.item.isoldrelease">warning</v-icon>
+          </td>
           <td>
             <span v-for="user in props.item.usernames" :key="user">
               {{user}}
