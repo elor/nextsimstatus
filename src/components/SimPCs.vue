@@ -38,6 +38,7 @@
             {{props.item.release}}
             <v-icon color="warning" v-if="props.item.isoldrelease">warning</v-icon>
           </td>
+          <td>{{props.item.load_1min}}</td>
           <td>
             <span v-for="user in props.item.usernames" :key="user">
               {{user}}
@@ -69,6 +70,7 @@ export default {
       headers: [
         { text: "Name", value: "hostname" },
         { text: "Release", value: "release" },
+        { text: "Load", value: "load" },
         { text: "Users", value: "users" },
         { text: "Mounts", value: "mounts" },
         { text: "Uptime", value: "uptime" },

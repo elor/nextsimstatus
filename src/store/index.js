@@ -126,7 +126,10 @@ export default new Vuex.Store({
         ...pc,
         usernames: uniq((pc.users || []).map(user => user.split(" ")[0])),
         inactive: !pc.datetime || state.dates.now - new Date(pc.datetime) > ONE_MINUTE,
-        isoldrelease: pc.release !== CURRENT_SIMPC_RELEASE
+        isoldrelease: pc.release !== CURRENT_SIMPC_RELEASE,
+        load_1min: pc.load && pc.load[0],
+        load_5min: pc.load && pc.load[1],
+        load_15min: pc.load && pc.load[2]
       }));
     }
   },
