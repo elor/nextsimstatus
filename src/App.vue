@@ -35,7 +35,7 @@
 
       <v-spacer></v-spacer>
 
-      <span v-if="jobs.length > 200">
+      <span v-if="jobs.length > 1000">
         <v-icon color="orange">warning</v-icon>
         Viele Jobs, Anzeige hängt. Jobs geht es gut.
       </span>
@@ -80,27 +80,29 @@
 </template>
 
 <script>
-  import { mapState } from "vuex";
+import { mapState } from "vuex";
 
-  export default {
-    data() {
-      return {
-        drawer: false,
-        miniVariant: false
-      };
-    },
-    computed: {
-      ...mapState(["errors", "dates", "options", "jobs"]),
-      items() {
-        return this.$router.options.routes.filter(route => !route.path.match(/:/));
-      }
-    },
-    name: "App"
-  };
+export default {
+  data() {
+    return {
+      drawer: false,
+      miniVariant: false
+    };
+  },
+  computed: {
+    ...mapState(["errors", "dates", "options", "jobs"]),
+    items() {
+      return this.$router.options.routes.filter(
+        route => !route.path.match(/:/)
+      );
+    }
+  },
+  name: "App"
+};
 </script>
 
 <style>
-  .noanimation .v-progress-circular__overlay {
-    transition: none;
-  }
+.noanimation .v-progress-circular__overlay {
+  transition: none;
+}
 </style>
