@@ -10,6 +10,7 @@ import Jobs from "@/components/Jobs";
 import Node from "@/components/Node";
 import Nodes from "@/components/Nodes";
 import SimPCs from "@/components/SimPCs";
+import SimPC from "@/components/SimPC";
 import Periodinator from "@/components/Periodinator";
 import Software from "@/components/Software";
 import Users from "@/components/Users";
@@ -65,6 +66,12 @@ export default new Router({
       name: "SimPCs",
       component: SimPCs,
       icon: "computer"
+    },
+    {
+      path: "/simpc/:id",
+      name: "SimPC",
+      component: SimPC,
+      hidden: true
     },
     {
       path: "/apps",
