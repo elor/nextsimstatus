@@ -27,6 +27,17 @@
         <router-link :to="`/users`">{{user.UserName}}</router-link>: {{user.RunningJobs.length}} running, {{user.OtherJobs.length}} pending or completed, {{user.NumCPUs}} Cores
       </v-card-text>
     </v-card>
+
+    <v-card>
+      <v-card-title><v-btn to="/simpcs">SimPCs</v-btn> Overview</v-card-title>
+      <v-card-text>
+        <v-progress-circular v-for="pc in simpcstatus" :key="pc.hsotname"
+                              :value="pc.load_1min !== undefined ? (10 + 90 * pc.load_1min / 5.0) : 0.0"
+                              :color="pc.load_1min > 5.0 ? 'red' : 'green'">
+          <router-link :to="`/simpc/${pc.hostname}`">{{pc.hostname.replace(/\D/g,'')}}</router-link>
+        </v-progress-circular>
+      </v-card-text>
+    </v-card>
   </v-container>
 </template>
 
@@ -35,7 +46,7 @@ import { mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters(["partitionstatus", "jobstatus", "userstatus"])
+    ...mapGetters(["partitionstatus", "jobstatus", "userstatus", "simpcstatus"])
   }
 };
 </script>
