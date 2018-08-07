@@ -71,7 +71,6 @@
             </div>
           </td>
           <td>{{props.item.uptime}}</td>
-          <td>{{props.item.datetime}}</td>
         </tr>
       </v-data-table>
     </v-card>
@@ -90,8 +89,7 @@ export default {
         { text: "Load", value: "load" },
         { text: "Users", value: "users" },
         { text: "Mounts", value: "mounts" },
-        { text: "Uptime", value: "uptime" },
-        { text: "Last Update", value: "datetime" }
+        { text: "Uptime", value: "uptime" }
       ],
       search: "",
       visibility: "recent",
