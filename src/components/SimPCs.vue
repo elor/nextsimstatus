@@ -32,7 +32,7 @@
             v-if="visible(props.item)"
             >
           <td>
-            <router-link :to="`/simpc/${props.item.hostname}`">{{props.item.hostname}}</router-link>
+            <router-link :to="`/simpc${props.item.number}`">{{props.item.hostname}}</router-link>
           </td>
           <td>
             {{props.item.release}}

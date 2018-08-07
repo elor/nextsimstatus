@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-card>
       <v-card-title>
-        <h2>SimPC {{name}}</h2>
+        <h2>SimPC{{number}}</h2>
       </v-card-title>
 
       <v-card-text>
@@ -19,11 +19,11 @@ import { mapGetters } from "vuex";
 export default {
   computed: {
     ...mapGetters(["simpcstatus"]),
-    name() {
-      return this.$route.params.id;
+    number() {
+      return Number(this.$route.params.id);
     },
     SimPC() {
-      return this.simpcstatus.filter(simpc => simpc.hostname === this.name)[0];
+      return this.simpcstatus.filter(simpc => simpc.number === this.number)[0];
     }
   }
 };

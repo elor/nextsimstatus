@@ -68,7 +68,7 @@ export default new Router({
       icon: "computer"
     },
     {
-      path: "/simpc/:id",
+      path: "/simpc:id",
       name: "SimPC",
       component: SimPC,
       hidden: true

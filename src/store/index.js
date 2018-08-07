@@ -124,6 +124,7 @@ export default new Vuex.Store({
     simpcstatus(state, getters) {
       return Object.values(state.simpcs).map(pc => ({
         ...pc,
+        number: Number(pc.hostname.replace(/\D/g, "")),
         usernames: uniq((pc.users || []).map(user => user.split(" ")[0])),
         inactive: !pc.datetime || state.dates.now - new Date(pc.datetime) > ONE_MINUTE,
         isoldrelease: pc.release !== CURRENT_SIMPC_RELEASE,
