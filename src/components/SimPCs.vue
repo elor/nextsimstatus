@@ -47,6 +47,7 @@
               {{user}}
               <br>
             </span>
+            <v-icon v-if="mainshow(props.item)">slideshow</v-icon>
           </td>
           <td>
             <div v-if="props.item.mounts">
@@ -101,6 +102,9 @@ export default {
         default:
           return true;
       }
+    },
+    mainshow(pc) {
+      return [32, 38, 26, 39, 31, 42, 41, 40, 17, 24, 28].includes(pc.number);
     }
   },
   created() {
