@@ -33,21 +33,34 @@
             >
           <td>
             <router-link :to="`/simpc${props.item.number}`">{{props.item.hostname}}</router-link>
+            <v-tooltip v-if="mainshow(props.item)" bottom>
+              <v-icon slot="activator">slideshow</v-icon>
+              <v-text>Runs the MAIN Slideshow</v-text>
+            </v-tooltip>
           </td>
           <td>
             {{props.item.release}}
-            <v-icon color="warning" v-if="props.item.isoldrelease">warning</v-icon>
+            <v-tooltip v-if="props.item.isoldrelease" bottom>
+              <v-icon slot="activator" color="warning">warning</v-icon>
+              <v-text>Deprecated OS version. Please upgrade</v-text>
+            </v-tooltip>
           </td>
           <td>
             {{props.item.load_1min}}
-            <v-icon color="warning" v-if="props.item.load_1min > 5.0">warning</v-icon>
+            <v-tooltip v-if="props.item.load_1min > 5.0" bottom>
+              <v-icon color="warning" slot="activator">warning</v-icon>
+              <v-text>High CPU Load</v-text>
+            </v-tooltip>
+            <v-tooltip v-if="props.item.load_1min > 10.0" bottom>
+              <v-icon color="error" slot="activator">error</v-icon>
+              <v-text>Excessive CPU Load. Did a Core lock up, e.g. due to BeeGFS/NFS Failure?</v-text>
+            </v-tooltip>
           </td>
           <td>
             <span v-for="user in props.item.usernames" :key="user">
               {{user}}
               <br>
             </span>
-            <v-icon v-if="mainshow(props.item)">slideshow</v-icon>
           </td>
           <td>
             <div v-if="props.item.mounts">
