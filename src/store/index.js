@@ -19,7 +19,7 @@ const CURRENT_SIMPC_RELEASE = "18.04";
 
 Vue.use(Vuex);
 
-const initialSimpcs = range(16, 42)
+const initialSimpcs = range(16, 43)
   .map(n => `simpc${n}`)
   .map(name => ({
     [name]: {
