@@ -38,7 +38,10 @@
             {{props.item.release}}
             <v-icon color="warning" v-if="props.item.isoldrelease">warning</v-icon>
           </td>
-          <td>{{props.item.load_1min}}</td>
+          <td>
+            {{props.item.load_1min}}
+            <v-icon color="warning" v-if="props.item.load_1min > 5.0">warning</v-icon>
+          </td>
           <td>
             <span v-for="user in props.item.usernames" :key="user">
               {{user}}
