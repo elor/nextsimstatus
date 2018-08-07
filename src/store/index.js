@@ -15,7 +15,7 @@ import createMainsimPlugin from "./createMainsimPlugin";
 import createNowTimePlugin from "./createNowTimePlugin";
 
 const ONE_MINUTE = 60000;
-const CURRENT_SIMPC_RELEASE = "18.04";
+const DEPRECATED_RELEASES = ["14.04", "16.04"];
 
 Vue.use(Vuex);
 
@@ -127,7 +127,7 @@ export default new Vuex.Store({
         number: Number(pc.hostname.replace(/\D/g, "")),
         usernames: uniq((pc.users || []).map(user => user.split(" ")[0])),
         inactive: !pc.datetime || state.dates.now - new Date(pc.datetime) > ONE_MINUTE,
-        isoldrelease: pc.release !== CURRENT_SIMPC_RELEASE,
+        isoldrelease: DEPRECATED_RELEASES.includes(pc.release),
         load_1min: pc.load && pc.load[0],
         load_5min: pc.load && pc.load[1],
         load_15min: pc.load && pc.load[2]
