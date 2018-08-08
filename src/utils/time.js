@@ -10,6 +10,10 @@ function appendTimeValue(string, value, singular, plural) {
 }
 
 export function format(seconds) {
+  if (seconds === undefined) {
+    return undefined;
+  }
+
   seconds = Math.floor(seconds);
   let minutes = Math.floor(seconds / 60) % 60;
   let hours = Math.floor(seconds / 3600) % 60;
