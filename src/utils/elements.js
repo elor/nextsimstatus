@@ -708,3 +708,5 @@ export const elements = {
     mass: "91,224}"
   }
 };
+
+export const symbols = Object.keys(elements);
