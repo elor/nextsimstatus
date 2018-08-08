@@ -70,7 +70,13 @@
             </span>
             </div>
           </td>
-          <td>{{props.item.uptime}}</td>
+          <td>
+            {{format(props.item.uptime)}}
+            <v-tooltip v-if="props.item.uptime > FIVE_DAYS" bottom>
+              <v-icon color="warning" slot="activator">warning</v-icon>
+              <v-text>Long uptime. Please reboot</v-text>
+            </v-tooltip>
+            </td>
         </tr>
       </v-data-table>
     </v-card>
@@ -79,6 +85,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { format } from "../utils/time.js";
 
 export default {
   data() {
@@ -93,13 +100,15 @@ export default {
       ],
       search: "",
       visibility: "recent",
-      tabledata: this.simpcstatus
+      tabledata: this.simpcstatus,
+      FIVE_DAYS: 5 * 86400
     };
   },
   computed: {
     ...mapGetters(["simpcstatus"])
   },
   methods: {
+    format,
     visible(pc) {
       switch (this.visibility) {
         case "all":
