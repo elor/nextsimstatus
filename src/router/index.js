@@ -86,14 +86,20 @@ export default new Router({
       icon: "help_outline"
     },
     {
+      path: "/apps/periodyfier",
+      name: "Periodyfier",
+      component: Periodinator,
+      hidden: true
+    },
+    {
       path: "/apps/periodinator",
-      name: "Periodinator",
+      name: "Periodyfier",
       component: Periodinator,
       hidden: true
     },
     {
       path: "/apps/periodyctionary",
-      name: "Periodyctionary",
+      name: "Periodyfier",
       component: Periodinator,
       hidden: true
     },

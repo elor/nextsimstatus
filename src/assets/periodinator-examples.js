@@ -3,6 +3,7 @@ export default [
   "SimCrew",
   "In Cooperation  with Prof Schreiber",
   "Physik ohne Sinn und Verstand",
+  "Periodyfier",
   "Periodyctionary",
   "This is one superfine page in this universe",
   "Arsen\nCer\nKupfer\nKrypton\nNiob\nNeon\nOganeson\nPlatin\nTitan\nTenness\nUran\nXenon",
