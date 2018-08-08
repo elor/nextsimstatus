@@ -1,14 +1,24 @@
 <template>
-    <span class="element" :class="`color-${color}`">
-        <span class="symbol">{{element.symbol}}</span>
-        <span class="name">{{element.name}}</span>
-        <span class="number">{{element.number}}</span>
-        <span class="mass">{{element.mass}}</span>
-    </span>
+    <v-tooltip bottom v-model="open">
+      <span slot="activator" class="element" :class="`color-${color}`">
+          <span class="symbol">{{element.symbol}}</span>
+          <span class="name">{{element.name}}</span>
+          <span class="number">{{element.number}}</span>
+          <span class="mass">{{element.mass}}</span>
+      </span>
+      <v-text>
+        <template v-if="completions.length">
+          {{completions.join(" ")}}
+        </template>
+        <template v-else>
+          No matches
+        </template>
+      </v-text>
+    </v-tooltip>
 </template>
 
 <script>
-import { elements } from "../utils/elements";
+import { elements, symbols } from "../utils/elements";
 
 export default {
   props: ["symbol", "color"],
@@ -21,6 +31,14 @@ export default {
           name: "",
           number: ""
         }
+      );
+    },
+    open() {
+      return !this.element.name;
+    },
+    completions() {
+      return symbols.filter(symbol =>
+        symbol.toLowerCase().startsWith(this.symbol.toLowerCase())
       );
     }
   }
