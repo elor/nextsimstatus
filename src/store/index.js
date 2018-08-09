@@ -128,9 +128,9 @@ export default new Vuex.Store({
         usernames: uniq((pc.users || []).map(user => user.split(" ")[0])),
         inactive: !pc.datetime || state.dates.now - new Date(pc.datetime) > TEN_SECONDS,
         isoldrelease: DEPRECATED_RELEASES.includes(pc.release),
-        load_1min: pc.load && pc.load[0],
-        load_5min: pc.load && pc.load[1],
-        load_15min: pc.load && pc.load[2]
+        load_1min: pc.load && Number(pc.load[0]),
+        load_5min: pc.load && Number(pc.load[1]),
+        load_15min: pc.load && Number(pc.load[2])
       }));
     }
   },
