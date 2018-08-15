@@ -9,13 +9,6 @@ Gewünschtes Thema einfach per Klick ausklappen.
   },
 
   {
-    title: "Erste Schritte [TODO]",
-    markdown: `
-    TODO
-`
-  },
-
-  {
     title: "Nutzer, Gruppen und Passwörter",
     markdown: `
 Der **Nutzername** (Username, Login, ...) setzt sich aus dem Initialen des Rufnamen und dem vollständigen Nachnamen zusammen:
@@ -47,7 +40,7 @@ Die **Austauschverzeichnisse** findet ihr unter \`/beegfs-home/share/{Gruppe}\`\
 Hier können Nutzer der gleichen Gruppen Dateien austauschen und gemeinsam bearbeiten.\\
 Sollten Dateien einmal nicht von den Anderen lesbar sein, wurden sie wahrscheinlich in den Austauschordner verschoben, nicht kopiert.
 In diesem Fall einfach die Dateien und Order nochmal *kopieren*, dann übernehmen sie die Zugriffsrechte des Austauschordners.
-/p> `
+`
   },
 
   {
