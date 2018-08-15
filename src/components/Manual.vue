@@ -1,5 +1,10 @@
 <template>
   <v-container fluid>
+    <v-text-field append-icon="search"
+                  label="Search"
+                  single-line
+                  hide-details
+                  v-model="search"></v-text-field>
     <v-expansion-panel v-model="panel"
                        expand
                        inset
@@ -23,18 +28,29 @@ import manual from "@/manual";
 export default {
   data() {
     return {
-      items: manual
+      items: manual,
+      search: ""
     };
   },
   computed: {
     parsed_items() {
-      return this.items.map(item => ({
+      return this.filtered_items.map(item => ({
         ...item,
         html: item.html || this.parse(item.markdown)
       }));
     },
     panel() {
       return this.items.map(item => !!item.active);
+    },
+    filtered_items() {
+      if (!this.search) {
+        return this.items;
+      }
+
+      let regex = new RegExp(this.search, "i");
+      return this.items.filter(
+        item => regex.test(item.title) || regex.test(item.markdown)
+      );
     }
   },
   methods: {

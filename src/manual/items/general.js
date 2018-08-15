@@ -5,6 +5,8 @@ export default [{
 Diese Seite stellt eine kleine Sammlung von Kurzanleitungen für den Umgang mit dem MainSim-Cluster dar.
 
 Gewünschtes Thema einfach per Klick ausklappen.
+
+Bitte auch die Suchfunktion benutzen.
 `
   },
 
