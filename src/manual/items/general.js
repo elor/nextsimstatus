@@ -12,7 +12,7 @@ Bitte auch die Suchfunktion benutzen.
 1. #### Anmeldung per SSH
    \`ssh {Nutzer}@mainsim.etit.tu-chemnitz.de\` unter Linux / Unix / MacOS\\
    Der Cluster ist innerhalb der TU Chemnitz erreichbar.\\
-   Unter Windows könnt ihr mit [putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) oder [Git for Windows](https://gitforwindows.org/) eine SSH-Verbindung herzustellen.\\
+   Unter Windows könnt ihr mit [putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) oder [Git for Windows](https://gitforwindows.org/) eine SSH-Verbindung herzustellen.
 
 2. #### Passwort ändern
    \`passwd\` auf MainSim ausführen\\
