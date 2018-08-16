@@ -33,10 +33,6 @@
             >
           <td>
             <router-link :to="`/simpc${props.item.number}`">{{props.item.hostname}}</router-link>
-            <v-tooltip v-if="mainshow(props.item)" bottom>
-              <v-icon slot="activator">slideshow</v-icon>
-              <v-text>Runs the MAIN Slideshow</v-text>
-            </v-tooltip>
           </td>
           <td>
             {{props.item.release}}
@@ -122,9 +118,6 @@ export default {
         default:
           return true;
       }
-    },
-    mainshow(pc) {
-      return [32, 38, 26, 39, 31, 42, 41, 40, 17, 24, 28].includes(pc.number);
     }
   },
   created() {
