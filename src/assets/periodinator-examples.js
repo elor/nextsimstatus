@@ -8,10 +8,9 @@ export default [
   "Carbon\nNeon\nSilicon\nPhosphorus\nCopper\nArsenic\nKrypton\nSilver\nXenon\nBismuth\nAstatine\nTenessine\nOganesson",
   "This site wastes huge amounts of brainpower",
   "Haufen\nKaufen\nLaufen\nRaufen\nSaufen\nTaufen",
-  "Hier Beichten",
   "Pausenfunktionsseite",
   "Brokkoliauflauf",
   "I watch rainbows",
   "Find more unusual sentences",
-  "This page is of no real use"
+  "This page has no serious use"
 ];
