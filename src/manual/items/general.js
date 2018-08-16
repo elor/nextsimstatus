@@ -1,12 +1,25 @@
 export default [{
     active: true,
-    title: "Über diese Anleitung",
+    title: "Erste Schritte",
     markdown: `
-Diese Seite stellt eine kleine Sammlung von Kurzanleitungen für den Umgang mit dem MainSim-Cluster dar.
-
+### Willkommen auf dem MainSim-Cluster
+Hier findest du Anleitungen und Hilfestellungen im Umgang mit dem MainSim-Cluster.
 Gewünschtes Thema einfach per Klick ausklappen.
-
 Bitte auch die Suchfunktion benutzen.
+
+### Erste Schritte
+
+1. #### Anmeldung per SSH
+   \`ssh {Nutzer}@mainsim.etit.tu-chemnitz.de\` unter Linux / Unix / MacOS\\
+   Der Cluster ist innerhalb der TU Chemnitz erreichbar.\\
+   Unter Windows könnt ihr mit [putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) oder [Git for Windows](https://gitforwindows.org/) eine SSH-Verbindung herzustellen.\\
+
+2. #### Passwort ändern
+   \`passwd\` auf MainSim ausführen\\
+   Das Passwort sollte unverzüglich nach der ersten Anmeldung geändert werden.
+
+3. #### Mit dem Cluster vertraut machen
+   Lies dir diese Anleitung durch und suche nach den für dich relevanten Themen.
 `
   },
 
