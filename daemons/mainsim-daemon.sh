@@ -18,6 +18,9 @@ dataset="$1"
 mqtt_password=""
 if (( ${#@} == 2 )); then
     mqtt_password="$2"
+    if [ -s "$mqtt_password" ]; then
+        mqtt_password=$(cat "$mqtt_password")
+    fi
 fi
 
 case "$dataset" in
@@ -25,6 +28,7 @@ case "$dataset" in
         ;;
     *)
         echo "DATASET must be one of \"nodes\" or \"jobs\", not \"$dataset\"" >&2
+        exit 1
         ;;
 esac
 

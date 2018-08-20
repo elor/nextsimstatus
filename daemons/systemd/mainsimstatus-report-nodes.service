@@ -1,0 +1,14 @@
+[Unit]
+Description=MainSimStatus Nodes Reporter
+After=syslog.target network.target slurmctld.service
+ConditionFileIsExecutable=/opt/mainsimstatus/daemons/mainsim-daemon.sh
+
+[Service]
+ExecStart=/opt/mainsimstatus/daemons/mainsim-daemon.sh nodes /opt/mainsimstatus/secret.conf
+
+Restart=always
+RestartSec=15
+
+[Install]
+WantedBy=multi-user.target
+
