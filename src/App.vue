@@ -57,12 +57,6 @@
                            :color="dates.now - dates.nodes > options.timeout ? 'red' : 'light-blue'">
         N
       </v-progress-circular>
-      <v-progress-circular class="noanimation"
-                           :rotate="270"
-                           :value="100 * (dates.now - dates.users) / options.timeout"
-                           :color="dates.now - dates.users > options.timeout ? 'red' : 'light-blue'">
-        U
-      </v-progress-circular>
 
       <v-toolbar-side-icon to="/errors" v-if="errors.length">
         <v-badge overlap right color="red">

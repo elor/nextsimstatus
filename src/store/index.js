@@ -39,7 +39,6 @@ export default new Vuex.Store({
     dates: {
       nodes: new Date(0),
       jobs: new Date(0),
-      users: new Date(0),
       now: new Date()
     },
     options: {
@@ -143,9 +142,6 @@ export default new Vuex.Store({
     updateJobs(state, jobs) {
       state.jobs = jobs;
       state.dates.jobs = new Date();
-    },
-    updateUsers(state, users) {
-      state.users = users;
     },
     updateNowDate(state, now) {
       state.dates.now = now;

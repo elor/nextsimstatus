@@ -30,9 +30,6 @@ export default function createMainsimPlugin() {
         case "slurm/jobs":
           store.commit("updateJobs", unpack64(message));
           break;
-        case "slurm/users":
-          store.commit("updateUsers", unpack64(message));
-          break;
         case (topic.match(/simpc\/simpc\d+/) || {}).input:
           store.commit("updateSimPC", unpack(message));
           break;
