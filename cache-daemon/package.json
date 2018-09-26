@@ -1,8 +1,8 @@
 {
-  "name": "cache-daemon",
+  "name": "mainsimstatus-cache",
   "version": "1.0.0",
   "description": "The mainsimstatus cache daemon",
-  "main": "cache-daemon.js",
+  "main": "mainsimstatus-cache.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

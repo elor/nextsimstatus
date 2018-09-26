@@ -7,7 +7,7 @@
       "type": "node",
       "request": "launch",
       "name": "Cache-Daemon",
-      "program": "${workspaceFolder}/cache-daemon/cache-daemon.js"
+      "program": "${workspaceFolder}/cache-daemon/mainsimstatus-cache.js"
     },
     {
       "type": "chrome",

@@ -1,3 +1,5 @@
+#!/usr/bin/node
+
 const receiver = require("./receiver");
 const listener = require("./listener");
 
@@ -6,7 +8,7 @@ let store = {
   jobs: {},
   users: {},
   simpcs: {},
-  lastupdate: ""
+  lastupdate: new Date(0)
 };
 
 const receiveFuncs = {
@@ -31,7 +33,16 @@ function updateCallback(topic, message) {
 
 function getDataCallback() {
   return store;
-};
+}
 
-let client = receiver.connect(updateCallback);
-let server = listener.listen(8080, getDataCallback);
+function print() {
+  const now = new Date().toISOString();
+  const lastupdate = store.lastupdate.toISOString();
+  console.log(`${now}: ${lastupdate}`);
+}
+
+let mqttClient = receiver.connect(updateCallback);
+let httpServer = listener.listen(8080, getDataCallback);
+
+let printerval = setInterval(print, 5000);
+print();
