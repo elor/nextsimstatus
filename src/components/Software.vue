@@ -4,7 +4,7 @@
       <v-btn color="primary" to="apps/periodyfier">Periodyfier</v-btn>
     </v-layout>
     <v-layout>
-      <v-btn color="primary" href="http://mainsim.etit.tu-chemnitz.de:4485">GitLab</v-btn>
+      <v-btn color="primary" href="http://mainsim.etit.tu-chemnitz.de/gitlab">GitLab</v-btn>
     </v-layout>
   </v-container>
 </template>
