@@ -16,6 +16,7 @@
   "dependencies": {
     "commonmark": "^0.28.1",
     "mersenne": "0.0.4",
+    "axios": "^0.18.0",
     "mqtt": "^2.18.2",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",

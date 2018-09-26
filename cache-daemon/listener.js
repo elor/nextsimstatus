@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 
 module.exports.listen = function(PORT, getDataCallback) {
   const app = express();
@@ -41,6 +42,8 @@ module.exports.listen = function(PORT, getDataCallback) {
         response.status(400).send(formatError(error));
       });
   });
+
+  app.use(cors());
 
   app.use("/", router);
 
