@@ -10,6 +10,18 @@
       "program": "${workspaceFolder}/cache-daemon/mainsimstatus-cache.js"
     },
     {
+      "type": "node",
+      "request": "launch",
+      "name": "GraphQL-Server",
+      "program": "${workspaceFolder}/cache-daemon/graphqlserver.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "GraphQL-Client",
+      "program": "${workspaceFolder}/cache-daemon/graphqlclient.js"
+    },
+    {
       "type": "chrome",
       "request": "launch",
       "runtimeExecutable": "/usr/bin/chromium-browser",

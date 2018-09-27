@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const graphqlHTTP = require("express-graphql");
+const serverSchema = require("./graphqlschema");
 
 module.exports.listen = function(PORT, getDataCallback) {
   const app = express();
@@ -14,42 +16,31 @@ module.exports.listen = function(PORT, getDataCallback) {
     );
   }
 
-  let router = express.Router();
-
-  const allCommands = {
-    all: () => {
-      return {
-        ...getDataCallback()
-      };
-    }
-
+  let graphQLRoot = {
+    lastupdate: () => getDataCallback().lastupdate,
+    nodes: () => getDataCallback().nodes,
+    jobs: () => getDataCallback().jobs,
+    users: () => Object.values(getDataCallback().users),
+    simpcs: () => Object.values(getDataCallback().simpcs)
   };
-
-  router.get("/:command", function(request, response, next) {
-    let command = request.params.command || undefined;
-
-    new Promise((resolve, reject) => {
-        if (!command || !allCommands[command]) {
-          return reject(new Error("Command not recognized."));
-        }
-
-        resolve(JSON.stringify(allCommands[command](), null, " "));
-      })
-      .then(jsonstring => {
-        response.send(jsonstring);
-      })
-      .catch(error => {
-        response.status(400).send(formatError(error));
-      });
-  });
 
   app.use(cors());
 
-  app.use("/", router);
+  app.get(["/all", "/json"], function(request, response, next) {
+    new Promise((resolve, reject) => {
+        resolve(JSON.stringify(getDataCallback(), null, " "));
+      })
+      .then(jsonstring => response.send(jsonstring))
+      .catch(error => response.status(400).send(formatError(error)));
+  });
 
-  app.listen(PORT);
+  app.use("/graphql", graphqlHTTP({
+    schema: serverSchema,
+    rootValue: graphQLRoot,
+    graphiql: true
+  }));
 
-  console.log("listening on port " + PORT);
+  app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
   return app;
 };

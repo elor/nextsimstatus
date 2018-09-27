@@ -8,7 +8,8 @@ let store = {
   jobs: {},
   users: {},
   simpcs: {},
-  lastupdate: new Date(0)
+  lastupdate: new Date(0),
+  cachestart: new Date()
 };
 
 const receiveFuncs = {
