@@ -14,6 +14,7 @@ import SimPC from "@/components/SimPC";
 import Periodinator from "@/components/Periodinator";
 import Software from "@/components/Software";
 import Users from "@/components/Users";
+import User from "@/components/User";
 import Manual from "@/components/Manual";
 
 Vue.use(Router);
@@ -54,6 +55,12 @@ export default new Router({
       name: "Users",
       component: Users,
       icon: "people"
+    },
+    {
+      path: "/users/:id",
+      name: "User",
+      component: User,
+      hidden: true
     },
     {
       path: "/stats",
