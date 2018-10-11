@@ -5,7 +5,8 @@ import {
   uniq,
   flatten,
   sum,
-  range
+  range,
+  sortBy
 } from "lodash";
 import {
   nodels
@@ -90,10 +91,11 @@ export default new Vuex.Store({
       })).reverse();
     },
     userstatus(state, getters) {
-      return uniq(getters.jobstatus.map(job => job.UserName))
+      const users = uniq([...getters.jobstatus.map(job => job.UserName), ...flatten(getters.simpcstatus.map(pc => pc.usernames))])
         .map(UserName => ({
           UserName,
-          Jobs: getters.jobstatus.filter(job => job.UserName === UserName)
+          Jobs: getters.jobstatus.filter(job => job.UserName === UserName),
+          PCs: getters.simpcstatus.filter(pc => pc.usernames.includes(UserName))
         }))
         .map(user => ({
           ...user,
@@ -103,6 +105,7 @@ export default new Vuex.Store({
         .map(user => ({
           ...user,
           NodeNames: uniq(flatten(user.RunningJobs.map(job => job.NodeNames))).sort(),
+          PCNames: user.PCs.map(pc => pc.hostname),
           NumCPUs: user.RunningJobs.map(job => Number(job.NumCPUs)).reduce((a, b) => a + b, 0),
           RunningArrays: uniq(user.RunningJobs.map(job => job.ArrayJobId))
             .filter(job => job)
@@ -118,7 +121,16 @@ export default new Vuex.Store({
               jobs: user.OtherJobs.filter(job => job.ArrayJobId === array)
             })),
           OtherPureJobs: user.OtherJobs.filter(job => !job.ArrayJobId)
+        }))
+        .map(user => ({
+          ...user,
+          JobCount: {
+            Running: user.RunningJobs.length,
+            Other: user.OtherJobs.length
+          }
         }));
+
+      return sortBy(users, "UserName");
     },
     simpcstatus(state, getters) {
       return Object.values(state.simpcs).map(pc => ({
