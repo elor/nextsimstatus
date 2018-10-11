@@ -42,3 +42,13 @@ deploy:mainsim:
     - webpack
   script:
     - rsync -arv --delete dist/ /var/www/html
+
+docker-deploy-mainsimweb:
+  stage: deploy
+  tags:
+    - mainsimweb
+    - docker-build
+  script:
+    - docker info
+    - docker images
+    - docker ps -a
