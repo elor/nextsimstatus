@@ -16,6 +16,9 @@ webpack:
 docker-build:
   stage: build
   image: docker:stable
+  tags:
+    - mainsimweb
+    - dind
   script:
     - docker info
     - docker build -t mainsimweb-cache cache-daemon
