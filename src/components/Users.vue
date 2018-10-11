@@ -20,32 +20,20 @@
         <template slot="items" slot-scope="props">
           <td><router-link :to="`/users/${props.item.UserName}`">{{props.item.UserName}}</router-link></td>
           <td>
-            <span v-for="job in props.item.RunningPureJobs" :key="job.JobId">
-              <router-link :to="`/jobs/${job.JobId}`">{{job.JobId}}</router-link>
-              &nbsp;
-            </span>
-            <span v-for="array in props.item.RunningArrays" :key="array.JobId">
-              {{array.jobs.length}}x&nbsp;<router-link :to="`/jobs/${array.ArrayJobId}`">{{array.ArrayJobId}}</router-link>
+            <span v-for="pc in props.item.PCs" :key="pc.number">
+              <router-link :class="{'grey--text':pc.inactive}" :to="`/simpc${pc.number}`">{{pc.hostname}}</router-link>
               &nbsp;
             </span>
           </td>
+          <td><router-link :to="`/users/${props.item.UserName}`">{{props.item.JobCount.Running}}</router-link></td>
+          <td>{{props.item.NumCPUs}}</td>
           <td>
             <span v-for="node in props.item.NodeNames" :key="node">
               <router-link :to="`/nodes`">{{node}}</router-link>
               &nbsp;
             </span>
           </td>
-          <td>{{props.item.NumCPUs}}</td>
-          <td>
-            <span v-for="job in props.item.OtherPureJobs" :key="job.JobId">
-              <router-link :to="`/jobs/${job.JobId}`">{{job.JobId}}</router-link>
-              &nbsp;
-            </span>
-            <span v-for="array in props.item.OtherArrays" :key="array.JobId">
-              {{array.jobs.length}}x&nbsp;<router-link :to="`/jobs/${array.ArrayJobId}`">{{array.ArrayJobId}}</router-link>
-              &nbsp;
-            </span>
-          </td>
+          <td><router-link :to="`/users/${props.item.UserName}`">{{props.item.JobCount.Other}}</router-link></td>
         </template>
       </v-data-table>
     </v-card>
@@ -67,16 +55,16 @@ export default {
           value: "UserName"
         },
         {
+          text: "PCs",
+          align: "left",
+          sortable: true,
+          value: "PCNames"
+        },
+        {
           text: "Running",
           align: "left",
           sortable: true,
-          value: "RunningJobs"
-        },
-        {
-          text: "Nodes",
-          align: "left",
-          sortable: true,
-          value: "NodeNames"
+          value: "JobCount.Running"
         },
         {
           text: "Cores",
@@ -85,10 +73,16 @@ export default {
           value: "NumCPUs"
         },
         {
+          text: "Nodes",
+          align: "left",
+          sortable: true,
+          value: "NodeNames"
+        },
+        {
           text: "Other Jobs",
           align: "left",
           sortable: true,
-          value: "Jobs"
+          value: "JobCount.Other"
         }
       ],
       search: ""
