@@ -35,11 +35,10 @@
             <router-link :to="`/simpc${props.item.number}`">{{props.item.hostname}}</router-link>
           </td>
           <td>
-            {{props.item.release}}
-            <v-tooltip v-if="props.item.isoldrelease" bottom>
-              <v-icon slot="activator" color="warning">warning</v-icon>
-              <v-text>Deprecated OS version. Please upgrade</v-text>
-            </v-tooltip>
+            <span v-for="user in props.item.usernames" :key="user">
+              {{user}}
+              <br>
+            </span>
           </td>
           <td>
             {{props.item.load_1min}}
@@ -53,10 +52,14 @@
             </v-tooltip>
           </td>
           <td>
-            <span v-for="user in props.item.usernames" :key="user">
-              {{user}}
-              <br>
-            </span>
+            {{props.item.release}}
+            <v-tooltip v-if="props.item.isoldrelease" bottom>
+              <v-icon slot="activator" color="warning">warning</v-icon>
+              <v-text>Deprecated OS version. Please upgrade</v-text>
+            </v-tooltip>
+          </td>
+          <td>
+            {{format(props.item.lastupdate, true)}}
           </td>
           <td>
             {{format(props.item.uptime)}}
@@ -64,9 +67,6 @@
               <v-icon color="warning" slot="activator">warning</v-icon>
               <v-text>Long uptime. Please reboot</v-text>
             </v-tooltip>
-          </td>
-          <td>
-            {{format(props.item.lastupdate, true)}}
           </td>
         </tr>
       </v-data-table>
@@ -83,11 +83,11 @@ export default {
     return {
       headers: [
         { text: "Name", value: "hostname" },
-        { text: "Release", value: "release" },
-        { text: "Load", value: "load" },
         { text: "Users", value: "users" },
-        { text: "Uptime", value: "uptime" },
-        { text: "Heartbeat", value: "lastupdate" }
+        { text: "Load", value: "load" },
+        { text: "Release", value: "release" },
+        { text: "Heartbeat", value: "lastupdate" },
+        { text: "Uptime", value: "uptime" }
       ],
       search: "",
       visibility: "recent",
