@@ -4,30 +4,18 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [{
-      "type": "node",
-      "request": "launch",
-      "name": "Cache-Daemon",
-      "program": "${workspaceFolder}/cache-daemon/mainsimstatus-cache.js"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "GraphQL-Server",
-      "program": "${workspaceFolder}/cache-daemon/graphqlserver.js"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "GraphQL-Client",
-      "program": "${workspaceFolder}/cache-daemon/graphqlclient.js"
-    },
-    {
       "type": "chrome",
       "request": "launch",
       "runtimeExecutable": "/usr/bin/chromium-browser",
       "name": "chromium-browser",
       "url": "http://localhost:8080",
       "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Cache-Daemon",
+      "program": "${workspaceFolder}/cache-daemon/mainsimstatus-cache.js"
     }
   ]
 }
