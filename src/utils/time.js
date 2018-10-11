@@ -25,9 +25,8 @@ export function format(seconds, withSeconds) {
   string = appendTimeValue(string, hours, "hour", "hours");
   string = appendTimeValue(string, minutes, "minute", "minutes");
   if (withSeconds) {
-    string = appendTimeValue(string, seconds, "second", "seconds");
     if (!string) {
-      string = appendTimeValue(string, "0", "second", "seconds");
+      string = appendTimeValue(string, seconds || "0", "second", "seconds");
     }
   }
 
