@@ -59,14 +59,6 @@
             </span>
           </td>
           <td>
-            <div v-if="props.item.mounts">
-            <span v-for="mount in props.item.mounts" :key="mount.mount">
-              {{mount.mount}} ({{mount.source.replace(".etit.tu-chemnitz.de", "")}})
-              <br>
-            </span>
-            </div>
-          </td>
-          <td>
             {{format(props.item.uptime)}}
             <v-tooltip v-if="props.item.uptime > FIVE_DAYS" bottom>
               <v-icon color="warning" slot="activator">warning</v-icon>
@@ -91,7 +83,6 @@ export default {
         { text: "Release", value: "release" },
         { text: "Load", value: "load" },
         { text: "Users", value: "users" },
-        { text: "Mounts", value: "mounts" },
         { text: "Uptime", value: "uptime" }
       ],
       search: "",
