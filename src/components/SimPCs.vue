@@ -59,7 +59,7 @@
             </v-tooltip>
           </td>
           <td>
-            {{format(props.item.lastupdate, true)}}
+            {{format(props.item.lastupdate)}}
           </td>
           <td>
             {{format(props.item.uptime)}}
