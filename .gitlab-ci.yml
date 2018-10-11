@@ -20,8 +20,7 @@ docker-build:
     - mainsimweb
     - docker-build
   script:
-    - docker info
-    - docker build -t mainsimweb-cache cache-daemon
+    - docker build -t mainsimstatus-cache cache-daemon
 
 deploy:mainsimweb:
   stage: deploy
@@ -49,6 +48,5 @@ docker-deploy-mainsimweb:
     - mainsimweb
     - docker-build
   script:
-    - docker info
     - docker images
     - docker ps -a
