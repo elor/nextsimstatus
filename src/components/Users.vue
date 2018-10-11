@@ -18,7 +18,7 @@
                     :search="search"
                     hide-actions>
         <template slot="items" slot-scope="props">
-          <td><router-link :to="`/users`">{{props.item.UserName}}</router-link></td>
+          <td><router-link :to="`/users/${props.item.UserName}`">{{props.item.UserName}}</router-link></td>
           <td>
             <span v-for="job in props.item.RunningPureJobs" :key="job.JobId">
               <router-link :to="`/jobs/${job.JobId}`">{{job.JobId}}</router-link>
@@ -54,48 +54,48 @@
 </template>
 
 <script>
-  import { mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
-  export default {
-    data() {
-      return {
-        headers: [
-          {
-            text: "Name",
-            align: "left",
-            sortable: true,
-            value: "UserName"
-          },
-          {
-            text: "Running",
-            align: "left",
-            sortable: true,
-            value: "RunningJobs"
-          },
-          {
-            text: "Nodes",
-            align: "left",
-            sortable: true,
-            value: "NodeNames"
-          },
-          {
-            text: "Cores",
-            align: "left",
-            sortable: true,
-            value: "NumCPUs"
-          },
-          {
-            text: "Other Jobs",
-            align: "left",
-            sortable: true,
-            value: "Jobs"
-          }
-        ],
-        search: ""
-      };
-    },
-    computed: {
-      ...mapGetters(["userstatus"])
-    }
-  };
+export default {
+  data() {
+    return {
+      headers: [
+        {
+          text: "Name",
+          align: "left",
+          sortable: true,
+          value: "UserName"
+        },
+        {
+          text: "Running",
+          align: "left",
+          sortable: true,
+          value: "RunningJobs"
+        },
+        {
+          text: "Nodes",
+          align: "left",
+          sortable: true,
+          value: "NodeNames"
+        },
+        {
+          text: "Cores",
+          align: "left",
+          sortable: true,
+          value: "NumCPUs"
+        },
+        {
+          text: "Other Jobs",
+          align: "left",
+          sortable: true,
+          value: "Jobs"
+        }
+      ],
+      search: ""
+    };
+  },
+  computed: {
+    ...mapGetters(["userstatus"])
+  }
+};
 </script>

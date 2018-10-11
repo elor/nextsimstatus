@@ -24,7 +24,7 @@
     <v-card>
       <v-card-title><v-btn to="/users">Users</v-btn> Overview</v-card-title>
       <v-card-text v-for="user in userstatus" :key="user.UserName">
-        <router-link :to="`/users`">{{user.UserName}}</router-link>: {{user.RunningJobs.length}} running, {{user.OtherJobs.length}} pending or completed, {{user.NumCPUs}} Cores
+        <router-link :to="`/users/${user.UserName}`">{{user.UserName}}</router-link>: {{user.RunningJobs.length}} running, {{user.OtherJobs.length}} pending or completed, {{user.NumCPUs}} Cores
       </v-card-text>
     </v-card>
 

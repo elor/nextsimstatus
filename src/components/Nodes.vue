@@ -41,7 +41,7 @@
           </td>
           <td>
             <span v-for="user in props.item.users" :key="user">
-              <router-link :to="`/users`">{{user}}</router-link>
+              <router-link :to="`/users/${user}`">{{user}}</router-link>
               &nbsp;
             </span>
           </td>
