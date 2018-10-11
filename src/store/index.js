@@ -126,6 +126,7 @@ export default new Vuex.Store({
         number: Number(pc.hostname.replace(/\D/g, "")),
         usernames: uniq((pc.users || []).map(user => user.split(" ")[0])),
         inactive: !pc.datetime || state.dates.now - new Date(pc.datetime) > TEN_SECONDS,
+        lastupdate: pc.datetime ? Math.floor((state.dates.now - new Date(pc.datetime)) / 1000) : undefined,
         isoldrelease: DEPRECATED_RELEASES.includes(pc.release),
         load_1min: pc.load && Number(pc.load[0]),
         load_5min: pc.load && Number(pc.load[1]),
