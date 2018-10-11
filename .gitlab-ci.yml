@@ -2,10 +2,9 @@ stages:
   - build
   - deploy
 
-image: node:latest
-
-build:
+webpack:
   stage: build
+  image: node:latest
   script:
     - npm install
     - npm run build
@@ -14,11 +13,22 @@ build:
       - dist/
     expire_in: 1 day
 
+docker-build:
+  stage: build
+  image: docker:stable
+  services:
+    - docker:dind
+  script:
+    - docker info
+    - docker build -t mainsimweb-cache cache-daemon
+
 deploy:mainsimweb:
   stage: deploy
   tags:
     - mainsimweb
     - httpd
+  dependencies:
+    - webpack
   script:
     - rsync -arv --delete dist/ /var/www/html
 
@@ -27,5 +37,7 @@ deploy:mainsim:
   tags:
     - mainsim
     - httpd
+  dependencies:
+    - webpack
   script:
     - rsync -arv --delete dist/ /var/www/html
