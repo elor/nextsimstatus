@@ -36,7 +36,7 @@
           </td>
           <td>
             <span v-for="user in props.item.usernames" :key="user">
-              {{user}}
+              <router-link :class="{'grey--text':props.item.inactive}" :to="`/users/${user}`">{{user}}</router-link>
               <br>
             </span>
           </td>
