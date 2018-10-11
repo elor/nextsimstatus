@@ -36,6 +36,9 @@
           </time>
         </td>
       </template>
+      <template slot="no-data">
+        There are no jobs here.
+      </template>
     </v-data-table>
   </v-card>
 </template>

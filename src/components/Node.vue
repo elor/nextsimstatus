@@ -11,8 +11,7 @@
       </v-card-text>
     </v-card>
 
-    <JobList v-if="Node && Jobs.length"
-             :title="`${Jobs.length} Jobs`"
+    <JobList :title="`${Jobs.length} Jobs`"
              :items="Jobs">
     </JobList>
 
@@ -45,7 +44,7 @@ export default {
       return node;
     },
     Jobs() {
-      return this.Node.jobs;
+      return this.Node.jobs || [];
     }
   }
 };
