@@ -43,6 +43,7 @@ export default {
         return undefined;
       }
       const User = cloneDeep(this.User);
+      delete User.PCs;
       delete User.Jobs;
       delete User.RunningJobs;
       delete User.OtherJobs;
