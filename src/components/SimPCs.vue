@@ -66,7 +66,7 @@
             </v-tooltip>
           </td>
           <td>
-            {{props.item.datetime}}
+            {{format(props.item.lastupdate, true)}}
           </td>
         </tr>
       </v-data-table>
@@ -87,7 +87,7 @@ export default {
         { text: "Load", value: "load" },
         { text: "Users", value: "users" },
         { text: "Uptime", value: "uptime" },
-        { text: "Heartbeat", value: "datetime" }
+        { text: "Heartbeat", value: "lastupdate" }
       ],
       search: "",
       visibility: "recent",
