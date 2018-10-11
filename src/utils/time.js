@@ -16,7 +16,7 @@ export function format(seconds) {
 
   seconds = Math.floor(seconds);
   let minutes = Math.floor(seconds / 60) % 60;
-  let hours = Math.floor(seconds / 3600) % 60;
+  let hours = Math.floor(seconds / 3600) % 24;
   let days = Math.floor(seconds / 86400);
   seconds = seconds % 60;
 
