@@ -9,7 +9,7 @@ function appendTimeValue(string, value, singular, plural) {
   }
 }
 
-export function format(seconds) {
+export function format(seconds, withSeconds) {
   if (seconds === undefined) {
     return undefined;
   }
@@ -18,11 +18,18 @@ export function format(seconds) {
   let minutes = Math.floor(seconds / 60) % 60;
   let hours = Math.floor(seconds / 3600) % 60;
   let days = Math.floor(seconds / 86400);
+  seconds = seconds % 60;
 
   let string = "";
   string = appendTimeValue(string, days, "day", "days");
   string = appendTimeValue(string, hours, "hour", "hours");
   string = appendTimeValue(string, minutes, "minute", "minutes");
+  if (withSeconds) {
+    string = appendTimeValue(string, seconds, "second", "seconds");
+    if (!string) {
+      string = appendTimeValue(string, "0", "second", "seconds");
+    }
+  }
 
   return string.replace(/^\s*,?\s*|,?\s*$/g, "");
 }
