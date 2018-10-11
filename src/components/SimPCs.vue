@@ -64,7 +64,10 @@
               <v-icon color="warning" slot="activator">warning</v-icon>
               <v-text>Long uptime. Please reboot</v-text>
             </v-tooltip>
-            </td>
+          </td>
+          <td>
+            {{props.item.datetime}}
+          </td>
         </tr>
       </v-data-table>
     </v-card>
@@ -83,7 +86,8 @@ export default {
         { text: "Release", value: "release" },
         { text: "Load", value: "load" },
         { text: "Users", value: "users" },
-        { text: "Uptime", value: "uptime" }
+        { text: "Uptime", value: "uptime" },
+        { text: "Heartbeat", value: "datetime" }
       ],
       search: "",
       visibility: "recent",
