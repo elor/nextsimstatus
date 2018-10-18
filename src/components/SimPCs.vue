@@ -32,7 +32,11 @@
             v-if="visible(props.item)"
             >
           <td>
-            <router-link :to="`/simpc${props.item.number}`">{{props.item.hostname}}</router-link>
+            <router-link :class="{'grey--text':props.item.inactive}" :to="`/simpc${props.item.number}`">{{props.item.hostname}}</router-link>
+            <v-tooltip v-if="!props.item.inactive && props.item.mounts.length < 3" bottom>
+              <v-icon color="error" slot="activator">error</v-icon>
+              <v-text>Missing Mounts</v-text>
+            </v-tooltip>
           </td>
           <td>
             <span v-for="user in props.item.usernames" :key="user">
