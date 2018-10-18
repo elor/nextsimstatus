@@ -50,7 +50,12 @@ export default function createMainsimPlugin() {
       const MQTTurl = `mqtt://${config.mqtt.host}:${config.mqtt.port}`;
       let client = mqtt.connect(MQTTurl);
 
-      client.on("connect", () => client.subscribe("#"));
+      client.on("connect", () => {
+        client.subscribe("slurm/nodes");
+        client.subscribe("slurm/jobs");
+        client.subscribe("simpc/#");
+        client.subscribe("frontend/#");
+      });
 
       client.on("message", (topic, message) => {
         switch (topic) {
@@ -62,6 +67,9 @@ export default function createMainsimPlugin() {
             break;
           case (topic.match(/simpc\/simpc\d+/) || {}).input:
             store.commit("updateSimPC", unpack(message));
+            break;
+          case "frontend/update":
+            window.location.reload();
             break;
         }
       });
