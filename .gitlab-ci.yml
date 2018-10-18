@@ -56,5 +56,6 @@ reload:
   stage: reload
   image: ubuntu:latest
   script:
-    - apt-get install mosquitto-clients
+    - apt update
+    - apt install mosquitto-clients
     - mosquitto_pub -h mainsimweb.etit.tu-chemnitz.de -u "mqtt" -P "$MQTT_PASSWORD" -q 0 -t "frontend/update" -m ''
