@@ -15,11 +15,11 @@
   },
   "dependencies": {
     "commonmark": "^0.28.1",
+    "graphql-request": "^1.8.2",
     "mersenne": "0.0.4",
-    "axios": "^0.18.0",
     "mqtt": "^2.18.2",
-    "vue": "^2.5.16",
     "vue-router": "^3.0.1",
+    "vue": "^2.5.16",
     "vuetify": "^1.1.4",
     "vuex": "^3.0.1"
   },

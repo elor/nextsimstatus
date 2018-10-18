@@ -129,7 +129,6 @@ export default new Vuex.Store({
             Other: user.OtherJobs.length
           }
         }));
-
       return sortBy(users, "UserName");
     },
     simpcstatus(state, getters) {
