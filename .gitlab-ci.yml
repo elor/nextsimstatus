@@ -1,6 +1,7 @@
 stages:
   - build
   - deploy
+  - reload
 
 webpack:
   stage: build
@@ -50,3 +51,10 @@ docker-deploy-mainsimweb:
   script:
     - docker images
     - docker ps -a
+
+reload:
+  stage: reload
+  image: ubuntu:latest
+  script:
+    - apt-get install mosquitto-clients
+    - mosquitto_pub -h mainsimweb.etit.tu-chemnitz.de -u "mqtt" -P "$MQTT_PASSWORD" -q 0 -t "frontend/update" -m ''
