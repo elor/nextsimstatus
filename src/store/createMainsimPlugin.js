@@ -43,47 +43,54 @@ function fetch(store) {
     });
 }
 
+function registerGraphQL(store) {
+  if (config.graphql.enabled) {
+    // GraphQL Section
+    fetch(store);
+    if (config.graphql.interval > 0) {
+      window.setInterval(() => fetch(store), config.graphql.interval);
+    }
+  }
+}
+
+function registerMQTT(store) {
+  // MQTT Section
+  const MQTTurl = `mqtt://${config.mqtt.host}:${config.mqtt.port}`;
+  let client = mqtt.connect(MQTTurl);
+
+  client.on("connect", () => {
+    if (config.mqtt.enabled) {
+      client.subscribe("slurm/nodes");
+      client.subscribe("slurm/jobs");
+      client.subscribe("simpc/#");
+    }
+    client.subscribe("frontend/#");
+  });
+
+  client.on("message", (topic, message) => {
+    switch (topic) {
+      case "slurm/nodes":
+        store.commit("updateNodes", unpack64(message));
+        break;
+      case "slurm/jobs":
+        store.commit("updateJobs", unpack64(message));
+        break;
+      case (topic.match(/simpc\/simpc\d+/) || {}).input:
+        store.commit("updateSimPC", unpack(message));
+        break;
+      case "frontend/update":
+        window.location.reload();
+        break;
+    }
+  });
+
+  client.on("error", error => store.commit("newError", error));
+}
+
 export default function createMainsimPlugin() {
   return store => {
-    if (config.graphql.enabled) {
-      debugger;
-      // GraphQL Section
-      fetch(store);
-      if (config.graphql.interval > 0) {
-        window.setInterval(() => fetch(store), config.graphql.interval);
-      }
-    }
+    registerGraphQL(store);
 
-    if (config.mqtt.enabled) {
-      // MQTT Section
-      const MQTTurl = `mqtt://${config.mqtt.host}:${config.mqtt.port}`;
-      let client = mqtt.connect(MQTTurl);
-
-      client.on("connect", () => {
-        client.subscribe("slurm/nodes");
-        client.subscribe("slurm/jobs");
-        client.subscribe("simpc/#");
-        client.subscribe("frontend/#");
-      });
-
-      client.on("message", (topic, message) => {
-        switch (topic) {
-          case "slurm/nodes":
-            store.commit("updateNodes", unpack64(message));
-            break;
-          case "slurm/jobs":
-            store.commit("updateJobs", unpack64(message));
-            break;
-          case (topic.match(/simpc\/simpc\d+/) || {}).input:
-            store.commit("updateSimPC", unpack(message));
-            break;
-          case "frontend/update":
-            window.location.reload();
-            break;
-        }
-      });
-
-      client.on("error", error => store.commit("newError", error));
-    }
+    registerMQTT(store);
   };
 }
