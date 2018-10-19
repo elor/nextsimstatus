@@ -8,11 +8,12 @@ import {
 const config = {
   graphql: {
     enabled: true,
+    interval: 2500,
     endpoint: "http://mainsimweb.etit.tu-chemnitz.de:1880/graphql",
     query: graphqlquery
   },
   mqtt: {
-    enabled: true,
+    enabled: false,
     host: "mainsimweb.etit.tu-chemnitz.de",
     port: 9001
   }
@@ -29,20 +30,28 @@ function unpack(message) {
   return JSON.parse(json);
 }
 
+function fetch(store) {
+  request(config.graphql.endpoint, config.graphql.query)
+    .then(function(data) {
+      console.log(data);
+      store.commit("updateNodes", data.nodes);
+      store.commit("updateJobs", data.jobs);
+      data.simpcs.forEach(simpc => store.commit("updateSimPC", simpc));
+    }).catch(function(error) {
+      console.error(error);
+      store.commit("newError", error);
+    });
+}
+
 export default function createMainsimPlugin() {
   return store => {
     if (config.graphql.enabled) {
+      debugger;
       // GraphQL Section
-      request(config.graphql.endpoint, config.graphql.query)
-        .then(function(data) {
-          console.log(data);
-          store.commit("updateNodes", data.nodes);
-          store.commit("updateJobs", data.jobs);
-          data.simpcs.forEach(simpc => store.commit("updateSimPC", simpc));
-        }).catch(function(error) {
-          console.error(error);
-          store.commit("newError", error);
-        });
+      fetch(store);
+      if (config.graphql.interval > 0) {
+        window.setInterval(() => fetch(store), config.graphql.interval);
+      }
     }
 
     if (config.mqtt.enabled) {
