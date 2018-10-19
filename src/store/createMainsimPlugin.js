@@ -8,12 +8,12 @@ import {
 const config = {
   graphql: {
     enabled: true,
-    interval: 2500,
+    interval: 0,
     endpoint: "http://mainsimweb.etit.tu-chemnitz.de:1880/graphql",
     query: graphqlquery
   },
   mqtt: {
-    enabled: false,
+    enabled: true,
     host: "mainsimweb.etit.tu-chemnitz.de",
     port: 9001
   }
