@@ -44,15 +44,13 @@
 
       {{dates.now.toLocaleString()}}
       &nbsp;
-      
-      <v-progress-circular class="noanimation"
-                           :rotate="270"
+
+      <v-progress-circular :rotate="270"
                            :value="100 * (dates.now - dates.jobs) / options.timeout"
                            :color="dates.now - dates.jobs > options.timeout ? 'red' : 'light-blue'">
         J
       </v-progress-circular>
-      <v-progress-circular class="noanimation"
-                           :rotate="270"
+      <v-progress-circular :rotate="270"
                            :value="100 * (dates.now - dates.nodes) / options.timeout"
                            :color="dates.now - dates.nodes > options.timeout ? 'red' : 'light-blue'">
         N
