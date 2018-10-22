@@ -43,7 +43,7 @@ export default new Vuex.Store({
       now: new Date()
     },
     options: {
-      timeout: 15000
+      timeout: 5000
     }
   },
 
