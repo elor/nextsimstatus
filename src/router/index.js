@@ -100,13 +100,13 @@ export default new Router({
     },
     {
       path: "/apps/periodinator",
-      name: "Periodyfier",
+      name: "Periodinator",
       component: Periodinator,
       hidden: true
     },
     {
       path: "/apps/periodyctionary",
-      name: "Periodyfier",
+      name: "Periodyctionary",
       component: Periodinator,
       hidden: true
     },
