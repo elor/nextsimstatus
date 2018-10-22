@@ -51,7 +51,7 @@
 
       {{dates.now.toLocaleString()}}
 
-      <v-btn fab small :color="dates.now - Math.min(dates.jobs) > options.timeout ? 'error' : 'primary'">
+      <v-btn :disabled="updating" fab small :color="dates.now - Math.min(dates.jobs) > options.timeout ? 'error' : 'primary'">
         <v-icon v-if="!updating" @click="mainsimFetch">refresh</v-icon>
         <v-progress-circular v-else indeterminate></v-progress-circular>
       </v-btn>
