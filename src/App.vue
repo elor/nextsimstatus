@@ -42,20 +42,20 @@
 
       <v-spacer></v-spacer>
 
-      {{dates.now.toLocaleString()}}
-      &nbsp;
-
-      <v-btn fab small :color="dates.now - Math.min(dates.jobs) > options.timeout ? 'error' : 'primary'">
-        <v-icon v-if="!updating" @click="mainsimFetch">refresh</v-icon>
-        <v-progress-circular v-else indeterminate></v-progress-circular>
-      </v-btn>
-      
       <v-toolbar-side-icon to="/errors" v-if="errors.length">
         <v-badge overlap right color="red">
           <span slot="badge">{{errors.length}}</span>
           <v-icon large color="red">error</v-icon>
         </v-badge>
       </v-toolbar-side-icon>
+
+      {{dates.now.toLocaleString()}}
+
+      <v-btn fab small :color="dates.now - Math.min(dates.jobs) > options.timeout ? 'error' : 'primary'">
+        <v-icon v-if="!updating" @click="mainsimFetch">refresh</v-icon>
+        <v-progress-circular v-else indeterminate></v-progress-circular>
+      </v-btn>
+     
     </v-toolbar>
 
     <v-content>
