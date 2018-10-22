@@ -33,7 +33,6 @@ function unpack(message) {
 function fetch(store) {
   request(config.graphql.endpoint, config.graphql.query)
     .then(function(data) {
-      console.log(data);
       store.commit("updateNodes", data.nodes);
       store.commit("updateJobs", data.jobs);
       data.simpcs.forEach(simpc => store.commit("updateSimPC", simpc));
@@ -90,7 +89,17 @@ function registerMQTT(store) {
 export default function createMainsimPlugin() {
   return store => {
     registerGraphQL(store);
-
     registerMQTT(store);
+
+    store.subscribeAction((action, state) => {
+      switch (action.type) {
+        case "mainsimFetch":
+          fetch(store);
+          break;
+        case "mainsimConfig":
+          console.log(action.payload);
+          break;
+      }
+    });
   };
 }

@@ -56,6 +56,10 @@
         N
       </v-progress-circular>
 
+      <v-btn fab small color="primary">
+        <v-icon @click="mainsimFetch">refresh</v-icon>
+      </v-btn>
+      
       <v-toolbar-side-icon to="/errors" v-if="errors.length">
         <v-badge overlap right color="red">
           <span slot="badge">{{errors.length}}</span>
@@ -72,7 +76,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   data() {
@@ -88,6 +92,9 @@ export default {
         route => !route.path.match(/:/)
       );
     }
+  },
+  methods: {
+    ...mapActions(["mainsimFetch"])
   },
   name: "App"
 };

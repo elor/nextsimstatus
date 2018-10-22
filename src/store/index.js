@@ -169,6 +169,11 @@ export default new Vuex.Store({
     }
   },
 
+  actions: {
+    mainsimFetch() {},
+    mainsimConfig() {}
+  },
+
   plugins: [
     createMainsimPlugin(),
     createNowTimePlugin(1000)
