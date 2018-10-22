@@ -30,16 +30,22 @@ function unpack(message) {
   return JSON.parse(json);
 }
 
+function clickDelay() {
+  return new Promise(resolve => setTimeout(resolve, 500));
+}
+
 function fetch(store) {
-  request(config.graphql.endpoint, config.graphql.query)
-    .then(function(data) {
+  store.commit("startUpdating");
+
+  let fetchPromise = request(config.graphql.endpoint, config.graphql.query)
+    .then(data => {
       store.commit("updateNodes", data.nodes);
       store.commit("updateJobs", data.jobs);
       data.simpcs.forEach(simpc => store.commit("updateSimPC", simpc));
-    }).catch(function(error) {
-      console.error(error);
-      store.commit("newError", error);
-    });
+    })
+    .catch(error => store.commit("newError", error));
+
+  Promise.all([fetchPromise, clickDelay()]).then(() => store.commit("stopUpdating"), () => store.commit("stopUpdating"));
 }
 
 function registerGraphQL(store) {

@@ -46,7 +46,8 @@
       &nbsp;
 
       <v-btn fab small :color="dates.now - Math.min(dates.jobs) > options.timeout ? 'error' : 'primary'">
-        <v-icon @click="mainsimFetch">refresh</v-icon>
+        <v-icon v-if="!updating" @click="mainsimFetch">refresh</v-icon>
+        <v-progress-circular v-else indeterminate></v-progress-circular>
       </v-btn>
       
       <v-toolbar-side-icon to="/errors" v-if="errors.length">
@@ -75,7 +76,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["errors", "dates", "options", "jobs"]),
+    ...mapState(["errors", "dates", "options", "jobs", "updating"]),
     items() {
       return this.$router.options.routes.filter(
         route => !route.path.match(/:/)

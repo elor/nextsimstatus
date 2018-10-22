@@ -42,6 +42,7 @@ export default new Vuex.Store({
       jobs: new Date(0),
       now: new Date()
     },
+    updating: false,
     options: {
       timeout: 5000
     }
@@ -166,6 +167,12 @@ export default new Vuex.Store({
         date: new Date(),
         message: error
       });
+    },
+    startUpdating(state) {
+      state.updating = true;
+    },
+    stopUpdating(state) {
+      state.updating = false;
     }
   },
 
