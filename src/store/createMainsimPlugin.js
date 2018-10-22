@@ -7,13 +7,13 @@ import {
 
 const config = {
   graphql: {
-    enabled: true,
-    interval: 0,
+    enabled: undefined,
+    interval: undefined,
     endpoint: "http://mainsimweb.etit.tu-chemnitz.de:1880/graphql",
     query: graphqlquery
   },
   mqtt: {
-    enabled: true,
+    enabled: undefined,
     host: "mainsimweb.etit.tu-chemnitz.de",
     port: 9001
   }
@@ -92,7 +92,11 @@ function registerMQTT(store) {
   client.on("error", error => store.commit("newError", error));
 }
 
-export default function createMainsimPlugin() {
+export default function createMainsimPlugin(sources) {
+  config.mqtt.enabled = sources.mqtt;
+  config.graphql.enabled = sources.graphql;
+  config.graphql.interval = sources.graphql_interval;
+
   return store => {
     registerGraphQL(store);
     registerMQTT(store);
@@ -101,9 +105,6 @@ export default function createMainsimPlugin() {
       switch (action.type) {
         case "mainsimFetch":
           fetch(store);
-          break;
-        case "mainsimConfig":
-          console.log(action.payload);
           break;
       }
     });

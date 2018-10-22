@@ -51,10 +51,38 @@
 
       {{dates.now.toLocaleString()}}
 
-      <v-btn :disabled="updating" fab small :color="dates.now - Math.min(dates.jobs) > options.timeout ? 'error' : 'primary'">
+ <v-menu
+      open-on-hover
+      open-delay="250"
+      offset-y bottom
+      :close-on-content-click="false"
+    >
+      <v-btn slot="activator"
+             :disabled="updating"
+             fab small
+             :color="dates.now - Math.min(dates.jobs) > options.timeout ? 'error' : 'primary'">
         <v-icon v-if="!updating" @click="mainsimFetch">refresh</v-icon>
         <v-progress-circular v-else indeterminate></v-progress-circular>
       </v-btn>
+
+      <v-card>
+        <v-list>
+          <v-list-tile>
+            <v-list-tile-action>
+              <v-switch v-model="mqtt"></v-switch>
+            </v-list-tile-action>
+            <v-list-tile-title>MQTT</v-list-tile-title>
+          </v-list-tile>
+
+          <v-list-tile>
+            <v-list-tile-action>
+              <v-switch v-model="graphql"></v-switch>
+            </v-list-tile-action>
+            <v-list-tile-title>GraphQL</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-card>
+    </v-menu>
      
     </v-toolbar>
 
@@ -76,11 +104,23 @@ export default {
     };
   },
   computed: {
-    ...mapState(["errors", "dates", "options", "jobs", "updating"]),
+    ...mapState(["errors", "dates", "options", "jobs", "updating", "sources"]),
     items() {
       return this.$router.options.routes.filter(
         route => !route.path.match(/:/)
       );
+    },
+    mqtt: {
+      get() {
+        return this.sources.mqtt;
+      },
+      set(value) {}
+    },
+    graphql: {
+      get() {
+        return this.sources.graphql;
+      },
+      set(value) {}
     }
   },
   methods: {

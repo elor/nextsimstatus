@@ -31,6 +31,12 @@ const initialSimpcs = range(16, 43)
     ...b
   }), {});
 
+const sources = {
+  graphql: true,
+  graphql_interval: undefined,
+  mqtt: true
+};
+
 export default new Vuex.Store({
   state: {
     nodes: [],
@@ -43,6 +49,7 @@ export default new Vuex.Store({
       now: new Date()
     },
     updating: false,
+    sources,
     options: {
       timeout: 5000
     }
@@ -177,12 +184,11 @@ export default new Vuex.Store({
   },
 
   actions: {
-    mainsimFetch() {},
-    mainsimConfig() {}
+    mainsimFetch() {}
   },
 
   plugins: [
-    createMainsimPlugin(),
+    createMainsimPlugin(sources),
     createNowTimePlugin(1000)
   ]
 });
