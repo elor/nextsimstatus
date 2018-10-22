@@ -45,18 +45,7 @@
       {{dates.now.toLocaleString()}}
       &nbsp;
 
-      <v-progress-circular :rotate="270"
-                           :value="100 * (dates.now - dates.jobs) / options.timeout"
-                           :color="dates.now - dates.jobs > options.timeout ? 'red' : 'light-blue'">
-        J
-      </v-progress-circular>
-      <v-progress-circular :rotate="270"
-                           :value="100 * (dates.now - dates.nodes) / options.timeout"
-                           :color="dates.now - dates.nodes > options.timeout ? 'red' : 'light-blue'">
-        N
-      </v-progress-circular>
-
-      <v-btn fab small color="primary">
+      <v-btn fab small :color="dates.now - Math.min(dates.jobs) > options.timeout ? 'error' : 'primary'">
         <v-icon @click="mainsimFetch">refresh</v-icon>
       </v-btn>
       
