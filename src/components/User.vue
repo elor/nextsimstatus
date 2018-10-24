@@ -1,13 +1,48 @@
 <template>
-  <v-container fluid>
+  <v-container grid-list-xl fluid>
     <v-card>
       <v-card-title>
         <h2>User {{username}}</h2>
       </v-card-title>
 
       <v-card-text>
-        <pre v-if="User_short">{{ User_short }}</pre>
-        <span v-else>Noch aktuellen Daten verfügbar</span>
+        <v-layout row wrap v-if="User">
+          <grid-card title="User">
+            {{User.UserName}}
+          </grid-card>
+          
+          <grid-card title="Job Stats">
+            <p>
+            {{User.JobCount.Running}} Running,
+            {{User.JobCount.Pending}} Pending,
+            {{User.JobCount.Completed}} Completed,
+            {{User.JobCount.Other}} Other
+            </p>
+            <p>
+            {{User.NumCPUs}} Cores
+            </p>
+          </grid-card>
+          
+          <grid-card title="Nodes">
+            <template v-if="User.NodeNames.length">
+              <span v-for="node in User.NodeNames" :key="node">
+                <router-link :to="`/node/${node}`">{{node}}</router-link>
+                &nbsp;
+              </span>
+            </template>
+            <template v-else>Keine reservierten Knoten</template>
+          </grid-card>
+
+          <grid-card title="SimPCs">
+            <span v-for="pc in User.PCs" :key="pc.number">
+              <router-link :class="{'grey--text':pc.inactive}" :to="`/simpc${pc.number}`">{{pc.hostname}}</router-link>
+              &nbsp;
+            </span>
+          </grid-card>
+        </v-layout>
+          </table>
+        </v-list>
+        <span v-else>Keine Daten verfügbar</span>
       </v-card-text>
     </v-card>
 
@@ -20,12 +55,13 @@
 
 <script>
 import { mapGetters } from "vuex";
+import GridCard from "@/components/GridCard";
 import JobList from "@/components/JobList";
-import { cloneDeep } from "lodash";
 
 export default {
   components: {
-    JobList
+    JobList,
+    GridCard
   },
   computed: {
     ...mapGetters(["userstatus"]),
@@ -36,24 +72,6 @@ export default {
       return this.userstatus.filter(
         user => user.UserName === this.username || user.UserID === this.username
       )[0];
-    },
-    User_short() {
-      if (!this.User) {
-        return undefined;
-      }
-      const User = cloneDeep(this.User);
-      delete User.PCs;
-      delete User.Jobs;
-      delete User.RunningJobs;
-      delete User.OtherJobs;
-      delete User.RunningArrays;
-      delete User.RunningPureJobs;
-      delete User.OtherArrays;
-      delete User.OtherPureJobs;
-      return User;
-    },
-    Jobs() {
-      return this.User.Jobs;
     }
   }
 };
