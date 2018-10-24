@@ -1,9 +1,13 @@
 <template>
   <v-flex lg3 sm6 xs12>
     <v-card class="gridcard" ma-2>
-      <v-layout row>
-        <v-subheader>{{title}}</v-subheader>
-      </v-layout>
+      <v-card-title>
+        <v-layout row>
+          <v-subheader>{{title}}</v-subheader>
+          <v-spacer></v-spacer>
+          <slot name="icon"></slot>
+        </v-layout>
+      </v-card-title>
       <v-card-text>
         <slot></slot>
       </v-card-text>
