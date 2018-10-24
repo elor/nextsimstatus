@@ -7,7 +7,7 @@
 
       <v-card-text>
         <pre v-if="SimPC">{{ SimPC }}</pre>
-        <span v-else>Noch keine Daten empfangen</span>
+        <span v-else>Keine Daten empfangen</span>
       </v-card-text>
     </v-card>
   </v-container>
