@@ -11,8 +11,8 @@
       </v-card-text>
     </v-card>
 
-    <JobList :title="`${Jobs.length} Jobs (${User.JobCount.Running} Running, ${User.JobCount.Other} Other)`"
-             :items="Jobs">
+    <JobList v-if="User" :title="`${User.Jobs.length} Jobs`"
+             :items="User.Jobs">
     </JobList>
 
   </v-container>

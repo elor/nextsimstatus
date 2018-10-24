@@ -108,33 +108,22 @@ export default new Vuex.Store({
         .map(user => ({
           ...user,
           RunningJobs: user.Jobs.filter(job => /running/i.test(job.JobState)),
-          OtherJobs: user.Jobs.filter(job => !/running/i.test(job.JobState))
+          PendingJobs: user.Jobs.filter(job => /pending/i.test(job.JobState)),
+          CompletedJobs: user.Jobs.filter(job => /completed/i.test(job.JobState))
         }))
         .map(user => ({
           ...user,
           NodeNames: uniq(flatten(user.RunningJobs.map(job => job.NodeNames))).sort(),
           PCNames: user.PCs.map(pc => pc.hostname),
-          NumCPUs: user.RunningJobs.map(job => Number(job.NumCPUs)).reduce((a, b) => a + b, 0),
-          RunningArrays: uniq(user.RunningJobs.map(job => job.ArrayJobId))
-            .filter(job => job)
-            .map(array => ({
-              ArrayJobId: array,
-              jobs: user.RunningJobs.filter(job => job.ArrayJobId === array)
-            })),
-          RunningPureJobs: user.RunningJobs.filter(job => !job.ArrayJobId),
-          OtherArrays: uniq(user.OtherJobs.map(job => job.ArrayJobId))
-            .filter(job => job)
-            .map(array => ({
-              ArrayJobId: array,
-              jobs: user.OtherJobs.filter(job => job.ArrayJobId === array)
-            })),
-          OtherPureJobs: user.OtherJobs.filter(job => !job.ArrayJobId)
+          NumCPUs: user.RunningJobs.map(job => Number(job.NumCPUs)).reduce((a, b) => a + b, 0)
         }))
         .map(user => ({
           ...user,
           JobCount: {
             Running: user.RunningJobs.length,
-            Other: user.OtherJobs.length
+            Pending: user.PendingJobs.length,
+            Completed: user.CompletedJobs.length,
+            Other: user.Jobs.length - user.CompletedJobs.length - user.PendingJobs.length - user.RunningJobs.length
           }
         }));
       return sortBy(users, "UserName");
