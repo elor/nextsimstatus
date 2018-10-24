@@ -40,8 +40,6 @@
             </span>
           </grid-card>
         </v-layout>
-          </table>
-        </v-list>
         <span v-else>Keine Daten verfügbar</span>
       </v-card-text>
     </v-card>
