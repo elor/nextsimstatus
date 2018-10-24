@@ -24,7 +24,7 @@
         <td>{{capitalize(props.item.JobState)}}</td>
         <td>
           <span v-for="node in props.item.NodeNames" :key="node">
-            <router-link :to="`/nodes`">{{node}}</router-link>
+            <router-link :to="`/node/${node}`">{{node}}</router-link>
             &nbsp;
           </span>
         </td>
