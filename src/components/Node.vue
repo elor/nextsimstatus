@@ -1,17 +1,56 @@
 <template>
-  <v-container fluid>
+  <v-container grid-list-xl fluid>
     <v-card>
       <v-card-title>
         <h2>Node {{NodeName}}</h2>
       </v-card-title>
 
       <v-card-text>
-        <pre v-if="NodeShort">{{ NodeShort }}</pre>
+        <v-layout v-if="Node" row wrap >
+          <grid-card title="CPU/RAM">
+            <template slot="icon">
+              <v-progress-circular :value="CPULoadPercent"
+                                  :color="CPULoadPercent > 90 ? 'light-blue' : 'green'">
+              </v-progress-circular>
+              <v-progress-circular :value="MemPercent"
+                                  :color="MemPercent < 10 ? 'red' : 'light-blue'">
+              </v-progress-circular>
+            </template>
+            {{Node.CPUAlloc}} / {{Node.CPUTot}} allocated <span v-if="Node.CPUErr != 0">({{Node.CPUErr}} Err)</span><br>
+            Load: {{Node.CPULoad}} ({{CPULoadPercent}}%)<br>
+            RAM: {{Math.round(Node.FreeMem/1000)}}/{{Node.RealMemory / 1000}} GB free ({{MemPercent}}%)
+          </grid-card>
+
+          <grid-card title="Users">
+            <template slot="icon">
+              <v-progress-circular :value="100*Node.CPUAlloc/Node.CPUTot"
+                                 :color="Node.CPUAlloc == Node.CPUTot ? 'light-blue' : 'green'">
+              {{Node.CPUAlloc}}
+              </v-progress-circular>
+            </template>
+            <span v-for="user in Node.users" :key="user">
+              <router-link :to="`/users/${user}`">{{user}}</router-link>
+              &nbsp;
+            </span>
+          </grid-card>
+
+          <grid-card :title="`SLURM ${Node.Version || ''}`">
+            Partitions: {{Node.Partitions}}<br>
+            State: {{Node.States.join(", ")}}<br>
+            Ressources: {{Node.Gres}}
+          </grid-card>
+
+          <grid-card title="Host">
+            Boot Time: {{Node.BootTime}}<br>
+            Slurmd Start Time: {{Node.SlurmdStartTime}}
+          </grid-card>
+
+        </v-layout>
         <span v-else>Keine Daten empfangen</span>
       </v-card-text>
     </v-card>
 
-    <JobList :title="`${Jobs.length} Jobs`"
+    <JobList v-if="Node" :title="`${Jobs.length} Jobs`"
              :items="Jobs">
     </JobList>
 
@@ -21,10 +60,12 @@
 <script>
 import { mapGetters } from "vuex";
 import JobList from "@/components/JobList";
+import GridCard from "@/components/GridCard";
 
 export default {
   components: {
-    JobList
+    JobList,
+    GridCard
   },
   computed: {
     ...mapGetters(["nodestatus"]),
@@ -34,14 +75,11 @@ export default {
     Node() {
       return this.nodestatus.filter(node => node.NodeName === this.NodeName)[0];
     },
-    NodeShort() {
-      let node = { ...this.Node };
-
-      delete node.jobs;
-      delete node.pureJobs;
-      delete node.jobArrays;
-
-      return node;
+    CPULoadPercent() {
+      return Math.round((100 * this.Node.CPULoad) / this.Node.CPUTot);
+    },
+    MemPercent() {
+      return Math.round((100 * this.Node.FreeMem) / this.Node.RealMemory);
     },
     Jobs() {
       return this.Node.jobs || [];
