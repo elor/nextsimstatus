@@ -65,7 +65,8 @@ export default new Vuex.Store({
         States: flatten(node.State.split("+")
           .map(state => state.endsWith("*") ? [state.replace(/\**$/, ""), "*"] : state)
         ),
-        FreeMem: node.FreeMem === "N/A" ? "0" : node.FreeMem
+        FreeMem: node.FreeMem === "N/A" ? "0" : node.FreeMem,
+        Reason: node.Reason || ""
       })).map(node => ({
         ...node,
         users: uniq(node.jobs.map(job => job.UserName)),

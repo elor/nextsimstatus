@@ -37,6 +37,7 @@
           <grid-card :title="`SLURM ${Node.Version || ''}`">
             Partitions: {{Node.Partitions}}<br>
             State: {{Node.States.join(", ")}}<br>
+            <span v-if="Node.Reason">Reason: {{Node.Reason}}<br></span>
             Ressources: {{Node.Gres}}
           </grid-card>
 
