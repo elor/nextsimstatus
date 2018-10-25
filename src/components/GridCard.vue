@@ -27,6 +27,6 @@ export default {
 <style scoped>
 .gridcard {
   min-height: 155px;
-  max-height: 170px;
+  max-height: 310px;
 }
 </style>
