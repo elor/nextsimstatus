@@ -23,7 +23,7 @@
         </p>
         <v-text-field label="Node Names"
                       readonly
-                      v-model="nodenames.join(',')">
+                      :value="nodenames.join(',')">
 
         </v-text-field>
       </v-card-text>
@@ -33,19 +33,19 @@
 </template>
 
 <script>
-  import { nodels } from "../utils/nodels";
+import { nodels } from "../utils/nodels";
 
-  export default {
-    data() {
-      return {
-        dialog: false,
-        query: "sim[02,04-05,22,28]"
-      };
-    },
-    computed: {
-      nodenames() {
-        return nodels(this.query);
-      }
+export default {
+  data() {
+    return {
+      dialog: false,
+      query: "sim[02,04-05,22,28]"
+    };
+  },
+  computed: {
+    nodenames() {
+      return nodels(this.query);
     }
-  };
+  }
+};
 </script>
