@@ -1,16 +1,8 @@
 import Vuex from "vuex";
 import Vue from "vue";
 
-import {
-  uniq,
-  flatten,
-  sum,
-  range,
-  sortBy
-} from "lodash";
-import {
-  nodels
-} from "../utils/nodels";
+import { uniq, flatten, sum, range, sortBy } from "lodash";
+import { nodels } from "../utils/nodels";
 
 import createMainsimPlugin from "./createMainsimPlugin";
 import createNowTimePlugin from "./createNowTimePlugin";
@@ -26,10 +18,14 @@ const initialSimpcs = range(16, 43)
     [name]: {
       hostname: name
     }
-  })).reduce((a, b) => ({
-    ...a,
-    ...b
-  }), {});
+  }))
+  .reduce(
+    (a, b) => ({
+      ...a,
+      ...b
+    }),
+    {}
+  );
 
 const sources = {
   graphql: true,
@@ -57,51 +53,64 @@ export default new Vuex.Store({
 
   getters: {
     nodestatus(state, getters) {
-      return state.nodes.map(node => ({
-        ...node,
-        jobs: getters.jobstatus
-          .filter(job => job.JobState === "RUNNING")
-          .filter(job => job.NodeNames.includes(node.NodeName)),
-        States: flatten(node.State.split("+")
-          .map(state => state.endsWith("*") ? [state.replace(/\**$/, ""), "*"] : state)
-        ),
-        FreeMem: node.FreeMem === "N/A" ? "0" : node.FreeMem,
-        Reason: node.Reason || ""
-      })).map(node => ({
-        ...node,
-        users: uniq(node.jobs.map(job => job.UserName)),
-        jobArrays: uniq(node.jobs.map(job => job.ArrayJobId))
-          .filter(job => job)
-          .map(array => ({
-            ArrayJobId: array,
-            jobs: node.jobs.filter(job => job.ArrayJobId === array)
-          })),
-        pureJobs: node.jobs
-          .filter(job => !job.ArrayJobId)
-      }));
+      return state.nodes
+        .map(node => ({
+          ...node,
+          jobs: getters.jobstatus
+            .filter(job => job.JobState === "RUNNING")
+            .filter(job => job.NodeNames.includes(node.NodeName)),
+          States: flatten(
+            node.State.split("+").map(
+              state =>
+                state.endsWith("*") ? [state.replace(/\**$/, ""), "*"] : state
+            )
+          ),
+          FreeMem: node.FreeMem === "N/A" ? "0" : node.FreeMem,
+          Reason: node.Reason || ""
+        }))
+        .map(node => ({
+          ...node,
+          users: uniq(node.jobs.map(job => job.UserName)),
+          jobArrays: uniq(node.jobs.map(job => job.ArrayJobId))
+            .filter(job => job)
+            .map(array => ({
+              ArrayJobId: array,
+              jobs: node.jobs.filter(job => job.ArrayJobId === array)
+            })),
+          pureJobs: node.jobs.filter(job => !job.ArrayJobId)
+        }));
     },
     partitions(state, getters) {
       return uniq(state.nodes.map(node => node.Partitions));
     },
     partitionstatus(state, getters) {
-      return getters.partitions.map(partition => ({
-        PartitionName: partition,
-        Nodes: getters.nodestatus.filter(node => node.Partitions === partition)
-      })).map(partition => ({
-        ...partition,
-        CPUAlloc: sum(partition.Nodes.map(node => Number(node.CPUAlloc))),
-        CPUTot: sum(partition.Nodes.map(node => Number(node.CPUTot)))
-      }));
+      return getters.partitions
+        .map(partition => ({
+          PartitionName: partition,
+          Nodes: getters.nodestatus.filter(
+            node => node.Partitions === partition
+          )
+        }))
+        .map(partition => ({
+          ...partition,
+          CPUAlloc: sum(partition.Nodes.map(node => Number(node.CPUAlloc))),
+          CPUTot: sum(partition.Nodes.map(node => Number(node.CPUTot)))
+        }));
     },
     jobstatus(state) {
-      return state.jobs.map(job => ({
-        ...job,
-        NodeNames: nodels(job.NodeList),
-        UserName: job.UserId.replace(/\(\d+\)/, "")
-      })).reverse();
+      return state.jobs
+        .map(job => ({
+          ...job,
+          NodeNames: nodels(job.NodeList),
+          UserName: job.UserId.replace(/\(\d+\)/, "")
+        }))
+        .reverse();
     },
     userstatus(state, getters) {
-      const users = uniq([...getters.jobstatus.map(job => job.UserName), ...flatten(getters.simpcstatus.map(pc => pc.usernames))])
+      const users = uniq([
+        ...getters.jobstatus.map(job => job.UserName),
+        ...flatten(getters.simpcstatus.map(pc => pc.usernames))
+      ])
         .map(UserName => ({
           UserName,
           Jobs: getters.jobstatus.filter(job => job.UserName === UserName),
@@ -111,13 +120,20 @@ export default new Vuex.Store({
           ...user,
           RunningJobs: user.Jobs.filter(job => /running/i.test(job.JobState)),
           PendingJobs: user.Jobs.filter(job => /pending/i.test(job.JobState)),
-          CompletedJobs: user.Jobs.filter(job => /completed/i.test(job.JobState))
+          CompletedJobs: user.Jobs.filter(job =>
+            /completed/i.test(job.JobState)
+          )
         }))
         .map(user => ({
           ...user,
-          NodeNames: uniq(flatten(user.RunningJobs.map(job => job.NodeNames))).sort(),
+          NodeNames: uniq(
+            flatten(user.RunningJobs.map(job => job.NodeNames))
+          ).sort(),
           PCNames: user.PCs.map(pc => pc.hostname),
-          NumCPUs: user.RunningJobs.map(job => Number(job.NumCPUs)).reduce((a, b) => a + b, 0)
+          NumCPUs: user.RunningJobs.map(job => Number(job.NumCPUs)).reduce(
+            (a, b) => a + b,
+            0
+          )
         }))
         .map(user => ({
           ...user,
@@ -125,7 +141,11 @@ export default new Vuex.Store({
             Running: user.RunningJobs.length,
             Pending: user.PendingJobs.length,
             Completed: user.CompletedJobs.length,
-            Other: user.Jobs.length - user.CompletedJobs.length - user.PendingJobs.length - user.RunningJobs.length
+            Other:
+              user.Jobs.length -
+              user.CompletedJobs.length -
+              user.PendingJobs.length -
+              user.RunningJobs.length
           }
         }));
       return sortBy(users, "UserName");
@@ -135,8 +155,14 @@ export default new Vuex.Store({
         ...pc,
         number: Number(pc.hostname.replace(/\D/g, "")),
         usernames: uniq((pc.users || []).map(user => user.split(" ")[0])),
-        inactive: !pc.datetime || state.dates.now - new Date(pc.datetime) > TEN_SECONDS,
-        lastupdate: pc.datetime ? Math.max(0, Math.floor((state.dates.now - new Date(pc.datetime)) / 1000)) : undefined,
+        inactive:
+          !pc.datetime || state.dates.now - new Date(pc.datetime) > TEN_SECONDS,
+        lastupdate: pc.datetime
+          ? Math.max(
+              0,
+              Math.floor((state.dates.now - new Date(pc.datetime)) / 1000)
+            )
+          : undefined,
         isoldrelease: DEPRECATED_RELEASES.includes(pc.release),
         load_1min: pc.load && Number(pc.load[0]),
         load_5min: pc.load && Number(pc.load[1]),
@@ -178,8 +204,5 @@ export default new Vuex.Store({
     mainsimFetch() {}
   },
 
-  plugins: [
-    createMainsimPlugin(sources),
-    createNowTimePlugin(1000)
-  ]
+  plugins: [createMainsimPlugin(sources), createNowTimePlugin(1000)]
 });
