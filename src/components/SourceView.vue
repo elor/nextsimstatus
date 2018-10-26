@@ -32,7 +32,7 @@ export default {
   props: ["title", "value"],
   data() {
     return {
-      dialog: true
+      dialog: false
     };
   },
   computed: {
