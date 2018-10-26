@@ -3,6 +3,8 @@
     <v-card>
       <v-card-title>
         <h2>User {{username}}</h2>
+        <v-spacer></v-spacer>
+        <source-view v-if="User" :title="`User ${username}`" :value="User"></source-view>
       </v-card-title>
 
       <v-card-text>
@@ -10,7 +12,7 @@
           <grid-card title="User">
             {{User.UserName}}
           </grid-card>
-          
+
           <grid-card title="Job Stats">
             <p>
             {{User.JobCount.Running}} Running,
@@ -22,7 +24,7 @@
             {{User.NumCPUs}} Cores
             </p>
           </grid-card>
-          
+
           <grid-card title="Nodes">
             <template v-if="User.NodeNames.length">
               <span v-for="node in User.NodeNames" :key="node">
@@ -55,11 +57,13 @@
 import { mapGetters } from "vuex";
 import GridCard from "@/components/GridCard";
 import JobList from "@/components/JobList";
+import SourceView from "@/components/SourceView";
 
 export default {
   components: {
     JobList,
-    GridCard
+    GridCard,
+    SourceView
   },
   computed: {
     ...mapGetters(["userstatus"]),

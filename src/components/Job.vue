@@ -2,7 +2,9 @@
   <v-container fluid>
     <v-card>
       <v-card-title>
-        <h2>Job #{{JobId}}{{Job ? `: ${Job.JobName}` : ''}}</h2>
+        <h2>{{title}}</h2>
+        <v-spacer></v-spacer>
+        <source-view v-if="Job" :title="title" :value="Job"></source-view>
       </v-card-title>
 
       <v-card-text>
@@ -22,10 +24,12 @@
 <script>
 import { mapGetters } from "vuex";
 import JobList from "@/components/JobList";
+import SourceView from "@/components/SourceView";
 
 export default {
   components: {
-    JobList
+    JobList,
+    SourceView
   },
   computed: {
     ...mapGetters(["jobstatus"]),
@@ -37,6 +41,9 @@ export default {
     },
     SubJobs() {
       return this.jobstatus.filter(job => job.ArrayJobId === this.JobId);
+    },
+    title() {
+      return `Job #${this.JobId}${this.Job ? `: ${this.Job.JobName}` : ""}`;
     }
   }
 };

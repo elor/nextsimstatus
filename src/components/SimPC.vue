@@ -3,6 +3,8 @@
     <v-card>
       <v-card-title>
         <h2>SimPC{{number}}</h2>
+        <v-spacer></v-spacer>
+        <source-view v-if="SimPC" :title="`SimPC${number}`" :value="SimPC"></source-view>
       </v-card-title>
 
       <v-card-text>
@@ -15,8 +17,12 @@
 
 <script>
 import { mapGetters } from "vuex";
+import SourceView from "@/components/SourceView";
 
 export default {
+  components: {
+    SourceView
+  },
   computed: {
     ...mapGetters(["simpcstatus"]),
     number() {
