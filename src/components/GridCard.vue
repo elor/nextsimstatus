@@ -16,18 +16,24 @@
 </template>
 
 <script>
+function isInt(string) {
+  return /^\d+$/.test(string);
+}
+
 export default {
   props: {
     title: String,
-    height: Number,
+    height: String,
     wrap: Boolean
   },
   computed: {
     style() {
       let style = {};
+
       if (this.height) {
-        style.height = `${this.height}px`;
+        style.height = isInt(this.height) ? `${this.height}px` : this.height;
       }
+
       return style;
     }
   },
