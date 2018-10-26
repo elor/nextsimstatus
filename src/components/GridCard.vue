@@ -1,7 +1,7 @@
 <template>
   <v-flex lg3 sm6 xs12>
-    <v-card class="gridcard" ma-2>
-      <v-card-title>
+    <v-card class="gridcard" :class="{'wrap': wrap}" ma-2>
+      <v-card-title v-if="title">
         <v-layout row>
           <v-subheader>{{title}}</v-subheader>
           <v-spacer></v-spacer>
@@ -17,7 +17,10 @@
 
 <script>
 export default {
-  props: ["title"],
+  props: {
+    title: String,
+    wrap: Boolean
+  },
   data() {
     return {};
   }
@@ -28,5 +31,9 @@ export default {
 .gridcard {
   min-height: 155px;
   max-height: 310px;
+}
+
+.gridcard.wrap {
+  max-height: initial;
 }
 </style>
