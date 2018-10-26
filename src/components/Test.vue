@@ -32,10 +32,10 @@ function sum(array) {
   return array.reduce((a, b) => a + b, 0);
 }
 
-function cpudata(objects) {
-  const allocCPUs = sum(objects.map(object => Number(object.CPUAlloc)));
-  const errCPUs = sum(objects.map(object => Number(object.CPUErr)));
-  const totalCPUs = sum(objects.map(object => Number(object.CPUTot)));
+function cpudata(nodes) {
+  const allocCPUs = sum(nodes.map(node => Number(node.CPUAlloc)));
+  const errCPUs = sum(nodes.map(node => Number(node.CPUErr)));
+  const totalCPUs = sum(nodes.map(node => Number(node.CPUTot)));
   const freeCPUs = totalCPUs - allocCPUs - errCPUs;
 
   return [allocCPUs, freeCPUs, errCPUs];
@@ -64,6 +64,7 @@ export default {
     },
     userData() {
       const users = this.userstatus
+        .filter(user => user.NumCPUs)
         .map(user => ({
           name: user.UserName,
           cpus: user.NumCPUs,
