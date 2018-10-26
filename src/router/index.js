@@ -16,6 +16,7 @@ import Software from "@/components/Software";
 import Users from "@/components/Users";
 import User from "@/components/User";
 import Manual from "@/components/Manual";
+import Test from "@/components/Test";
 
 Vue.use(Router);
 
@@ -61,6 +62,12 @@ export default new Router({
       name: "Software",
       component: Software,
       icon: "apps"
+    },
+    {
+      path: "/test",
+      name: "Test",
+      component: Test,
+      hidden: true
     },
     {
       path: "/manual",
