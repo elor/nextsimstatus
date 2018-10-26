@@ -71,16 +71,16 @@ export default {
   computed: {
     ...mapGetters(["nodestatus"]),
     NodeName() {
-      return this.$route.params.id;
+      return `sim${this.$route.params.id}`;
     },
     Node() {
       return this.nodestatus.filter(node => node.NodeName === this.NodeName)[0];
     },
     CPULoadPercent() {
-      return Math.round((100 * this.Node.CPULoad) / this.Node.CPUTot);
+      return Math.round(100 * this.Node.CPULoad / this.Node.CPUTot);
     },
     MemPercent() {
-      return 100 - Math.round((100 * this.Node.FreeMem) / this.Node.RealMemory);
+      return 100 - Math.round(100 * this.Node.FreeMem / this.Node.RealMemory);
     },
     Jobs() {
       return this.Node.jobs || [];

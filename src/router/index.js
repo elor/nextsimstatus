@@ -57,12 +57,6 @@ export default new Router({
       icon: "dns"
     },
     {
-      path: "/node/:id",
-      name: "Node",
-      component: Node,
-      hidden: true
-    },
-    {
       path: "/jobs",
       name: "Jobs",
       component: Jobs,
@@ -85,12 +79,6 @@ export default new Router({
       name: "SimPCs",
       component: SimPCs,
       icon: "computer"
-    },
-    {
-      path: "/simpc:id",
-      name: "SimPC",
-      component: SimPC,
-      hidden: true
     },
     {
       path: "/apps",

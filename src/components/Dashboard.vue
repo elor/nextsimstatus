@@ -11,7 +11,7 @@
         <v-progress-circular v-for="node in partition.Nodes" :key="node.NodeName"
                              :value="100*node.CPUAlloc/node.CPUTot"
                              :color="node.CPUAlloc == node.CPUTot ? 'light-blue' : 'green'">
-          <router-link :to="`/node/${node.NodeName}`">{{node.NodeName.replace(/\D/g,'')}}</router-link>
+          <router-link :to="`/${node.NodeName}`">{{node.NodeName.replace(/\D/g,'')}}</router-link>
         </v-progress-circular>
       </v-card-text>
     </v-card>

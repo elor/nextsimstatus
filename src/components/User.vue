@@ -26,7 +26,7 @@
           <grid-card title="Nodes">
             <template v-if="User.NodeNames.length">
               <span v-for="node in User.NodeNames" :key="node">
-                <router-link :to="`/node/${node}`">{{node}}</router-link>
+                <router-link :to="`/${node}`">{{node}}</router-link>
                 &nbsp;
               </span>
             </template>
