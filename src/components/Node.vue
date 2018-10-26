@@ -3,6 +3,8 @@
     <v-card>
       <v-card-title>
         <h2>Node {{NodeName}}</h2>
+        <v-spacer></v-spacer>
+        <source-view v-if="Node" :title="`Node ${NodeName}`" :value="Node"></source-view>
       </v-card-title>
 
       <v-card-text>
@@ -62,11 +64,13 @@
 import { mapGetters } from "vuex";
 import JobList from "@/components/JobList";
 import GridCard from "@/components/GridCard";
+import SourceView from "@/components/SourceView";
 
 export default {
   components: {
     JobList,
-    GridCard
+    GridCard,
+    SourceView
   },
   computed: {
     ...mapGetters(["nodestatus"]),
