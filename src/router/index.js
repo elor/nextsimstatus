@@ -21,6 +21,30 @@ Vue.use(Router);
 
 export default new Router({
   routes: [{
+      path: "/jobs/:id",
+      name: "Job",
+      component: Job,
+      hidden: true
+    },
+    {
+      path: "/users/:id",
+      name: "User",
+      component: User,
+      hidden: true
+    },
+    {
+      path: "/simpc:id",
+      name: "SimPC",
+      component: SimPC,
+      hidden: true
+    },
+    {
+      path: "/sim:id",
+      name: "Node",
+      component: Node,
+      hidden: true
+    },
+    {
       path: "/",
       name: "Dashboard",
       component: Dashboard,
@@ -45,22 +69,10 @@ export default new Router({
       icon: "assignment"
     },
     {
-      path: "/jobs/:id",
-      name: "Job",
-      component: Job,
-      hidden: true
-    },
-    {
       path: "/users",
       name: "Users",
       component: Users,
       icon: "people"
-    },
-    {
-      path: "/users/:id",
-      name: "User",
-      component: User,
-      hidden: true
     },
     {
       path: "/stats",
