@@ -14,12 +14,14 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "chart.js": "^2.7.3",
     "commonmark": "^0.28.1",
     "graphql-request": "^1.8.2",
     "mersenne": "0.0.4",
     "mqtt": "^2.18.2",
-    "vue-router": "^3.0.1",
     "vue": "^2.5.16",
+    "vue-chartjs": "^3.4.0",
+    "vue-router": "^3.0.1",
     "vuetify": "^1.1.4",
     "vuex": "^3.0.1"
   },
