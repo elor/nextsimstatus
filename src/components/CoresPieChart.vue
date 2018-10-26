@@ -23,7 +23,8 @@ function cpudata(nodes) {
 
 export default {
   props: {
-    height: { default: 200 },
+    height: String,
+    width: String,
     hidelegend: Boolean
   },
   components: {
