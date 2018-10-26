@@ -4,11 +4,11 @@
       <v-card-title><v-btn to="/nodes">Nodes</v-btn> Overview</v-card-title>
       <v-card-text>
         <v-layout row wrap>
-          <grid-card :height="250" title="Core Allocation">
-            <cores-pie-chart height="100" hidelegend></cores-pie-chart>
+          <grid-card height="250" title="Core Allocation">
+            <cores-pie-chart height="180" hidelegend></cores-pie-chart>
           </grid-card>
 
-          <grid-card :height="250" v-for="partition in partitionstatus" :key="partition.PartitionName"
+          <grid-card height="250" v-for="partition in partitionstatus" :key="partition.PartitionName"
                      :title="`${partition.PartitionName} Partition`">
             <v-progress-circular slot="icon" :value="100*partition.CPUAlloc/partition.CPUTot"
                                 :color="partition.CPUAlloc == partition.CPUTot ? 'light-blue' : 'green'">
