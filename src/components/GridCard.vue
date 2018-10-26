@@ -1,6 +1,6 @@
 <template>
   <v-flex lg3 sm6 xs12>
-    <v-card class="gridcard" :class="{'wrap': wrap}" ma-2>
+    <v-card class="gridcard ma-2" :class="{'wrap': wrap}" :style="style">
       <v-card-title v-if="title">
         <v-layout row>
           <v-subheader>{{title}}</v-subheader>
@@ -19,7 +19,17 @@
 export default {
   props: {
     title: String,
+    height: Number,
     wrap: Boolean
+  },
+  computed: {
+    style() {
+      let style = {};
+      if (this.height) {
+        style.height = `${this.height}px`;
+      }
+      return style;
+    }
   },
   data() {
     return {};

@@ -1,5 +1,5 @@
 <template>
-  <v-container grid-list-xl fluid>
+  <v-container fluid>
     <v-card>
       <v-card-title>
         <h2>User {{username}}</h2>
