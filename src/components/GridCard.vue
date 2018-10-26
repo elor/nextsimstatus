@@ -1,14 +1,14 @@
 <template>
   <v-flex lg3 sm6 xs12>
     <v-card class="gridcard ma-2" :class="{'wrap': wrap}" :style="style">
-      <v-card-title v-if="title">
+      <v-card-title v-if="title" class="pb-0">
         <v-layout row>
           <v-subheader>{{title}}</v-subheader>
           <v-spacer></v-spacer>
           <slot name="icon"></slot>
         </v-layout>
       </v-card-title>
-      <v-card-text>
+      <v-card-text class="pt-0">
         <slot></slot>
       </v-card-text>
     </v-card>
