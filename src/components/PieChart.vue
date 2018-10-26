@@ -1,26 +1,31 @@
 <template>
-  <canvas ref="canvas" :height="height" :style="style"></canvas>
+  <div class="pie-container" :style="containerstyle">
+    <canvas ref="canvas" :style="style"></canvas>
+  </div>
 </template>
 
 <script>
 import { Pie, mixins } from "vue-chartjs";
 
+function isInt(string) {
+  return /^\d+$/.test(string);
+}
+
 export default {
   extends: Pie,
   props: {
-    height: { default: 200 },
+    height: String,
+    width: String,
     hidelegend: Boolean
   },
   mixins: [mixins.reactiveProp],
   computed: {
     config() {
       return {
+        maintainAspectRatio: false,
         legend: {
           position: "right",
           display: !this.hidelegend
-        },
-        animation: {
-          animateRotate: false
         }
       };
     },
@@ -29,6 +34,20 @@ export default {
 
       if (this.inline) {
         style.display = "inline";
+      }
+
+      return style;
+    },
+    containerstyle() {
+      let style = {};
+      style = {};
+
+      if (this.width) {
+        style.width = isInt(this.width) ? `${this.width}px` : this.width;
+      }
+
+      if (this.height) {
+        style.height = isInt(this.height) ? `${this.height}px` : this.height;
       }
 
       return style;
@@ -45,3 +64,11 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.pie-container {
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
+</style>
