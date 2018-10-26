@@ -1,16 +1,14 @@
 <template>
   <v-container fluid>
     <v-card>
-      <v-card-text xs-6>
+      <v-card-text>
         <v-layout row wrap>
-          <grid-card wrap>
+          <grid-card title="Allocations" wrap>
             <pie-chart :chart-data="allocData"></pie-chart>
           </grid-card>
-          <grid-card wrap>
-            <pie-chart :chart-data="nodeData"></pie-chart>
-          </grid-card>
-          <grid-card wrap>
-            <pie-chart :chart-data="userData"></pie-chart>
+
+          <grid-card wrap title="Partitions">
+            <pie-chart :chart-data="partitionData"></pie-chart>
           </grid-card>
         </v-layout>
       </v-card-text>
@@ -34,13 +32,22 @@ function sum(array) {
   return array.reduce((a, b) => a + b, 0);
 }
 
+function cpudata(objects) {
+  const allocCPUs = sum(objects.map(object => Number(object.CPUAlloc)));
+  const errCPUs = sum(objects.map(object => Number(object.CPUErr)));
+  const totalCPUs = sum(objects.map(object => Number(object.CPUTot)));
+  const freeCPUs = totalCPUs - allocCPUs - errCPUs;
+
+  return [allocCPUs, freeCPUs, errCPUs];
+}
+
 export default {
   components: {
     PieChart,
     GridCard
   },
   computed: {
-    ...mapGetters(["nodestatus", "userstatus"]),
+    ...mapGetters(["nodestatus", "userstatus", "partitionstatus"]),
     nodeData() {
       return {
         labels: this.nodestatus.map(node => node.NodeName),
@@ -56,34 +63,52 @@ export default {
       };
     },
     userData() {
+      const users = this.userstatus
+        .map(user => ({
+          name: user.UserName,
+          cpus: user.NumCPUs,
+          color: usercolor(user.UserName)
+        }))
+        .sort((a, b) => b.cpus - a.cpus);
+
       return {
-        labels: this.userstatus.map(user => user.UserName),
+        labels: users.map(user => user.name),
         datasets: [
           {
             label: "Jobs",
-            data: this.userstatus.map(user => user.NumCPUs),
-            backgroundColor: this.userstatus.map(user =>
-              usercolor(user.UserName)
-            )
+            data: users.map(user => user.cpus),
+            backgroundColor: users.map(user => user.color)
           }
         ]
       };
     },
     allocData() {
-      const allocCPUs = sum(this.nodestatus.map(node => Number(node.CPUAlloc)));
-      const errCPUs = sum(this.nodestatus.map(node => Number(node.CPUErr)));
-      const totalCPUs = sum(this.nodestatus.map(node => Number(node.CPUTot)));
-      const freeCPUs = totalCPUs - allocCPUs - errCPUs;
+      const allocations = cpudata(this.nodestatus);
+      const users = this.userData;
 
       return {
-        labels: ["Alloc", "Free", "Err"],
+        labels: [...users.labels, "Free", "Err"],
         datasets: [
           {
             label: "Allocations",
-            data: [allocCPUs, freeCPUs, errCPUs],
-            backgroundColor: [colors.blue, colors.green, colors.red]
+            data: [...users.datasets[0].data, allocations[1], allocations[2]],
+            backgroundColor: [
+              ...users.datasets[0].backgroundColor,
+              colors.green,
+              colors.red
+            ]
           }
         ]
+      };
+    },
+    partitionData() {
+      return {
+        labels: ["Alloc", "Free", "Err"],
+        datasets: this.partitionstatus.map(partition => ({
+          label: partition.PartitionName,
+          data: cpudata(partition.Nodes),
+          backgroundColor: [colors.blue, colors.green, colors.red]
+        }))
       };
     }
   }
