@@ -4,7 +4,10 @@
       <v-card-text>
         <v-layout row wrap>
           <grid-card title="Allocations" wrap>
-            <pie-chart :chart-data="allocData"></pie-chart>
+            <cores-pie-chart></cores-pie-chart>
+          </grid-card>
+          <grid-card title="Allocations" wrap>
+            <pie-chart :chart-data="allocData" hidelegend height="200"></pie-chart>
           </grid-card>
 
           <grid-card wrap title="Partitions">
@@ -19,6 +22,7 @@
 <script>
 import { mapGetters } from "vuex";
 import GridCard from "@/components/GridCard";
+import CoresPieChart from "@/components/CoresPieChart";
 import PieChart from "@/components/PieChart";
 import usercolor from "../utils/usercolor";
 
@@ -44,7 +48,8 @@ function cpudata(nodes) {
 export default {
   components: {
     PieChart,
-    GridCard
+    GridCard,
+    CoresPieChart
   },
   computed: {
     ...mapGetters(["nodestatus", "userstatus", "partitionstatus"]),
