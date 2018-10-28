@@ -21,8 +21,11 @@ docker-build:
   tags:
     - mainsimweb
     - docker-build
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
-    - docker build -t mainsimstatus-cache cache-daemon
+    - docker build -t $CI_REGISTRY_IMAGE/cache-daemon cache-daemon
+    - docker push $CI_REGISTRY_IMAGE/cache-daemon
 
 deploy:mainsimweb:
   stage: deploy
