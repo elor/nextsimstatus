@@ -33,8 +33,9 @@
       <v-card-title><v-btn to="/users">Users</v-btn> Overview</v-card-title>
       <v-card-text>
         <p class="xs-6" v-for="user in users_sorted" :key="user.UserName">
-          <v-chip class="ma-0" label small :style="{'background-color':user.color}">
-          </v-chip>
+          <router-link :to="`/users/${user.UserName}`">
+          <v-chip class="ma-0" label small :style="{'background-color':user.color}"></v-chip>
+          </router-link>
           <router-link :to="`/users/${user.UserName}`">
             {{user.UserName}}
           </router-link>:
