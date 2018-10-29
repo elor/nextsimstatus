@@ -31,8 +31,19 @@
 
     <v-card>
       <v-card-title><v-btn to="/users">Users</v-btn> Overview</v-card-title>
-      <v-card-text v-for="user in userstatus" :key="user.UserName">
-        <router-link :to="`/users/${user.UserName}`">{{user.UserName}}</router-link>: {{user.JobCount.Running}} running, {{user.JobCount.Pending}} pending, {{user.JobCount.Completed}} completed, {{user.JobCount.Other}} other, {{user.NumCPUs}} Cores
+      <v-card-text>
+        <p class="xs-6" v-for="user in users_sorted" :key="user.UserName">
+          <v-chip class="ma-0" label small :style="{'background-color':user.color}">
+          </v-chip>
+          <router-link :to="`/users/${user.UserName}`">
+            {{user.UserName}}
+          </router-link>:
+          {{user.JobCount.Running}} running,
+          {{user.JobCount.Pending}} pending,
+          {{user.JobCount.Completed}} completed,
+          {{user.JobCount.Other}} other,
+          {{user.NumCPUs}} Cores
+        </p>
       </v-card-text>
     </v-card>
 
@@ -60,7 +71,21 @@ export default {
     CoresPieChart
   },
   computed: {
-    ...mapGetters(["partitionstatus", "jobstatus", "userstatus", "simpcstatus"])
+    ...mapGetters([
+      "partitionstatus",
+      "jobstatus",
+      "userstatus",
+      "simpcstatus"
+    ]),
+    users_sorted() {
+      return this.userstatus.sort(
+        (a, b) =>
+          b.NumCPUs - a.NumCPUs ||
+          b.JobCount.Running - a.JobCount.Running ||
+          b.JobCount.Pending - a.JobCount.Pending ||
+          a.UserName.localeCompare(b.UserName)
+      );
+    }
   }
 };
 </script>
