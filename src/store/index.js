@@ -3,6 +3,7 @@ import Vue from "vue";
 
 import { uniq, flatten, sum, range, sortBy } from "lodash";
 import { nodels } from "../utils/nodels";
+import usercolor from "../utils/usercolor";
 
 import createMainsimPlugin from "./createMainsimPlugin";
 import createNowTimePlugin from "./createNowTimePlugin";
@@ -113,6 +114,7 @@ export default new Vuex.Store({
       ])
         .map(UserName => ({
           UserName,
+          color: usercolor(UserName),
           Jobs: getters.jobstatus.filter(job => job.UserName === UserName),
           PCs: getters.simpcstatus.filter(pc => pc.usernames.includes(UserName))
         }))
