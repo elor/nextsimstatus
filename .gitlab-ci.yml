@@ -19,7 +19,6 @@ docker-build:
   stage: build
   image: docker:stable
   tags:
-    - mainsimweb
     - docker-build
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
@@ -46,15 +45,6 @@ deploy:mainsim:
     - webpack
   script:
     - rsync -arv --delete dist/ /var/www/html
-
-docker-deploy-mainsimweb:
-  stage: deploy
-  tags:
-    - mainsimweb
-    - docker-build
-  script:
-    - docker images
-    - docker ps -a
 
 reload:
   stage: reload
