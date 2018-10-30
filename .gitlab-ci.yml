@@ -35,7 +35,7 @@ deploy:mainsimweb:
   dependencies:
     - webpack
   script:
-    - rsync -arv --delete dist/ /var/www/html
+    - rsync -arv dist/ /var/www/html
 
 deploy:mainsim:
   stage: deploy
@@ -45,7 +45,7 @@ deploy:mainsim:
   dependencies:
     - webpack
   script:
-    - rsync -arv --delete dist/ /var/www/html
+    - rsync -arv dist/ /var/www/html
 
 docker-deploy-mainsimweb:
   stage: deploy
