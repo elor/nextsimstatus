@@ -1,15 +1,13 @@
 import mqtt from "mqtt";
 import zlib from "zlib";
 import graphqlquery from "./graphqlquery";
-import {
-  request
-} from "graphql-request";
+import { request } from "graphql-request";
 
 const config = {
   graphql: {
     enabled: undefined,
     interval: undefined,
-    endpoint: "http://mainsimweb.etit.tu-chemnitz.de:1880/graphql",
+    endpoint: "https://mainsimweb.etit.tu-chemnitz.de/graphql",
     query: graphqlquery
   },
   mqtt: {
@@ -45,7 +43,10 @@ function fetch(store) {
     })
     .catch(error => store.commit("newError", error));
 
-  Promise.all([fetchPromise, clickDelay()]).then(() => store.commit("stopUpdating"), () => store.commit("stopUpdating"));
+  Promise.all([fetchPromise, clickDelay()]).then(
+    () => store.commit("stopUpdating"),
+    () => store.commit("stopUpdating")
+  );
 }
 
 function registerGraphQL(store) {
