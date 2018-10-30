@@ -12,8 +12,7 @@ const config = {
   },
   mqtt: {
     enabled: undefined,
-    host: "mainsimweb.etit.tu-chemnitz.de",
-    port: 9001
+    endpoint: "wss://mainsimweb.etit.tu-chemnitz.de/mqtt"
   }
 };
 
@@ -61,8 +60,7 @@ function registerGraphQL(store) {
 
 function registerMQTT(store) {
   // MQTT Section
-  const MQTTurl = `mqtt://${config.mqtt.host}:${config.mqtt.port}`;
-  let client = mqtt.connect(MQTTurl);
+  let client = mqtt.connect(config.mqtt.endpoint);
 
   client.on("connect", () => {
     if (config.mqtt.enabled) {
