@@ -6,6 +6,7 @@
 
 <script>
 import { Pie, mixins } from "vue-chartjs";
+import "chartjs-plugin-labels";
 
 function isInt(string) {
   return /^\d+$/.test(string);
@@ -26,6 +27,15 @@ export default {
         legend: {
           position: "right",
           display: !this.hidelegend
+        },
+        plugins: {
+          labels: {
+            render: args => (args.percentage > 4 ? `${args.percentage}%` : ""),
+            showZero: false,
+            position: "border",
+            fontColor: "#fff",
+            textShadow: true
+          }
         }
       };
     },
