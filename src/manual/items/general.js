@@ -72,8 +72,10 @@ Von dort könnt ihr verloren gedachte Dateien wieder in eure Ordner kopieren.
 
 Temporäre Dateien und Caches sind vom Backup ausgeschlossen, um Platz zu sparen.\\
 Ihr könnt Ordner auch selbst Backup ausschließen:
-Dazu erstellt ihr Ordner namens \`NOBACKUP\`.
+Dazu erstellt ihr Ordner namens \`NOBACKUP\`, oder der mit \`-NOBACKUP\` endet.
 Alle darin enthaltenen Dateien werden nicht kopiert.
+
+Ebenso werden alle Dateien und Verzeichnisse, die mit \`~\` enden, vom Backup ausgeschlossen, z.B. \`intermediate_results~\`, \`cache~\`, \`bigfile.txt~\`.
 `
   }
 ];
