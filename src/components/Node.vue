@@ -15,10 +15,7 @@
                                  :color="Node.CPUAlloc == Node.CPUTot ? 'light-blue' : 'green'">
               {{Node.CPUAlloc}}
               </v-progress-circular>
-              <v-progress-circular :value="CPULoadPercent"
-                                  :color="CPULoadPercent > 90 ? 'light-blue' : 'green'">
-                                  {{CPULoadPercent}}
-              </v-progress-circular>
+              <cpu-load :percent="100 * Node.CPULoad / Node.CPUTot"></cpu-load>
               <v-progress-circular :value="MemPercent"
                                   :color="MemPercent > 90 ? 'red' : 'light-blue'">
                                   {{MemPercent}}
@@ -65,12 +62,14 @@ import { mapGetters } from "vuex";
 import JobList from "@/components/JobList";
 import GridCard from "@/components/GridCard";
 import SourceView from "@/components/SourceView";
+import CpuLoad from "@/components/CpuLoad";
 
 export default {
   components: {
     JobList,
     GridCard,
-    SourceView
+    SourceView,
+    CpuLoad
   },
   computed: {
     ...mapGetters(["nodestatus"]),
@@ -80,11 +79,8 @@ export default {
     Node() {
       return this.nodestatus.filter(node => node.NodeName === this.NodeName)[0];
     },
-    CPULoadPercent() {
-      return Math.round(100 * this.Node.CPULoad / this.Node.CPUTot);
-    },
     MemPercent() {
-      return 100 - Math.round(100 * this.Node.FreeMem / this.Node.RealMemory);
+      return 100 - Math.round((100 * this.Node.FreeMem) / this.Node.RealMemory);
     },
     Jobs() {
       return this.Node.jobs || [];

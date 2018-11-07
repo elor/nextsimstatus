@@ -46,9 +46,7 @@
             </span>
           </td>
           <td>
-            <v-progress-circular :value="100*props.item.CPULoad/props.item.CPUTot"
-                                 :color="props.item.CPULoad > 0.9*props.item.CPUTot ? 'light-blue' : 'green'">
-            </v-progress-circular>
+            <cpu-load :percent="100*props.item.CPULoad/props.item.CPUTot"></cpu-load>
             <v-progress-circular :value="100*(1 - props.item.FreeMem/props.item.RealMemory)"
                                  :color="props.item.FreeMem < 0.1*props.item.RealMemory ? 'red' : 'light-blue'">
             </v-progress-circular>
@@ -72,7 +70,8 @@
 
 <script>
 import { mapGetters } from "vuex";
-import NodeList from "./NodeList";
+import NodeList from "@/components/NodeList";
+import CpuLoad from "@/components/CpuLoad";
 import { capitalize } from "../utils/capitalize";
 
 const warnstates = ["DRAIN", "MAINT", "DOWN", "POWER_UP", "POWER_DOWN"];
@@ -147,7 +146,8 @@ export default {
     }
   },
   components: {
-    NodeList
+    NodeList,
+    CpuLoad
   }
 };
 </script>
