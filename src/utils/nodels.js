@@ -18,7 +18,7 @@ export function nodels(definition) {
 function matchAll(re, string) {
   let matches = [];
 
-  while (true) {
+  for(;;) {
     let match = re.exec(string);
     if (!match) {
       break;

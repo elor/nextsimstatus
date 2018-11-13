@@ -100,7 +100,7 @@ export default function createMainsimPlugin(sources) {
     registerGraphQL(store);
     registerMQTT(store);
 
-    store.subscribeAction((action, state) => {
+    store.subscribeAction((action) => {
       switch (action.type) {
         case "mainsimFetch":
           fetch(store);
