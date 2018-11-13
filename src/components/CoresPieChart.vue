@@ -4,7 +4,6 @@
 
 <script>
 import { mapGetters } from "vuex";
-import GridCard from "@/components/GridCard";
 import PieChart from "@/components/PieChart";
 import usercolor from "../utils/usercolor";
 
@@ -28,8 +27,7 @@ export default {
     hidelegend: Boolean
   },
   components: {
-    PieChart,
-    GridCard
+    PieChart
   },
   computed: {
     ...mapGetters(["nodestatus", "userstatus"]),

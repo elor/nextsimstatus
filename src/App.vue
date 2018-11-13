@@ -10,14 +10,16 @@
       </v-toolbar>
 
       <v-list>
-        <v-list-tile v-for="route in items" :key="route.path" :to="route.path" v-if="!route.hidden">
-          <v-list-tile-action>
-            <v-icon v-html="route.icon"></v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="route.name"></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
+        <template v-for="route in items">
+          <v-list-tile :key="route.path" :to="route.path" v-if="!route.hidden">
+            <v-list-tile-action>
+              <v-icon v-html="route.icon"></v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title v-text="route.name"></v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </template>
         <v-list-tile>
           <v-list-tile-action>
             <v-btn icon @click.stop="miniVariant = !miniVariant">
@@ -114,13 +116,13 @@ export default {
       get() {
         return this.sources.mqtt;
       },
-      set(value) {}
+      set() {}
     },
     graphql: {
       get() {
         return this.sources.graphql;
       },
-      set(value) {}
+      set() {}
     }
   },
   methods: {

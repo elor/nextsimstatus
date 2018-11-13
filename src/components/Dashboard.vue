@@ -79,7 +79,7 @@ export default {
       "simpcstatus"
     ]),
     users_sorted() {
-      return this.userstatus.sort(
+      return this.userstatus.slice().sort(
         (a, b) =>
           b.NumCPUs - a.NumCPUs ||
           b.JobCount.Running - a.JobCount.Running ||

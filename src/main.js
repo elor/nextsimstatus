@@ -1,23 +1,17 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import Vuetify from "vuetify";
+import '@babel/polyfill'
+import Vue from 'vue'
+import './plugins/vuetify'
+import App from './App.vue'
+import router from './router/index.js'
+import store from './store/index.js'
+import './registerServiceWorker'
+import 'roboto-fontface/css/roboto/roboto-fontface.css'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
-import "vuetify/dist/vuetify.min.css";
+Vue.config.productionTip = false
 
-import App from "./App";
-import router from "./router";
-import store from "./store";
-
-Vue.use(Vuetify);
-Vue.use(Vuex);
-
-Vue.config.productionTip = false;
-
-/* eslint-disable no-new */
 new Vue({
-  el: "#app",
-  store,
   router,
-  components: { App },
-  template: "<App/>"
-});
+  store,
+  render: h => h(App)
+}).$mount('#app')
