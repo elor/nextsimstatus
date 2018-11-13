@@ -81,7 +81,7 @@ export default new Vuex.Store({
           pureJobs: node.jobs.filter(job => !job.ArrayJobId)
         }));
     },
-    partitions(state, getters) {
+    partitions(state) {
       return uniq(state.nodes.map(node => node.Partitions));
     },
     partitionstatus(state, getters) {
@@ -152,7 +152,7 @@ export default new Vuex.Store({
         }));
       return sortBy(users, "UserName");
     },
-    simpcstatus(state, getters) {
+    simpcstatus(state) {
       return Object.values(state.simpcs).map(pc => ({
         ...pc,
         number: Number(pc.hostname.replace(/\D/g, "")),
