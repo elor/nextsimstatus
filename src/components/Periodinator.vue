@@ -2,12 +2,11 @@
   <v-container fluid>
     <v-card>
       <v-card-text>
-        <v-text-field append-icon="edit"
+        <v-textarea append-icon="edit"
                       label="Input"
                       hide-details
-                      multi-line
                       v-model="input">
-        </v-text-field>
+        </v-textarea>
 
         <v-layout wrap>
           <v-flex xs="12" md="4">
