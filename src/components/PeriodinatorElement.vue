@@ -1,27 +1,30 @@
 <template>
-    <v-tooltip bottom v-model="open">
-      <span slot="activator" class="element" :class="`color-${color}`">
+  <v-tooltip bottom :value="open">
+    <span slot="activator">
+      <span class="element" :class="`color-${color}`" v-if="!rawtext">
           <span class="symbol">{{element.symbol}}</span>
           <span class="name">{{element.name}}</span>
           <span class="number">{{element.number}}</span>
           <span class="mass">{{element.mass}}</span>
       </span>
-      <v-text>
-        <template v-if="completions.length">
-          {{completions.join(" ")}}
-        </template>
-        <template v-else>
-          No matches
-        </template>
-      </v-text>
-    </v-tooltip>
+      <span v-if="rawtext">{{element.symbol}}</span>
+    </span>
+    <span>
+      <template v-if="completions.length">
+        {{completions.join(" ")}}
+      </template>
+      <template v-else>
+        No matches
+      </template>
+    </span>
+  </v-tooltip>
 </template>
 
 <script>
 import { elements, symbols } from "../utils/elements";
 
 export default {
-  props: ["symbol", "color"],
+  props: ["symbol", "color", "rawtext"],
   computed: {
     element() {
       return (
@@ -34,7 +37,7 @@ export default {
       );
     },
     open() {
-      return !this.element.name;
+      return !this.element.name && !this.rawtext;
     },
     completions() {
       return symbols.filter(symbol =>
