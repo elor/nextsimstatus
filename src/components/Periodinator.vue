@@ -25,13 +25,12 @@
 
         <p class="text-xs-center mt-5">
           <span v-for="(line, lineno) in lines" :key="lineno">
-            <span class="mr-4 mb-3 word" v-for="(word, index) in line" :key="index+word.join()" v-if="!filter.complete || !numMismatches(word)">
+            <span class="mr-4 mb-3 word" v-for="(word, index) in line.filter(word => !filter.complete || !numMismatches(word))" :key="index+word.join()">
               <Element v-for="(part, position) in word"
                        :key="position+part"
                        :symbol="part"
                        :color="colors[lineno][index][position]"
-                       v-if="!filter.rawtext"/>
-              <span v-else>{{part}}</span>
+                       :rawtext="filter.rawtext"/>
               <span>&nbsp;</span>
             </span>
             <br>
@@ -145,7 +144,9 @@ export default {
   methods: {
     numMismatches,
     pickRandom() {
-      this.input = random.pick(examples.filter(sentence => sentence !== this.input));
+      this.input = random.pick(
+        examples.filter(sentence => sentence !== this.input)
+      );
     }
   },
   components: {
