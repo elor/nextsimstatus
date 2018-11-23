@@ -1,7 +1,7 @@
 <template>
   <v-progress-circular :value="percent"
                       :color="color">
-                      {{Math.round(load)}}
+                      {{value}}
   </v-progress-circular>
 </template>
 
@@ -9,7 +9,8 @@
 export default {
   props: {
     load: Number,
-    cores: Number
+    cores: Number,
+    precise: Boolean
   },
   computed: {
     color() {
@@ -22,7 +23,10 @@ export default {
       }
     },
     percent(){
-      return 100 * this.load / this.cores
+      return 100 * this.load / this.cores;
+    },
+    value(){
+      return this.precise ? this.load : Math.round(this.load);
     }
   }
 };
