@@ -15,7 +15,7 @@
                                  :color="Node.CPUAlloc == Node.CPUTot ? 'light-blue' : 'green'">
               {{Node.CPUAlloc}}
               </v-progress-circular>
-              <cpu-load :percent="100 * Node.CPULoad / Node.CPUTot"></cpu-load>
+              <cpu-load :load="Node.CPULoad" :cores="Node.CPUTot"></cpu-load>
               <v-progress-circular :value="MemPercent"
                                   :color="MemPercent > 90 ? 'red' : 'light-blue'">
                                   {{MemPercent}}

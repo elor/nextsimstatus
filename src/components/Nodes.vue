@@ -46,7 +46,7 @@
             </span>
           </td>
           <td>
-            <cpu-load :percent="100*props.item.CPULoad/props.item.CPUTot"></cpu-load>
+            <cpu-load :load="props.item.CPULoad" :cores="props.item.CPUTot"></cpu-load>
             <v-progress-circular :value="100*(1 - props.item.FreeMem/props.item.RealMemory)"
                                  :color="props.item.FreeMem < 0.1*props.item.RealMemory ? 'red' : 'light-blue'">
             </v-progress-circular>
