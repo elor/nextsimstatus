@@ -4,7 +4,10 @@
       <v-btn color="primary" to="apps/periodyfier">Periodyfier</v-btn>
     </v-layout>
     <v-layout>
-      <v-btn color="primary" href="http://mainsim.etit.tu-chemnitz.de/gitlab">GitLab</v-btn>
+      <v-btn color="primary" href="https://mainsim.etit.tu-chemnitz.de/gitlab">GitLab</v-btn>
+    </v-layout>
+    <v-layout>
+      <v-btn color="primary" href="https://www.tu-chemnitz.de/main/">MAIN-Webseite</v-btn>
     </v-layout>
   </v-container>
 </template>
