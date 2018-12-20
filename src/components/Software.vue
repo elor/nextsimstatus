@@ -9,6 +9,11 @@
     <v-layout>
       <v-btn color="primary" href="https://www.tu-chemnitz.de/main/">MAIN-Webseite</v-btn>
     </v-layout>
+    <v-layout>
+      <v-btn href="https://tuc.cloud">TUC-Cloud (Cloudspeicher)</v-btn>
+      <v-btn href="https://terminplaner4.dfn.de/">DFN Terminplaner</v-btn>
+      <v-btn href="http://www.conf.dfn.de/">DFN Konferenztelefonie</v-btn>
+    </v-layout>
   </v-container>
 </template>
 
