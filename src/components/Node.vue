@@ -22,7 +22,7 @@
               </v-progress-circular>
             </template>
             {{Node.CPUAlloc}} / {{Node.CPUTot}} allocated <span v-if="Node.CPUErr != 0">({{Node.CPUErr}} Err)</span><br>
-            Load: {{Node.CPULoad}} ({{CPULoadPercent}}%)<br>
+            <a href="https://en.wikipedia.org/wiki/Load_(computing)">Load</a>: {{Node.CPULoad}} ({{CPULoadPercent}}%)<br>
             RAM: {{Math.round((Node.RealMemory - Node.FreeMem)/1000)}}/{{Node.RealMemory / 1000}} GB ({{MemPercent}}%)
           </grid-card>
 
@@ -81,6 +81,9 @@ export default {
     },
     MemPercent() {
       return 100 - Math.round((100 * this.Node.FreeMem) / this.Node.RealMemory);
+    },
+    CPULoadPercent() {
+      return 100 - Math.round((100 * this.Node.CPULoad) / this.Node.CPUTot);
     },
     Jobs() {
       return this.Node.jobs || [];
