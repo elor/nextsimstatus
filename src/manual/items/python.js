@@ -1,17 +1,19 @@
 export default [{
   title: "Python auf dem Cluster",
   markdown: `
-\`python2\` ist auf dem Cluster installiert.\
-Ein Environment Module muss dafür nicht geladen werden.
+Python ist in drei Varianten auf dem Cluster installiert:
+* Python 2, nativ (\`/usr/bin/python\`)
+* Python 2, als module (Anaconda2): \`module load python2\`
+* Python 3, als module (Anaconda3): \`module load python3\`
 
-Nicht alle Python-Module sind auf den Knoten vorinstalliert.
-Nutzer können stattdessen die gewünschten Module per \`pip\` in ihr Homeverzeichnis installieren:
+Die Anaconda-Installationen beinhalten eine große Bandbreite an wissenschaftlichen Paketen.
+Wenn euch noch Python-Pakete fehlen, könnt ihr sie selbst für euren Nutzer installieren:
+* \`pip2 install --user mypackage\` für python2
+* \`pip3 install --user mypackage\` für python3
 
-    pip install --user numpy scipy matplotlib
+Um Python-Pakete in ein bestimmtes Verzeichnis zu installieren, könnt ihr die Option \`-t meinverzeichnis\` an pip, pip2 und pip3 übergeben.
 
-Damit ist auch garantiert, dass immer die vom Nutzer gewünschte Version installiert ist und es keine plötzlichen Probleme mit Updates gibt.
-
-\`python3\` und \`pip3\` müssen noch auf dem Cluster installiert werden.\
-Bei dringendem Bedarf bitte an den Admin wenden.
+Wenn wichtige Python-Pakete in den Anaconda-Installationen fehlen, die von vielen Nutzern benutzt werden, dann wendet euch bitte an einen Administrator.
+Er kann die Pakete mittels \`conda\` in die Module-Verzeichnisse installieren.
 `
 }];
