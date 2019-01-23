@@ -33,7 +33,7 @@
             >
           <td>
             <router-link :class="{'grey--text':props.item.inactive}" :to="`/simpc${props.item.number}`">{{props.item.hostname}}</router-link>
-            <v-tooltip v-if="!props.item.inactive && props.item.mounts.length < 3" bottom>
+            <v-tooltip v-if="!props.item.inactive && props.item.mounts.length < 2" bottom>
               <v-icon color="error" slot="activator">error</v-icon>
               <v-text>Missing Mounts</v-text>
             </v-tooltip>
