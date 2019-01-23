@@ -4,11 +4,11 @@ import Router from "vue-router";
 import Todo from "@/components/Todo";
 
 import Dashboard from "@/components/Dashboard";
-import ErrorList from "@/components/ErrorList";
 import Job from "@/components/Job";
 import Jobs from "@/components/Jobs";
 import Node from "@/components/Node";
 import Nodes from "@/components/Nodes";
+import EnsSim from "@/components/EnsSim";
 import SimPCs from "@/components/SimPCs";
 import SimPC from "@/components/SimPC";
 import Periodinator from "@/components/Periodinator";
@@ -94,9 +94,9 @@ export default new Router({
       hidden: true
     },
     {
-      path: "/errors",
-      name: "Errors",
-      component: ErrorList,
+      path: "/enssim",
+      name: "EnsSim",
+      component: EnsSim,
       icon: "error"
     },
     {
