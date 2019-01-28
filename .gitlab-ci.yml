@@ -45,10 +45,6 @@ deploy:mainsim:
     - webpack
   script:
     - rsync -av --delete dist/ /var/www/html
-    - rsync -av --delete daemons/ /opt/mainsimstatus
-    - rsync -av daemons/systemd/mainsimstatus-report-*.service /etc/systemd/system/
-    - systemctl daemon-reload
-    - systemctl restart mainsimstatus-report-*.service
 
 reload:
   stage: reload
