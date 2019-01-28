@@ -3,6 +3,8 @@ import zlib from 'zlib'
 import graphqlquery from './graphqlquery'
 import { request } from 'graphql-request'
 
+let mqttClient
+
 const config = {
   graphql: {
     enabled: undefined,
@@ -58,27 +60,32 @@ function registerGraphQL (store) {
   }
 }
 
-function registerMQTT (store) {
-  // MQTT Section
-  let client = mqtt.connect(config.mqtt.endpoint)
+function unregisterMQTT (store) {
+  if (mqttClient) {
+    mqttClient.end()
+    mqttClient = undefined
+  }
+}
 
-  client.on('connect', () => {
+function registerMQTT (store) {
+  unregisterMQTT()
+  mqttClient = mqtt.connect(config.mqtt.endpoint)
+
+  mqttClient.on('connect', () => {
+    console.log('mqtt connected')
     if (config.mqtt.enabled) {
-      client.subscribe('slurm/nodes')
-      client.subscribe('slurm/jobs')
-      client.subscribe('simpc/#')
+      mqttClient.subscribe('slurm/nodes')
+      mqttClient.subscribe('slurm/jobs')
+      mqttClient.subscribe('simpc/#')
     }
-    client.subscribe('frontend/#')
+    mqttClient.subscribe('frontend/#')
   })
 
-  window.setInterval(() => {
-    if (!client.connected) {
-      console.log('reconnecting to MQTT')
-      client.reconnect()
-    }
-  }, 5000)
+  mqttClient.on('end', () => {
+    console.log('mqtt disconnected')
+  })
 
-  client.on('message', (topic, message) => {
+  mqttClient.on('message', (topic, message) => {
     switch (topic) {
       case 'slurm/nodes':
         store.commit('updateNodes', unpack64(message))
@@ -95,7 +102,7 @@ function registerMQTT (store) {
     }
   })
 
-  client.on('error', error => store.commit('newError', error))
+  mqttClient.on('error', error => store.commit('newError', error))
 }
 
 export default function createMainsimPlugin (sources) {
@@ -106,6 +113,15 @@ export default function createMainsimPlugin (sources) {
   return store => {
     registerGraphQL(store)
     registerMQTT(store)
+
+    setInterval(() => {
+      if (mqttClient && config.mqtt.enabled && !mqttClient.connected) {
+        console.log('mqtt has disconnected. Trying to reconnect')
+        registerMQTT(store)
+      }
+    }, 10000)
+
+    window.mqtt = mqttClient
 
     store.subscribeAction(action => {
       switch (action.type) {
