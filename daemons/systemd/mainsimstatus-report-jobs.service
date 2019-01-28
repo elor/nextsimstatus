@@ -4,7 +4,7 @@ After=syslog.target network.target slurmctld.service
 ConditionFileIsExecutable=/opt/mainsimstatus/daemons/mainsim-daemon.sh
 
 [Service]
-ExecStart=/opt/mainsimstatus/daemons/mainsim-daemon.sh jobs /opt/mainsimstatus/secret.conf
+ExecStart=/opt/mainsimstatus/daemons/mainsim-daemon.sh jobs /opt/mainsimstatus/secrets.json
 
 Restart=always
 RestartSec=15
