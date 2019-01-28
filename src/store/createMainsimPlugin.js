@@ -71,6 +71,12 @@ function registerMQTT(store) {
     client.subscribe("frontend/#");
   });
 
+  window.setInterval(() => {
+    if (!client.connected) {
+      client.reconnect();
+    }
+  }, 5000);
+
   client.on("message", (topic, message) => {
     switch (topic) {
       case "slurm/nodes":
@@ -100,7 +106,7 @@ export default function createMainsimPlugin(sources) {
     registerGraphQL(store);
     registerMQTT(store);
 
-    store.subscribeAction((action) => {
+    store.subscribeAction(action => {
       switch (action.type) {
         case "mainsimFetch":
           fetch(store);
