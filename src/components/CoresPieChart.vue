@@ -3,68 +3,48 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import PieChart from "@/components/PieChart";
-import usercolor from "../utils/usercolor";
+  import { mapGetters, mapState } from "vuex";
+  import PieChart from "@/components/PieChart";
+  import usercolor from "../utils/usercolor";
+  import { sum } from "lodash";
 
-function sum(array) {
-  return array.reduce((a, b) => a + b, 0);
-}
+  export default {
+    props: {
+      height: String,
+      width: String,
+      hidelegend: Boolean
+    },
+    components: {
+      PieChart
+    },
+    computed: {
+      ...mapGetters(["userstatus"]),
+      ...mapState(['usercpus', 'nodecpus']),
+      allocData() {
+        const system = [
+          { name: "Free", cpus: this.nodecpus.free },
+          { name: "Error", cpus: this.nodecpus.errored }
+        ].filter(sys => sys.cpus);
+        const labels = [
+          ...this.usercpus.map(user => user.name),
+          ...system.map(sys => sys.name)
+        ];
 
-function cpudata(nodes) {
-  const allocCPUs = sum(nodes.map(node => Number(node.CPUAlloc)));
-  const errCPUs = sum(nodes.map(node => Number(node.CPUErr)));
-  const totalCPUs = sum(nodes.map(node => Number(node.CPUTot)));
-  const freeCPUs = totalCPUs - allocCPUs - errCPUs;
-
-  return [allocCPUs, freeCPUs, errCPUs];
-}
-
-export default {
-  props: {
-    height: String,
-    width: String,
-    hidelegend: Boolean
-  },
-  components: {
-    PieChart
-  },
-  computed: {
-    ...mapGetters(["nodestatus", "userstatus"]),
-    allocData() {
-      const allocations = cpudata(this.nodestatus);
-      const users = this.userstatus
-        .filter(user => user.NumCPUs)
-        .map(user => ({
-          name: user.UserName,
-          cpus: user.NumCPUs
-        }))
-        .sort((a, b) => b.cpus - a.cpus);
-
-      const system = [
-        { name: "Free", cpus: allocations[1] },
-        { name: "Error", cpus: allocations[2] }
-      ].filter(sys => sys.cpus);
-      const labels = [
-        ...users.map(user => user.name),
-        ...system.map(sys => sys.name)
-      ];
-
-      return {
-        labels: labels,
-        datasets: [
-          {
-            label: "Core Allocations",
-            data: [
-              ...users.map(user => user.cpus),
-              allocations[1],
-              allocations[2]
-            ],
-            backgroundColor: labels.map(usercolor)
-          }
-        ]
-      };
+        return {
+          labels: labels,
+          datasets: [
+            {
+              label: "Core Allocations",
+              data: [
+                ...this.usercpus.map(user => user.cpus),
+                this.nodecpus.free,
+                this.nodecpus.errored
+              ],
+              backgroundColor: labels.map(usercolor)
+            }
+          ]
+        };
+      }
     }
-  }
-};
+  };
 </script>

@@ -1,12 +1,14 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 
-import { uniq, flatten, sum, range, sortBy } from 'lodash'
+import { uniq, flatten, sum, range, sortBy, isEqual } from 'lodash'
 import { nodels } from '../utils/nodels'
 import usercolor from '../utils/usercolor'
+import cpudata from '../utils/cpudata'
 
 import createMainsimPlugin from './createMainsimPlugin'
 import createNowTimePlugin from './createNowTimePlugin'
+import usercores from '../utils/usercores'
 
 const TEN_SECONDS = 10000
 const DEPRECATED_RELEASES = ['14.04', '16.04']
@@ -40,6 +42,8 @@ export default new Vuex.Store({
     jobs: [],
     racks: [],
     errors: [],
+    nodecpus: { allocated: 0, free: 0, errored: 0, total: 0 },
+    usercpus: [],
     simpcs: initialSimpcs,
     dates: {
       nodes: new Date(0),
@@ -104,7 +108,7 @@ export default new Vuex.Store({
         .map(job => ({
           ...job,
           NodeNames: nodels(job.NodeList),
-          UserName: job.UserId.replace(/\(\d+\)/, '')
+          UserName: userNameFromJob(job)
         }))
         .reverse()
     },
@@ -213,10 +217,21 @@ export default new Vuex.Store({
     updateNodes (state, nodes) {
       state.nodes = nodes
       state.dates.nodes = new Date()
+
+      let nodecpus = cpudata(nodes)
+      if (!isEqual(state.nodecpus, nodecpus)) {
+        state.nodecpus = nodecpus
+      }
     },
     updateJobs (state, jobs) {
       state.jobs = jobs
       state.dates.jobs = new Date()
+
+      const jobsSlick = jobs.map(job => ({ NumCPUs: job.NumCPUs, UserName: userNameFromJob(job) }))
+      const usercpus = usercores(jobsSlick)
+      if (!isEqual(state.usercpus, usercpus)) {
+        state.usercpus = usercpus
+      }
     },
     updateNowDate (state, now) {
       state.dates.now = now
@@ -248,3 +263,6 @@ export default new Vuex.Store({
 
   plugins: [createMainsimPlugin(sources), createNowTimePlugin(1000)]
 })
+function userNameFromJob (job) {
+  return job.UserId.replace(/\(\d+\)/, '')
+}
