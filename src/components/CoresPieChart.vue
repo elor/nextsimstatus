@@ -6,7 +6,6 @@
   import { mapGetters, mapState } from "vuex";
   import PieChart from "@/components/PieChart";
   import usercolor from "../utils/usercolor";
-  import { sum } from "lodash";
 
   export default {
     props: {
