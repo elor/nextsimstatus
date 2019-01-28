@@ -17,14 +17,19 @@ host=mainsimweb.etit.tu-chemnitz.de
 dataset="$1"
 mqtt_password=""
 if (( ${#@} == 2 )); then
-    mqtt_password="$2"
-    if [ -s "$mqtt_password" ]; then
-        mqtt_password=$(cat "$mqtt_password")
+    secrets_file="$2"
+    if [ -s "$secrets_file" ]; then
+        mqtt_password=$(python -c "import json; print json.load(open('$secrets_file'))['mqtt']")
     fi
 fi
 
+runfile=""
+topic=""
 case "$dataset" in
     jobs|nodes)
+        runfile="./slurm/$dataset.sh"
+        topic="slurm/$dataset"
+        ;;
         ;;
     *)
         echo "DATASET must be one of \"nodes\" or \"jobs\", not \"$dataset\"" >&2
@@ -35,7 +40,7 @@ esac
 mqtt_user=mqtt
 
 while [ -z "$mqtt_password" ]; do
-    read -sp "password for $mqtt_user@$host: " mqtt_password
+    read -rsp "password for $mqtt_user@$host: " mqtt_password
     echo
     [ -z "$mqtt_password" ] && { echo "you must provide a password to the mqtt host"; exit 1; }
 done
@@ -45,12 +50,12 @@ last_data=0
 interval=1
 
 while true; do
-    data_json="$(./slurm/$dataset.sh | gzip -c | base64)"
+    data_json="$($runfile "$secrets_file" | gzip -c | base64)"
 
     now=$(date +%s)
 
     if ( [ "$data_json" != "$old_data" ] && (( now != last_data )) ) || (( now >= last_data + interval )); then
-        mosquitto_pub -h "$host" -u "$mqtt_user" -P "$mqtt_password" -q 0 -t "slurm/$dataset" -s << EOF
+        mosquitto_pub -h "$host" -u "$mqtt_user" -P "$mqtt_password" -q 0 -t "$topic" -s << EOF
 $data_json
 EOF
         old_data="$data_json"
