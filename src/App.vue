@@ -1,6 +1,5 @@
 <template>
   <v-app>
-
     <v-navigation-drawer persistent :mini-variant="miniVariant" v-model="drawer" enable-resize-watcher app>
       <v-toolbar dark color="primary">
         <v-toolbar-side-icon @click.stop="drawer = !drawer">
@@ -38,8 +37,7 @@
       <v-spacer></v-spacer>
 
       <span v-if="jobs.length > 1000">
-        <v-icon color="orange">warning</v-icon>
-        Viele Jobs, Anzeige hängt. Jobs geht es gut.
+        <v-icon color="orange">warning</v-icon>Viele Jobs, Anzeige hängt. Jobs geht es gut.
       </span>
 
       <v-spacer></v-spacer>
@@ -50,90 +48,46 @@
           <v-icon large color="red">error</v-icon>
         </v-badge>
       </v-toolbar-side-icon>
-
       {{dates.now.toLocaleString()}}
-
- <v-menu
-      open-on-hover
-      open-delay="250"
-      offset-y bottom
-      :close-on-content-click="false"
-    >
-      <v-btn slot="activator"
-             :disabled="updating"
-             fab small
-             :color="dates.now - Math.min(dates.jobs) > options.timeout ? 'error' : 'primary'">
+      <v-btn :disabled="updating" fab small :color="dates.now - Math.min(dates.jobs) > options.timeout ? 'error' : 'primary'">
         <v-icon v-if="!updating" @click="mainsimFetch">refresh</v-icon>
         <v-progress-circular v-else indeterminate></v-progress-circular>
       </v-btn>
-
-      <v-card>
-        <v-list>
-          <v-list-tile>
-            <v-list-tile-action>
-              <v-switch v-model="mqtt"></v-switch>
-            </v-list-tile-action>
-            <v-list-tile-title>MQTT</v-list-tile-title>
-          </v-list-tile>
-
-          <v-list-tile>
-            <v-list-tile-action>
-              <v-switch v-model="graphql"></v-switch>
-            </v-list-tile-action>
-            <v-list-tile-title>GraphQL</v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-card>
-    </v-menu>
-     
     </v-toolbar>
 
     <v-content>
       <router-view />
     </v-content>
-
   </v-app>
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+  import { mapState, mapActions } from "vuex";
 
-export default {
-  data() {
-    return {
-      drawer: false,
-      miniVariant: false
-    };
-  },
-  computed: {
-    ...mapState(["errors", "dates", "options", "jobs", "updating", "sources"]),
-    items() {
-      return this.$router.options.routes.filter(
-        route => !route.path.match(/:/)
-      );
+  export default {
+    data() {
+      return {
+        drawer: false,
+        miniVariant: false
+      };
     },
-    mqtt: {
-      get() {
-        return this.sources.mqtt;
-      },
-      set() {}
+    computed: {
+      ...mapState(["errors", "dates", "options", "jobs", "updating", "sources"]),
+      items() {
+        return this.$router.options.routes.filter(
+          route => !route.path.match(/:/)
+        );
+      }
     },
-    graphql: {
-      get() {
-        return this.sources.graphql;
-      },
-      set() {}
-    }
-  },
-  methods: {
-    ...mapActions(["mainsimFetch"])
-  },
-  name: "App"
-};
+    methods: {
+      ...mapActions(["mainsimFetch"])
+    },
+    name: "App"
+  };
 </script>
 
 <style>
-.noanimation .v-progress-circular__overlay {
-  transition: none;
-}
+  .noanimation .v-progress-circular__overlay {
+    transition: none;
+  }
 </style>
