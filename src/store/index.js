@@ -1,7 +1,7 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 
-import { uniq, flatten, sum, range, sortBy, cloneDeep } from 'lodash'
+import { uniq, flatten, sum, range, sortBy } from 'lodash'
 import { nodels } from '../utils/nodels'
 import usercolor from '../utils/usercolor'
 
