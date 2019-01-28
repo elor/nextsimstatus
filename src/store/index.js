@@ -1,7 +1,7 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
 
-import { uniq, flatten, sum, range, sortBy } from 'lodash'
+import { uniq, flatten, sum, range, sortBy, cloneDeep } from 'lodash'
 import { nodels } from '../utils/nodels'
 import usercolor from '../utils/usercolor'
 
@@ -38,6 +38,7 @@ export default new Vuex.Store({
   state: {
     nodes: [],
     jobs: [],
+    racks: [],
     errors: [],
     simpcs: initialSimpcs,
     dates: {
@@ -170,6 +171,41 @@ export default new Vuex.Store({
         load_5min: pc.load && Number(pc.load[1]),
         load_15min: pc.load && Number(pc.load[2])
       }))
+    },
+    rackstatus (state) {
+      return state.racks.map(rack => ({
+        ...rack,
+        temperatures: {
+          supply_water: {
+            min: 10,
+            low: 10,
+            val: rack.supply_water,
+            high: 20,
+            max: 50
+          },
+          return_water: {
+            min: 10,
+            low: 10,
+            val: rack.return_water,
+            high: 30,
+            max: 50
+          },
+          supply_air: {
+            min: 10,
+            low: 20,
+            val: rack.supply_air,
+            high: 40,
+            max: 50
+          },
+          return_air: {
+            min: 10,
+            low: 20,
+            val: rack.return_air,
+            high: 50,
+            max: 50
+          }
+        }
+      }))
     }
   },
 
@@ -187,6 +223,9 @@ export default new Vuex.Store({
     },
     updateSimPC (state, simpc) {
       state.simpcs[simpc.hostname] = simpc
+    },
+    updateRacks (state, racks) {
+      state.racks = racks
     },
     newError (state, error) {
       state.errors.push({

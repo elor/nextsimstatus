@@ -77,6 +77,7 @@ function registerMQTT (store) {
       mqttClient.subscribe('slurm/nodes')
       mqttClient.subscribe('slurm/jobs')
       mqttClient.subscribe('simpc/#')
+      mqttClient.subscribe('racks/racks')
     }
     mqttClient.subscribe('frontend/#')
   })
@@ -95,6 +96,9 @@ function registerMQTT (store) {
         break
       case (topic.match(/simpc\/simpc\d+/) || {}).input:
         store.commit('updateSimPC', unpack(message))
+        break
+      case 'racks/racks':
+        store.commit('updateRacks', unpack64(message))
         break
       case 'frontend/update':
         window.location.reload()
@@ -120,8 +124,6 @@ export default function createMainsimPlugin (sources) {
         registerMQTT(store)
       }
     }, 10000)
-
-    window.mqtt = mqttClient
 
     store.subscribeAction(action => {
       switch (action.type) {
