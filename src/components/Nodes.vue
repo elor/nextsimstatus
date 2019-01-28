@@ -7,25 +7,17 @@
             <NodeList></NodeList>
           </v-flex>
           <v-flex xs="12" md="6">
-            <v-text-field append-icon="search"
-                          label="Search"
-                          single-line
-                          hide-details
-                          v-model="search"></v-text-field>
+            <v-text-field append-icon="search" label="Search" single-line hide-details v-model="search"></v-text-field>
           </v-flex>
         </v-layout>
       </v-card-title>
-      <v-data-table :headers="headers"
-                    :items="nodestatus"
-                    :search="search"
-                    hide-actions>
+      <v-data-table :headers="headers" :items="nodestatus" :search="search" hide-actions>
         <template slot="items" slot-scope="props">
           <td>
             <router-link :to="`/${props.item.NodeName}`">{{props.item.NodeName}}</router-link>
           </td>
           <td>
-            <v-progress-circular :value="100*props.item.CPUAlloc/props.item.CPUTot"
-                                 :color="props.item.CPUAlloc == props.item.CPUTot ? 'light-blue' : 'green'">
+            <v-progress-circular :value="100*props.item.CPUAlloc/props.item.CPUTot" :color="props.item.CPUAlloc == props.item.CPUTot ? 'light-blue' : 'green'">
               {{props.item.CPUAlloc}}
             </v-progress-circular>
           </td>
@@ -46,9 +38,8 @@
             </span>
           </td>
           <td>
-            <cpu-load :load="props.item.CPULoad" :cores="props.item.CPUTot"></cpu-load>
-            <v-progress-circular :value="100*(1 - props.item.FreeMem/props.item.RealMemory)"
-                                 :color="props.item.FreeMem < 0.1*props.item.RealMemory ? 'red' : 'light-blue'">
+            <cpu-load :load="Number(props.item.CPULoad)" :cores="Number(props.item.CPUTot)"></cpu-load>
+            <v-progress-circular :value="100*(1 - props.item.FreeMem/props.item.RealMemory)" :color="props.item.FreeMem < 0.1*props.item.RealMemory ? 'red' : 'light-blue'">
             </v-progress-circular>
           </td>
           <td>{{props.item.Partitions}}</td>
@@ -69,85 +60,85 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import NodeList from "@/components/NodeList";
-import CpuLoad from "@/components/CpuLoad";
-import { capitalize } from "../utils/capitalize";
+  import { mapGetters } from "vuex";
+  import NodeList from "@/components/NodeList";
+  import CpuLoad from "@/components/CpuLoad";
+  import { capitalize } from "../utils/capitalize";
 
-const warnstates = ["DRAIN", "MAINT", "DOWN", "POWER_UP", "POWER_DOWN"];
-const failstates = ["*", "NoResp", "FAILING", "ERROR", "FAIL"];
+  const warnstates = ["DRAIN", "MAINT", "DOWN", "POWER_UP", "POWER_DOWN"];
+  const failstates = ["*", "NoResp", "FAILING", "ERROR", "FAIL"];
 
-export default {
-  data() {
-    return {
-      headers: [
-        {
-          text: "Node",
-          align: "left",
-          sortable: true,
-          value: "NodeName"
-        },
-        {
-          text: "Usage",
-          align: "left",
-          sortable: true,
-          value: "CPUAlloc"
-        },
-        {
-          text: "Jobs",
-          align: "left",
-          sortable: false,
-          value: "jobs"
-        },
-        {
-          text: "Users",
-          align: "left",
-          sortable: false,
-          value: "users"
-        },
-        {
-          text: "CPU/Mem",
-          align: "left",
-          sortable: true,
-          value: "CPULoad"
-        },
-        {
-          text: "Partitions",
-          align: "left",
-          sortable: true,
-          value: "Partitions"
-        },
-        {
-          text: "State",
-          align: "left",
-          sortable: true,
-          value: "State"
-        },
-        {
-          text: "BootTime",
-          align: "left",
-          sortable: true,
-          value: "BootTime"
-        }
-      ],
-      search: ""
-    };
-  },
-  computed: {
-    ...mapGetters(["nodestatus"])
-  },
-  methods: {
-    capitalize,
-    isWarningState(state) {
-      return warnstates.includes(state);
+  export default {
+    data() {
+      return {
+        headers: [
+          {
+            text: "Node",
+            align: "left",
+            sortable: true,
+            value: "NodeName"
+          },
+          {
+            text: "Usage",
+            align: "left",
+            sortable: true,
+            value: "CPUAlloc"
+          },
+          {
+            text: "Jobs",
+            align: "left",
+            sortable: false,
+            value: "jobs"
+          },
+          {
+            text: "Users",
+            align: "left",
+            sortable: false,
+            value: "users"
+          },
+          {
+            text: "CPU/Mem",
+            align: "left",
+            sortable: true,
+            value: "CPULoad"
+          },
+          {
+            text: "Partitions",
+            align: "left",
+            sortable: true,
+            value: "Partitions"
+          },
+          {
+            text: "State",
+            align: "left",
+            sortable: true,
+            value: "State"
+          },
+          {
+            text: "BootTime",
+            align: "left",
+            sortable: true,
+            value: "BootTime"
+          }
+        ],
+        search: ""
+      };
     },
-    isFailState(state) {
-      return failstates.includes(state);
+    computed: {
+      ...mapGetters(["nodestatus"])
+    },
+    methods: {
+      capitalize,
+      isWarningState(state) {
+        return warnstates.includes(state);
+      },
+      isFailState(state) {
+        return failstates.includes(state);
+      }
+    },
+    components: {
+      NodeList,
+      CpuLoad
     }
-  },
-  components: {
-    NodeList,
-    CpuLoad
-  }
-};
+  };
 </script>
