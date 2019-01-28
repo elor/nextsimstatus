@@ -12,15 +12,18 @@ import sys
 RACKS = {
     1: {
         "ip": "10.10.214.101",
-        "name": "C50.240_Rack1-2 (Mainsim)"
+        "name": "C50.240_Rack1-2 (Mainsim)",
+        "shortname": "Rack1-2"
     },
     2: {
         "ip": "10.10.214.102",
-        "name": "C50.240_Rack3-4 (Enssim)"
+        "name": "C50.240_Rack3-4 (Enssim)",
+        "shortname": "Rack3-4"
     },
     3: {
         "ip": "10.10.214.103",
-        "name": "C50.240_Rack5-6 (leer)"
+        "name": "C50.240_Rack5-6 (leer)",
+        "shortname": "Rack5-6"
     }
 }
 
@@ -78,6 +81,7 @@ class Rack(object):
         self.number = number
         self.ip = RACKS[number]["ip"]
         self.name = RACKS[number]["name"]
+        self.shortname = RACKS[number]["shortname"]
         self.cookie = None
 
     def url(self, action):
@@ -133,12 +137,19 @@ class Rack(object):
         translated_values["raw"] = {"alarms": all_alarms, "values": all_values}
         return translated_values
 
-    def get_values(self):
+    def get_constants(self):
+        return {"name": self.name, "shortname": self.shortname}
+
+    def get_values(self, include_raw=True):
         data = {"pagename": "ajax_read", "page": "status_c", "racknum": "0"}
         response = requests.post(
             self.url("ajax_request"), data=data, verify=False)
 
-        return self.parse_values(response.text)
+        data = self.get_constants()
+        data.update(self.parse_values(response.text))
+        if not include_raw:
+            del data["raw"]
+        return data
 
 
 def rack_status_as_json(racknumber, user, password):
