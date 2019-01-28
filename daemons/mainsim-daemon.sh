@@ -25,14 +25,17 @@ fi
 
 runfile=""
 topic=""
+interval=10
 case "$dataset" in
     jobs|nodes)
         runfile="./slurm/$dataset.sh"
         topic="slurm/$dataset"
+        interval=1
         ;;
     racks)
         runfile="./racks/rackstatus.py"
         topic="racks/$dataset"
+        interval=60
         ;;
     *)
         echo "DATASET must be one of \"nodes\" or \"jobs\", not \"$dataset\"" >&2
@@ -50,7 +53,6 @@ done
 
 old_data=""
 last_data=0
-interval=1
 
 while true; do
     data_json="$($runfile "$secrets_file" | gzip -c | base64)"
@@ -66,4 +68,3 @@ EOF
         echo "$dataset $(date) $(wc -c <<< "$data_json")B"
     fi
 done
-
