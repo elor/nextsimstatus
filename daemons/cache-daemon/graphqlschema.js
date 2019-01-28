@@ -1,6 +1,6 @@
 const {
   buildSchema
-} = require("graphql");
+} = require('graphql')
 
 module.exports = buildSchema(`
 type Query {
@@ -99,4 +99,4 @@ type Mount {
   source: String
   type: String
 }
-`);
+`)

@@ -1,17 +1,17 @@
-import Vuex from "vuex";
-import Vue from "vue";
+import Vuex from 'vuex'
+import Vue from 'vue'
 
-import { uniq, flatten, sum, range, sortBy } from "lodash";
-import { nodels } from "../utils/nodels";
-import usercolor from "../utils/usercolor";
+import { uniq, flatten, sum, range, sortBy } from 'lodash'
+import { nodels } from '../utils/nodels'
+import usercolor from '../utils/usercolor'
 
-import createMainsimPlugin from "./createMainsimPlugin";
-import createNowTimePlugin from "./createNowTimePlugin";
+import createMainsimPlugin from './createMainsimPlugin'
+import createNowTimePlugin from './createNowTimePlugin'
 
-const TEN_SECONDS = 10000;
-const DEPRECATED_RELEASES = ["14.04", "16.04"];
+const TEN_SECONDS = 10000
+const DEPRECATED_RELEASES = ['14.04', '16.04']
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 const initialSimpcs = range(16, 43)
   .map(n => `simpc${n}`)
@@ -26,13 +26,13 @@ const initialSimpcs = range(16, 43)
       ...b
     }),
     {}
-  );
+  )
 
 const sources = {
   graphql: true,
   graphql_interval: undefined,
   mqtt: true
-};
+}
 
 export default new Vuex.Store({
   state: {
@@ -53,21 +53,21 @@ export default new Vuex.Store({
   },
 
   getters: {
-    nodestatus(state, getters) {
+    nodestatus (state, getters) {
       return state.nodes
         .map(node => ({
           ...node,
           jobs: getters.jobstatus
-            .filter(job => job.JobState === "RUNNING")
+            .filter(job => job.JobState === 'RUNNING')
             .filter(job => job.NodeNames.includes(node.NodeName)),
           States: flatten(
-            node.State.split("+").map(
+            node.State.split('+').map(
               state =>
-                state.endsWith("*") ? [state.replace(/\**$/, ""), "*"] : state
+                state.endsWith('*') ? [state.replace(/\**$/, ''), '*'] : state
             )
           ),
-          FreeMem: node.FreeMem === "N/A" ? "0" : node.FreeMem,
-          Reason: node.Reason || ""
+          FreeMem: node.FreeMem === 'N/A' ? '0' : node.FreeMem,
+          Reason: node.Reason || ''
         }))
         .map(node => ({
           ...node,
@@ -79,12 +79,12 @@ export default new Vuex.Store({
               jobs: node.jobs.filter(job => job.ArrayJobId === array)
             })),
           pureJobs: node.jobs.filter(job => !job.ArrayJobId)
-        }));
+        }))
     },
-    partitions(state) {
-      return uniq(state.nodes.map(node => node.Partitions));
+    partitions (state) {
+      return uniq(state.nodes.map(node => node.Partitions))
     },
-    partitionstatus(state, getters) {
+    partitionstatus (state, getters) {
       return getters.partitions
         .map(partition => ({
           PartitionName: partition,
@@ -96,18 +96,18 @@ export default new Vuex.Store({
           ...partition,
           CPUAlloc: sum(partition.Nodes.map(node => Number(node.CPUAlloc))),
           CPUTot: sum(partition.Nodes.map(node => Number(node.CPUTot)))
-        }));
+        }))
     },
-    jobstatus(state) {
+    jobstatus (state) {
       return state.jobs
         .map(job => ({
           ...job,
           NodeNames: nodels(job.NodeList),
-          UserName: job.UserId.replace(/\(\d+\)/, "")
+          UserName: job.UserId.replace(/\(\d+\)/, '')
         }))
-        .reverse();
+        .reverse()
     },
-    userstatus(state, getters) {
+    userstatus (state, getters) {
       const users = uniq([
         ...getters.jobstatus.map(job => job.UserName),
         ...flatten(getters.simpcstatus.map(pc => pc.usernames))
@@ -149,62 +149,62 @@ export default new Vuex.Store({
               user.PendingJobs.length -
               user.RunningJobs.length
           }
-        }));
-      return sortBy(users, "UserName");
+        }))
+      return sortBy(users, 'UserName')
     },
-    simpcstatus(state) {
+    simpcstatus (state) {
       return Object.values(state.simpcs).map(pc => ({
         ...pc,
-        number: Number(pc.hostname.replace(/\D/g, "")),
-        usernames: uniq((pc.users || []).map(user => user.split(" ")[0])),
+        number: Number(pc.hostname.replace(/\D/g, '')),
+        usernames: uniq((pc.users || []).map(user => user.split(' ')[0])),
         inactive:
           !pc.datetime || state.dates.now - new Date(pc.datetime) > TEN_SECONDS,
         lastupdate: pc.datetime
           ? Math.max(
-              0,
-              Math.floor((state.dates.now - new Date(pc.datetime)) / 1000)
-            )
+            0,
+            Math.floor((state.dates.now - new Date(pc.datetime)) / 1000)
+          )
           : undefined,
         isoldrelease: DEPRECATED_RELEASES.includes(pc.release),
         load_1min: pc.load && Number(pc.load[0]),
         load_5min: pc.load && Number(pc.load[1]),
         load_15min: pc.load && Number(pc.load[2])
-      }));
+      }))
     }
   },
 
   mutations: {
-    updateNodes(state, nodes) {
-      state.nodes = nodes;
-      state.dates.nodes = new Date();
+    updateNodes (state, nodes) {
+      state.nodes = nodes
+      state.dates.nodes = new Date()
     },
-    updateJobs(state, jobs) {
-      state.jobs = jobs;
-      state.dates.jobs = new Date();
+    updateJobs (state, jobs) {
+      state.jobs = jobs
+      state.dates.jobs = new Date()
     },
-    updateNowDate(state, now) {
-      state.dates.now = now;
+    updateNowDate (state, now) {
+      state.dates.now = now
     },
-    updateSimPC(state, simpc) {
-      state.simpcs[simpc.hostname] = simpc;
+    updateSimPC (state, simpc) {
+      state.simpcs[simpc.hostname] = simpc
     },
-    newError(state, error) {
+    newError (state, error) {
       state.errors.push({
         date: new Date(),
         message: error
-      });
+      })
     },
-    startUpdating(state) {
-      state.updating = true;
+    startUpdating (state) {
+      state.updating = true
     },
-    stopUpdating(state) {
-      state.updating = false;
+    stopUpdating (state) {
+      state.updating = false
     }
   },
 
   actions: {
-    mainsimFetch() {}
+    mainsimFetch () {}
   },
 
   plugins: [createMainsimPlugin(sources), createNowTimePlugin(1000)]
-});
+})

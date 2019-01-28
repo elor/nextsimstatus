@@ -1,7 +1,7 @@
 export default [{
-    active: true,
-    title: "Erste Schritte",
-    markdown: `
+  active: true,
+  title: 'Erste Schritte',
+  markdown: `
 ### Willkommen auf dem MainSim-Cluster
 Hier findest du Anleitungen und Hilfestellungen im Umgang mit dem MainSim-Cluster.
 Gewünschtes Thema einfach per Klick ausklappen.
@@ -21,11 +21,11 @@ Bitte auch die Suchfunktion benutzen.
 3. #### Mit dem Cluster vertraut machen
    Lies dir diese Anleitung durch und suche nach den für dich relevanten Themen.
 `
-  },
+},
 
-  {
-    title: "Nutzer, Gruppen und Passwörter",
-    markdown: `
+{
+  title: 'Nutzer, Gruppen und Passwörter',
+  markdown: `
 Der **Nutzername** (Username, Login, ...) setzt sich aus dem Initialen des Rufnamen und dem vollständigen Nachnamen zusammen:
 
 * **e.lorenz** für Erik E. Lorenz
@@ -43,11 +43,11 @@ Ihr könnt euer Passwort jederzeit an jedem simpc sowie auf mainsim.etit.tu-chem
 Wenn ihr euer Passwort mal vergessen habt, können es die MainSim-Admins zurücksetzen.
 Sag ihnen einfach, dass sie es per *Apache Directory Studio* ändern müssen.
 `
-  },
+},
 
-  {
-    title: "Nutzerverzeichnisse und Austauschverzeichnisse",
-    markdown: `
+{
+  title: 'Nutzerverzeichnisse und Austauschverzeichnisse',
+  markdown: `
 Die **Nutzerverzeichnisse** liegen unter \`/beegfs-home/users/{Nutzer}\`\\
 Sie sind nur vom jeweiligen Nutzer einsehbar, stehen aber auf allen SimPCs und dem gesamten Cluster zur Verfügung.
 
@@ -56,11 +56,11 @@ Hier können Nutzer der gleichen Gruppen Dateien austauschen und gemeinsam bearb
 Sollten Dateien einmal nicht von den Anderen lesbar sein, wurden sie wahrscheinlich in den Austauschordner verschoben, nicht kopiert.
 In diesem Fall einfach die Dateien und Order nochmal *kopieren*, dann übernehmen sie die Zugriffsrechte des Austauschordners.
 `
-  },
+},
 
-  {
-    title: "Tägliches Backup",
-    markdown: `
+{
+  title: 'Tägliches Backup',
+  markdown: `
 Es werden automatisch jede Nacht **Backups** aller Nutzerverzeichnisse und Austauschverzeichnisse unter \`/beegfs-home\` angelegt.
 
 Die meisten Backups werden nach einer bestimmten Zeit automatisch wieder gelöscht.
@@ -77,5 +77,5 @@ Alle darin enthaltenen Dateien werden nicht kopiert.
 
 Ebenso werden alle Dateien und Verzeichnisse, die mit \`~\` enden, vom Backup ausgeschlossen, z.B. \`intermediate_results~\`, \`cache~\`, \`bigfile.txt~\`.
 `
-  }
-];
+}
+]

@@ -1,10 +1,10 @@
-export function capitalize(word) {
+export function capitalize (word) {
   switch (word.length) {
     case 0:
-      return "";
+      return ''
     case 1:
-      return word.toUpperCase();
+      return word.toUpperCase()
     default:
-      return `${word[0].toUpperCase() + word.slice(1).toLowerCase()}`;
+      return `${word[0].toUpperCase() + word.slice(1).toLowerCase()}`
   }
 }

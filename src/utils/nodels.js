@@ -1,59 +1,59 @@
-import { range, flattenDeep, flatten, uniq, padStart } from "lodash";
+import { range, flattenDeep, flatten, uniq, padStart } from 'lodash'
 
-export function nodels(definition) {
-  let re = /([a-z0-9]+)(\[(\d+([,-]\d+)*)\])?/g;
-  let strictRe = /^([a-z0-9]+)(\[(\d+([,-]\d+)*)\])?(,([a-z0-9]+)(\[(\d+([,-]\d+)*)\])?)*$/;
+export function nodels (definition) {
+  let re = /([a-z0-9]+)(\[(\d+([,-]\d+)*)\])?/g
+  let strictRe = /^([a-z0-9]+)(\[(\d+([,-]\d+)*)\])?(,([a-z0-9]+)(\[(\d+([,-]\d+)*)\])?)*$/
 
   if (!strictRe.test(definition)) {
-    return [];
+    return []
   }
 
-  const defs = matchAll(re, definition);
+  const defs = matchAll(re, definition)
 
-  const nodes = flatten(defs.map(def => def2nums(def.numdef).map(num => `${def.base}${num}`)));
+  const nodes = flatten(defs.map(def => def2nums(def.numdef).map(num => `${def.base}${num}`)))
 
-  return uniq(nodes);
+  return uniq(nodes)
 }
 
-function matchAll(re, string) {
-  let matches = [];
+function matchAll (re, string) {
+  let matches = []
 
-  for(;;) {
-    let match = re.exec(string);
+  for (;;) {
+    let match = re.exec(string)
     if (!match) {
-      break;
+      break
     }
-    matches.push({ base: match[1], numdef: match[3] });
+    matches.push({ base: match[1], numdef: match[3] })
   }
 
-  return matches;
+  return matches
 }
 
-function def2nums(def) {
+function def2nums (def) {
   if (!def) {
-    return [""];
+    return ['']
   }
 
-  const parts = def.split(",");
+  const parts = def.split(',')
   const nums = parts.map(part => {
-    const match = /^(\d+)-(\d+)$/.exec(part);
+    const match = /^(\d+)-(\d+)$/.exec(part)
     if (!match) {
-      return part;
+      return part
     }
 
     // reproduce odd behavior of "nodels" command
     if (match[1].length > match[2].length) {
-      return [];
+      return []
     }
 
-    const first = Number(match[1]);
-    const last = Number(match[2]);
+    const first = Number(match[1])
+    const last = Number(match[2])
 
-    const numbers = range(first, last + 1);
-    const digits = Math.min(match[1].length, match[2].length);
+    const numbers = range(first, last + 1)
+    const digits = Math.min(match[1].length, match[2].length)
 
-    return numbers.map(num => padStart(num, digits, "0"));
-  });
+    return numbers.map(num => padStart(num, digits, '0'))
+  })
 
-  return flattenDeep(nums);
+  return flattenDeep(nums)
 }

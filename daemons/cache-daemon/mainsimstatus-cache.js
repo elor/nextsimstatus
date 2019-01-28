@@ -1,7 +1,8 @@
 #!/usr/bin/node
 
-const receiver = require("./receiver");
-const listener = require("./listener");
+const receiver = require('./receiver')
+const listener = require('./listener')
+const assert = require('assert')
 
 let store = {
   nodes: {},
@@ -10,40 +11,44 @@ let store = {
   simpcs: {},
   lastupdate: new Date(0),
   cachestart: new Date()
-};
+}
 
 const receiveFuncs = {
-  nodes(msg) {
-    store.nodes = msg;
+  nodes (msg) {
+    store.nodes = msg
   },
-  jobs(msg) {
-    store.jobs = msg;
+  jobs (msg) {
+    store.jobs = msg
   },
-  users(msg) {
-    store.users = msg;
+  users (msg) {
+    store.users = msg
   },
-  simpc(simpc) {
-    store.simpcs[simpc.hostname] = simpc;
+  simpc (simpc) {
+    store.simpcs[simpc.hostname] = simpc
   }
-};
-
-function updateCallback(topic, message) {
-  store.lastupdate = new Date();
-  receiveFuncs[topic](message);
 }
 
-function getDataCallback() {
-  return store;
+function updateCallback (topic, message) {
+  store.lastupdate = new Date()
+  receiveFuncs[topic](message)
 }
 
-function print() {
-  const now = new Date().toISOString();
-  const lastupdate = store.lastupdate.toISOString();
-  console.log(`${now}: ${lastupdate}`);
+function getDataCallback () {
+  return store
 }
 
-let mqttClient = receiver.connect(updateCallback);
-let httpServer = listener.listen(8080, getDataCallback);
+function print () {
+  const now = new Date().toISOString()
+  const lastupdate = store.lastupdate.toISOString()
+  console.log(`${now}: ${lastupdate}`)
+}
 
-let printerval = setInterval(print, 5000);
-print();
+let mqttClient = receiver.connect(updateCallback)
+assert(mqttClient)
+let httpServer = listener.listen(8080, getDataCallback)
+assert(httpServer)
+
+let printerval = setInterval(print, 5000)
+assert(printerval)
+
+print()

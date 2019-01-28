@@ -1,6 +1,6 @@
 export default [
   {
-    title: "SimPC-Workstations",
+    title: 'SimPC-Workstations',
     markdown: `
 Unsere Workstations (SimPCs) teilen die Benutzer, Benutzerverzeichnisse und Gruppenverzeichnisse mit dem MainSim-Cluster.
 
@@ -8,7 +8,7 @@ Somit werden alle Nutzerdateien automatisch synchronisiert und in das tägliche 
 `
   },
   {
-    title: "VPN",
+    title: 'VPN',
     markdown: `
 Gelegentlich ist die Nutzung eines VPN-Zugangs nötig, um auf externe Ressourcen wie etwas andere Forschungsinstitute zugreifen zu können.
 
@@ -26,4 +26,4 @@ Zum Beenden der VPN-Verbindung müsst ihr Anyconnect öffnen und auf "Disconnect
 
 `
   }
-];
+]

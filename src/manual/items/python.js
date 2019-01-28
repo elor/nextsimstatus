@@ -1,5 +1,5 @@
 export default [{
-  title: "Python auf dem Cluster",
+  title: 'Python auf dem Cluster',
   markdown: `
 Python ist in drei Varianten auf dem Cluster installiert:
 * Python 2, nativ (\`/usr/bin/python\`)
@@ -16,4 +16,4 @@ Um Python-Pakete in ein bestimmtes Verzeichnis zu installieren, könnt ihr die O
 Wenn wichtige Python-Pakete in den Anaconda-Installationen fehlen, die von vielen Nutzern benutzt werden, dann wendet euch bitte an einen Administrator.
 Er kann die Pakete mittels \`conda\` in die Module-Verzeichnisse installieren.
 `
-}];
+}]

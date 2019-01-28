@@ -1,5 +1,5 @@
-export default function createNowTimePlugin(intervalMilliSeconds) {
+export default function createNowTimePlugin (intervalMilliSeconds) {
   return store => {
-    window.setInterval(() => store.commit("updateNowDate", new Date()), intervalMilliSeconds);
-  };
+    window.setInterval(() => store.commit('updateNowDate', new Date()), intervalMilliSeconds)
+  }
 }

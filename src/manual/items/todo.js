@@ -1,5 +1,5 @@
 export default [{
-  title: "TODO",
+  title: 'TODO',
   markdown: `
 * First Steps
 * SLURM-Befehle
@@ -12,4 +12,4 @@ export default [{
 * SimPCs
 * Terminal-Ressourcen (First Steps)
 `
-}];
+}]

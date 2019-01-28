@@ -1,5 +1,5 @@
-import { rand } from "mersenne";
-import { range as _range } from "lodash";
+import { rand } from 'mersenne'
+import { range as _range } from 'lodash'
 
 const random = {
   /**
@@ -10,17 +10,17 @@ const random = {
    * @param max Optional. Exclusive maximum.
    * @returns a random integer in [min, max) or [max, min), if max < min
    */
-  int(min, max) {
-    max = max || 0;
+  int (min, max) {
+    max = max || 0
     if (min > max) {
-      return random.int(max, min);
+      return random.int(max, min)
     }
 
     if (min === max) {
-      return min;
+      return min
     }
 
-    return min + rand(max - min);
+    return min + rand(max - min)
   },
 
   /**
@@ -31,11 +31,11 @@ const random = {
    * @param array The array to pick from
    * @returns a random element from the array.
    */
-  pick(array) {
+  pick (array) {
     if (array.length === 0) {
-      throw new RangeError();
+      throw new RangeError()
     }
-    return array[random.int(array.length)];
+    return array[random.int(array.length)]
   },
 
   /**
@@ -46,22 +46,22 @@ const random = {
    * @param array The array to pick and remove from
    * @returns a random element from the array.
    */
-  pluck(array) {
+  pluck (array) {
     if (array.length === 0) {
-      throw new RangeError();
+      throw new RangeError()
     }
-    return array.splice(random.int(array.length), 1)[0];
+    return array.splice(random.int(array.length), 1)[0]
   },
 
-  range(from, to) {
-    const indices = _range(from, to);
+  range (from, to) {
+    const indices = _range(from, to)
 
-    return indices.slice().map(() => random.pluck(indices));
+    return indices.slice().map(() => random.pluck(indices))
   },
 
-  shuffle(array) {
-    return random.range(array.length).map(i => array[i]);
+  shuffle (array) {
+    return random.range(array.length).map(i => array[i])
   }
-};
+}
 
-export default random;
+export default random
