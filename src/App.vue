@@ -50,7 +50,7 @@
       </v-toolbar-side-icon>
       {{dates.now.toLocaleString()}}
       <v-btn :disabled="updating" fab small :color="dates.now - Math.min(dates.jobs) > options.timeout ? 'error' : 'primary'">
-        <v-icon v-if="!updating" @click="mainsimFetch">refresh</v-icon>
+        <v-icon v-if="!updating" @click="refresh">refresh</v-icon>
         <v-progress-circular v-else indeterminate></v-progress-circular>
       </v-btn>
     </v-toolbar>
@@ -80,7 +80,11 @@
       }
     },
     methods: {
-      ...mapActions(["mainsimFetch"])
+      ...mapActions(["mainsimFetch", "mqttReconnect"]),
+      refresh() {
+        this.mainsimFetch()
+        this.mqttReconnect()
+      }
     },
     name: "App"
   };

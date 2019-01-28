@@ -112,6 +112,9 @@ export default function createMainsimPlugin (sources) {
         case 'mainsimFetch':
           fetch(store)
           break
+        case 'mqttReconnect':
+          registerMQTT(store)
+          break
       }
     })
   }

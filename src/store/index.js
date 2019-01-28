@@ -203,7 +203,8 @@ export default new Vuex.Store({
   },
 
   actions: {
-    mainsimFetch () {}
+    mainsimFetch () { },
+    mqttReconnect () { }
   },
 
   plugins: [createMainsimPlugin(sources), createNowTimePlugin(1000)]
