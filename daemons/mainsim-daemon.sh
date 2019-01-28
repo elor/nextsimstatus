@@ -30,6 +30,9 @@ case "$dataset" in
         runfile="./slurm/$dataset.sh"
         topic="slurm/$dataset"
         ;;
+    racks)
+        runfile="./racks/rackstatus.py"
+        topic="racks/$dataset"
         ;;
     *)
         echo "DATASET must be one of \"nodes\" or \"jobs\", not \"$dataset\"" >&2
