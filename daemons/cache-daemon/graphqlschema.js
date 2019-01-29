@@ -91,6 +91,7 @@ type SimPC {
   release: String
   uptime: Float
   users: [String]
+  vpn: Boolean
 }
 
 type Mount {
