@@ -53,6 +53,7 @@ export default `
     release
     uptime
     users
+    vpn
   }
 }
 `
