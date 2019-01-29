@@ -6,36 +6,29 @@
           <v-flex xs="12" md="4">
             <v-radio-group v-model="visibility">
               <v-layout row wrap>
-                <v-radio label="all" value="all"/>
-                <v-radio label="recent" value="recent"/>
-                <v-radio label="current" value="current"/>
-                <v-radio label="login" value="login"/>
+                <v-radio label="all" value="all" />
+                <v-radio label="recent" value="recent" />
+                <v-radio label="current" value="current" />
+                <v-radio label="login" value="login" />
               </v-layout>
             </v-radio-group>
           </v-flex>
           <v-flex xs="12" md="8">
-            <v-text-field append-icon="search"
-                          label="Search"
-                          single-line
-                          hide-details
-                          v-model="search"></v-text-field>
+            <v-text-field append-icon="search" label="Search" single-line hide-details v-model="search"></v-text-field>
           </v-flex>
         </v-layout>
       </v-card-title>
-      <v-data-table :headers="headers"
-                    :items="simpcstatus"
-                    :search="search"
-                    hide-actions>
-        <tr slot="items"
-            slot-scope="props"
-            :class="{'grey--text':props.item.inactive}"
-            v-if="visible(props.item)"
-            >
+      <v-data-table :headers="headers" :items="simpcstatus" :search="search" hide-actions>
+        <tr slot="items" slot-scope="props" :class="{'grey--text':props.item.inactive}" v-if="visible(props.item)">
           <td>
             <router-link :class="{'grey--text':props.item.inactive}" :to="`/simpc${props.item.number}`">{{props.item.hostname}}</router-link>
             <v-tooltip v-if="!props.item.inactive && props.item.mounts.length < 2" bottom>
               <v-icon color="error" slot="activator">error</v-icon>
               <v-text>Missing Mounts</v-text>
+            </v-tooltip>
+            <v-tooltip v-if="props.item.vpn" bottom>
+              <v-icon slot="activator">lock</v-icon>
+              <v-text>VPN running</v-text>
             </v-tooltip>
           </td>
           <td>
@@ -81,52 +74,52 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { format } from "../utils/time.js";
-import CpuLoad from "@/components/CpuLoad";
+  import { mapGetters } from "vuex";
+  import { format } from "../utils/time.js";
+  import CpuLoad from "@/components/CpuLoad";
 
-export default {
-  components: {
-    CpuLoad
-  },
-  data() {
-    return {
-      headers: [
-        { text: "Name", value: "hostname" },
-        { text: "Users", value: "users" },
-        { text: "Load", value: "load" },
-        { text: "Release", value: "release" },
-        { text: "Heartbeat", value: "lastupdate" },
-        { text: "Uptime", value: "uptime" }
-      ],
-      search: "",
-      visibility: "recent",
-      tabledata: this.simpcstatus,
-      FIVE_DAYS: 5 * 86400
-    };
-  },
-  computed: {
-    ...mapGetters(["simpcstatus"])
-  },
-  methods: {
-    format,
-    visible(pc) {
-      switch (this.visibility) {
-        case "all":
-          return true;
-        case "recent":
-          return !!pc.datetime;
-        case "current":
-          return !!pc.datetime && !pc.inactive;
-        case "login":
-          return !pc.inactive && pc.usernames.length > 0;
-        default:
-          return true;
+  export default {
+    components: {
+      CpuLoad
+    },
+    data() {
+      return {
+        headers: [
+          { text: "Name", value: "hostname" },
+          { text: "Users", value: "users" },
+          { text: "Load", value: "load" },
+          { text: "Release", value: "release" },
+          { text: "Heartbeat", value: "lastupdate" },
+          { text: "Uptime", value: "uptime" }
+        ],
+        search: "",
+        visibility: "recent",
+        tabledata: this.simpcstatus,
+        FIVE_DAYS: 5 * 86400
+      };
+    },
+    computed: {
+      ...mapGetters(["simpcstatus"])
+    },
+    methods: {
+      format,
+      visible(pc) {
+        switch (this.visibility) {
+          case "all":
+            return true;
+          case "recent":
+            return !!pc.datetime;
+          case "current":
+            return !!pc.datetime && !pc.inactive;
+          case "login":
+            return !pc.inactive && pc.usernames.length > 0;
+          default:
+            return true;
+        }
       }
+    },
+    created() {
+      this.tabledata = this.simpcstatus;
     }
-  },
-  created() {
-    this.tabledata = this.simpcstatus;
-  }
-};
+  };
 </script>
