@@ -17,10 +17,7 @@
                   <router-link to="/nodes">{{partition.PartitionName}}</router-link>
                 </b>
               </v-progress-circular>
-              <v-progress-circular v-for="node in partition.Nodes" :key="node.NodeName" :value="100*node.CPUAlloc/node.CPUTot"
-                :color="nodecolor(node)">
-                <router-link :to="`/${node.NodeName}`">{{node.NodeName.replace(/\D/g,'')}}</router-link>
-              </v-progress-circular>
+              <node-load v-for="node in partition.Nodes" :key="node.NodeName" :node="node"></node-load>
             </div>
           </grid-card>
 
@@ -79,13 +76,14 @@ import { mapGetters } from 'vuex'
 import GridCard from '@/components/GridCard'
 import CoresPieChart from '@/components/CoresPieChart'
 import Rack from '@/components/Rack'
-import nodecolor from '../utils/nodecolor'
+import NodeLoad from '@/components/NodeLoad'
 
 export default {
   components: {
     GridCard,
     CoresPieChart,
-    Rack
+    Rack,
+    NodeLoad
   },
   computed: {
     ...mapGetters([
@@ -108,7 +106,6 @@ export default {
     }
   },
   methods: {
-    nodecolor
   }
 }
 </script>
