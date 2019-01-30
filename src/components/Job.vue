@@ -22,9 +22,9 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import JobList from "@/components/JobList";
-import SourceView from "@/components/SourceView";
+import { mapGetters } from 'vuex'
+import JobList from '@/components/JobList'
+import SourceView from '@/components/SourceView'
 
 export default {
   components: {
@@ -32,19 +32,19 @@ export default {
     SourceView
   },
   computed: {
-    ...mapGetters(["jobstatus"]),
-    JobId() {
-      return this.$route.params.id;
+    ...mapGetters(['jobstatus']),
+    JobId () {
+      return this.$route.params.id
     },
-    Job() {
-      return this.jobstatus.filter(job => job.JobId === this.JobId)[0];
+    Job () {
+      return this.jobstatus.filter(job => job.JobId === this.JobId)[0]
     },
-    SubJobs() {
-      return this.jobstatus.filter(job => job.ArrayJobId === this.JobId);
+    SubJobs () {
+      return this.jobstatus.filter(job => job.ArrayJobId === this.JobId)
     },
-    title() {
-      return `Job #${this.JobId}${this.Job ? `: ${this.Job.JobName}` : ""}`;
+    title () {
+      return `Job #${this.JobId}${this.Job ? `: ${this.Job.JobName}` : ''}`
     }
   }
-};
+}
 </script>

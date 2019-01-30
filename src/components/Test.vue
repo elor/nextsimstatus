@@ -20,29 +20,29 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import GridCard from "@/components/GridCard";
-import CoresPieChart from "@/components/CoresPieChart";
-import PieChart from "@/components/PieChart";
-import usercolor from "../utils/usercolor";
+import { mapGetters } from 'vuex'
+import GridCard from '@/components/GridCard'
+import CoresPieChart from '@/components/CoresPieChart'
+import PieChart from '@/components/PieChart'
+import usercolor from '../utils/usercolor'
 
 const colors = {
-  blue: "#03a9f4",
-  green: "#4caf50",
-  red: "#f44336"
-};
-
-function sum(array) {
-  return array.reduce((a, b) => a + b, 0);
+  blue: '#03a9f4',
+  green: '#4caf50',
+  red: '#f44336'
 }
 
-function cpudata(nodes) {
-  const allocCPUs = sum(nodes.map(node => Number(node.CPUAlloc)));
-  const errCPUs = sum(nodes.map(node => Number(node.CPUErr)));
-  const totalCPUs = sum(nodes.map(node => Number(node.CPUTot)));
-  const freeCPUs = totalCPUs - allocCPUs - errCPUs;
+function sum (array) {
+  return array.reduce((a, b) => a + b, 0)
+}
 
-  return [allocCPUs, freeCPUs, errCPUs];
+function cpudata (nodes) {
+  const allocCPUs = sum(nodes.map(node => Number(node.CPUAlloc)))
+  const errCPUs = sum(nodes.map(node => Number(node.CPUErr)))
+  const totalCPUs = sum(nodes.map(node => Number(node.CPUTot)))
+  const freeCPUs = totalCPUs - allocCPUs - errCPUs
+
+  return [allocCPUs, freeCPUs, errCPUs]
 }
 
 export default {
@@ -52,22 +52,22 @@ export default {
     CoresPieChart
   },
   computed: {
-    ...mapGetters(["nodestatus", "userstatus", "partitionstatus"]),
-    nodeData() {
+    ...mapGetters(['nodestatus', 'userstatus', 'partitionstatus']),
+    nodeData () {
       return {
         labels: this.nodestatus.map(node => node.NodeName),
         datasets: [
           {
-            label: "CPUAlloc",
+            label: 'CPUAlloc',
             data: this.nodestatus.map(node => node.CPUAlloc),
             backgroundColor: this.nodestatus.map(node =>
               usercolor(node.NodeName)
             )
           }
         ]
-      };
+      }
     },
-    userData() {
+    userData () {
       const users = this.userstatus
         .filter(user => user.NumCPUs)
         .map(user => ({
@@ -75,28 +75,28 @@ export default {
           cpus: user.NumCPUs,
           color: usercolor(user.UserName)
         }))
-        .sort((a, b) => b.cpus - a.cpus);
+        .sort((a, b) => b.cpus - a.cpus)
 
       return {
         labels: users.map(user => user.name),
         datasets: [
           {
-            label: "Jobs",
+            label: 'Jobs',
             data: users.map(user => user.cpus),
             backgroundColor: users.map(user => user.color)
           }
         ]
-      };
+      }
     },
-    allocData() {
-      const allocations = cpudata(this.nodestatus);
-      const users = this.userData;
+    allocData () {
+      const allocations = cpudata(this.nodestatus)
+      const users = this.userData
 
       return {
-        labels: [...users.labels, "Free", "Err"],
+        labels: [...users.labels, 'Free', 'Err'],
         datasets: [
           {
-            label: "Allocations",
+            label: 'Allocations',
             data: [...users.datasets[0].data, allocations[1], allocations[2]],
             backgroundColor: [
               ...users.datasets[0].backgroundColor,
@@ -105,18 +105,18 @@ export default {
             ]
           }
         ]
-      };
+      }
     },
-    partitionData() {
+    partitionData () {
       return {
-        labels: ["Alloc", "Free", "Err"],
+        labels: ['Alloc', 'Free', 'Err'],
         datasets: this.partitionstatus.map(partition => ({
           label: partition.PartitionName,
           data: cpudata(partition.Nodes),
           backgroundColor: [colors.blue, colors.green, colors.red]
         }))
-      };
+      }
     }
   }
-};
+}
 </script>

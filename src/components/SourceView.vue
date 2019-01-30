@@ -29,21 +29,21 @@
 
 <script>
 export default {
-  props: ["title", "value"],
-  data() {
+  props: ['title', 'value'],
+  data () {
     return {
       dialog: false
-    };
+    }
   },
   computed: {
-    json_value() {
-      return JSON.stringify(this.value, undefined, "  ");
+    json_value () {
+      return JSON.stringify(this.value, undefined, '  ')
     }
   },
   methods: {
-    close() {
-      this.dialog = false;
+    close () {
+      this.dialog = false
     }
   }
-};
+}
 </script>

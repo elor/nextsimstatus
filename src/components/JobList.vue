@@ -44,73 +44,73 @@
 </template>
 
 <script>
-import { capitalize } from "../utils/capitalize";
+import { capitalize } from '../utils/capitalize'
 
 export default {
-  props: ["items", "title"],
-  data() {
+  props: ['items', 'title'],
+  data () {
     return {
       headers: [
         {
-          text: "JobID",
-          align: "left",
+          text: 'JobID',
+          align: 'left',
           sortable: true,
-          value: "JobId"
+          value: 'JobId'
         },
         {
-          text: "User",
-          align: "left",
+          text: 'User',
+          align: 'left',
           sortable: true,
-          value: "UserName"
+          value: 'UserName'
         },
         {
-          text: "ArrayTaskId",
-          align: "left",
+          text: 'ArrayTaskId',
+          align: 'left',
           sortable: true,
-          value: "ArrayTaskId"
+          value: 'ArrayTaskId'
         },
         {
-          text: "Name",
-          align: "left",
+          text: 'Name',
+          align: 'left',
           sortable: true,
-          value: "JobName"
+          value: 'JobName'
         },
         {
-          text: "State",
-          align: "left",
+          text: 'State',
+          align: 'left',
           sortable: true,
-          value: "JobState"
+          value: 'JobState'
         },
         {
-          text: "Nodes",
-          align: "left",
+          text: 'Nodes',
+          align: 'left',
           sortable: true,
-          value: "NodeNames"
+          value: 'NodeNames'
         },
         {
-          text: "Cores",
-          align: "left",
+          text: 'Cores',
+          align: 'left',
           sortable: true,
-          value: "NumCPUs"
+          value: 'NumCPUs'
         },
         {
-          text: "Runtime",
-          align: "left",
+          text: 'Runtime',
+          align: 'left',
           sortable: true,
-          value: "RunTime"
+          value: 'RunTime'
         },
         {
-          text: "Submit / Start",
-          align: "left",
+          text: 'Submit / Start',
+          align: 'left',
           sortable: true,
-          value: "StartTime"
+          value: 'StartTime'
         }
       ],
-      search: ""
-    };
+      search: ''
+    }
   },
   methods: {
     capitalize
   }
-};
+}
 </script>

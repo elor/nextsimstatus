@@ -18,16 +18,16 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 
 export default {
-  data() {
-    return {};
+  data () {
+    return {}
   },
   computed: {
-    ...mapGetters(["nodestatus", "queuestatus"])
+    ...mapGetters(['nodestatus', 'queuestatus'])
   }
-};
+}
 </script>
 
 <style scoped>

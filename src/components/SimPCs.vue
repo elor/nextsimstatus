@@ -74,52 +74,52 @@
 </template>
 
 <script>
-  import { mapGetters } from "vuex";
-  import { format } from "../utils/time.js";
-  import CpuLoad from "@/components/CpuLoad";
+import { mapGetters } from 'vuex'
+import { format } from '../utils/time.js'
+import CpuLoad from '@/components/CpuLoad'
 
-  export default {
-    components: {
-      CpuLoad
-    },
-    data() {
-      return {
-        headers: [
-          { text: "Name", value: "hostname" },
-          { text: "Users", value: "users" },
-          { text: "Load", value: "load" },
-          { text: "Release", value: "release" },
-          { text: "Heartbeat", value: "lastupdate" },
-          { text: "Uptime", value: "uptime" }
-        ],
-        search: "",
-        visibility: "recent",
-        tabledata: this.simpcstatus,
-        FIVE_DAYS: 5 * 86400
-      };
-    },
-    computed: {
-      ...mapGetters(["simpcstatus"])
-    },
-    methods: {
-      format,
-      visible(pc) {
-        switch (this.visibility) {
-          case "all":
-            return true;
-          case "recent":
-            return !!pc.datetime;
-          case "current":
-            return !!pc.datetime && !pc.inactive;
-          case "login":
-            return !pc.inactive && pc.usernames.length > 0;
-          default:
-            return true;
-        }
-      }
-    },
-    created() {
-      this.tabledata = this.simpcstatus;
+export default {
+  components: {
+    CpuLoad
+  },
+  data () {
+    return {
+      headers: [
+        { text: 'Name', value: 'hostname' },
+        { text: 'Users', value: 'users' },
+        { text: 'Load', value: 'load' },
+        { text: 'Release', value: 'release' },
+        { text: 'Heartbeat', value: 'lastupdate' },
+        { text: 'Uptime', value: 'uptime' }
+      ],
+      search: '',
+      visibility: 'recent',
+      tabledata: this.simpcstatus,
+      FIVE_DAYS: 5 * 86400
     }
-  };
+  },
+  computed: {
+    ...mapGetters(['simpcstatus'])
+  },
+  methods: {
+    format,
+    visible (pc) {
+      switch (this.visibility) {
+        case 'all':
+          return true
+        case 'recent':
+          return !!pc.datetime
+        case 'current':
+          return !!pc.datetime && !pc.inactive
+        case 'login':
+          return !pc.inactive && pc.usernames.length > 0
+        default:
+          return true
+      }
+    }
+  },
+  created () {
+    this.tabledata = this.simpcstatus
+  }
+}
 </script>

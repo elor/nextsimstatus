@@ -9,17 +9,17 @@
 </template>
 
 <script>
-  import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 
-  export default {
-    data() {
-      return {
-      };
-    },
-    computed: {
-      ...mapGetters(["nodestatus", "queuestatus"])
+export default {
+  data () {
+    return {
     }
-  };
+  },
+  computed: {
+    ...mapGetters(['nodestatus', 'queuestatus'])
+  }
+}
 </script>
 
 <style scoped>

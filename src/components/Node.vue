@@ -55,36 +55,36 @@
 </template>
 
 <script>
-  import { mapGetters } from "vuex";
-  import JobList from "@/components/JobList";
-  import GridCard from "@/components/GridCard";
-  import SourceView from "@/components/SourceView";
-  import CpuLoad from "@/components/CpuLoad";
+import { mapGetters } from 'vuex'
+import JobList from '@/components/JobList'
+import GridCard from '@/components/GridCard'
+import SourceView from '@/components/SourceView'
+import CpuLoad from '@/components/CpuLoad'
 
-  export default {
-    components: {
-      JobList,
-      GridCard,
-      SourceView,
-      CpuLoad
+export default {
+  components: {
+    JobList,
+    GridCard,
+    SourceView,
+    CpuLoad
+  },
+  computed: {
+    ...mapGetters(['nodestatus']),
+    NodeName () {
+      return `sim${this.$route.params.id}`
     },
-    computed: {
-      ...mapGetters(["nodestatus"]),
-      NodeName() {
-        return `sim${this.$route.params.id}`;
-      },
-      Node() {
-        return this.nodestatus.filter(node => node.NodeName === this.NodeName)[0];
-      },
-      MemPercent() {
-        return 100 - Math.round((100 * this.Node.FreeMem) / this.Node.RealMemory);
-      },
-      CPULoadPercent() {
-        return Math.round(100 * this.Node.CPULoad / this.Node.CPUTot);
-      },
-      Jobs() {
-        return this.Node.jobs || [];
-      }
+    Node () {
+      return this.nodestatus.filter(node => node.NodeName === this.NodeName)[0]
+    },
+    MemPercent () {
+      return 100 - Math.round((100 * this.Node.FreeMem) / this.Node.RealMemory)
+    },
+    CPULoadPercent () {
+      return Math.round(100 * this.Node.CPULoad / this.Node.CPUTot)
+    },
+    Jobs () {
+      return this.Node.jobs || []
     }
-  };
+  }
+}
 </script>

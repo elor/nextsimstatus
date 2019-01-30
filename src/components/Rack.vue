@@ -15,14 +15,14 @@
 </template>
 
 <script>
-  import RackTemperature from '@/components/RackTemperature'
+import RackTemperature from '@/components/RackTemperature'
 
-  export default {
-    components: {
-      RackTemperature
-    },
-    props: {
-      rack: Object
-    }
-  };
+export default {
+  components: {
+    RackTemperature
+  },
+  props: {
+    rack: Object
+  }
+}
 </script>

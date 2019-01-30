@@ -16,21 +16,21 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import SourceView from "@/components/SourceView";
+import { mapGetters } from 'vuex'
+import SourceView from '@/components/SourceView'
 
 export default {
   components: {
     SourceView
   },
   computed: {
-    ...mapGetters(["simpcstatus"]),
-    number() {
-      return Number(this.$route.params.id);
+    ...mapGetters(['simpcstatus']),
+    number () {
+      return Number(this.$route.params.id)
     },
-    SimPC() {
-      return this.simpcstatus.filter(simpc => simpc.number === this.number)[0];
+    SimPC () {
+      return this.simpcstatus.filter(simpc => simpc.number === this.number)[0]
     }
   }
-};
+}
 </script>

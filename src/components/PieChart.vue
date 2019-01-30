@@ -5,11 +5,11 @@
 </template>
 
 <script>
-import { Pie, mixins } from "vue-chartjs";
-import "chartjs-plugin-labels";
+import { Pie, mixins } from 'vue-chartjs'
+import 'chartjs-plugin-labels'
 
-function isInt(string) {
-  return /^\d+$/.test(string);
+function isInt (string) {
+  return /^\d+$/.test(string)
 }
 
 export default {
@@ -21,58 +21,58 @@ export default {
   },
   mixins: [mixins.reactiveProp],
   computed: {
-    config() {
+    config () {
       return {
         maintainAspectRatio: false,
         legend: {
-          position: "right",
+          position: 'right',
           display: !this.hidelegend
         },
         plugins: {
           labels: {
-            render: args => (args.percentage > 4 ? `${args.percentage}%` : ""),
+            render: args => (args.percentage > 4 ? `${args.percentage}%` : ''),
             showZero: false,
-            position: "border",
-            fontColor: "#fff",
+            position: 'border',
+            fontColor: '#fff',
             textShadow: true
           }
         }
-      };
+      }
     },
-    style() {
-      let style = {};
+    style () {
+      let style = {}
 
       if (this.inline) {
-        style.display = "inline";
+        style.display = 'inline'
       }
 
-      return style;
+      return style
     },
-    containerstyle() {
-      let style = {};
-      style = {};
+    containerstyle () {
+      let style = {}
+      style = {}
 
       if (this.width) {
-        style.width = isInt(this.width) ? `${this.width}px` : this.width;
+        style.width = isInt(this.width) ? `${this.width}px` : this.width
       }
 
       if (this.height) {
-        style.height = isInt(this.height) ? `${this.height}px` : this.height;
+        style.height = isInt(this.height) ? `${this.height}px` : this.height
       }
 
-      return style;
+      return style
     }
   },
   watch: {
-    hidelegend() {
-      this.render();
+    hidelegend () {
+      this.render()
     }
   },
-  mounted() {
+  mounted () {
     // Overwriting base render method with actual data.
-    this.renderChart(this.chartData, this.config);
+    this.renderChart(this.chartData, this.config)
   }
-};
+}
 </script>
 
 <style scoped>

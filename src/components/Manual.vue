@@ -22,43 +22,43 @@
 </template>
 
 <script>
-import commonmark from "commonmark";
-import manual from "@/manual";
+import commonmark from 'commonmark'
+import manual from '@/manual'
 
 export default {
-  data() {
+  data () {
     return {
       items: manual,
-      search: ""
-    };
+      search: ''
+    }
   },
   computed: {
-    parsed_items() {
+    parsed_items () {
       return this.filtered_items.map(item => ({
         ...item,
         html: item.html || this.parse(item.markdown)
-      }));
+      }))
     },
-    panel() {
-      return this.items.map(item => !!item.active);
+    panel () {
+      return this.items.map(item => !!item.active)
     },
-    filtered_items() {
+    filtered_items () {
       if (!this.search) {
-        return this.items;
+        return this.items
       }
 
-      let regex = new RegExp(this.search, "i");
+      let regex = new RegExp(this.search, 'i')
       return this.items.filter(
         item => regex.test(item.title) || regex.test(item.markdown)
-      );
+      )
     }
   },
   methods: {
-    parse(markdown) {
-      let reader = new commonmark.Parser();
-      let writer = new commonmark.HtmlRenderer();
-      return writer.render(reader.parse(markdown));
+    parse (markdown) {
+      let reader = new commonmark.Parser()
+      let writer = new commonmark.HtmlRenderer()
+      return writer.render(reader.parse(markdown))
     }
   }
-};
+}
 </script>

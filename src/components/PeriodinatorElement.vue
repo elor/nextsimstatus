@@ -21,31 +21,31 @@
 </template>
 
 <script>
-import { elements, symbols } from "../utils/elements";
+import { elements, symbols } from '../utils/elements'
 
 export default {
-  props: ["symbol", "color", "rawtext"],
+  props: ['symbol', 'color', 'rawtext'],
   computed: {
-    element() {
+    element () {
       return (
         elements[this.symbol] || {
           symbol: this.symbol,
-          mass: "",
-          name: "",
-          number: ""
+          mass: '',
+          name: '',
+          number: ''
         }
-      );
+      )
     },
-    open() {
-      return !this.element.name && !this.rawtext;
+    open () {
+      return !this.element.name && !this.rawtext
     },
-    completions() {
+    completions () {
       return symbols.filter(symbol =>
         symbol.toLowerCase().startsWith(this.symbol.toLowerCase())
-      );
+      )
     }
   }
-};
+}
 </script>
 
 <style scoped>

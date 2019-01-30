@@ -42,54 +42,54 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 
 export default {
-  data() {
+  data () {
     return {
       headers: [
         {
-          text: "Name",
-          align: "left",
+          text: 'Name',
+          align: 'left',
           sortable: true,
-          value: "UserName"
+          value: 'UserName'
         },
         {
-          text: "PCs",
-          align: "left",
+          text: 'PCs',
+          align: 'left',
           sortable: true,
-          value: "PCNames"
+          value: 'PCNames'
         },
         {
-          text: "Running",
-          align: "left",
+          text: 'Running',
+          align: 'left',
           sortable: true,
-          value: "JobCount.Running"
+          value: 'JobCount.Running'
         },
         {
-          text: "Cores",
-          align: "left",
+          text: 'Cores',
+          align: 'left',
           sortable: true,
-          value: "NumCPUs"
+          value: 'NumCPUs'
         },
         {
-          text: "Nodes",
-          align: "left",
+          text: 'Nodes',
+          align: 'left',
           sortable: true,
-          value: "NodeNames"
+          value: 'NodeNames'
         },
         {
-          text: "Other Jobs",
-          align: "left",
+          text: 'Other Jobs',
+          align: 'left',
           sortable: true,
-          value: "JobCount.Other"
+          value: 'JobCount.Other'
         }
       ],
-      search: ""
-    };
+      search: ''
+    }
   },
   computed: {
-    ...mapGetters(["userstatus"])
+    ...mapGetters(['userstatus'])
   }
-};
+}
 </script>

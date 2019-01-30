@@ -54,10 +54,10 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import GridCard from "@/components/GridCard";
-import JobList from "@/components/JobList";
-import SourceView from "@/components/SourceView";
+import { mapGetters } from 'vuex'
+import GridCard from '@/components/GridCard'
+import JobList from '@/components/JobList'
+import SourceView from '@/components/SourceView'
 
 export default {
   components: {
@@ -66,15 +66,15 @@ export default {
     SourceView
   },
   computed: {
-    ...mapGetters(["userstatus"]),
-    username() {
-      return this.$route.params.id;
+    ...mapGetters(['userstatus']),
+    username () {
+      return this.$route.params.id
     },
-    User() {
+    User () {
       return this.userstatus.filter(
         user => user.UserName === this.username || user.UserID === this.username
-      )[0];
+      )[0]
     }
   }
-};
+}
 </script>

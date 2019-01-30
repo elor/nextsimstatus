@@ -33,19 +33,19 @@
 </template>
 
 <script>
-import { nodels } from "../utils/nodels";
+import { nodels } from '../utils/nodels'
 
 export default {
-  data() {
+  data () {
     return {
       dialog: false,
-      query: "sim[02,04-05,22,28]"
-    };
+      query: 'sim[02,04-05,22,28]'
+    }
   },
   computed: {
-    nodenames() {
-      return nodels(this.query);
+    nodenames () {
+      return nodels(this.query)
     }
   }
-};
+}
 </script>

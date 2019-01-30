@@ -16,8 +16,8 @@
 </template>
 
 <script>
-function isInt(string) {
-  return /^\d+$/.test(string);
+function isInt (string) {
+  return /^\d+$/.test(string)
 }
 
 export default {
@@ -27,20 +27,20 @@ export default {
     wrap: Boolean
   },
   computed: {
-    style() {
-      let style = {};
+    style () {
+      let style = {}
 
       if (this.height) {
-        style.height = isInt(this.height) ? `${this.height}px` : this.height;
+        style.height = isInt(this.height) ? `${this.height}px` : this.height
       }
 
-      return style;
+      return style
     }
   },
-  data() {
-    return {};
+  data () {
+    return {}
   }
-};
+}
 </script>
 
 <style scoped>

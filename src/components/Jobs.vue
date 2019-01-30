@@ -7,15 +7,15 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import JobList from "@/components/JobList";
+import { mapGetters } from 'vuex'
+import JobList from '@/components/JobList'
 
 export default {
   components: {
     JobList
   },
   computed: {
-    ...mapGetters(["jobstatus"])
+    ...mapGetters(['jobstatus'])
   }
-};
+}
 </script>

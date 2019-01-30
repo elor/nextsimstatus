@@ -18,15 +18,15 @@
 </template>
 
 <script>
-  import { mapState } from "vuex";
+import { mapState } from 'vuex'
 
-  export default {
-    data() {
-      return {
-      };
-    },
-    computed: {
-      ...mapState(["errors"])
+export default {
+  data () {
+    return {
     }
-  };
+  },
+  computed: {
+    ...mapState(['errors'])
+  }
+}
 </script>

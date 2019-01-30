@@ -24,10 +24,8 @@
             </div>
           </grid-card>
 
-
           <grid-card height="250" title="Racks">
-            <rack v-for="rack in rackstatus" :key="rack.name" :rack="rack">
-            </rack>
+            <rack v-for="rack in rackstatus" :key="rack.name" :rack="rack"></rack>
             <p v-if="rackstatus.length == 0">
               <v-progress-circular indeterminate color="light-blue"></v-progress-circular>
             </p>
@@ -67,7 +65,7 @@
         <v-btn to="/simpcs">SimPCs</v-btn>Overview
       </v-card-title>
       <v-card-text>
-        <v-progress-circular v-for="pc in simpcstatus" :key="pc.hsotname" :value="pc.load_1min !== undefined ? (10 + 90 * pc.load_1min / 5.0) : 0.0"
+        <v-progress-circular v-for="pc in simpcstatus" :key="pc.htname" :value="pc.load_1min !== undefined ? (10 + 90 * pc.load_1min / 5.0) : 0.0"
           :color="pc.load_1min > 5.0 ? 'red' : 'green'">
           <router-link :to="`/simpc${pc.number}`">{{pc.number}}</router-link>
         </v-progress-circular>
@@ -77,40 +75,40 @@
 </template>
 
 <script>
-  import { mapGetters } from "vuex"
-  import GridCard from "@/components/GridCard"
-  import CoresPieChart from "@/components/CoresPieChart"
-  import Rack from "@/components/Rack"
-  import nodecolor from "../utils/nodecolor"
+import { mapGetters } from 'vuex'
+import GridCard from '@/components/GridCard'
+import CoresPieChart from '@/components/CoresPieChart'
+import Rack from '@/components/Rack'
+import nodecolor from '../utils/nodecolor'
 
-  export default {
-    components: {
-      GridCard,
-      CoresPieChart,
-      Rack
-    },
-    computed: {
-      ...mapGetters([
-        "partitionstatus",
-        "jobstatus",
-        "userstatus",
-        "simpcstatus",
-        "rackstatus"
-      ]),
-      users_sorted() {
-        return this.userstatus
-          .slice()
-          .sort(
-            (a, b) =>
-              b.NumCPUs - a.NumCPUs ||
+export default {
+  components: {
+    GridCard,
+    CoresPieChart,
+    Rack
+  },
+  computed: {
+    ...mapGetters([
+      'partitionstatus',
+      'jobstatus',
+      'userstatus',
+      'simpcstatus',
+      'rackstatus'
+    ]),
+    users_sorted () {
+      return this.userstatus
+        .slice()
+        .sort(
+          (a, b) =>
+            b.NumCPUs - a.NumCPUs ||
               b.JobCount.Running - a.JobCount.Running ||
               b.JobCount.Pending - a.JobCount.Pending ||
               a.UserName.localeCompare(b.UserName)
-          );
-      }
-    },
-    methods: {
-      nodecolor
+        )
     }
-  };
+  },
+  methods: {
+    nodecolor
+  }
+}
 </script>
