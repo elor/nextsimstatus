@@ -62,32 +62,32 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from "vuex";
+import { mapState, mapActions } from 'vuex'
 
-  export default {
-    data() {
-      return {
-        drawer: false,
-        miniVariant: false
-      };
-    },
-    computed: {
-      ...mapState(["errors", "dates", "options", "jobs", "updating", "sources"]),
-      items() {
-        return this.$router.options.routes.filter(
-          route => !route.path.match(/:/)
-        );
-      }
-    },
-    methods: {
-      ...mapActions(["mainsimFetch", "mqttReconnect"]),
-      refresh() {
-        this.mainsimFetch()
-        this.mqttReconnect()
-      }
-    },
-    name: "App"
-  };
+export default {
+  data () {
+    return {
+      drawer: false,
+      miniVariant: false
+    }
+  },
+  computed: {
+    ...mapState(['errors', 'dates', 'options', 'jobs', 'updating', 'sources']),
+    items () {
+      return this.$router.options.routes.filter(
+        route => !route.path.match(/:/)
+      )
+    }
+  },
+  methods: {
+    ...mapActions(['mainsimFetch', 'mqttReconnect']),
+    refresh () {
+      this.mainsimFetch()
+      this.mqttReconnect()
+    }
+  },
+  name: 'App'
+}
 </script>
 
 <style>

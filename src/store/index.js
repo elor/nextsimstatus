@@ -149,10 +149,10 @@ export default new Vuex.Store({
             Pending: user.PendingJobs.length,
             Completed: user.CompletedJobs.length,
             Other:
-              user.Jobs.length -
-              user.CompletedJobs.length -
-              user.PendingJobs.length -
-              user.RunningJobs.length
+          user.Jobs.length -
+          user.CompletedJobs.length -
+          user.PendingJobs.length -
+          user.RunningJobs.length
           }
         }))
       return sortBy(users, 'UserName')
@@ -163,7 +163,7 @@ export default new Vuex.Store({
         number: Number(pc.hostname.replace(/\D/g, '')),
         usernames: uniq((pc.users || []).map(user => user.split(' ')[0])),
         inactive:
-          !pc.datetime || state.dates.now - new Date(pc.datetime) > TEN_SECONDS,
+      !pc.datetime || state.dates.now - new Date(pc.datetime) > TEN_SECONDS,
         lastupdate: pc.datetime
           ? Math.max(
             0,
