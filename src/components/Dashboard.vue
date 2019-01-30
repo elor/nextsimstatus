@@ -109,13 +109,6 @@ export default {
   },
   methods: {
     nodecolor
-  },
-  mounted () {
-    this.$nextTick(() => {
-      window.addEventListener('resize', () => {
-        this.windowHeight = window.innerHeight
-      })
-    })
   }
 }
 </script>

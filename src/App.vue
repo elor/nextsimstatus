@@ -86,7 +86,13 @@ export default {
       this.mqttReconnect()
     }
   },
-  name: 'App'
+  name: 'App',
+  mounted () {
+    this.$nextTick(() => window.addEventListener('focus', this.refresh))
+  },
+  beforeDestroy () {
+    window.removeEventListener('focus', this.refresh)
+  }
 }
 </script>
 
