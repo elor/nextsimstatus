@@ -48,7 +48,11 @@
           <v-icon large color="red">error</v-icon>
         </v-badge>
       </v-toolbar-side-icon>
+
+      <v-chip v-model="update_available" close>Update available</v-chip>
+
       {{dates.now.toLocaleString()}}
+
       <v-btn :disabled="updating" fab small :color="dates.now - Math.min(dates.jobs) > options.timeout ? 'error' : 'primary'">
         <v-icon v-if="!updating" @click="refresh">refresh</v-icon>
         <v-progress-circular v-else indeterminate></v-progress-circular>
@@ -68,7 +72,8 @@ export default {
   data () {
     return {
       drawer: false,
-      miniVariant: false
+      miniVariant: false,
+      update_available: false
     }
   },
   computed: {
