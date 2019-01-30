@@ -27,10 +27,7 @@
 
           <grid-card title="Nodes">
             <template v-if="User.NodeNames.length">
-              <span v-for="node in User.NodeNames" :key="node">
-                <router-link :to="`/${node}`">{{node}}</router-link>
-                &nbsp;
-              </span>
+              <node-load v-for="node in nodes" :key="node.NodeName" :node="node"></node-load>
             </template>
             <template v-else>Keine reservierten Knoten</template>
           </grid-card>
@@ -58,15 +55,17 @@ import { mapGetters } from 'vuex'
 import GridCard from '@/components/GridCard'
 import JobList from '@/components/JobList'
 import SourceView from '@/components/SourceView'
+import NodeLoad from '@/components/NodeLoad'
 
 export default {
   components: {
     JobList,
     GridCard,
-    SourceView
+    SourceView,
+    NodeLoad
   },
   computed: {
-    ...mapGetters(['userstatus']),
+    ...mapGetters(['userstatus', 'nodestatus']),
     username () {
       return this.$route.params.id
     },
@@ -74,6 +73,9 @@ export default {
       return this.userstatus.filter(
         user => user.UserName === this.username || user.UserID === this.username
       )[0]
+    },
+    nodes(){
+      return this.nodestatus.filter(node => node.users.includes(this.User.UserName))
     }
   }
 }
