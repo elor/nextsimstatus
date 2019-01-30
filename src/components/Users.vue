@@ -28,10 +28,7 @@
           <td><router-link :to="`/users/${props.item.UserName}`">{{props.item.JobCount.Running}}</router-link></td>
           <td>{{props.item.NumCPUs}}</td>
           <td>
-            <span v-for="node in props.item.NodeNames" :key="node">
-              <router-link :to="`/nodes`">{{node}}</router-link>
-              &nbsp;
-            </span>
+            <node-load v-for="node in nodes(props.item)" :key="node.NodeName" :node="node"></node-load>
           </td>
           <td><router-link :to="`/users/${props.item.UserName}`">{{props.item.JobCount.Other}}</router-link></td>
         </template>
@@ -43,8 +40,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import NodeLoad from '@/components/NodeLoad'
 
 export default {
+  components: {
+    NodeLoad
+  },
   data () {
     return {
       headers: [
@@ -89,7 +90,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['userstatus'])
+    ...mapGetters(['userstatus', 'nodestatus'])
+  },
+  methods:{
+    nodes(user){
+      return this.nodestatus.filter(node => node.users.includes(user.UserName))
+    }
   }
 }
 </script>
