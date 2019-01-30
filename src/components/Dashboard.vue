@@ -18,7 +18,7 @@
                 </b>
               </v-progress-circular>
               <v-progress-circular v-for="node in partition.Nodes" :key="node.NodeName" :value="100*node.CPUAlloc/node.CPUTot"
-                :color="node.CPUAlloc == node.CPUTot ? 'light-blue' : 'green'">
+                :color="nodecolor(node)">
                 <router-link :to="`/${node.NodeName}`">{{node.NodeName.replace(/\D/g,'')}}</router-link>
               </v-progress-circular>
             </div>
@@ -77,10 +77,11 @@
 </template>
 
 <script>
-  import { mapGetters } from "vuex";
-  import GridCard from "@/components/GridCard";
-  import CoresPieChart from "@/components/CoresPieChart";
-  import Rack from "@/components/Rack";
+  import { mapGetters } from "vuex"
+  import GridCard from "@/components/GridCard"
+  import CoresPieChart from "@/components/CoresPieChart"
+  import Rack from "@/components/Rack"
+  import nodecolor from "../utils/nodecolor"
 
   export default {
     components: {
@@ -107,6 +108,9 @@
               a.UserName.localeCompare(b.UserName)
           );
       }
+    },
+    methods: {
+      nodecolor
     }
   };
 </script>
