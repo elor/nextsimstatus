@@ -24,11 +24,11 @@
             <router-link :class="{'grey--text':props.item.inactive}" :to="`/simpc${props.item.number}`">{{props.item.hostname}}</router-link>
             <v-tooltip v-if="!props.item.inactive && props.item.mounts.length < 2" bottom>
               <v-icon color="error" slot="activator">error</v-icon>
-              <v-text>Missing Mounts</v-text>
+              <span>Missing Mounts</span>
             </v-tooltip>
             <v-tooltip v-if="props.item.vpn" bottom>
               <v-icon slot="activator">lock</v-icon>
-              <v-text>VPN running</v-text>
+              <span>VPN running</span>
             </v-tooltip>
           </td>
           <td>
@@ -43,18 +43,18 @@
             <cpu-load :load="props.item.load_15min" :cores="4" precise></cpu-load>
             <v-tooltip v-if="props.item.load_1min > 5.0" bottom>
               <v-icon color="warning" slot="activator">warning</v-icon>
-              <v-text>High CPU Load</v-text>
+              <span>High CPU Load</span>
             </v-tooltip>
             <v-tooltip v-if="props.item.load_1min > 10.0" bottom>
               <v-icon color="error" slot="activator">error</v-icon>
-              <v-text>Excessive CPU Load. Did a Core lock up, e.g. due to BeeGFS/NFS Failure?</v-text>
+              <span>Excessive CPU Load. Did a Core lock up, e.g. due to BeeGFS/NFS Failure?</span>
             </v-tooltip>
           </td>
           <td>
             {{props.item.release}}
             <v-tooltip v-if="props.item.isoldrelease" bottom>
               <v-icon slot="activator" color="warning">warning</v-icon>
-              <v-text>Deprecated OS version. Please upgrade</v-text>
+              <span>Deprecated OS version. Please upgrade</span>
             </v-tooltip>
           </td>
           <td>
@@ -64,7 +64,7 @@
             {{format(props.item.uptime)}}
             <v-tooltip v-if="props.item.uptime > FIVE_DAYS" bottom>
               <v-icon color="warning" slot="activator">warning</v-icon>
-              <v-text>Long uptime. Please reboot</v-text>
+              <span>Long uptime. Please reboot</span>
             </v-tooltip>
           </td>
         </tr>
