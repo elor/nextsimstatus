@@ -1,7 +1,9 @@
 export default function usercores (jobs) {
   let users = {}
 
-  jobs.forEach(job => {
+  jobs
+  .filter(job => job.JobState === 'RUNNING')
+  .forEach(job => {
     if (users[job.UserName]) {
       users[job.UserName] += Number(job.NumCPUs)
     } else {
