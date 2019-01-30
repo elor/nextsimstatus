@@ -36,6 +36,10 @@ const sources = {
   mqtt: true
 }
 
+function userNameFromJob (job) {
+  return job.UserId.replace(/\(\d+\)/, '')
+}
+
 export default new Vuex.Store({
   state: {
     nodes: [],
@@ -264,6 +268,3 @@ export default new Vuex.Store({
 
   plugins: [createMainsimPlugin(sources), createNowTimePlugin(1000)]
 })
-function userNameFromJob (job) {
-  return job.UserId.replace(/\(\d+\)/, '')
-}
