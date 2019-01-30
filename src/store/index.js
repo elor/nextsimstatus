@@ -227,8 +227,9 @@ export default new Vuex.Store({
       state.jobs = jobs
       state.dates.jobs = new Date()
 
-      const jobsSlick = jobs.map(job => ({ NumCPUs: job.NumCPUs, UserName: userNameFromJob(job) }))
-      const usercpus = usercores(jobsSlick)
+      const cpuJobs = jobs.filter(job => /running/i.test(job.JobState))
+        .map(job => ({ NumCPUs: job.NumCPUs, UserName: userNameFromJob(job) }))
+      const usercpus = usercores(cpuJobs)
       if (!isEqual(state.usercpus, usercpus)) {
         state.usercpus = usercpus
       }
