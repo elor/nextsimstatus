@@ -92,8 +92,8 @@ export default {
   computed: {
     ...mapGetters(['userstatus', 'nodestatus'])
   },
-  methods:{
-    nodes(user){
+  methods: {
+    nodes (user) {
       return this.nodestatus.filter(node => node.users.includes(user.UserName))
     }
   }

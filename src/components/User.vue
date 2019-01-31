@@ -74,7 +74,7 @@ export default {
         user => user.UserName === this.username || user.UserID === this.username
       )[0]
     },
-    nodes(){
+    nodes () {
       return this.nodestatus.filter(node => node.users.includes(this.User.UserName))
     }
   }
