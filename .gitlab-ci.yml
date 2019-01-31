@@ -46,9 +46,3 @@ deploy:mainsim:
     - webpack
   script:
     - rsync -av --delete dist/ /var/www/html
-
-reload:
-  stage: reload
-  image: mainsim.etit.tu-chemnitz.de:5555/images/mqtt_publish:latest
-  script:
-    - mosquitto_pub -h mainsimweb.etit.tu-chemnitz.de -u "mqtt" -P "$MQTT_PASSWORD" -q 0 -t "frontend/update" -m ''

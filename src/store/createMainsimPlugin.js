@@ -79,7 +79,6 @@ function registerMQTT (store) {
       mqttClient.subscribe('simpc/#')
       mqttClient.subscribe('racks/racks')
     }
-    mqttClient.subscribe('frontend/#')
   })
 
   mqttClient.on('end', () => {
@@ -99,9 +98,6 @@ function registerMQTT (store) {
         break
       case 'racks/racks':
         store.commit('updateRacks', unpack64(message))
-        break
-      case 'frontend/update':
-        window.location.reload()
         break
     }
   })
