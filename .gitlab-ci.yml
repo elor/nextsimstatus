@@ -15,17 +15,6 @@ webpack:
       - dist/
     expire_in: 1 day
 
-docker-build:
-  stage: build
-  image: docker:stable
-  tags:
-    - docker-build
-  before_script:
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-  script:
-    - docker build -t $CI_REGISTRY_IMAGE/cache-daemon daemons/cache-daemon
-    - docker push $CI_REGISTRY_IMAGE/cache-daemon
-
 deploy:mainsimweb:
   stage: deploy
   tags:

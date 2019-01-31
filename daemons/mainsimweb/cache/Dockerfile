@@ -5,7 +5,7 @@ RUN mkdir -p app
 COPY *.js app/
 COPY *.json app/
 
-WORKDIR app/
+WORKDIR /app/
 
 RUN npm install
 
