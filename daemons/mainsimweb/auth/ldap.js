@@ -67,7 +67,7 @@ function searchPerson (client, config) {
       let results = []
       res.on('searchEntry', entry => results.push(processPersonEntry(entry)))
       res.on('end', res => {
-        resolve(JSON.stringify(results))
+        resolve(results)
       })
     })
   })
@@ -84,7 +84,7 @@ function searchGroups (client, config) {
       let results = []
       res.on('searchEntry', entry => results.push(processGroupEntry(entry)))
       res.on('end', res => {
-        resolve(JSON.stringify(results))
+        resolve(results)
       })
     })
   })
