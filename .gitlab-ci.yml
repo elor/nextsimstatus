@@ -1,4 +1,5 @@
 stages:
+  - test
   - build
   - deploy
   - reload
@@ -15,6 +16,17 @@ webpack:
       - dist/
     expire_in: 1 day
 
+deploy:docker-mainsimweb:
+  stage: test
+  tags:
+    - mainsimweb-docker
+  dependencies: []
+  script:
+    - apk add py-pip
+    - pip install docker-compose
+    - cd daemons/mainsimweb
+    - docker-compose up -d
+
 deploy:mainsimweb:
   stage: deploy
   tags:
@@ -24,16 +36,6 @@ deploy:mainsimweb:
     - webpack
   script:
     - rsync -arv --delete dist/ /var/www/html
-
-deploy:docker-mainsimweb:
-  stage: deploy
-  tags:
-    - mainsimweb-docker
-  script:
-    - wget https://github.com/docker/compose/releases/download/1.23.2/run.sh -O /usr/local/bin/docker-compose
-    - chmod +x /usr/local/bin/docker-compose
-    - cd daemons/mainsimweb
-    - docker-compose up
 
 deploy:mainsim:
   stage: deploy
