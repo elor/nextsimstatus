@@ -1,5 +1,4 @@
 stages:
-  - test
   - build
   - deploy
   - reload
@@ -17,7 +16,7 @@ webpack:
     expire_in: 1 day
 
 deploy:docker-mainsimweb:
-  stage: test
+  stage: deploy
   tags:
     - mainsimweb-docker
   dependencies: []
