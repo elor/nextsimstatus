@@ -1,0 +1,13 @@
+{
+  "name": "mainsimstatus-auth",
+  "version": "1.0.0",
+  "description": "The mainsimstatus auth daemon",
+  "main": "auth-server.js",
+  "author": "Erik E. Lorenz",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "dependencies": {
+    "ldapjs": "^1.0.2"
+  }
+}
