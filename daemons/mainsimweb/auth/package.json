@@ -8,6 +8,7 @@
     "test": "node test.js"
   },
   "dependencies": {
+    "express": "^4.16.4",
     "ldapjs": "^1.0.2"
   }
 }
