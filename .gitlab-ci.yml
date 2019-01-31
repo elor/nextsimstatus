@@ -24,7 +24,7 @@ deploy:docker-mainsimweb:
     - apk add py-pip
     - pip install docker-compose
     - cd daemons/mainsimweb
-    - docker-compose up --build -d
+    - docker-compose up -d
 
 deploy:mainsimweb:
   stage: deploy
