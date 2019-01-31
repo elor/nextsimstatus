@@ -42,7 +42,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-toolbar-side-icon to="/errors" v-if="errors.length">
+      <v-toolbar-side-icon v-if="errors.length">
         <v-badge overlap right color="red">
           <span slot="badge">{{errors.length}}</span>
           <v-icon large color="red">error</v-icon>
