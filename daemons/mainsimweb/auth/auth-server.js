@@ -12,7 +12,7 @@ app.post('/login', (request, response) => {
     .catch(error => { console.error(error); response.send('ERROR') })
 })
 
-app.get('/', (req, res) => {
+app.get('/login', (req, res) => {
   res.send(`
 <form method="post" action="/login">
 Username: <input type="text" name="username" placeholder=""/><br>

@@ -1,5 +1,9 @@
 version: "3"
 services: 
+  auth:
+    build: auth
+    ports:
+     - 127.0.0.1:1881:8000
   cache:
     build: cache
     ports:
