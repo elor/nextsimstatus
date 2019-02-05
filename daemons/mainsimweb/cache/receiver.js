@@ -26,19 +26,23 @@ exports.connect = function (receive) {
   client.on('connect', () => client.subscribe('#'))
 
   client.on('message', (topic, message) => {
-    switch (topic) {
-      case 'slurm/nodes':
-        receive('nodes', unpack64(message))
-        break
-      case 'slurm/jobs':
-        receive('jobs', unpack64(message))
-        break
-      case 'slurm/users':
-        receive('users', unpack64(message))
-        break
-      case (topic.match(/simpc\/simpc\d+/) || {}).input:
-        receive('simpc', unpack(message))
-        break
+    try {
+      switch (topic) {
+        case 'slurm/nodes':
+          receive('nodes', unpack64(message))
+          break
+        case 'slurm/jobs':
+          receive('jobs', unpack64(message))
+          break
+        case 'slurm/users':
+          receive('users', unpack64(message))
+          break
+        case (topic.match(/simpc\/simpc\d+/) || {}).input:
+          receive('simpc', unpack(message))
+          break
+      }
+    } catch (err) {
+      console.error(err)
     }
   })
 
