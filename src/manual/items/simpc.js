@@ -1,10 +1,17 @@
 export default [
   {
-    title: 'SimPC-Workstations',
+    title: 'Linux-Workstations - "SimPCs"',
     markdown: `
-Unsere Workstations (SimPCs) teilen die Benutzer, Benutzerverzeichnisse und Gruppenverzeichnisse mit dem MainSim-Cluster.
+Unsere Linux-Workstations (SimPCs) sind eng mit dem MainSim-Cluster verzahnt.
+Mit ihm teilen sie sich die Benutzer, Passwörter, Netzlaufwerke und Simulationssoftware.
 
-Somit werden alle Nutzerdateien automatisch synchronisiert und in das tägliche Backup eingebunden.
+Damit ist ein nahtloses Arbeiten zwischen SimPCs und MainSim möglich.
+
+Außerdem verfügen die SimPCs über eine umfassende Softwareinstallation für das Vorbereiten, Visualisieren und Auswerten von Simulationen.
+Nicht-parallele Rechnungen sind durch die schnellen Intel i7-7700-CPUs sogar schneller als auf dem MainSim-Cluster.
+Ihre eingebauten Nvidia GTX 1050Ti-Grafikkarten ermöglichen zudem hochparalleles Grafikkarten-Rechnen, sollten unsere GPU-Rechenknoten einmal voll oder die zu simulierenden Systeme klein sein.
+
+Testrechnungen sind auf den SimPCs auszuführen, **nicht** auf dem MainSim-Headnode (mainsim.etit.tu-chemnitz.de)
 `
   },
   {
