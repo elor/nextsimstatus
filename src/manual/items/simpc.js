@@ -15,9 +15,9 @@ Testrechnungen sind auf den SimPCs auszuführen, **nicht** auf dem MainSim-Headn
 `
   },
   {
-    title: 'VPN',
+    title: 'VPN auf dem SimPCs',
     markdown: `
-Gelegentlich ist die Nutzung eines VPN-Zugangs nötig, um auf externe Ressourcen wie etwas andere Forschungsinstitute zugreifen zu können.
+Gelegentlich ist die Nutzung eines [VPN-Zugangs](https://www.tu-chemnitz.de/urz/network/access/vpn.html) nötig, um auf externe Ressourcen wie etwas andere Forschungsinstitute zugreifen zu können.
 
 Zu diesen Zweck ist auf den SimPCs der Cisco Anyconnect-Client installiert.
 Somit könnt ihr auf die VPN-Endpoints von Fraunhofer, TU Chemnitz, und vielen weiteren Einrichtungen zugreifen.
