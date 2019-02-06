@@ -1,5 +1,5 @@
 export default [{
-  title: 'Environment Modules',
+  title: 'Simulationssoftware laden - Environment Modules',
   markdown: `
 Die meiste Simulationssoftware ist als Environment Module nutzbar.\
 Das ermöglicht eine komfortable Installation mehrerer Versionen und Varianten derselben Software.
@@ -13,7 +13,7 @@ Dann kannst du die darüber geladene Software direkt nutzen.
 Mehr erfährst du über \`module --help\` sowie \`man module\`.
 `
 }, {
-  title: 'Gruppeneigene Modules',
+  title: 'Gruppeneigene Simulationssoftware - Gruppen-Modules',
   markdown: `
 Du kannst eigene Software gezielt für dich oder deine Gruppe als Module installieren.
 Dafür musst du eine Modulefile erstellen und in dem entsprechenden \`modulefiles\`-Verzeichnis ablegen.
