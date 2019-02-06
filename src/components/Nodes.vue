@@ -48,7 +48,7 @@
               <v-icon color="warning" v-if="isWarningState(state)">warning</v-icon>
               <v-icon color="error" v-if="isFailState(state)">error</v-icon>
               {{capitalize(state)}}
-              &nbsp;
+              <span v-if="!props.item.State.endsWith(state)">&nbsp;</span>
             </span>
           </td>
           <td>{{props.item.BootTime}}</td>
