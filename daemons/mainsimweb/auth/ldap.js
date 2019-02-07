@@ -101,7 +101,7 @@ module.exports = {
       promisify(client.bind.bind(client))(config.bindDN, pass)
         .then(() => searchPerson(client, config))
         .then(result => {
-          person = result
+          person = result[0]
           return searchGroups(client, config)
         })
         .then(groups => resolve({ person, groups }))
