@@ -1,15 +1,15 @@
 <template>
   <v-dialog max-width="300px" v-model="dialog">
     <v-avatar slot="activator" :color="user ? 'white' : 'primary'" size="40">
-      <v-icon :color="user ? usercolor(user.name) : 'white'">account_circle</v-icon>
+      <v-icon :color="user ? usercolor(user.login) : 'white'">account_circle</v-icon>
     </v-avatar>
 
     <v-card v-if="user">
       <v-card-title>
         <span class="headline">
-          <v-icon :color="usercolor(user.name)">account_circle</v-icon>
+          <v-icon :color="usercolor(user.login)">account_circle</v-icon>
           {{user.name}}
-          <router-link :to="`/users/${user.name}`"></router-link>
+          <router-link :to="`/users/${user.login}`"></router-link>
         </span>
         <v-card-text>
           <v-list subheader>
