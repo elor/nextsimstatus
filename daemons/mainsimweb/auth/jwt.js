@@ -21,7 +21,7 @@ module.exports = {
       login: ldapMatch.person.uid,
       uid: ldapMatch.person.uidNumber,
       home: ldapMatch.person.homeDirectory,
-      groups: ldapMatch.groups.map(group => group.cn)
+      groups: ldapMatch.groups.map(group => group.cn).sort()
     }
 
     return promisify(jwt.sign)(payload, SECRET, OPTIONS)
