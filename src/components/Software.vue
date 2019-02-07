@@ -6,8 +6,9 @@
       <v-btn href="https://www.tu-chemnitz.de/main/">MAIN-Webseite</v-btn>
     </v-layout>
     <v-layout>
-      <v-btn href="https://mainsim.etit.tu-chemnitz.de/nagios">Nagios Host-Monitoring</v-btn>
       <v-btn href="https://mainsim.etit.tu-chemnitz.de/ganglia">Ganglia CPU-Monitoring</v-btn>
+      <v-btn href="https://mainsim.etit.tu-chemnitz.de/xcat-doc">xCAT Documentation (Manpages)</v-btn>
+      <v-btn href="https://mainsim.etit.tu-chemnitz.de/nagios">Nagios Host-Monitoring</v-btn>
     </v-layout>
     <v-layout>
       <v-btn href="https://tuc.cloud">TUC-Cloud</v-btn>
