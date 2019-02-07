@@ -165,7 +165,7 @@ export default new Vuex.Store({
       return Object.values(state.simpcs).map(pc => ({
         ...pc,
         number: Number(pc.hostname.replace(/\D/g, '')),
-        usernames: uniq((pc.users || []).map(user => user.split(' ')[0])),
+        usernames: uniq((pc.users || []).map(user => user.split(' ')[0]).filter(user => user)),
         inactive:
       !pc.datetime || state.dates.now - new Date(pc.datetime) > TEN_SECONDS,
         lastupdate: pc.datetime
@@ -246,7 +246,7 @@ export default new Vuex.Store({
     },
     updateRacks (state, racks) {
       if (!isEqual(state.racks, racks)) {
-      state.racks = racks
+        state.racks = racks
       }
     },
     newError (state, error) {
