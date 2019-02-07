@@ -245,7 +245,9 @@ export default new Vuex.Store({
       state.simpcs[simpc.hostname] = simpc
     },
     updateRacks (state, racks) {
+      if (!isEqual(state.racks, racks)) {
       state.racks = racks
+      }
     },
     newError (state, error) {
       state.errors.push({
