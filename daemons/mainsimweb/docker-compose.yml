@@ -4,16 +4,16 @@ services:
     build: auth
     ports:
      - 127.0.0.1:1881:8000
-    restart: always
+    restart: on-failure
   cache:
     build: cache
     ports:
      - 127.0.0.1:1880:8080
-    restart: always
+    restart: on-failure
   mqtt:
     build: mqtt
     ports:
      - 1883:1883
      - 8883:8883
      - 9001:9001
-    restart: always
+    restart: on-failure
