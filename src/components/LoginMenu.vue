@@ -75,7 +75,7 @@ export default {
         username: this.input.username,
         password: this.input.password
       }
-      axios.post('https://mainsim.etit.tu-chemnitz.de/auth/login', postData)
+      axios.post('https://mainsimweb.etit.tu-chemnitz.de/auth/login', postData)
         .then(response => {
           this.clear()
           this.user = response.data.decoded
