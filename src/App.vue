@@ -32,6 +32,8 @@
     <v-toolbar app absolute dark color="primary">
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
 
+      <login-menu></login-menu>
+
       <v-toolbar-title>MainSim {{$route.name}}</v-toolbar-title>
 
       <v-spacer></v-spacer>
@@ -68,6 +70,8 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 
+import LoginMenu from '@/components/LoginMenu'
+
 export default {
   data () {
     return {
@@ -75,6 +79,9 @@ export default {
       miniVariant: false,
       update_available: false
     }
+  },
+  components: {
+    LoginMenu
   },
   computed: {
     ...mapState(['errors', 'dates', 'options', 'jobs', 'updating', 'sources']),
