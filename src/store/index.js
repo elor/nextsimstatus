@@ -62,7 +62,7 @@ export default new Vuex.Store({
   },
 
   getters: {
-    nodestatus (state, getters) {
+    nodestatus (state, getters) { // 7
       return state.nodes
         .map(node => ({
           ...node,
@@ -93,7 +93,7 @@ export default new Vuex.Store({
     partitions (state) {
       return uniq(state.nodes.map(node => node.Partitions))
     },
-    partitionstatus (state, getters) {
+    partitionstatus (state, getters) { // 1
       return getters.partitions
         .map(partition => ({
           PartitionName: partition,
@@ -107,7 +107,7 @@ export default new Vuex.Store({
           CPUTot: sum(partition.Nodes.map(node => Number(node.CPUTot)))
         }))
     },
-    jobstatus (state) {
+    jobstatus (state) { // 4
       return state.jobs
         .map(job => ({
           ...job,
@@ -116,7 +116,7 @@ export default new Vuex.Store({
         }))
         .reverse()
     },
-    userstatus (state, getters) {
+    userstatus (state, getters) { // 5
       const users = uniq([
         ...getters.jobstatus.map(job => job.UserName),
         ...flatten(getters.simpcstatus.map(pc => pc.usernames))
@@ -161,7 +161,7 @@ export default new Vuex.Store({
         }))
       return sortBy(users, 'UserName')
     },
-    simpcstatus (state) {
+    simpcstatus (state) { // 3
       return Object.values(state.simpcs).map(pc => ({
         ...pc,
         number: Number(pc.hostname.replace(/\D/g, '')),
@@ -180,7 +180,7 @@ export default new Vuex.Store({
         load_15min: pc.load && Number(pc.load[2])
       }))
     },
-    rackstatus (state) {
+    rackstatus (state) { // 1
       return state.racks.map(rack => ({
         ...rack,
         temperatures: {
