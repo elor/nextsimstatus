@@ -14,7 +14,7 @@
         <v-card-text>
           <v-list subheader>
             <v-subheader>Gruppen</v-subheader>
-            <v-list-tile v-for="group in user.groups">
+            <v-list-tile v-for="group in user.groups" :key="group">
               <v-list-tile-avatar>
                 <v-icon :color="usercolor(group)">group</v-icon>
               </v-list-tile-avatar>
@@ -51,47 +51,46 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
-  import usercolor from '../utils/usercolor'
-  import axios from 'axios'
+import usercolor from '../utils/usercolor'
+import axios from 'axios'
 
-  export default {
-    data() {
-      return {
-        dialog: false,
-        input: {
-          username: '',
-          password: ''
-        },
-        user: undefined
-      }
+export default {
+  data () {
+    return {
+      dialog: false,
+      input: {
+        username: '',
+        password: ''
+      },
+      user: undefined
+    }
+  },
+  methods: {
+    usercolor,
+    close () {
+      this.dialog = false
     },
-    methods: {
-      usercolor,
-      close() {
-        this.dialog = false
-      },
-      login() {
-        const postData = {
-          username: this.input.username,
-          password: this.input.password
-        }
-        axios.post('https://mainsim.etit.tu-chemnitz.de/auth/login', postData)
-          .then(response => {
-            this.clear()
-            this.user = response.data.decoded
-            console.log(response.data.decoded)
-          })
-          .catch(this.logout)
-      },
-      logout() {
-        this.clear()
-        this.user = undefined
-      },
-      clear() {
-        this.input.username = ''
-        this.input.password = ''
+    login () {
+      const postData = {
+        username: this.input.username,
+        password: this.input.password
       }
+      axios.post('https://mainsim.etit.tu-chemnitz.de/auth/login', postData)
+        .then(response => {
+          this.clear()
+          this.user = response.data.decoded
+          console.log(response.data.decoded)
+        })
+        .catch(this.logout)
+    },
+    logout () {
+      this.clear()
+      this.user = undefined
+    },
+    clear () {
+      this.input.username = ''
+      this.input.password = ''
     }
   }
+}
 </script>
