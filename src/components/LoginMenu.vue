@@ -44,7 +44,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="success" @click="close">Anmelden</v-btn>
+        <v-btn color="success" @click="login">Anmelden</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
