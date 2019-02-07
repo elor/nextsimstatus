@@ -7,19 +7,49 @@ const config = {
 }
 
 function login (store) {
+  const { username, password } = store.credentials
 
+  axios.post(config.loginUrl, { username, password })
+    .then(response => {
+      store.setCurrentUser(response.data.decoded)
+      store.setAuthToken(response.data.token)
+    })
+    .catch(error => {
+      console.error(error)
+      logout()
+    })
+
+  store.credentials.password = undefined
 }
 
 function logout (store) {
-
-}
-
-function renew (store) {
-
+  store.setCurrentUser(undefined)
 }
 
 function verify (store) {
+  const token = store.token
 
+  axios.post(config.verifyUrl, { token })
+    .then(response => {
+      store.setCurrentUser(response.data.decoded)
+    })
+    .catch(error => {
+      console.error(error)
+    })
+}
+
+function renew (store) {
+  const token = store.token
+
+  axios.post(config.renewUrl, { token })
+    .then(response => {
+      store.setCurrentUser(response.data.decoded)
+      store.setAuthToken(response.data.token)
+    })
+    .catch(error => {
+      console.error(error)
+      logout()
+    })
 }
 
 export default function createAuthPlugin () {
