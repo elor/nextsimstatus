@@ -1,6 +1,6 @@
 <template>
   <v-dialog max-width="300px" v-model="dialog">
-    <v-avatar slot="activator" :color="user ? 'white' : 'primary'" size="40">
+    <v-avatar slot="activator" :color="user ? 'white' : 'primary'" size="24">
       <v-icon :color="user ? usercolor(user.login) : 'white'">account_circle</v-icon>
     </v-avatar>
 
@@ -51,46 +51,46 @@
 </template>
 
 <script>
-import usercolor from '../utils/usercolor'
-import axios from 'axios'
+  import usercolor from '../utils/usercolor'
+  import axios from 'axios'
 
-export default {
-  data () {
-    return {
-      dialog: false,
-      input: {
-        username: '',
-        password: ''
-      },
-      user: undefined
-    }
-  },
-  methods: {
-    usercolor,
-    close () {
-      this.dialog = false
-    },
-    login () {
-      const postData = {
-        username: this.input.username,
-        password: this.input.password
+  export default {
+    data() {
+      return {
+        dialog: false,
+        input: {
+          username: '',
+          password: ''
+        },
+        user: undefined
       }
-      axios.post('https://mainsimweb.etit.tu-chemnitz.de/auth/login', postData)
-        .then(response => {
-          this.clear()
-          this.user = response.data.decoded
-          console.log(response.data.decoded)
-        })
-        .catch(this.logout)
     },
-    logout () {
-      this.clear()
-      this.user = undefined
-    },
-    clear () {
-      this.input.username = ''
-      this.input.password = ''
+    methods: {
+      usercolor,
+      close() {
+        this.dialog = false
+      },
+      login() {
+        const postData = {
+          username: this.input.username,
+          password: this.input.password
+        }
+        axios.post('https://mainsimweb.etit.tu-chemnitz.de/auth/login', postData)
+          .then(response => {
+            this.clear()
+            this.user = response.data.decoded
+            console.log(response.data.decoded)
+          })
+          .catch(this.logout)
+      },
+      logout() {
+        this.clear()
+        this.user = undefined
+      },
+      clear() {
+        this.input.username = ''
+        this.input.password = ''
+      }
     }
   }
-}
 </script>
