@@ -17,7 +17,7 @@ function storageSupport () {
 
   try {
     window.localStorage.setItem(config.supportKey, config.supportKey)
-    window.localStorage.removeItem(config.storageKey)
+    window.localStorage.removeItem(config.supportKey)
   } catch (e) {
     console.error('No localStorage support. Details:')
     console.error(e)
@@ -71,10 +71,16 @@ function logout (store, storage) {
 function verify (store, storage) {
   const token = storage.read()
 
+  if (!token) {
+    return logout(store, storage)
+  }
+
   axios.post(config.verifyUrl, { token })
     .then(response => {
-      storage.write(response.data.token)
       store.commit('setUser', response.data.decoded)
+      if (response.data.shouldRenew) {
+        renew(store, storage)
+      }
     })
     .catch(error => {
       console.error(error)
@@ -84,13 +90,14 @@ function verify (store, storage) {
 
 function init (store, storage) {
   const token = storage.read()
+
   if (!token) {
-    logout(store, storage)
+    return logout(store, storage)
   }
 
   const decoded = jwt.decode(token)
   if (!decoded) {
-    logout(store, storage)
+    return logout(store, storage)
   }
 
   store.commit('setUser', decoded)
