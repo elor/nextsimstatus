@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const bodyParser = require('body-parser')
 const jwt = require('./jwt')
 const ldap = require('./ldap')
@@ -10,11 +11,7 @@ const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-  next()
-})
+app.use(cors())
 
 app.post('/auth/login', (request, response) => {
   ldap.login(request.body.username, request.body.password)

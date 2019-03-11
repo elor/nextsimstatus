@@ -8,6 +8,7 @@
     "test": "node test.js"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
     "ldapjs": "^1.0.2"
