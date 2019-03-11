@@ -8,12 +8,26 @@
       <v-card-title>
         <span class="headline">
           <v-icon :color="usercolor(user.name)">account_circle</v-icon>
+          <router-link :to="`/users/${user.name}`">
+          </router-link>
           {{user.name}}
-          <router-link :to="`/users/${user.name}`"></router-link>
         </span>
+
         <v-card-text>
           <v-list subheader>
-            <v-subheader>Gruppen</v-subheader>
+            <v-subheader>Meine Seiten</v-subheader>
+            <v-list-tile :to="pages.user">
+              <v-list-tile-action>
+                <v-icon>person</v-icon>
+              </v-list-tile-action>
+              {{user.login}}
+            </v-list-tile>
+          </v-list>
+        </v-card-text>
+
+        <v-card-text>
+          <v-list subheader>
+            <v-subheader>Meine Gruppen</v-subheader>
             <v-list-tile v-for="group in user.groups" :key="group">
               <v-list-tile-avatar>
                 <v-icon :color="usercolor(group)">group</v-icon>
@@ -24,6 +38,7 @@
             </v-list-tile>
           </v-list>
         </v-card-text>
+
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="error" @click="logout">Abmelden</v-btn>
@@ -65,7 +80,14 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user']),
+    pages(){
+      const login = this.user.login
+
+      return {
+        user: `/users/${login}`
+      }
+    }
   },
   methods: {
     ...mapActions(['login', 'logout']),
