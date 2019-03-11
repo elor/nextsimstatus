@@ -81,7 +81,7 @@ export default {
   },
   computed: {
     ...mapState(['user']),
-    pages(){
+    pages () {
       const login = this.user.login
 
       return {
@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     ...mapActions(['login', 'logout']),
-    performLogin(){
+    performLogin () {
       this.login(this.credentials)
       this.clear()
     },
@@ -99,7 +99,7 @@ export default {
     close () {
       this.dialog = false
     },
-    clear(){
+    clear () {
       this.credentials.username = ''
       this.credentials.password = ''
     }
