@@ -6,7 +6,7 @@ const config =
   loginUrl: 'https://mainsimweb.etit.tu-chemnitz.de/auth/login',
   verifyUrl: 'https://mainsimweb.etit.tu-chemnitz.de/auth/token/check',
   renewUrl: 'https://mainsimweb.etit.tu-chemnitz.de/auth/token/renew',
-  storageKey: 'mainsimweb-login-token',
+  storageKey: 'mainsimweb-auth-token',
   supportKey: 'mainsimweb-storage-supported'
 }
 
