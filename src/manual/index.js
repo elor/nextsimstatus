@@ -7,11 +7,11 @@ import simpc from './items/simpc'
 import todo from './items/todo'
 
 export default [
-    ...general,
-    ...simpc,
-    ...services,
-    ...slurm,
-    ...modules,
-    ...python,
-    ...todo
+  ...general,
+  ...simpc,
+  ...services,
+  ...slurm,
+  ...modules,
+  ...python,
+  ...todo
 ]

@@ -9,6 +9,7 @@ import cpudata from '../utils/cpudata'
 import createMainsimPlugin from './createMainsimPlugin'
 import createNowTimePlugin from './createNowTimePlugin'
 import usercores from '../utils/usercores'
+import createAuthPlugin from './createAuthPlugin'
 
 const TEN_SECONDS = 10000
 const DEPRECATED_RELEASES = ['14.04', '16.04']
@@ -29,6 +30,11 @@ const initialSimpcs = range(16, 43)
     }),
     {}
   )
+
+const USER_DEFAULT = {
+  name: '',
+  groups: []
+}
 
 const sources = {
   graphql: true,
@@ -58,6 +64,10 @@ export default new Vuex.Store({
     sources,
     options: {
       timeout: 5000
+    },
+    user: {
+      name: '',
+      groups: []
     }
   },
 
@@ -260,13 +270,28 @@ export default new Vuex.Store({
     },
     stopUpdating (state) {
       state.updating = false
+    },
+    setUser (state, jwtData) {
+      if (jwtData) {
+        state.user = jwtData
+      } else {
+        state.user = USER_DEFAULT
+      }
     }
   },
 
   actions: {
     mainsimFetch () { },
-    mqttReconnect () { }
+    mqttReconnect () { },
+    login (credentials) {},
+    logout () {},
+    renewToken () {},
+    verifyToken () {}
   },
 
-  plugins: [createMainsimPlugin(sources), createNowTimePlugin(1000)]
+  plugins: [
+    createMainsimPlugin(sources),
+    createNowTimePlugin(1000),
+    createAuthPlugin()
+  ]
 })
