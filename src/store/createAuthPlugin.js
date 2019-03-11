@@ -4,8 +4,8 @@ import jwt from 'jsonwebtoken'
 const config =
 {
   loginUrl: 'https://mainsimweb.etit.tu-chemnitz.de/auth/login',
-  verifyUrl: 'https://mainsimweb.etit.tu-chemnitz.de/auth/check',
-  renewUrl: 'https://mainsimweb.etit.tu-chemnitz.de/auth/renew',
+  verifyUrl: 'https://mainsimweb.etit.tu-chemnitz.de/auth/token/check',
+  renewUrl: 'https://mainsimweb.etit.tu-chemnitz.de/auth/token/renew',
   storageKey: 'mainsimweb-login-token',
   supportKey: 'mainsimweb-storage-supported'
 }
