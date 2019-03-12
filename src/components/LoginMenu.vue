@@ -1,50 +1,52 @@
 <template>
   <v-dialog max-width="300px" v-model="dialog">
-    <v-avatar slot="activator" :color="user.name ? 'white' : 'primary'" size="24">
-    <v-icon :color="user.name ? usercolor(user.name) : 'white'">account_circle</v-icon>
-    </v-avatar>
+    <v-chip slot="activator" size="24"
+    :color="logged_in ? 'white' : 'primary'"
+    :text-color="logged_in ? 'primary' : 'dark'">
+      <v-icon :color="usercolor" class="mr-1">account_circle</v-icon>
+      {{user.login || 'login'}}
+    </v-chip>
 
-    <v-card v-if="user.name">
-      <v-card-title>
-        <span class="headline">
-          <v-icon :color="usercolor(user.name)">account_circle</v-icon>
-          <router-link :to="`/users/${user.name}`">
+    <v-card v-if="logged_in">
+      <v-card-title class="headline">
+          <router-link :to="`/users/${user.login}`" class="mr-2">
+            <v-chip class="ma-0" label small :style="{'background-color':usercolor}"></v-chip>
           </router-link>
           {{user.name}}
-        </span>
-
-        <v-card-text>
-          <v-list subheader>
-            <v-subheader>Meine Seiten</v-subheader>
-            <v-list-tile :to="pages.user">
-              <v-list-tile-action>
-                <v-icon>person</v-icon>
-              </v-list-tile-action>
-              {{user.login}}
-            </v-list-tile>
-          </v-list>
-        </v-card-text>
-
-        <v-card-text>
-          <v-list subheader>
-            <v-subheader>Meine Gruppen</v-subheader>
-            <v-list-tile v-for="group in user.groups" :key="group">
-              <v-list-tile-avatar>
-                <v-icon :color="usercolor(group)">group</v-icon>
-              </v-list-tile-avatar>
-              <v-list-tile-content>
-                {{group}}
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-list>
-        </v-card-text>
-
-        <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="error" @click="logout">Abmelden</v-btn>
-        </v-card-actions>
+          <v-icon @click="close">close</v-icon>
       </v-card-title>
 
+      <v-card-text>
+        <v-list subheader>
+          <v-subheader>Meine Seiten</v-subheader>
+          <v-list-tile :to="pages.user">
+            <v-list-tile-action>
+              <v-icon :color="usercolor">person</v-icon>
+            </v-list-tile-action>
+            {{user.login}}
+          </v-list-tile>
+        </v-list>
+      </v-card-text>
+
+      <v-card-text>
+        <v-list subheader>
+          <v-subheader>Meine Gruppen</v-subheader>
+          <v-list-tile v-for="group in user.groups" :key="group">
+            <v-list-tile-action>
+              <v-icon :color="groupcolor(group)">group</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              {{group}}
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-card-text>
+
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="error" @click="logout">Abmelden</v-btn>
+      </v-card-actions>
     </v-card>
 
     <v-card v-else>
@@ -87,6 +89,12 @@ export default {
       return {
         user: `/users/${login}`
       }
+    },
+    logged_in () {
+      return !!this.user.name
+    },
+    usercolor () {
+      return this.logged_in ? usercolor(this.user.login) : 'white'
     }
   },
   methods: {
@@ -95,14 +103,14 @@ export default {
       this.login(this.credentials)
       this.clear()
     },
-    usercolor,
     close () {
       this.dialog = false
     },
     clear () {
       this.credentials.username = ''
       this.credentials.password = ''
-    }
+    },
+    groupcolor: usercolor
   }
 }
 </script>
