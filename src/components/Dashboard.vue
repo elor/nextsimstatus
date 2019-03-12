@@ -44,7 +44,7 @@
       <v-card-text>
         <p class="xs-6" v-for="user in users_sorted" :key="user.UserName">
           <router-link :to="`/users/${user.UserName}`">
-            <v-chip class="ma-0" label small :style="{'background-color':user.color}"></v-chip>
+            <v-chip class="ma-0 mr-1" label small :style="{'background-color':user.color}"></v-chip>
           </router-link>
           <router-link :to="`/users/${user.UserName}`">{{user.UserName}}</router-link>
           :
