@@ -167,5 +167,6 @@ if __name__ == "__main__":
     secrets = json.load(open(secrets_file))
     user = secrets['rack_user']
     password = secrets['rack_pass']
-    racks = [rack_status_as_json(rack, user, password) for rack in [1, 2]]
+    racks = [rack_status_as_json(rack_num, user, password) for rack_num in RACKS]
     print json.dumps(racks, sort_keys=True)
+
