@@ -10,6 +10,11 @@ services:
     ports:
      - 127.0.0.1:1880:8080
     restart: on-failure
+  mensa:
+    build: mensa
+    ports:
+     - 127.0.0.1:1885:8000
+    restart: on-failure
   mqtt:
     build: mqtt
     ports:
