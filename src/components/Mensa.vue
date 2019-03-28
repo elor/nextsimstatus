@@ -1,18 +1,24 @@
 <template>
   <v-container>
-    <v-layout>
-      <flex sm6 xs12>
-        <v-card class="mx-3">
+    <v-layout row wrap>
+
+      <v-flex lg6 xs12>
+        <v-card class="ma-2">
+          <v-card-title class="headline">Mensa</v-card-title>
           <v-card-text>
-              <div v-html="mensa">Loading page...</div>
+            <div v-html="mensa">Loading page...</div>
           </v-card-text>
         </v-card>
-      </flex>
-      <v-card sm6 xs12>
-        <v-card-text class="mx-3">
+      </v-flex>
+
+      <v-flex lg6 xs12>
+        <v-card class="ma-2">
+          <v-card-title class="headline">Cafeteria</v-card-title>
+          <v-card-text>
             <div v-html="cafeteria">Loading page...</div>
-        </v-card-text>
-      </v-card>
+          </v-card-text>
+        </v-card>
+      </v-flex>
     </v-layout>
   </v-container>
 </template>
@@ -27,11 +33,6 @@ export default {
     return {
       mensa: undefined,
       cafeteria: undefined
-    }
-  },
-  computed: {
-    mensa_html(){
-
     }
   },
   methods: {
