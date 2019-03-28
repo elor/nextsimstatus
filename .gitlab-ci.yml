@@ -24,7 +24,7 @@ webpack:
     - apk add py-pip
     - pip install docker-compose
 
-deploy:docker-mainsimweb:
+build:docker-mainsimweb:
   extends: .docker-compose
   stage: build
   script:
