@@ -45,7 +45,9 @@ export default {
         this.mensa = this.parseMenu(response.data.mensa)
         this.cafeteria = this.parseMenu(response.data.cafeteria)
       })
-      .catch(error => this.content = `Error fetching the menu: <br> ${error}`)
+      .catch(error => {
+        this.content = `Error fetching the menu: <br> ${error}`
+      })
     }
   },
   mounted () {
