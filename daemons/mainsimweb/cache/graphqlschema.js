@@ -20,8 +20,6 @@ type Node {
   CPUErr: Int
   CPUTot: Int
   CPULoad: Float
-  AvailableFeatures: String
-  ActiveFeatures: String
   Gres: String
   NodeAddr: String
   NodeHostName: String
@@ -34,21 +32,12 @@ type Node {
   Boards: Int
   State: String
   ThreadsPerCore: Int
-  TmpDisk: Int
   Weight: Int
-  Owner: String
   Partitions: String
   BootTime: String
   SlurmdStartTime: String
   CfgTRES: String
   AllocTRES: String
-  CapWatts: String
-  CurrentWatts: Int
-  LowestJoules: String
-  ConsumedJoules: String
-  ExtSensorsJoules: String
-  ExtSensorsWatts: String
-  ExtSensorsTemp: String
 }
 
 type Job {
