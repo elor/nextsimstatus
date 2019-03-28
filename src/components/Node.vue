@@ -96,10 +96,10 @@ export default {
 
       const nodeGres = deGres(this.Node.Gres)
       const jobGres = this.Jobs
-        .filter(job=>job.Gres)
+        .filter(job => job.Gres)
         .map(job => job.Gres)
         .map(deGres)
-        .reduce((a,b) => {
+        .reduce((a, b) => {
           for (let key in b) {
             a[key] = b[key] + (a[key] || 0)
           }
@@ -115,10 +115,11 @@ export default {
       return allKeys.map(key => ({
         jobs: jobGres[key] || 0,
         total: nodeGres[key] || 0,
-        ressource: key})
-      ).map(gres => ({...gres,
-        percent: Math.round(100*gres.jobs / (gres.total || 1))})
-      )
+        ressource: key })
+      ).map(gres => ({
+        ...gres,
+        percent: Math.round(100 * gres.jobs / (gres.total || 1))
+      }))
     },
     MemPercent () {
       return 100 - Math.round((100 * this.Node.FreeMem) / this.Node.RealMemory)
