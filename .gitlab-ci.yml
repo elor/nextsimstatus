@@ -59,3 +59,5 @@ deploy:mainsim:
     - webpack
   script:
     - rsync -av --delete dist/ /var/www/html
+    - rsync -av --delete daemons/mainsim /opt/mainsimstatus/daemons/
+    - cp -v /opt/mainsimstatus/daemons/mainsim/systemd/*.service /etc/systemd/system/
