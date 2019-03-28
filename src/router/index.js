@@ -12,6 +12,7 @@ import EnsSim from '@/components/EnsSim'
 import SimPCs from '@/components/SimPCs'
 import SimPC from '@/components/SimPC'
 import Periodinator from '@/components/Periodinator'
+import Mensa from '@/components/Mensa'
 import Software from '@/components/Software'
 import Users from '@/components/Users'
 import User from '@/components/User'
@@ -98,6 +99,12 @@ export default new Router({
     name: 'EnsSim',
     component: EnsSim,
     icon: 'error'
+  },
+  {
+    path: '/mensa',
+    name: 'Mensa',
+    component: Mensa,
+    icon: 'restaurant'
   },
   {
     path: '*',
