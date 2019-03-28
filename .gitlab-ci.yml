@@ -15,16 +15,30 @@ webpack:
       - dist/
     expire_in: 1 day
 
-deploy:docker-mainsimweb:
-  stage: deploy
+.docker-compose:
   tags:
     - mainsimweb-docker
   dependencies: []
-  script:
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
     - apk add py-pip
     - pip install docker-compose
+
+deploy:docker-mainsimweb:
+  extends: .docker-compose
+  stage: build
+  script:
     - cd daemons/mainsimweb
-    - docker-compose up --remove-orphans --detach
+    - docker-compose build --parallel --pull
+    - docker-compose push
+
+deploy:docker-mainsimweb:
+  extends: .docker-compose
+  stage: deploy
+  script:
+    - cd daemons/mainsimweb
+    - docker-compose pull --include-deps
+    - docker-compose up --no-build --remove-orphans --detach
 
 deploy:mainsimweb:
   stage: deploy
