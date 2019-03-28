@@ -2,21 +2,25 @@ version: "3"
 services: 
   auth:
     build: auth
+    image: mainsim.etit.tu-chemnitz.de:5555/simadmin/mainsimstatus/auth
     ports:
      - 127.0.0.1:1881:8000
     restart: on-failure
   cache:
     build: cache
+    image: mainsim.etit.tu-chemnitz.de:5555/simadmin/mainsimstatus/cache
     ports:
      - 127.0.0.1:1880:8080
     restart: on-failure
   mensa:
     build: mensa
+    image: mainsim.etit.tu-chemnitz.de:5555/simadmin/mainsimstatus/mensa
     ports:
      - 127.0.0.1:1885:8000
     restart: on-failure
   mqtt:
     build: mqtt
+    image: mainsim.etit.tu-chemnitz.de:5555/simadmin/mainsimstatus/mqtt
     ports:
      - 1883:1883
      - 8883:8883
