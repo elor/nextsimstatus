@@ -14,7 +14,7 @@ app.use(bodyParser.json())
 
 app.use(cors())
 
-app.get('/', async (request, response) => {
+app.get('/mensa', async (request, response) => {
   try {
     const oben = await mensa.getRawPlan(mensa.URLS.RH70_MENSA)
     const unten = await mensa.getRawPlan(mensa.URLS.RH70_CAFETERIA)
