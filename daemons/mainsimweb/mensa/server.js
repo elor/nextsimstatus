@@ -16,7 +16,7 @@ app.use(cors())
 
 app.get('/mensa', async (request, response) => {
   try {
-    const data = mensa.getAllPlans()
+    const data = await mensa.getAllPlans()
 
     response.setHeader('Content-Type', 'application/json')
     response.send(JSON.stringify(data, undefined, 2))
@@ -29,7 +29,7 @@ app.get('/mensa', async (request, response) => {
 
 app.get('/mensa/text', async (request, response) => {
   try {
-    const text = mensa.getAllPlans({ text: true })
+    const text = await mensa.getAllPlans({ text: true })
 
     response.setHeader('Content-Type', 'text/plain')
     response.send(text)
