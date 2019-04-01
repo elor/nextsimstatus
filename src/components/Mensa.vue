@@ -44,9 +44,6 @@ export default {
     };
   },
   methods: {
-    parseMenu(json) {
-      return JSON.parse(json).rss.channel.item["content:encoded"];
-    },
     capitalize(text) {
       return `${text.charAt(0).toUpperCase()}${text.substr(1).toLowerCase()}`;
     },
@@ -66,8 +63,9 @@ export default {
       axios
         .get(URL)
         .then(response => {
-          this.mensa = this.parseMenu(response.data.mensa);
-          this.cafeteria = this.parseMenu(response.data.cafeteria);
+          console.log(response);
+          this.mensa = response.data.mensa;
+          this.cafeteria = response.data.cafeteria;
         })
         .catch(error => {
           console.error(error);
