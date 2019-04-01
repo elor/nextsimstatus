@@ -16,10 +16,7 @@ app.use(cors())
 
 app.get('/mensa', async (request, response) => {
   try {
-    const oben = await mensa.getRawPlan(mensa.URLS.RH70_MENSA)
-    const unten = await mensa.getRawPlan(mensa.URLS.RH70_CAFETERIA)
-
-    const data = { mensa: oben, cafeteria: unten }
+    const data = mensa.getAllPlans()
 
     response.setHeader('Content-Type', 'application/json')
     response.send(JSON.stringify(data, undefined, 2))
