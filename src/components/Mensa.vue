@@ -17,7 +17,10 @@
                       <div>{{essen.deutsch}}</div>
                       <div v-if="essen.pr">
                         Preis:
-                        <span v-for="preis in preise(essen.pr)" :key="preis">{{preis}}€</span>
+                        <span
+                          v-for="[id, preis] in Object.entries(preise(essen.pr))"
+                          :key="id"
+                        >{{preis}}€</span>
                       </div>
                     </div>
                   </v-card-title>
@@ -63,7 +66,6 @@ export default {
       axios
         .get(URL)
         .then(response => {
-          console.log(response);
           this.mensa = response.data.mensa;
           this.cafeteria = response.data.cafeteria;
         })
