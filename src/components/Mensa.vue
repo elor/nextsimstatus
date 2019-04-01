@@ -17,10 +17,11 @@
                   <div>{{stripAllergens(essen.deutsch)}}</div>
                   <div v-if="essen.pr">
                     Preis:
-                    <span v-for="[id, preis] in Object.entries(preise(essen.pr))" :key="id">
-                      {{preis}}€
-                      &nbsp;
-                    </span>
+                    <span
+                      v-for="[id, preis] in Object.entries(preise(essen.pr))"
+                      :key="id"
+                      class="mx-2"
+                    >{{preis}}€</span>
                   </div>
                 </div>
               </v-card-title>
