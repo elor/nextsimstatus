@@ -335,17 +335,15 @@ export default {
       return pr.map(preis => preis.$t);
     },
     fetch() {
-      this.mensa = TESTDATA.mensa;
-      this.cafeteria = TESTDATA.cafeteria;
-      return;
-
       axios
         .get(URL)
         .then(response => {
           this.mensa = this.parseMenu(response.data.mensa);
           this.cafeteria = this.parseMenu(response.data.cafeteria);
         })
-        .catch(error => {});
+        .catch(error => {
+          console.error(error);
+        });
     }
   },
   mounted() {
