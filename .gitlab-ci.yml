@@ -30,6 +30,7 @@ build:docker-mainsimweb:
   stage: build
   script:
     - cd daemons/mainsimweb
+    - pwd
     - docker-compose build --parallel --pull
     - docker-compose push
 
