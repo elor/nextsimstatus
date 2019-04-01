@@ -22,8 +22,21 @@ app.get('/mensa', async (request, response) => {
     response.send(JSON.stringify(data, undefined, 2))
   } catch (error) {
     console.error(error)
-    response.status(401)
-    response.send('Login error')
+    response.status(500)
+    response.send('Internal Server Error. Sorry.')
+  }
+})
+
+app.get('/mensa/text', async (request, response) => {
+  try {
+    const text = mensa.getAllPlans({ text: true })
+
+    response.setHeader('Content-Type', 'text/plain')
+    response.send(text)
+  } catch (error) {
+    console.error(error)
+    response.status(500)
+    response.send('Internal Server Error. Sorry.')
   }
 })
 

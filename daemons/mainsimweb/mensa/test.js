@@ -2,5 +2,11 @@
 
 const mensa = require('./mensa')
 
-mensa.getAllPlans()
-  .then(data => console.log(JSON.stringify(data, null, 2)))
+async function testMain () {
+  const json = await mensa.getAllPlans()
+  console.log(JSON.stringify(json, null, 2))
+  const text = await mensa.getAllPlans({ text: true, stripAllergens: true })
+  console.log(text)
+}
+
+testMain()
