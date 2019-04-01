@@ -1,9 +1,15 @@
 <template>
   <v-app>
-    <v-navigation-drawer persistent :mini-variant="miniVariant" v-model="drawer" enable-resize-watcher app>
+    <v-navigation-drawer
+      persistent
+      v-model="drawer"
+      :mini-variant="miniVariant && !$vuetify.breakpoint.mdAndDown"
+      enable-resize-watcher
+      app
+    >
       <v-toolbar dark color="primary">
-        <v-toolbar-side-icon @click.stop="drawer = !drawer">
-          <v-icon>close</v-icon>
+        <v-toolbar-side-icon @click.stop="miniVariant = !miniVariant">
+          <v-icon v-html="miniVariant ? 'menu' : 'chevron_left'"></v-icon>
         </v-toolbar-side-icon>
         <v-toolbar-title v-show="!miniVariant">MainSim</v-toolbar-title>
       </v-toolbar>
@@ -19,18 +25,11 @@
             </v-list-tile-content>
           </v-list-tile>
         </template>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-btn icon @click.stop="miniVariant = !miniVariant">
-              <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
-            </v-btn>
-          </v-list-tile-action>
-        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
 
     <v-toolbar app absolute dark color="primary">
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon v-if="$vuetify.breakpoint.mdAndDown" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
 
       <login-menu></login-menu>
 
@@ -52,64 +51,67 @@
       </v-toolbar-side-icon>
 
       <v-chip v-model="update_available" close>Update available</v-chip>
-
       {{dates.now.toLocaleString()}}
-
-      <v-btn :disabled="updating" fab small :color="dates.now - Math.min(dates.jobs) > options.timeout ? 'error' : 'primary'">
+      <v-btn
+        :disabled="updating"
+        fab
+        small
+        :color="dates.now - Math.min(dates.jobs) > options.timeout ? 'error' : 'primary'"
+      >
         <v-icon v-if="!updating" @click="refresh">refresh</v-icon>
         <v-progress-circular v-else indeterminate></v-progress-circular>
       </v-btn>
     </v-toolbar>
 
     <v-content>
-      <router-view />
+      <router-view/>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from "vuex";
 
-import LoginMenu from '@/components/LoginMenu'
+import LoginMenu from "@/components/LoginMenu";
 
 export default {
-  data () {
+  data() {
     return {
-      drawer: false,
-      miniVariant: false,
+      drawer: true,
+      miniVariant: true,
       update_available: false
-    }
+    };
   },
   components: {
     LoginMenu
   },
   computed: {
-    ...mapState(['errors', 'dates', 'options', 'jobs', 'updating', 'sources']),
-    items () {
+    ...mapState(["errors", "dates", "options", "jobs", "updating", "sources"]),
+    items() {
       return this.$router.options.routes.filter(
         route => !route.path.match(/:/)
-      )
+      );
     }
   },
   methods: {
-    ...mapActions(['mainsimFetch', 'mqttReconnect']),
-    refresh () {
-      this.mainsimFetch()
-      this.mqttReconnect()
+    ...mapActions(["mainsimFetch", "mqttReconnect"]),
+    refresh() {
+      this.mainsimFetch();
+      this.mqttReconnect();
     }
   },
-  name: 'App',
-  mounted () {
-    this.$nextTick(() => window.addEventListener('focus', this.refresh))
+  name: "App",
+  mounted() {
+    this.$nextTick(() => window.addEventListener("focus", this.refresh));
   },
-  beforeDestroy () {
-    window.removeEventListener('focus', this.refresh)
+  beforeDestroy() {
+    window.removeEventListener("focus", this.refresh);
   }
-}
+};
 </script>
 
 <style>
-  .noanimation .v-progress-circular__overlay {
-    transition: none;
-  }
+.noanimation .v-progress-circular__overlay {
+  transition: none;
+}
 </style>
