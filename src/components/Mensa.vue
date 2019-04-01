@@ -14,7 +14,7 @@
               <v-card-title primary-title>
                 <div>
                   <div class="headline">{{essen.kategorie}}</div>
-                  <div>{{essen.deutsch}}</div>
+                  <div>{{stripAllergens(essen.deutsch)}}</div>
                   <div v-if="essen.pr">
                     Preis:
                     <span v-for="[id, preis] in Object.entries(preise(essen.pr))" :key="id">
@@ -50,6 +50,12 @@ export default {
     },
     formatMenuDate(datum) {
       return `${datum.tag}.${datum.monat}.${datum.jahr}`;
+    },
+    stripAllergens(essen) {
+      return essen
+        .replace(/\(\d+(\s*,\s*\d*)*\)?/g, "")
+        .replace(/\s*,\s*/g, ", ")
+        .replace(/\s+/g, " ");
     },
     preise(pr) {
       if (!pr) {
