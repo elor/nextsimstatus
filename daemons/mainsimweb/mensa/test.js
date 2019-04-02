@@ -10,3 +10,4 @@ async function testMain () {
 }
 
 testMain()
+  .catch(console.error)
