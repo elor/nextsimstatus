@@ -3,11 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "fix-vue": "eslint src/ --fix --ext .vue",
-    "watch-vue": "while true; do eslint src/ --fix --ext .vue; sleep 1; done",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "lint-watch": "while true; do vue-cli-service lint; sleep 1; done"
   },
   "dependencies": {
     "axios": "^0.18.0",
