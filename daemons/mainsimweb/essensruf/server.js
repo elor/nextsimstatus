@@ -21,11 +21,11 @@ app.use(cors())
 
 app.post('/essensruf', async (request, response) => {
   try {
-    const jsonWebToken = request.headers.authorization || request.body.token
+    const jsonWebToken = request.get('Authorization') || request.body.token
 
     const decodedToken = await verifyToken(jsonWebToken)
     if (!decodedToken) {
-      throw new Error('Unauthorized: No valid token')
+      throw new Error('Unauthorized: Token is invalid')
     }
     const menu = await getMenu()
 
