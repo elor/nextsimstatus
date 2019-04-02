@@ -49,8 +49,9 @@ async function getAllPlans (options) {
   let plans = {}
   for (const [key, url] of Object.entries(URLS)) {
     plans[key] = await getPlan(url)
+    plans[key].name = capitalize(key)
     if (options.text) {
-      plans[key] = toText(plans[key], key)
+      plans[key] = toText(plans[key])
     }
   }
 
@@ -87,12 +88,12 @@ function stripAllergens (deutsch) {
     .trim()
 }
 
-function toText (menu, name = 'menu') {
-  const title = `${capitalize(name)} (${formatMenuDate(menu.datum)})`
+function toText ({ name, datum, essen }) {
+  const title = `${capitalize(name)} (${formatMenuDate(datum)})`
 
-  const items = menu.essen.map(essen => {
-    return `${essen.kategorie}: ${essen.deutsch_short}
-Preis: ${essen.preise.join(', ')}`
+  const items = essen.map(meal => {
+    return `${meal.kategorie}: ${meal.deutsch_short}
+Preis: ${meal.preise.join(', ')}`
   })
 
   return `${title}
