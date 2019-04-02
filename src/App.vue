@@ -70,44 +70,44 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions } from 'vuex'
 
-import LoginMenu from "@/components/LoginMenu";
+import LoginMenu from '@/components/LoginMenu'
 
 export default {
-  data() {
+  data () {
     return {
       drawer: true,
       miniVariant: true,
       update_available: false
-    };
+    }
   },
   components: {
     LoginMenu
   },
   computed: {
-    ...mapState(["errors", "dates", "options", "jobs", "updating", "sources"]),
-    items() {
+    ...mapState(['errors', 'dates', 'options', 'jobs', 'updating', 'sources']),
+    items () {
       return this.$router.options.routes.filter(
         route => !route.path.match(/:/)
-      );
+      )
     }
   },
   methods: {
-    ...mapActions(["mainsimFetch", "mqttReconnect"]),
-    refresh() {
-      this.mainsimFetch();
-      this.mqttReconnect();
+    ...mapActions(['mainsimFetch', 'mqttReconnect']),
+    refresh () {
+      this.mainsimFetch()
+      this.mqttReconnect()
     }
   },
-  name: "App",
-  mounted() {
-    this.$nextTick(() => window.addEventListener("focus", this.refresh));
+  name: 'App',
+  mounted () {
+    this.$nextTick(() => window.addEventListener('focus', this.refresh))
   },
-  beforeDestroy() {
-    window.removeEventListener("focus", this.refresh);
+  beforeDestroy () {
+    window.removeEventListener('focus', this.refresh)
   }
-};
+}
 </script>
 
 <style>
