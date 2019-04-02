@@ -1,20 +1,23 @@
 <template>
   <v-dialog max-width="300px" v-model="dialog">
-    <v-chip slot="activator" size="24"
-    :color="logged_in ? 'white' : 'primary'"
-    :text-color="logged_in ? 'primary' : 'dark'">
+    <v-chip
+      slot="activator"
+      size="24"
+      :color="logged_in ? 'white' : 'primary'"
+      :text-color="logged_in ? 'primary' : 'dark'"
+    >
       <v-icon :color="usercolor" class="mr-1">account_circle</v-icon>
       {{user.login || 'login'}}
     </v-chip>
 
     <v-card v-if="logged_in">
       <v-card-title class="headline">
-          <router-link :to="`/users/${user.login}`" class="mr-2">
-            <v-chip class="ma-0" label small :style="{'background-color':usercolor}"></v-chip>
-          </router-link>
-          {{user.name}}
-          <v-spacer></v-spacer>
-          <v-icon @click="close">close</v-icon>
+        <router-link :to="`/users/${user.login}`" class="mr-2">
+          <v-chip class="ma-0" label small :style="{'background-color':usercolor}"></v-chip>
+        </router-link>
+        {{user.name}}
+        <v-spacer></v-spacer>
+        <v-icon @click="close">close</v-icon>
       </v-card-title>
 
       <v-card-text>
@@ -36,9 +39,7 @@
             <v-list-tile-action>
               <v-icon :color="groupcolor(group)">group</v-icon>
             </v-list-tile-action>
-            <v-list-tile-content>
-              {{group}}
-            </v-list-tile-content>
+            <v-list-tile-content>{{group}}</v-list-tile-content>
           </v-list-tile>
         </v-list>
       </v-card-text>
@@ -54,10 +55,24 @@
         <span class="headline">Anmelden</span>
       </v-card-title>
       <v-card-text>
-        <v-text-field required clearable v-model="credentials.username" label="Username"
-          hint="MainSim user name, e.g. <i>t.user</i>" @keyup.enter="login" @keyup.escape="close"></v-text-field>
-        <v-text-field required clearable v-model="credentials.password" label="Password" type="password" @keyup.enter="performLogin()"
-          @keyup.escape="close"></v-text-field>
+        <v-text-field
+          required
+          clearable
+          v-model="credentials.username"
+          label="Username"
+          hint="MainSim user name, e.g. <i>t.user</i>"
+          @keyup.enter="login"
+          @keyup.escape="close"
+        ></v-text-field>
+        <v-text-field
+          required
+          clearable
+          v-model="credentials.password"
+          label="Password"
+          type="password"
+          @keyup.enter="performLogin()"
+          @keyup.escape="close"
+        ></v-text-field>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
