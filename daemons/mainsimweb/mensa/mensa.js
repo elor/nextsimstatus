@@ -14,7 +14,33 @@ async function getPlan (URL) {
   const { data } = await axios.get(URL)
   const json = JSON.parse(toJson(data)).speiseplan
 
-  return json
+  return filterPlan(json)
+}
+
+function filterPlan ({ datum, essen }) {
+  const filtered = {
+    datum,
+    datum_str: formatMenuDate(datum),
+    essen: essen.map(filterEssen)
+  }
+  return filtered
+}
+
+function filterEssen (essen) {
+  const toBool = (str) => str.toLowerCase() === 'true'
+
+  return {
+    ...essen,
+    deutsch_short: stripAllergens(essen.deutsch || ''),
+    bewertung: Number(essen.bewertung),
+    img: toBool(essen.img),
+    schwein: toBool(essen.schwein),
+    rind: toBool(essen.rind),
+    vegetarisch: toBool(essen.vegetarisch),
+    alkohol: toBool(essen.alkohol),
+    preise_numeric: preise(essen.pr).map(Number),
+    preise: preise(essen.pr).map(preis => `${preis}€`)
+  }
 }
 
 async function getAllPlans (options) {
@@ -35,8 +61,8 @@ async function getAllPlans (options) {
   return plans
 }
 
-function formatMenuDate (datum) {
-  return `${datum.tag}.${datum.monat}.${datum.jahr}`
+function formatMenuDate ({ tag, monat, jahr }) {
+  return `${tag}.${monat}.${jahr}`.replace(/\b(\d)\./g, '0$1.')
 }
 
 function preise (pr) {
@@ -53,20 +79,20 @@ function capitalize (text) {
   return `${text.charAt(0).toUpperCase()}${text.substr(1).toLowerCase()}`
 }
 
-function stripAllergens (essen) {
-  return essen
+function stripAllergens (deutsch) {
+  return deutsch
     .replace(/\(\d+(\s*,\s*\d*)*\)?/g, '')
     .replace(/\s*,\s*/g, ', ')
     .replace(/\s+/g, ' ')
+    .trim()
 }
 
 function toText (menu, name = 'menu') {
   const title = `${capitalize(name)} (${formatMenuDate(menu.datum)})`
 
   const items = menu.essen.map(essen => {
-    const description = stripAllergens(essen.deutsch)
-    return `${essen.kategorie}: ${description}
-  Preis: ${preise(essen.pr).map(pr => `${pr}€`).join(', ')}`
+    return `${essen.kategorie}: ${essen.deutsch_short}
+Preis: ${essen.preise.join(', ')}`
   })
 
   return `${title}
