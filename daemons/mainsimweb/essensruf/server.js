@@ -46,10 +46,10 @@ app.post('/essensruf', async (request, response) => {
 
     ${menu}`
 
-    const apiResponse = await sendMessage(message)
+    await sendMessage(message)
 
     response.setHeader('Content-Type', 'text/plain')
-    response.send(apiResponse)
+    response.send(message)
   } catch (error) {
     console.error(error)
     if (error.response && error.response.status) {
