@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "fix-vue": "eslint src/ --fix --ext .vue",
+    "watch-vue": "while true; do eslint src/ --fix --ext .vue; sleep 1; done",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
