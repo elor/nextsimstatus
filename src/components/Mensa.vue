@@ -1,6 +1,11 @@
 <template>
   <v-container>
     <v-layout row wrap v-if="mensa || cafeteria">
+      <v-flex xs12>
+        <v-btn color="primary" @click="essensruf" :disabled="!logged_in">Essensruf</v-btn>
+        <i v-if="!logged_in">Anmeldung notwendig</i>
+      </v-flex>
+
       <v-flex md6 xs12 v-for="[type, menu] in Object.entries({mensa, cafeteria})" :key="type">
         <v-card class="ma-2">
           <v-card-title class="headline">{{menu.name}} - {{menu.datum_str}}</v-card-title>
@@ -34,9 +39,11 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import axios from 'axios'
 
-const URL = 'https://mainsimweb.etit.tu-chemnitz.de/mensa'
+const MENU_URL = 'https://mainsimweb.etit.tu-chemnitz.de/mensa'
+const ESSENSRUF_URL = 'https://mainsimweb.etit.tu-chemnitz.de/essensruf'
 
 export default {
   data () {
@@ -45,10 +52,15 @@ export default {
       cafeteria: undefined
     }
   },
+  computed: {
+    ...mapState(['user', 'jwtToken']),
+    logged_in () {
+      return this.user.name && this.jwtToken
+    }
+  },
   methods: {
     fetch () {
-      axios
-        .get(URL)
+      axios.get(MENU_URL)
         .then(response => {
           this.mensa = response.data.mensa
           this.cafeteria = response.data.cafeteria
@@ -56,6 +68,15 @@ export default {
         .catch(error => {
           console.error(error)
         })
+    },
+    essensruf () {
+      if (this.logged_in) {
+        axios.post(ESSENSRUF_URL, '', { headers: { Authorization: this.jwtToken } })
+          .then(result => alert(result.data))
+          .catch(error => alert(error))
+      } else {
+        alert('Du musst dich erst anmelden.')
+      }
     }
   },
   mounted () {
