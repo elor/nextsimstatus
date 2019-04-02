@@ -68,7 +68,8 @@ export default new Vuex.Store({
     user: {
       name: '',
       groups: []
-    }
+    },
+    jwtToken: undefined
   },
 
   getters: {
@@ -271,11 +272,15 @@ export default new Vuex.Store({
     stopUpdating (state) {
       state.updating = false
     },
-    setUser (state, jwtData) {
-      if (jwtData) {
-        state.user = jwtData
+    setUser (state, { user, token }) {
+      console.log(user)
+      console.log(token)
+      if (user && token) {
+        state.user = user
+        state.jwtToken = token
       } else {
         state.user = USER_DEFAULT
+        state.jwtToken = undefined
       }
     }
   },

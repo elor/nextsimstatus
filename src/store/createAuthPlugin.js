@@ -55,7 +55,7 @@ function login (payload, store, storage) {
   axios.post(config.loginUrl, { username, password })
     .then(response => {
       storage.write(response.data.token)
-      store.commit('setUser', response.data.decoded)
+      store.commit('setUser', { user: response.data.decoded, token: response.data.token })
     })
     .catch(error => {
       console.error(error)
@@ -64,7 +64,7 @@ function login (payload, store, storage) {
 }
 
 function logout (store, storage) {
-  store.commit('setUser', undefined)
+  store.commit('setUser', {})
   storage.clear()
 }
 
@@ -77,7 +77,7 @@ function verify (store, storage) {
 
   axios.post(config.verifyUrl, { token })
     .then(response => {
-      store.commit('setUser', response.data.decoded)
+      store.commit('setUser', { user: response.data.decoded, token })
       if (response.data.shouldRenew) {
         renew(store, storage)
       }
@@ -100,7 +100,7 @@ function init (store, storage) {
     return logout(store, storage)
   }
 
-  store.commit('setUser', decoded)
+  store.commit('setUser', { user: decoded, token })
 
   verify(store, storage)
 }
@@ -111,7 +111,7 @@ function renew (store, storage) {
   axios.post(config.renewUrl, { token })
     .then(response => {
       storage.write(response.data.token)
-      store.commit('setUser', response.data.decoded)
+      store.commit('setUser', { user: response.data.decoded, token: response.data.token })
     })
     .catch(error => {
       console.error(error)
