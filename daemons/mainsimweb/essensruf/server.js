@@ -19,6 +19,19 @@ app.use(bodyParser.json())
 
 app.use(cors())
 
+app.get('/essensruf', async (request, response) => {
+  const menu = await getMenu()
+
+  const message = `Authorisierung benötigt, um Essensruf zu senden.
+  
+Vorschau:
+${menu}
+  `
+
+  response.setHeader('Content-Type', 'text/plain')
+  response.send(message)
+})
+
 app.post('/essensruf', async (request, response) => {
   try {
     const jsonWebToken = request.get('Authorization') || request.body.token
