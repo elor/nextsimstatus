@@ -273,8 +273,6 @@ export default new Vuex.Store({
       state.updating = false
     },
     setUser (state, { user, token }) {
-      console.log(user)
-      console.log(token)
       if (user && token) {
         state.user = user
         state.jwtToken = token
