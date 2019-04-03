@@ -5,7 +5,7 @@
     right
     open-on-hover
     direction="left"
-    transition="slide-y-transition"
+    transition="slide-x-reverse-transition"
   >
     <template v-slot:activator>
       <v-btn v-model="fab" :color="logged_in ? 'primary' : 'grey'" dark fab>
