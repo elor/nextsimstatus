@@ -7,7 +7,13 @@
             <NodeList></NodeList>
           </v-flex>
           <v-flex xs="12" md="6">
-            <v-text-field append-icon="search" label="Search" single-line hide-details v-model="search"></v-text-field>
+            <v-text-field
+              append-icon="search"
+              label="Search"
+              single-line
+              hide-details
+              v-model="search"
+            ></v-text-field>
           </v-flex>
         </v-layout>
       </v-card-title>
@@ -17,30 +23,31 @@
             <router-link :to="`/${props.item.NodeName}`">{{props.item.NodeName}}</router-link>
           </td>
           <td>
-            <v-progress-circular :value="100*props.item.CPUAlloc/props.item.CPUTot" :color="props.item.CPUAlloc == props.item.CPUTot ? 'light-blue' : 'green'">
-              {{props.item.CPUAlloc}}
-            </v-progress-circular>
+            <v-progress-circular
+              :value="100*props.item.CPUAlloc/props.item.CPUTot"
+              :color="props.item.CPUAlloc == props.item.CPUTot ? 'light-blue' : 'green'"
+            >{{props.item.CPUAlloc}}</v-progress-circular>
           </td>
           <td>
             <span v-for="job in props.item.pureJobs" :key="job.JobId">
-              <router-link :to="`/jobs/${job.JobId}`">{{job.JobId}}</router-link>
-              &nbsp;
+              <router-link :to="`/jobs/${job.JobId}`">{{job.JobId}}</router-link>&nbsp;
             </span>
             <span v-for="array in props.item.jobArrays" :key="array.JobId">
-              {{array.jobs.length}}x&nbsp;<router-link :to="`/jobs/${array.ArrayJobId}`">{{array.ArrayJobId}}</router-link>
-              &nbsp;
+              {{array.jobs.length}}x&nbsp;
+              <router-link :to="`/jobs/${array.ArrayJobId}`">{{array.ArrayJobId}}</router-link>&nbsp;
             </span>
           </td>
           <td>
             <span v-for="user in props.item.users" :key="user">
-              <router-link :to="`/users/${user}`">{{user}}</router-link>
-              &nbsp;
+              <router-link :to="`/users/${user}`">{{user}}</router-link>&nbsp;
             </span>
           </td>
           <td>
             <cpu-load :load="Number(props.item.CPULoad)" :cores="Number(props.item.CPUTot)"></cpu-load>
-            <v-progress-circular :value="100*(1 - props.item.FreeMem/props.item.RealMemory)" :color="props.item.FreeMem < 0.1*props.item.RealMemory ? 'red' : 'light-blue'">
-            </v-progress-circular>
+            <v-progress-circular
+              :value="100*(1 - props.item.FreeMem/props.item.RealMemory)"
+              :color="props.item.FreeMem < 0.1*props.item.RealMemory ? 'red' : 'light-blue'"
+            ></v-progress-circular>
           </td>
           <td>{{props.item.Partitions}}</td>
           <td>
@@ -55,7 +62,6 @@
         </template>
       </v-data-table>
     </v-card>
-
   </v-container>
 </template>
 
@@ -65,8 +71,7 @@ import NodeList from '@/components/NodeList'
 import CpuLoad from '@/components/CpuLoad'
 import { capitalize } from '../utils/capitalize'
 
-const warnstates = ['DRAIN', 'MAINT', 'DOWN', 'POWER_UP', 'POWER_DOWN']
-const failstates = ['*', 'NoResp', 'FAILING', 'ERROR', 'FAIL']
+import { warnstates, failstates } from '../utils/nodeStates'
 
 export default {
   data () {
