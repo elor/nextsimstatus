@@ -3,40 +3,40 @@
 import json
 import sys
 
-allowed = [
-    "NodeName",
-    "Arch",
-    "CoresPerSocket",
-    "CPUAlloc",
-    "CPUErr",
-    "CPUTot",
-    "CPULoad",
-    "Gres",
-    "NodeAddr",
-    "NodeHostName",
-    "Version",
-    "OS",
-    "RealMemory",
-    "AllocMem",
-    "FreeMem",
-    "Sockets",
-    "Boards",
-    "State",
-    "ThreadsPerCore",
-    "Weight",
-    "Partitions",
-    "BootTime",
-    "SlurmdStartTime",
-    "CfgTRES",
-    "AllocTRES"
-]
+ALLOWED = {
+    "NodeName": str,
+    "Arch": str,
+    "CoresPerSocket": int,
+    "CPUAlloc": int,
+    "CPUErr": int,
+    "CPUTot": int,
+    "CPULoad": float,
+    "Gres": str,
+    "NodeAddr": str,
+    "NodeHostName": str,
+    "Version": str,
+    "OS": str,
+    "RealMemory": int,
+    "AllocMem": int,
+    "FreeMem": int,
+    "Sockets": int,
+    "Boards": int,
+    "State": str,
+    "ThreadsPerCore": int,
+    "Weight": int,
+    "Partitions": str,
+    "BootTime": str,
+    "SlurmdStartTime": str,
+    "CfgTRES": str,
+    "AllocTRES": str
+}
 
 
 def filterfunc(job):
     newjob = {}
     for key in job:
-        if key in allowed and job[key]:
-            newjob[key] = job[key]
+        if key in ALLOWED and job[key]:
+            newjob[key] = ALLOWED[key](job[key])
     return newjob
 
 

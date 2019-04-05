@@ -3,42 +3,42 @@
 import json
 import sys
 
-allowed = [
-    "ArrayJobId",
-    "ArrayTaskId",
-    "BatchHost",
-    "Command",
-    "CPUs/Task",
-    "Dependency",
-    "EligibleTime",
-    "EndTime",
-    "ExitCode"
-    "Features",
-    "Gres",
-    "JobId",
-    "JobName",
-    "JobState",
-    "Licenses",
-    "NodeList",
-    "NumCPUs",
-    "NumNodes",
-    "NumTasks",
-    "Partition",
-    "Reason",
-    "RunTime",
-    "StartTime",
-    "SubmitTime",
-    "TimeLimit",
-    "UserId",
-    "WorkDir",
-]
+ALLOWED = {
+    "NodeList": str,
+    "JobName": str,
+    "EndTime": str,
+    "NumTasks": int,
+    "JobState": str,
+    "SubmitTime": str,
+    "NumNodes": str,
+    "UserId": str,
+    "JobId": int,
+    "Reason": str,
+    "NumCPUs": int,
+    "WorkDir": str,
+    "Gres": str,
+    "Partition": str,
+    "Dependency": str,
+    "Command": str,
+    "ArrayJobId": int,
+    "ArrayTaskId": str,
+    "EligibleTime": str,
+    "TimeLimit": str,
+    "StartTime": str,
+    "BatchHost": str,
+    "Licenses": str,
+    "RunTime": str,
+    "CPUs/Task": str,
+    "ExitCode": str,
+    "Features": str
+}
 
 
 def filterfunc(job):
     newjob = {}
     for key in job:
-        if key in allowed and job[key]:
-            newjob[key] = job[key]
+        if key in ALLOWED and job[key]:
+            newjob[key] = ALLOWED[key](job[key])
     return newjob
 
 
