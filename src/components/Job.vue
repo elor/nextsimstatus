@@ -13,11 +13,7 @@
       </v-card-text>
     </v-card>
 
-    <JobList v-if="SubJobs.length"
-             :title="`${SubJobs.length} Array Jobs`"
-             :items="SubJobs">
-    </JobList>
-
+    <JobList v-if="SubJobs.length" :title="`${SubJobs.length} Array Jobs`" :items="SubJobs"></JobList>
   </v-container>
 </template>
 
@@ -34,10 +30,10 @@ export default {
   computed: {
     ...mapGetters(['jobstatus']),
     JobId () {
-      return this.$route.params.id
+      return Number(this.$route.params.id)
     },
     Job () {
-      return this.jobstatus.filter(job => job.JobId === this.JobId)[0]
+      return this.jobstatus.filter(job => Number(job.JobId) === this.JobId)[0]
     },
     SubJobs () {
       return this.jobstatus.filter(job => job.ArrayJobId === this.JobId)
