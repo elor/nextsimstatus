@@ -22,12 +22,16 @@ export default {
     allocData () {
       const system = [
         { name: 'Free', cpus: this.nodecpus.free },
-        { name: 'Error', cpus: this.nodecpus.errored }
+        { name: 'Drain', cpus: this.nodecpus.drain },
+        { name: 'Error', cpus: this.nodecpus.error },
+        { name: 'Failure', cpus: this.nodecpus.fail }
       ].filter(sys => sys.cpus)
       const labels = [
         ...this.usercpus.map(user => user.name),
         ...system.map(sys => sys.name)
       ]
+
+      console.log(usercolor('Drain'))
 
       return {
         labels: labels,
@@ -36,8 +40,7 @@ export default {
             label: 'Core Allocations',
             data: [
               ...this.usercpus.map(user => user.cpus),
-              this.nodecpus.free,
-              this.nodecpus.errored
+              ...system.map(sys => sys.cpus)
             ],
             backgroundColor: labels.map(usercolor)
           }
