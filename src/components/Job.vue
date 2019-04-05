@@ -36,7 +36,9 @@ export default {
       return this.jobstatus.filter(job => Number(job.JobId) === this.JobId)[0]
     },
     SubJobs () {
-      return this.jobstatus.filter(job => job.ArrayJobId === this.JobId)
+      return this.jobstatus.filter(
+        job => Number(job.ArrayJobId) === this.JobId
+      )
     },
     title () {
       return `Job #${this.JobId}${this.Job ? `: ${this.Job.JobName}` : ''}`
