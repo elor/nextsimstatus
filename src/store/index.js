@@ -5,10 +5,11 @@ import { uniq, flatten, sum, range, sortBy, isEqual } from 'lodash'
 import { nodels } from '../utils/nodels'
 import usercolor from '../utils/usercolor'
 import cpudata from '../utils/cpudata'
+import usercores from '../utils/usercores'
+import splitStates from '../utils/splitStates'
 
 import createMainsimPlugin from './createMainsimPlugin'
 import createNowTimePlugin from './createNowTimePlugin'
-import usercores from '../utils/usercores'
 import createAuthPlugin from './createAuthPlugin'
 
 const TEN_SECONDS = 10000
@@ -52,7 +53,7 @@ export default new Vuex.Store({
     jobs: [],
     racks: [],
     errors: [],
-    nodecpus: { allocated: 0, free: 0, errored: 0, total: 0 },
+    nodecpus: { allocated: 0, free: 0, error: 0, total: 0, drain: 0, fail: 0 },
     usercpus: [],
     simpcs: initialSimpcs,
     dates: {
@@ -80,12 +81,7 @@ export default new Vuex.Store({
           jobs: getters.jobstatus
             .filter(job => job.JobState === 'RUNNING')
             .filter(job => job.NodeNames.includes(node.NodeName)),
-          States: flatten(
-            node.State.split('+').map(
-              state =>
-                state.endsWith('*') ? [state.replace(/\**$/, ''), '*'] : state
-            )
-          ),
+          States: splitStates(node.State),
           FreeMem: node.FreeMem === 'N/A' ? '0' : node.FreeMem,
           Reason: node.Reason || ''
         }))
@@ -233,7 +229,8 @@ export default new Vuex.Store({
       state.nodes = nodes
       state.dates.nodes = new Date()
 
-      let nodecpus = cpudata(nodes)
+      let nodecpus = cpudata(...nodes)
+
       if (!isEqual(state.nodecpus, nodecpus)) {
         state.nodecpus = nodecpus
       }
