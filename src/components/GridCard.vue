@@ -1,5 +1,5 @@
 <template>
-  <v-flex lg3 sm6 xs12>
+  <v-flex lg3 md4 sm6 xs12>
     <v-card class="gridcard ma-2" :class="{'wrap': wrap}" :style="style">
       <v-card-title v-if="title" class="pb-0">
         <v-layout row>
