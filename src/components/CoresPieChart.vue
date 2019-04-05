@@ -31,8 +31,6 @@ export default {
         ...system.map(sys => sys.name)
       ]
 
-      console.log(usercolor('Drain'))
-
       return {
         labels: labels,
         datasets: [
