@@ -65,6 +65,8 @@ type Job {
   BatchHost: String
   Licenses: String
   RunTime: String
+  ExitCode: String
+  Features: String
 }
 
 type User {
