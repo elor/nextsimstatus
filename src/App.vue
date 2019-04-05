@@ -3,13 +3,18 @@
     <v-navigation-drawer
       persistent
       v-model="drawer"
+      @change="mobileDrawer = !mobileDrawer"
       :mini-variant="miniVariant && !$vuetify.breakpoint.mdAndDown"
       enable-resize-watcher
       app
     >
       <v-toolbar dark color="primary">
-        <v-toolbar-side-icon @click.stop="miniVariant = !miniVariant">
-          <v-icon v-html="miniVariant ? 'menu' : 'chevron_left'"></v-icon>
+        <v-toolbar-side-icon v-if="isMobile" @click.stop="mobileDrawer = !mobileDrawer">
+          <v-icon>chevron_left</v-icon>
+        </v-toolbar-side-icon>
+        <v-toolbar-side-icon v-else @click.stop="miniVariant = !miniVariant">
+          <v-icon v-if="miniVariant">menu</v-icon>
+          <v-icon v-else>chevron_left</v-icon>
         </v-toolbar-side-icon>
         <v-toolbar-title v-show="!miniVariant">MainSim</v-toolbar-title>
       </v-toolbar>
@@ -29,7 +34,7 @@
     </v-navigation-drawer>
 
     <v-toolbar app absolute dark color="primary">
-      <v-toolbar-side-icon v-if="$vuetify.breakpoint.mdAndDown" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon v-if="isMobile" @click.stop="mobileDrawer = !mobileDrawer"></v-toolbar-side-icon>
 
       <login-menu></login-menu>
 
@@ -58,7 +63,7 @@
         small
         :color="dates.now - Math.min(dates.jobs) > options.timeout ? 'error' : 'primary'"
       >
-        <v-icon v-if="!updating" @click="refresh">refresh</v-icon>
+        <v-icon v-if="!updating" @click.stop="refresh">refresh</v-icon>
         <v-progress-circular v-else indeterminate></v-progress-circular>
       </v-btn>
     </v-toolbar>
@@ -77,7 +82,7 @@ import LoginMenu from '@/components/LoginMenu'
 export default {
   data () {
     return {
-      drawer: true,
+      mobileDrawer: false,
       miniVariant: true,
       update_available: false
     }
@@ -87,6 +92,21 @@ export default {
   },
   computed: {
     ...mapState(['errors', 'dates', 'options', 'jobs', 'updating', 'sources']),
+    drawer: {
+      get () {
+        if (this.isMobile) {
+          return this.mobileDrawer
+        } else {
+          return true
+        }
+      },
+      set (value) {
+        this.mobileDrawer = value
+      }
+    },
+    isMobile () {
+      return this.$vuetify.breakpoint.mdAndDown
+    },
     items () {
       return this.$router.options.routes.filter(
         route => !route.path.match(/:/)
@@ -101,6 +121,13 @@ export default {
     }
   },
   name: 'App',
+  watch: {
+    isMobile (mobile) {
+      if (!mobile) {
+        this.mobileDrawer = false
+      }
+    }
+  },
   mounted () {
     this.$nextTick(() => window.addEventListener('focus', this.refresh))
   },
