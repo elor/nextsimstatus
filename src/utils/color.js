@@ -20,6 +20,5 @@ export function toString (rgb) {
 export function isDark (hexRGB, threshold = 0x40) {
   const HSL = colorConvert.hex.hsl(hexRGB)
   const L = HSL[2]
-  console.log(`${hexRGB} => ${HSL}`)
   return L < threshold
 }
