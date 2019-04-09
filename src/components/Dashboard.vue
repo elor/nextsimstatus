@@ -51,10 +51,7 @@
             <v-card class="ma-1 pa-1" height="70" :to="`/users/${user.UserName}`">
               <v-layout>
                 <v-flex xs4>
-                  <router-link :to="`/users/${user.UserName}`">
-                    <v-chip label small :style="{'background-color':user.color}"></v-chip>
-                  </router-link>
-                  <router-link :to="`/users/${user.UserName}`">{{user.UserName}}</router-link>
+                  <user-chip :login="user.UserName"/>
                 </v-flex>
 
                 <v-flex xs4>
@@ -63,7 +60,9 @@
 
                 <v-flex xs4 v-if="user.PCs.length">
                   SimPC:
-                  <v-progress-circular v-for="pc in user.PCs" :key="pc.hostname"
+                  <v-progress-circular
+                    v-for="pc in user.PCs"
+                    :key="pc.hostname"
                     :value="pc.load_1min !== undefined ? (10 + 90 * pc.load_1min / 5.0) : 0.0"
                     :color="pc.load_1min > 5.0 ? 'red' : 'green'"
                   >
@@ -73,9 +72,11 @@
               </v-layout>
               <div v-if="user.Jobs.length">
                 Jobs:
-                <span v-for="[key, value] in Object.entries(user.JobCount).filter(a => a[1])" :key="key" class="mx-2">
-                  {{value}} {{key}}
-                </span>
+                <span
+                  v-for="[key, value] in Object.entries(user.JobCount).filter(a => a[1])"
+                  :key="key"
+                  class="mx-2"
+                >{{value}} {{key}}</span>
               </div>
               <i v-else>Keine Jobs</i>
             </v-card>
@@ -108,13 +109,15 @@ import GridCard from '@/components/GridCard'
 import CoresPieChart from '@/components/CoresPieChart'
 import Rack from '@/components/Rack'
 import NodeLoad from '@/components/NodeLoad'
+import UserChip from '@/components/UserChip'
 
 export default {
   components: {
     GridCard,
     CoresPieChart,
     Rack,
-    NodeLoad
+    NodeLoad,
+    UserChip
   },
   computed: {
     ...mapGetters([
