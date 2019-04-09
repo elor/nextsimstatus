@@ -2,9 +2,9 @@
   <v-chip
     small
     :class="{'grey--text': inactive}"
-    :to="`/users/${login}`"
     :color="color"
     :dark="isDark"
+    @click="$router.push(`/users/${login}`)"
   >{{login}}</v-chip>
 </template>
 
