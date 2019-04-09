@@ -76,7 +76,11 @@
                   v-for="[key, value] in Object.entries(user.JobCount).filter(a => a[1])"
                   :key="key"
                   class="mx-2"
-                >{{value}} {{key}}</span>
+                >
+                  <v-icon color="warning" v-if="key=='Failed'">warning</v-icon>
+                  {{value}}
+                  {{key}}
+                </span>
               </div>
               <i v-else>Keine Jobs</i>
             </v-card>
