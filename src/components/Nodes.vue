@@ -38,9 +38,7 @@
             </span>
           </td>
           <td>
-            <span v-for="user in props.item.users" :key="user">
-              <router-link :to="`/users/${user}`">{{user}}</router-link>&nbsp;
-            </span>
+            <user-chip v-for="user in props.item.users" :key="user" :login="user"/>
           </td>
           <td>
             <cpu-load :load="Number(props.item.CPULoad)" :cores="Number(props.item.CPUTot)"></cpu-load>
@@ -70,10 +68,16 @@ import { mapGetters } from 'vuex'
 import NodeList from '@/components/NodeList'
 import CpuLoad from '@/components/CpuLoad'
 import { capitalize } from '../utils/capitalize'
+import UserChip from '@/components/UserChip'
 
 import { warnstates, failstates } from '../utils/nodeStates'
 
 export default {
+  components: {
+    NodeList,
+    CpuLoad,
+    UserChip
+  },
   data () {
     return {
       headers: [
@@ -140,10 +144,6 @@ export default {
     isFailState (state) {
       return failstates.includes(state)
     }
-  },
-  components: {
-    NodeList,
-    CpuLoad
   }
 }
 </script>
