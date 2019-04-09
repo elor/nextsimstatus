@@ -16,7 +16,7 @@
     >
       <template slot="items" slot-scope="props">
         <td>
-          <router-link :to="`/jobs/${props.item.JobId}`">{{props.item.JobId}}</router-link>
+          <job-chip :job="props.item"/>
         </td>
         <td>
           <user-chip :login="props.item.UserName"/>
@@ -45,11 +45,13 @@
 <script>
 import { capitalize } from '../utils/capitalize'
 import UserChip from '@/components/UserChip'
+import JobChip from '@/components/JobChip'
 
 export default {
   props: ['items', 'title'],
   components: {
-    UserChip
+    UserChip,
+    JobChip
   },
   data () {
     return {
