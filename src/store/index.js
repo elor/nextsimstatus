@@ -138,9 +138,8 @@ export default new Vuex.Store({
           ...user,
           RunningJobs: user.Jobs.filter(job => /running/i.test(job.JobState)),
           PendingJobs: user.Jobs.filter(job => /pending/i.test(job.JobState)),
-          CompletedJobs: user.Jobs.filter(job =>
-            /completed/i.test(job.JobState)
-          )
+          CompletedJobs: user.Jobs.filter(job => /completed/i.test(job.JobState)),
+          FailedJobs: user.Jobs.filter(job => /failed/i.test(job.JobState))
         }))
         .map(user => ({
           ...user,
@@ -159,11 +158,13 @@ export default new Vuex.Store({
             Running: user.RunningJobs.length,
             Pending: user.PendingJobs.length,
             Completed: user.CompletedJobs.length,
+            Failed: user.FailedJobs.length,
             Other:
               user.Jobs.length -
               user.CompletedJobs.length -
               user.PendingJobs.length -
-              user.RunningJobs.length
+              user.RunningJobs.length -
+              user.FailedJobs.length
           }
         }))
       return sortBy(users, 'UserName')

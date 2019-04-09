@@ -15,10 +15,9 @@
 
           <grid-card title="Job Stats">
             <p>
-            {{User.JobCount.Running}} Running,
-            {{User.JobCount.Pending}} Pending,
-            {{User.JobCount.Completed}} Completed,
-            {{User.JobCount.Other}} Other
+              <span v-for="[key, value] in Object.entries(User.JobCount).filter(a => a[1])" :key="key" class="mx-2">
+                {{value}} {{key}}
+              </span>
             </p>
             <p>
             {{User.NumCPUs}} Cores
