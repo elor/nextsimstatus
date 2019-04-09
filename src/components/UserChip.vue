@@ -1,7 +1,11 @@
 <template>
-<v-chip small :class="{'grey--text': inactive}" :to="`/users/${login}`" :color="color" :dark="isDark">
-{{login}}
-</v-chip>
+  <v-chip
+    small
+    :class="{'grey--text': inactive}"
+    :to="`/users/${login}`"
+    :color="color"
+    :dark="isDark"
+  >{{login}}</v-chip>
 </template>
 
 <script>
@@ -22,12 +26,6 @@ export default {
     },
     isDark () {
       return isDark(this.color)
-    },
-    background_color () {
-      return usercolor(this.login, true)
-    },
-    initials () {
-      return this.login.replace(/[^a-z]/g, '').substr(0, 2)
     }
   }
 }
