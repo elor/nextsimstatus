@@ -1,5 +1,5 @@
 import md5 from './md5'
-import { range, zipWith, sum } from 'lodash'
+import { mix } from './color'
 
 const colors = {
   blue: '#03a9f4',
@@ -18,24 +18,6 @@ const mapping = {
 }
 
 const muteColor = 'ffffff'
-
-function mix (...hexColors) {
-  const colors = hexColors.map(stringToColor)
-  const mixedColor = zipWith(...colors,
-    (...components) => Math.floor(sum(components) / components.length)
-  )
-  return colorToString(mixedColor)
-}
-
-function stringToColor (colorString) {
-  return range(0, 6, 2)
-    .map(start => colorString.substr(start, 2))
-    .map(twoHexDigits => parseInt(twoHexDigits, 16))
-}
-
-function colorToString (colorArray) {
-  return colorArray.map(component => component.toString(16)).join('')
-}
 
 export default function usercolor (name, muted = false) {
   if (mapping[name.toLowerCase()]) {
