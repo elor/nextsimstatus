@@ -4,8 +4,8 @@
     :color="color"
     :disabled="disabled"
     :dark="isDark"
-    @click="$router.push(`/job/${job.JobId}`)"
-  >{{job.JobId}}</v-chip>
+    @click="$router.push(`/jobs/${JobId}`)"
+  >{{multiplicity}}{{JobId}}</v-chip>
 </template>
 
 <script>
@@ -29,11 +29,21 @@ export default {
     }
   },
   computed: {
+    JobId () {
+      return this.job.JobId || this.job.ArrayJobId
+    },
     color () {
-      return usercolor(this.job.UserName)
+      return this.job.UserName ? usercolor(this.job.UserName) : 'grey'
     },
     isDark () {
       return isDark(this.color)
+    },
+    multiplicity () {
+      if (this.job.jobs) {
+        return `${this.job.jobs.length}x `
+      } else {
+        return ''
+      }
     }
   }
 }
