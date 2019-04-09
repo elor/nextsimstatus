@@ -17,3 +17,8 @@ export function fromString (colorString) {
 export function toString (colorArray) {
   return colorArray.map(component => component.toString(16)).join('')
 }
+
+export function isDark (colorHash, threshold = 0x80) {
+  const colorString = colorHash.replace('#', '')
+  return fromString(colorString).every(color => color < threshold)
+}
