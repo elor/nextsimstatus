@@ -1,5 +1,4 @@
 import md5 from './md5'
-import { mix } from './color'
 
 const colors = {
   blue: '#03a9f4',
@@ -17,18 +16,12 @@ const mapping = {
   alloc: colors.blue
 }
 
-const muteColor = 'ffffff'
-
-export default function usercolor (name, muted = false) {
+export default function usercolor (name) {
   if (mapping[name.toLowerCase()]) {
     return mapping[name.toLowerCase()]
   }
 
   let hexColor = md5(name + md5(name)).substr(19, 6)
-
-  if (muted) {
-    hexColor = mix(hexColor, muteColor)
-  }
 
   return `#${hexColor}`
 }
