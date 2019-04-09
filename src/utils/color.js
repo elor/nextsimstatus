@@ -1,4 +1,5 @@
-import { range, zipWith, sum } from 'lodash'
+import { zipWith, sum } from 'lodash'
+import colorConvert from 'color-convert'
 
 export function mix (...hexColors) {
   const colors = hexColors.map(fromString)
@@ -8,17 +9,17 @@ export function mix (...hexColors) {
   return toString(mixedColor)
 }
 
-export function fromString (colorString) {
-  return range(0, 6, 2)
-    .map(start => colorString.substr(start, 2))
-    .map(twoHexDigits => parseInt(twoHexDigits, 16))
+export function fromString (hexRGB) {
+  return colorConvert.hex.rgb(hexRGB)
 }
 
-export function toString (colorArray) {
-  return colorArray.map(component => component.toString(16)).join('')
+export function toString (rgb) {
+  return colorConvert.rgb.hex(rgb)
 }
 
-export function isDark (colorHash, threshold = 0x80) {
-  const colorString = colorHash.replace('#', '')
-  return fromString(colorString).every(color => color < threshold)
+export function isDark (hexRGB, threshold = 0x30) {
+  const HSL = colorConvert.hex.hsl(hexRGB)
+  const L = HSL[2]
+  console.log(`${hexRGB} => ${HSL}`)
+  return L < threshold
 }

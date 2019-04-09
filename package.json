@@ -12,6 +12,7 @@
     "axios": "^0.18.0",
     "chart.js": "^2.8.0",
     "chartjs-plugin-labels": "^1.1.0",
+    "color-convert": "^2.0.0",
     "commonmark": "^0.28.1",
     "graphql-request": "^1.8.2",
     "material-design-icons-iconfont": "^4.0.5",
