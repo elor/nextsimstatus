@@ -1,7 +1,6 @@
 <template>
   <v-chip
     small
-    :class="{'grey--text': inactive}"
     :color="color"
     :disabled="disabled"
     :dark="isDark"
