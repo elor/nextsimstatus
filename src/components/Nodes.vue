@@ -30,11 +30,10 @@
           </td>
           <td>
             <span v-for="job in props.item.pureJobs" :key="job.JobId">
-              <router-link :to="`/jobs/${job.JobId}`">{{job.JobId}}</router-link>&nbsp;
+              <job-chip :job="job"/>
             </span>
             <span v-for="array in props.item.jobArrays" :key="array.JobId">
-              {{array.jobs.length}}x&nbsp;
-              <router-link :to="`/jobs/${array.ArrayJobId}`">{{array.ArrayJobId}}</router-link>&nbsp;
+              <job-chip :job="array"/>
             </span>
           </td>
           <td>
@@ -69,6 +68,7 @@ import NodeList from '@/components/NodeList'
 import CpuLoad from '@/components/CpuLoad'
 import { capitalize } from '../utils/capitalize'
 import UserChip from '@/components/UserChip'
+import JobChip from '@/components/JobChip'
 
 import { warnstates, failstates } from '../utils/nodeStates'
 
@@ -76,7 +76,8 @@ export default {
   components: {
     NodeList,
     CpuLoad,
-    UserChip
+    UserChip,
+    JobChip
   },
   data () {
     return {
