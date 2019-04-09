@@ -33,7 +33,7 @@
           </td>
           <td>
             <span v-for="user in props.item.usernames" :key="user">
-              <router-link :class="{'grey--text':props.item.inactive}" :to="`/users/${user}`">{{user}}</router-link>
+              <user-chip :login="user" :inactive="props.item.inactive"></user-chip>
               <br>
             </span>
           </td>
@@ -77,10 +77,12 @@
 import { mapGetters } from 'vuex'
 import { format } from '../utils/time.js'
 import CpuLoad from '@/components/CpuLoad'
+import UserChip from '@/components/UserChip'
 
 export default {
   components: {
-    CpuLoad
+    CpuLoad,
+    UserChip
   },
   data () {
     return {
