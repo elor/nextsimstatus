@@ -93,6 +93,10 @@ export default new Vuex.Store({
             .map(array => ({
               ArrayJobId: array,
               jobs: node.jobs.filter(job => job.ArrayJobId === array)
+            }))
+            .map(array => ({
+              ...array,
+              UserName: array.jobs[0].UserName
             })),
           pureJobs: node.jobs.filter(job => !job.ArrayJobId)
         }))
