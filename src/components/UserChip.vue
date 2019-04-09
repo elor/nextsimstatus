@@ -3,6 +3,7 @@
     small
     :class="{'grey--text': inactive}"
     :color="color"
+    :disabled="disabled"
     :dark="isDark"
     @click="$router.push(`/users/${login}`)"
   >{{login}}</v-chip>
@@ -15,14 +16,14 @@ import { isDark } from '../utils/color'
 export default {
   props: {
     login: String,
-    inactive: {
+    disabled: {
       type: Boolean,
       default: false
     }
   },
   computed: {
     color () {
-      return usercolor(this.login, this.inactive)
+      return usercolor(this.login)
     },
     isDark () {
       return isDark(this.color)

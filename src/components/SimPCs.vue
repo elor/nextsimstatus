@@ -6,22 +6,36 @@
           <v-flex xs="12" md="4">
             <v-radio-group v-model="visibility">
               <v-layout row wrap>
-                <v-radio label="all" value="all" />
-                <v-radio label="recent" value="recent" />
-                <v-radio label="current" value="current" />
-                <v-radio label="login" value="login" />
+                <v-radio label="all" value="all"/>
+                <v-radio label="recent" value="recent"/>
+                <v-radio label="current" value="current"/>
+                <v-radio label="login" value="login"/>
               </v-layout>
             </v-radio-group>
           </v-flex>
           <v-flex xs="12" md="8">
-            <v-text-field append-icon="search" label="Search" single-line hide-details v-model="search"></v-text-field>
+            <v-text-field
+              append-icon="search"
+              label="Search"
+              single-line
+              hide-details
+              v-model="search"
+            ></v-text-field>
           </v-flex>
         </v-layout>
       </v-card-title>
       <v-data-table :headers="headers" :items="simpcstatus" :search="search" hide-actions>
-        <tr slot="items" slot-scope="props" :class="{'grey--text':props.item.inactive}" v-if="visible(props.item)">
+        <tr
+          slot="items"
+          slot-scope="props"
+          :class="{'grey--text':props.item.inactive}"
+          v-if="visible(props.item)"
+        >
           <td>
-            <router-link :class="{'grey--text':props.item.inactive}" :to="`/simpc${props.item.number}`">{{props.item.hostname}}</router-link>
+            <router-link
+              :class="{'grey--text':props.item.inactive}"
+              :to="`/simpc${props.item.number}`"
+            >{{props.item.hostname}}</router-link>
             <v-tooltip v-if="!props.item.inactive && props.item.mounts.length < 2" bottom>
               <v-icon color="error" slot="activator">error</v-icon>
               <span>Missing Mounts</span>
@@ -33,7 +47,7 @@
           </td>
           <td>
             <span v-for="user in props.item.usernames" :key="user">
-              <user-chip :login="user" :inactive="props.item.inactive"></user-chip>
+              <user-chip :login="user" :disabled="props.item.inactive"></user-chip>
               <br>
             </span>
           </td>
@@ -57,9 +71,7 @@
               <span>Deprecated OS version. Please upgrade</span>
             </v-tooltip>
           </td>
-          <td>
-            {{format(props.item.lastupdate)}}
-          </td>
+          <td>{{format(props.item.lastupdate)}}</td>
           <td>
             {{format(props.item.uptime)}}
             <v-tooltip v-if="props.item.uptime > FIVE_DAYS" bottom>
