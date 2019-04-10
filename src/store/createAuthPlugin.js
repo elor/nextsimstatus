@@ -1,52 +1,14 @@
 import axios from 'axios'
 import jwt from 'jsonwebtoken'
+import LoginStorage from '../utils/LoginStorage'
+import { STORAGE_KEY } from '../config'
 
 const config =
 {
   loginUrl: 'https://mainsimweb.etit.tu-chemnitz.de/auth/login',
   verifyUrl: 'https://mainsimweb.etit.tu-chemnitz.de/auth/token/check',
   renewUrl: 'https://mainsimweb.etit.tu-chemnitz.de/auth/token/renew',
-  storageKey: 'mainsimweb-auth-token',
-  supportKey: 'mainsimweb-storage-supported'
-}
-
-function storageSupport () {
-  if (!window.localStorage) {
-    return false
-  }
-
-  try {
-    window.localStorage.setItem(config.supportKey, config.supportKey)
-    window.localStorage.removeItem(config.supportKey)
-  } catch (e) {
-    console.error('No localStorage support. Details:')
-    console.error(e)
-    return false
-  }
-
-  return true
-}
-
-class LoginStorage {
-  constructor (key) {
-    this.key = key
-    this.supported = storageSupport()
-  }
-  read () {
-    if (this.supported) {
-      return window.localStorage.getItem(this.key)
-    }
-  }
-  write (token) {
-    if (this.supported) {
-      return window.localStorage.setItem(this.key, token)
-    }
-  }
-  clear () {
-    if (this.supported) {
-      return window.localStorage.removeItem(this.key)
-    }
-  }
+  storageKey: 'mainsimweb-auth-token'
 }
 
 function login (payload, store, storage) {
@@ -120,7 +82,7 @@ function renew (store, storage) {
 }
 
 export default function createAuthPlugin () {
-  const storage = new LoginStorage(config.storageKey)
+  const storage = new LoginStorage(STORAGE_KEY)
 
   return store => {
     init(store, storage)
