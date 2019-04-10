@@ -1,0 +1,13 @@
+[Unit]
+Description=MainSimStatus Control Server
+After=syslog.target network.target slurmctld.service
+ConditionFileIsExecutable=/opt/mainsimstatus/daemons/mainsim/control/controlserver.py
+
+[Service]
+ExecStart=/opt/mainsimstatus/daemons/mainsim/control/controlserver.py
+
+Restart=always
+RestartSec=15
+
+[Install]
+WantedBy=multi-user.target
