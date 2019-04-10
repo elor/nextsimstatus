@@ -3,16 +3,9 @@
     <v-card>
       <v-card-title>
         <v-layout wrap>
-          <v-flex xs="1" v-if="is_admin">
-            <v-checkbox inline
-            @change="selectAll"
-            :value="selection.length"
-            :indeterminate="selection.length < nodestatus.length && selection.length > 0"
-            label="all"
-            />
           </v-flex>
-          <v-flex xs="11" md="5" lg="3">
-            <node-action-block :node="selected_nodes"></node-action-block>
+          <v-flex xs="12" md="6" lg="4">
+            <node-action-block :node="selected_nodenames"></node-action-block>
           </v-flex>
 
           <v-flex xs="12" md="6" lg="4">
@@ -30,48 +23,60 @@
           </v-flex>
         </v-layout>
       </v-card-title>
-      <v-data-table :headers="admin_headers" :items="nodestatus" :search="search" hide-actions>
-        <template slot="items" slot-scope="props">
-          <td v-if="is_admin">
-            <v-checkbox class="ma-0" :value="selection.includes(props.item.NodeName)" @change="select(props.item.NodeName)"></v-checkbox>
-          </td>
-          <td>
-            <router-link :to="`/${props.item.NodeName}`">{{props.item.NodeName}}</router-link>
-          </td>
-          <td>
-            <v-progress-circular
-              :value="100*props.item.CPUAlloc/props.item.CPUTot"
-              :color="props.item.CPUAlloc == props.item.CPUTot ? 'light-blue' : 'green'"
-            >{{props.item.CPUAlloc}}</v-progress-circular>
-          </td>
-          <td>
-            <span v-for="job in props.item.pureJobs" :key="job.JobId">
-              <job-chip :job="job"/>
-            </span>
-            <span v-for="array in props.item.jobArrays" :key="array.JobId">
-              <job-chip :job="array"/>
-            </span>
-          </td>
-          <td>
-            <user-chip v-for="user in props.item.users" :key="user" :login="user"/>
-          </td>
-          <td>
-            <cpu-load :load="Number(props.item.CPULoad)" :cores="Number(props.item.CPUTot)"></cpu-load>
-            <v-progress-circular
-              :value="100*(1 - props.item.FreeMem/props.item.RealMemory)"
-              :color="props.item.FreeMem < 0.1*props.item.RealMemory ? 'red' : 'light-blue'"
-            ></v-progress-circular>
-          </td>
-          <td>{{props.item.Partitions}}</td>
-          <td>
-            <span v-for="state in props.item.States" :key="state">
-              <v-icon color="warning" v-if="isWarningState(state)">warning</v-icon>
-              <v-icon color="error" v-if="isFailState(state)">error</v-icon>
-              {{capitalize(state)}}
-              <span v-if="!props.item.State.endsWith(state)">&nbsp;</span>
-            </span>
-          </td>
-          <td>{{props.item.BootTime}}</td>
+      <v-data-table :headers="headers"
+        :items="nodestatus"
+        item-key="NodeName"
+        :search="search"
+        hide-actions
+        :select-all="is_admin"
+        v-model="selected">
+        <template v-slot:items="props">
+          <tr @click="props.selected = !props.selected" :active="props.selected">
+            <td v-if="is_admin">
+              <v-checkbox
+                :input-value="props.selected"
+                primary
+                hide-details
+              />
+            </td>
+            <td>
+              <router-link :to="`/${props.item.NodeName}`">{{props.item.NodeName}}</router-link>
+            </td>
+            <td>
+              <v-progress-circular
+                :value="100*props.item.CPUAlloc/props.item.CPUTot"
+                :color="props.item.CPUAlloc == props.item.CPUTot ? 'light-blue' : 'green'"
+              >{{props.item.CPUAlloc}}</v-progress-circular>
+            </td>
+            <td>
+              <span v-for="job in props.item.pureJobs" :key="job.JobId">
+                <job-chip :job="job"/>
+              </span>
+              <span v-for="array in props.item.jobArrays" :key="array.JobId">
+                <job-chip :job="array"/>
+              </span>
+            </td>
+            <td>
+              <user-chip v-for="user in props.item.users" :key="user" :login="user"/>
+            </td>
+            <td>
+              <cpu-load :load="Number(props.item.CPULoad)" :cores="Number(props.item.CPUTot)"></cpu-load>
+              <v-progress-circular
+                :value="100*(1 - props.item.FreeMem/props.item.RealMemory)"
+                :color="props.item.FreeMem < 0.1*props.item.RealMemory ? 'red' : 'light-blue'"
+              ></v-progress-circular>
+            </td>
+            <td>{{props.item.Partitions}}</td>
+            <td>
+              <span v-for="state in props.item.States" :key="state">
+                <v-icon color="warning" v-if="isWarningState(state)">warning</v-icon>
+                <v-icon color="error" v-if="isFailState(state)">error</v-icon>
+                {{capitalize(state)}}
+                <span v-if="!props.item.State.endsWith(state)">&nbsp;</span>
+              </span>
+            </td>
+            <td>{{props.item.BootTime}}</td>
+          </tr>
         </template>
       </v-data-table>
     </v-card>
@@ -150,20 +155,13 @@ export default {
         }
       ],
       search: '',
-      selection: []
+      selected: []
     }
   },
   computed: {
     ...mapGetters(['nodestatus', 'is_admin']),
-    admin_headers () {
-      if (this.is_admin) {
-        return [{ text: '', align: 'left', sortable: false }, ...this.headers]
-      } else {
-        return this.headers
-      }
-    },
-    selected_nodes () {
-      return this.selection.join(',')
+    selected_nodenames () {
+      return this.selected.map(node => node.NodeName).join(',')
     }
   },
   methods: {
@@ -173,25 +171,7 @@ export default {
     },
     isFailState (state) {
       return failstates.includes(state)
-    },
-    selectAll () {
-      if (!this.selection.length) {
-        this.selection = this.nodestatus.map(node => node.NodeName)
-      } else {
-        this.selection = []
-      }
-    },
-    select (node) {
-      if (this.selection.includes(node)) {
-        while (this.selection.includes(node)) {
-          this.selection.splice(this.selection.indexOf(node), 1)
-        }
-      } else {
-        this.selection.push(node)
-      }
     }
-  },
-  watch: {
   }
 }
 </script>
