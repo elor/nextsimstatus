@@ -32,6 +32,8 @@ const initialSimpcs = range(16, 43)
     {}
   )
 
+const ADMIN_GROUP = 'simadmin'
+
 const USER_DEFAULT = {
   name: '',
   groups: []
@@ -226,6 +228,9 @@ export default new Vuex.Store({
           }
         }
       }))
+    },
+    is_admin (state) {
+      return state.user.groups.includes(ADMIN_GROUP)
     }
   },
 

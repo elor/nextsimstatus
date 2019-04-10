@@ -8,6 +8,7 @@
     >
       <v-icon :color="usercolor" class="mr-1">account_circle</v-icon>
       {{user.login || 'login'}}
+      <v-icon v-if="is_admin">star</v-icon>
     </v-chip>
 
     <v-card v-if="logged_in">
@@ -84,7 +85,7 @@
 
 <script>
 import usercolor from '../utils/usercolor'
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapGetters } from 'vuex'
 
 export default {
   data () {
@@ -98,6 +99,7 @@ export default {
   },
   computed: {
     ...mapState(['user']),
+    ...mapGetters(['is_admin']),
     pages () {
       const login = this.user.login
 
