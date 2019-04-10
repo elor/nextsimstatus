@@ -11,6 +11,7 @@ import splitStates from '../utils/splitStates'
 import createMainsimPlugin from './createMainsimPlugin'
 import createNowTimePlugin from './createNowTimePlugin'
 import createAuthPlugin from './createAuthPlugin'
+import createControlPlugin from './createControlPlugin'
 
 import { ADMIN_GROUP } from '../config'
 
@@ -267,10 +268,10 @@ export default new Vuex.Store({
         state.racks = racks
       }
     },
-    newError (state, error) {
+    newError (state, errorMessage) {
       state.errors.push({
         date: new Date(),
-        message: error
+        message: errorMessage
       })
     },
     startUpdating (state) {
@@ -287,6 +288,8 @@ export default new Vuex.Store({
         state.user = USER_DEFAULT
         state.jwtToken = undefined
       }
+    },
+    updateControl (state, message) {
     }
   },
 
@@ -296,12 +299,14 @@ export default new Vuex.Store({
     login (credentials) { },
     logout () { },
     renewToken () { },
-    verifyToken () { }
+    verifyToken () { },
+    mainsimControl ({ action, nodes }) {}
   },
 
   plugins: [
     createMainsimPlugin(sources),
     createNowTimePlugin(1000),
-    createAuthPlugin()
+    createAuthPlugin(),
+    createControlPlugin()
   ]
 })
