@@ -12,6 +12,8 @@ import createMainsimPlugin from './createMainsimPlugin'
 import createNowTimePlugin from './createNowTimePlugin'
 import createAuthPlugin from './createAuthPlugin'
 
+import { ADMIN_GROUP } from '../config'
+
 const TEN_SECONDS = 10000
 const DEPRECATED_RELEASES = ['14.04', '16.04']
 
@@ -31,8 +33,6 @@ const initialSimpcs = range(16, 43)
     }),
     {}
   )
-
-const ADMIN_GROUP = 'simadmin'
 
 const USER_DEFAULT = {
   name: '',

@@ -8,7 +8,13 @@
     >
       <v-icon :color="usercolor" class="mr-1">account_circle</v-icon>
       {{user.login || 'login'}}
-      <v-icon v-if="is_admin">star</v-icon>
+
+      <v-tooltip bottom v-if="is_admin">
+        <template v-slot:activator="{ on }">
+          <v-icon small v-on="on">star</v-icon>
+        </template>
+        <span>simadmin</span>
+      </v-tooltip>
     </v-chip>
 
     <v-card v-if="logged_in">
@@ -38,9 +44,12 @@
           <v-subheader>Meine Gruppen</v-subheader>
           <v-list-tile v-for="group in user.groups" :key="group">
             <v-list-tile-action>
-              <v-icon :color="groupcolor(group)">group</v-icon>
+              <v-icon v-if="is_admin_group(group)" :color="groupcolor(group)">star</v-icon>
+              <v-icon v-else :color="groupcolor(group)">group</v-icon>
             </v-list-tile-action>
-            <v-list-tile-content>{{group}}</v-list-tile-content>
+            <v-list-tile-content>
+              {{group}}
+            </v-list-tile-content>
           </v-list-tile>
         </v-list>
       </v-card-text>
@@ -86,6 +95,7 @@
 <script>
 import usercolor from '../utils/usercolor'
 import { mapActions, mapState, mapGetters } from 'vuex'
+import { ADMIN_GROUP } from '../config'
 
 export default {
   data () {
@@ -127,7 +137,11 @@ export default {
       this.credentials.username = ''
       this.credentials.password = ''
     },
-    groupcolor: usercolor
+    groupcolor: usercolor,
+    is_admin_group (group) {
+      return group === ADMIN_GROUP
+    }
+
   }
 }
 </script>
