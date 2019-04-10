@@ -55,6 +55,7 @@ deploy:mainsim:
   stage: deploy
   tags:
     - mainsim
+    - deploy
     - httpd
   dependencies:
     - webpack
