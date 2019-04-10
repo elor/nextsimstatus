@@ -1,7 +1,7 @@
 <template>
   <v-tooltip top>
     <template v-slot:activator="{ on }">
-      <v-btn :color="color" fab small @click="control" v-on="on">
+      <v-btn :disabled="!node" :color="color" fab small @click="control" v-on="on">
         <v-icon>{{icon}}</v-icon>
       </v-btn>
     </template>
@@ -25,7 +25,7 @@ export default {
   methods: {
     ...mapActions(['mainsimControl']),
     control () {
-      if (this.is_admin && confirm(`Really ${this.action.toUpperCase()} node ${this.NodeName}?`)) {
+      if (this.is_admin && confirm(`Really ${this.action.toUpperCase()} node ${this.node}?`)) {
         this.mainsimControl({
           action: this.action,
           nodes: this.node

@@ -3,19 +3,8 @@
     <v-card>
       <v-card-title>
         <h2>Node {{NodeName}}</h2>
-        <template v-if="is_admin">
-          <v-spacer></v-spacer>
-
-          <node-action :node="NodeName" action="drain" color="light-blue" icon="lock" />
-          <node-action :node="NodeName" action="resume" color="light-green" icon="play_arrow" />
-          <node-action :node="NodeName" action="reboot" color="green" icon="update" />
-
-          <v-divider vertical></v-divider>
-
-          <node-action :node="NodeName" action="boot" color="warning" icon="refresh" />
-          <node-action :node="NodeName" action="halt" color="warning" icon="power_settings_new" />
-          <node-action :node="NodeName" action="kill" color="error" icon="power_off" />
-        </template>
+        <v-spacer></v-spacer>
+        <node-action-block :node="NodeName"></node-action-block>
 
         <v-spacer></v-spacer>
         <source-view v-if="Node" :title="`Node ${NodeName}`" :value="Node"></source-view>
@@ -81,7 +70,7 @@ import JobList from '@/components/JobList'
 import GridCard from '@/components/GridCard'
 import SourceView from '@/components/SourceView'
 import CpuLoad from '@/components/CpuLoad'
-import NodeAction from '@/components/NodeAction'
+import NodeActionBlock from '@/components/NodeActionBlock'
 import { uniq, concat } from 'lodash'
 
 function deGres (Gres) {
@@ -95,7 +84,7 @@ export default {
     GridCard,
     SourceView,
     CpuLoad,
-    NodeAction
+    NodeActionBlock
   },
   computed: {
     ...mapGetters(['nodestatus', 'is_admin']),
