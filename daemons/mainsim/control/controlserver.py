@@ -9,7 +9,7 @@ import json
 import urllib3
 urllib3.disable_warnings()
 
-PORT = 8081
+PORT = 18081
 HOST = 'localhost'
 
 AUTH_URL = 'https://mainsimweb.etit.tu-chemnitz.de/auth/token/check'
