@@ -8,7 +8,6 @@
     >
       <v-icon :color="usercolor" class="mr-1">account_circle</v-icon>
       {{user.login || 'login'}}
-
       <v-tooltip bottom v-if="is_admin">
         <template v-slot:activator="{ on }">
           <v-icon small v-on="on">star</v-icon>
@@ -19,9 +18,7 @@
 
     <v-card v-if="logged_in">
       <v-card-title class="headline">
-        <router-link :to="`/users/${user.login}`" class="mr-2">
-          <v-chip class="ma-0" label small :style="{'background-color':usercolor}"></v-chip>
-        </router-link>
+        <user-chip :login="user.login"/>
         {{user.name}}
         <v-spacer></v-spacer>
         <v-icon @click="close">close</v-icon>
@@ -47,9 +44,7 @@
               <v-icon v-if="is_admin_group(group)" :color="groupcolor(group)">star</v-icon>
               <v-icon v-else :color="groupcolor(group)">group</v-icon>
             </v-list-tile-action>
-            <v-list-tile-content>
-              {{group}}
-            </v-list-tile-content>
+            <v-list-tile-content>{{group}}</v-list-tile-content>
           </v-list-tile>
         </v-list>
       </v-card-text>
@@ -96,8 +91,12 @@
 import usercolor from '../utils/usercolor'
 import { mapActions, mapState, mapGetters } from 'vuex'
 import { ADMIN_GROUP } from '../config'
+import UserChip from '@/components/UserChip'
 
 export default {
+  components: {
+    UserChip
+  },
   data () {
     return {
       dialog: false,
@@ -141,7 +140,6 @@ export default {
     is_admin_group (group) {
       return group === ADMIN_GROUP
     }
-
   }
 }
 </script>
