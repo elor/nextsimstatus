@@ -3,12 +3,22 @@
     <v-card>
       <v-card-title>
         <v-layout wrap>
-          <v-flex xs="12" md="6" lg="4">
-            <node-action-block node="all"></node-action-block>
+          <v-flex xs="1" v-if="is_admin">
+            <v-checkbox inline
+            @change="selectAll"
+            :value="selection.length"
+            :indeterminate="selection.length < nodestatus.length && selection.length > 0"
+            label="all"
+            />
           </v-flex>
-          <v-flex xs="12" md="6" lg="4">
-            <NodeList></NodeList>
+          <v-flex xs="11" md="5" lg="3">
+            <node-action-block :node="selected_nodes"></node-action-block>
           </v-flex>
+
+          <v-flex xs="12" md="6" lg="4">
+            <NodeList />
+          </v-flex>
+
           <v-flex xs="12" md="6" lg="4">
             <v-text-field
               append-icon="search"
@@ -16,12 +26,15 @@
               single-line
               hide-details
               v-model="search"
-            ></v-text-field>
+            />
           </v-flex>
         </v-layout>
       </v-card-title>
-      <v-data-table :headers="headers" :items="nodestatus" :search="search" hide-actions>
+      <v-data-table :headers="admin_headers" :items="nodestatus" :search="search" hide-actions>
         <template slot="items" slot-scope="props">
+          <td v-if="is_admin">
+            <v-checkbox class="ma-0" :value="selection.includes(props.item.NodeName)" @change="select(props.item.NodeName)"></v-checkbox>
+          </td>
           <td>
             <router-link :to="`/${props.item.NodeName}`">{{props.item.NodeName}}</router-link>
           </td>
@@ -136,11 +149,22 @@ export default {
           value: 'BootTime'
         }
       ],
-      search: ''
+      search: '',
+      selection: []
     }
   },
   computed: {
-    ...mapGetters(['nodestatus'])
+    ...mapGetters(['nodestatus', 'is_admin']),
+    admin_headers () {
+      if (this.is_admin) {
+        return [{ text: '', align: 'left', sortable: false }, ...this.headers]
+      } else {
+        return this.headers
+      }
+    },
+    selected_nodes () {
+      return this.selection.join(',')
+    }
   },
   methods: {
     capitalize,
@@ -149,7 +173,25 @@ export default {
     },
     isFailState (state) {
       return failstates.includes(state)
+    },
+    selectAll () {
+      if (!this.selection.length) {
+        this.selection = this.nodestatus.map(node => node.NodeName)
+      } else {
+        this.selection = []
+      }
+    },
+    select (node) {
+      if (this.selection.includes(node)) {
+        while (this.selection.includes(node)) {
+          this.selection.splice(this.selection.indexOf(node), 1)
+        }
+      } else {
+        this.selection.push(node)
+      }
     }
+  },
+  watch: {
   }
 }
 </script>
