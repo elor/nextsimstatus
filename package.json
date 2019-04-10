@@ -65,5 +65,9 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "optionalDependencies": {
+    "@vue/cli": "^3.5.5",
+    "@vue/ui": "^0.8.2"
+  }
 }
