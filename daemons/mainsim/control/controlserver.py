@@ -44,6 +44,11 @@ class MyLittleHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write('Looks like a success')
 
+    
+    def end_headers (self):
+        self.send_header('Access-Control-Allow-Origin', '*')
+        BaseHTTPRequestHandler.end_headers(self)
+
     def is_admin(self):
         authentication = self.authenticate()
         if not authentication:
