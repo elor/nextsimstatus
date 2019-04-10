@@ -3,10 +3,13 @@
     <v-card>
       <v-card-title>
         <v-layout wrap>
-          <v-flex xs="12" md="6">
+          <v-flex xs="12" md="6" lg="4">
+            <node-action-block node="all"></node-action-block>
+          </v-flex>
+          <v-flex xs="12" md="6" lg="4">
             <NodeList></NodeList>
           </v-flex>
-          <v-flex xs="12" md="6">
+          <v-flex xs="12" md="6" lg="4">
             <v-text-field
               append-icon="search"
               label="Search"
@@ -69,6 +72,7 @@ import CpuLoad from '@/components/CpuLoad'
 import { capitalize } from '../utils/capitalize'
 import UserChip from '@/components/UserChip'
 import JobChip from '@/components/JobChip'
+import NodeActionBlock from '@/components/NodeActionBlock'
 
 import { warnstates, failstates } from '../utils/nodeStates'
 
@@ -77,7 +81,8 @@ export default {
     NodeList,
     CpuLoad,
     UserChip,
-    JobChip
+    JobChip,
+    NodeActionBlock
   },
   data () {
     return {
