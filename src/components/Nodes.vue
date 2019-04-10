@@ -3,13 +3,12 @@
     <v-card>
       <v-card-title>
         <v-layout wrap>
-          </v-flex>
           <v-flex xs="12" md="6" lg="4">
-            <node-action-block :node="selected_nodenames"></node-action-block>
+            <node-action-block :node="selected_nodenames"/>
           </v-flex>
 
           <v-flex xs="12" md="6" lg="4">
-            <NodeList />
+            <NodeList/>
           </v-flex>
 
           <v-flex xs="12" md="6" lg="4">
@@ -23,21 +22,19 @@
           </v-flex>
         </v-layout>
       </v-card-title>
-      <v-data-table :headers="headers"
+      <v-data-table
+        :headers="headers"
         :items="nodestatus"
         item-key="NodeName"
         :search="search"
         hide-actions
         :select-all="is_admin"
-        v-model="selected">
+        v-model="selected"
+      >
         <template v-slot:items="props">
           <tr @click="props.selected = !props.selected" :active="props.selected">
             <td v-if="is_admin">
-              <v-checkbox
-                :input-value="props.selected"
-                primary
-                hide-details
-              />
+              <v-checkbox :input-value="props.selected" primary hide-details/>
             </td>
             <td>
               <router-link :to="`/${props.item.NodeName}`">{{props.item.NodeName}}</router-link>
