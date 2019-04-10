@@ -29,7 +29,7 @@ class MyLittleHandler(BaseHTTPRequestHandler):
         except OSError, err:
             self.send_error(
                 500,
-                "OSError: {} (while running {})".format(err, command_str)
+                'OSError: {} (while running {})'.format(err, command_str)
             )
             return
 
@@ -44,7 +44,12 @@ class MyLittleHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write('Looks like a success')
 
-    
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self.send_header('Access-Control-Allow-Methods', 'POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type')
+        self.end_headers()
+
     def end_headers (self):
         self.send_header('Access-Control-Allow-Origin', '*')
         BaseHTTPRequestHandler.end_headers(self)
@@ -66,7 +71,7 @@ class MyLittleHandler(BaseHTTPRequestHandler):
             self.send_error(403, 'No authentication data sent')
             return None
 
-        data = {"token": authentication}
+        data = {'token': authentication}
         response = requests.post(AUTH_URL, data=data, verify=False)
 
         status = response.status_code
@@ -141,5 +146,5 @@ class MyLittleHandler(BaseHTTPRequestHandler):
 
 
 httpd = HTTPServer((HOST, PORT), MyLittleHandler)
-print "starting to serve on {}:{}".format(HOST, PORT)
+print 'starting to serve on {}:{}'.format(HOST, PORT)
 httpd.serve_forever()
