@@ -68,7 +68,7 @@ function unregisterMQTT (store) {
 }
 
 function registerMQTT (store) {
-  unregisterMQTT()
+  unregisterMQTT(store)
   mqttClient = mqtt.connect(config.mqtt.endpoint)
 
   mqttClient.on('connect', () => {
