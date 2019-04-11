@@ -4,7 +4,7 @@
       <v-card-title>
         <h2>{{title}}</h2>
         <v-spacer></v-spacer>
-        <job-action-block v-if="Job" :jobs="[Job]" :jobuser="Job.UserName"/>
+        <job-action-block v-if="Job" :jobs="[Job]"/>
         <v-spacer></v-spacer>
         <source-view v-if="Job" :title="title" :value="Job"></source-view>
       </v-card-title>
