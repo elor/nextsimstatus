@@ -5,6 +5,7 @@
     <job-action :jobs="jobs" action="hold" color="warning" icon="lock"/>
     <job-action :jobs="jobs" action="abort" color="error" icon="cancel"/>
     <job-action :jobs="jobs" action="requeue" color="light-blue" icon="refresh"/>
+    <job-action :jobs="jobs" action="throttle" color="primary" icon="list" numeric/>
   </div>
 </template>
 
