@@ -2,7 +2,7 @@ from run_command import run_command
 import config
 
 COMMAND_BY_ACTION = {
-    'test': lambda jobs: ['squeue', '--jobs', jobs, '--format=%i\t%u', '--noheader'],
+    'test': lambda jobs: ['squeue', '--jobs', jobs, '--format=%i\t%u', '--noheader', '--states=PENDING,RUNNING,SUSPENDED,COMPLETED,CANCELLED,FAILED,TIMEOUT,NODE_FAIL,PREEMPTED,BOOT_FAIL,DEADLINE,OUT_OF_MEMORY,COMPLETING,CONFIGURING,RESIZING,REVOKED,SPECIAL_EXIT'],
     'abort': lambda jobs: ['scancel', jobs],
     'hold': lambda jobs: ['scontrol', 'hold', jobs],
     'release': lambda jobs: ['scontrol', 'release', jobs]
