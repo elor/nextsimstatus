@@ -1,6 +1,4 @@
 import axios from 'axios'
-import LoginStorage from '../utils/LoginStorage'
-import { STORAGE_KEY } from '../config'
 
 const config = {
   mainsim: {
