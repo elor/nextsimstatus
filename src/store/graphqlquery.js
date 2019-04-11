@@ -49,6 +49,7 @@ export default `
     mounts {
       mount
     }
+    updates
     printers
     release
     uptime
