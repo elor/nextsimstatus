@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>
       {{title}}
-      ({{selected.length}} selected)
+      <span v-if="can_select_anything">({{selected.length}} selected)</span>
       <v-spacer></v-spacer>
 
       <job-action-block :jobs="selected"/>
@@ -18,13 +18,21 @@
       :search="search"
       :rows-per-page-items="[15,50,100, {text:'All', value:-1}]"
       disable-initial-sort
-      select-all
+      :select-all="can_select_anything"
       v-model="selected"
     >
       <template v-slot:items="props">
-        <tr @click="props.selected = !props.selected" :active="props.selected">
-          <td>
-            <v-checkbox :input-value="props.selected" primary hide-details/>
+        <tr
+          @click="props.selected = can_select(props.item) ? !props.selected : false"
+          :active="props.selected"
+        >
+          <td v-if="can_select_anything">
+            <v-checkbox
+              v-if="can_select(props.item)"
+              :input-value="props.selected"
+              primary
+              hide-details
+            />
           </td>
           <td>
             <job-chip :job="props.item"/>
@@ -59,6 +67,7 @@ import { capitalize } from '../utils/capitalize'
 import UserChip from '@/components/UserChip'
 import JobChip from '@/components/JobChip'
 import JobActionBlock from '@/components/JobActionBlock'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   props: ['items', 'title'],
@@ -129,12 +138,27 @@ export default {
       selected: []
     }
   },
+  computed: {
+    ...mapState(['user']),
+    ...mapGetters(['logged_in', 'is_admin']),
+    can_select_anything () {
+      return this.items.some(this.can_select)
+    }
+  },
   methods: {
-    capitalize
+    capitalize,
+    can_select (job) {
+      return (
+        this.is_admin || (this.logged_in && job.UserName === this.user.login)
+      )
+    }
   },
   watch: {
     selected () {
-      console.log(this.selected)
+      const allowed = this.selected.filter(job => this.can_select(job))
+      if (allowed.length !== this.selected.length) {
+        this.selected = allowed
+      }
     }
   }
 }
