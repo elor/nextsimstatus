@@ -135,7 +135,16 @@ export default {
       if (path.startsWith(root)) {
         path = path.substr(root.length)
       }
-      return path.replace(/^\/beegfs-home\/users\//, '~')
+      const beegfshomeusers = '/beegfs-home/users/'
+      if (path.startsWith(beegfshomeusers)) {
+        path = `~${path.substr(beegfshomeusers.length)}`
+      }
+      const tildeuser = `~${this.Job.UserName}/`
+      if (path.startsWith(tildeuser)) {
+        path = `~/${path.substr(tildeuser.length)}`
+      }
+      const ZERO_WIDTH_SPACE = '\u200b'
+      return path.replace(/\//g, `/${ZERO_WIDTH_SPACE}`)
     },
     isValidTime (time) {
       return time && time !== 'Unknown' && time !== '00:00:00'
