@@ -232,6 +232,9 @@ export default new Vuex.Store({
     },
     is_admin (state) {
       return state.user.groups.includes(ADMIN_GROUP)
+    },
+    logged_in (state) {
+      return !!(state.user.name && state.jwtToken)
     }
   },
 
