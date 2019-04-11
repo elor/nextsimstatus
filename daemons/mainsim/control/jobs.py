@@ -9,7 +9,7 @@ COMMAND_BY_ACTION = {
 }
 
 
-def test(jobs, user):
+def test(jobs, user, is_admin):
     command = COMMAND_BY_ACTION['test'](jobs)
     return_code, out, err = run_command(command)
     if return_code:
@@ -20,7 +20,7 @@ def test(jobs, user):
     lines = [line.strip().split('\t')
              for line in out.split('\n') if line.strip()]
 
-    if user != config.ADMIN_GROUP and any([jobuser != user for jobid, jobuser in lines]):
+    if not is_admin and any([jobuser != user for jobid, jobuser in lines]):
         raise RuntimeError('not your jobs')
 
     return out
@@ -30,8 +30,8 @@ def command(action, jobs):
     return COMMAND_BY_ACTION[action](jobs)
 
 
-def control(action, jobs):
-    return_code, out, err = run_command(command(action, jobs))
+def control(action, jobs, user=None):
+    return_code, out, err = run_command(command(action, jobs), user=user)
     if return_code:
         raise RuntimeError(
             'NonZero Return Code {}: {}'.format(return_code, err))

@@ -24,13 +24,8 @@ class ControlHandler(BaseHTTPRequestHandler):
         if not self.logged_in():
             return
 
-        if self.is_admin():
-            user = config.ADMIN_GROUP
-        else:
-            user = self.logged_in()
-
         try:
-            jobs.test(self.jobs, user)
+            jobs.test(self.jobs, self.logged_in(), self.is_admin())
         except OSError, err:
             self.send_error(
                 500, 'OSError: {} (while testing job definition `{}`'.format(err, self.jobs))
@@ -41,7 +36,11 @@ class ControlHandler(BaseHTTPRequestHandler):
             return
 
         try:
-            output = jobs.control(self.action, self.jobs)
+            if self.is_admin():
+                output = jobs.control(self.action, self.jobs)
+            else:
+                output = jobs.control(self.action, self.jobs, self.logged_in())
+
         except OSError, err:
             command_str = ' '.join(jobs.command(self.action, self.jobs))
             self.send_error(
