@@ -21,11 +21,12 @@ class ControlHandler(BaseHTTPRequestHandler):
             self.send_error(404)
 
     def handle_jobs(self):
-        if not self.logged_in():
+        if not self.current_user:
+            self.send_error(403, 'You are not logged in')
             return
 
         try:
-            jobs.test(self.jobs, self.logged_in(), self.is_admin())
+            jobs.test(self.jobs, self.current_user, self.is_admin())
         except OSError, err:
             self.send_error(
                 500, 'OSError: {} (while testing job definition `{}`'.format(err, self.jobs))
@@ -39,7 +40,8 @@ class ControlHandler(BaseHTTPRequestHandler):
             if self.is_admin():
                 output = jobs.control(self.action, self.jobs)
             else:
-                output = jobs.control(self.action, self.jobs, self.logged_in())
+                output = jobs.control(
+                    self.action, self.jobs, self.current_user)
 
         except OSError, err:
             command_str = ' '.join(jobs.command(self.action, self.jobs))
@@ -58,6 +60,7 @@ class ControlHandler(BaseHTTPRequestHandler):
 
     def handle_nodes(self):
         if not self.is_admin():
+            self.send_error(403, 'You are no simadmin')
             return
 
         try:
@@ -107,16 +110,15 @@ class ControlHandler(BaseHTTPRequestHandler):
             return False
 
         if not config.ADMIN_GROUP in authentication['decoded']['groups']:
-            self.send_error(403, 'You are no simadmin')
             return False
 
         return True
 
-    def logged_in(self):
+    @property
+    def current_user(self):
         authentication = self.authenticate()
         if not authentication:
-            self.send_error(403, 'You are not logged in')
-            return False
+            return None
 
         return authentication['decoded']['login']
 
