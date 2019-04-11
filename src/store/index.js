@@ -289,7 +289,7 @@ export default new Vuex.Store({
         state.jwtToken = undefined
       }
     },
-    updateControl (state, message) {
+    updateControl (state, status, message) {
     }
   },
 
@@ -300,7 +300,8 @@ export default new Vuex.Store({
     logout () { },
     renewToken () { },
     verifyToken () { },
-    mainsimControl ({ action, nodes }) {}
+    controlNodes ({ action, nodes }) { },
+    controlJobs ({ action, jobs }) { }
   },
 
   plugins: [

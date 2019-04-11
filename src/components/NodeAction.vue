@@ -23,10 +23,13 @@ export default {
     ...mapGetters(['is_admin'])
   },
   methods: {
-    ...mapActions(['mainsimControl']),
+    ...mapActions(['controlNodes']),
     control () {
-      if (this.is_admin && confirm(`Really ${this.action.toUpperCase()} node ${this.node}?`)) {
-        this.mainsimControl({
+      if (
+        this.is_admin &&
+        confirm(`Really ${this.action.toUpperCase()} node ${this.node}?`)
+      ) {
+        this.controlNodes({
           action: this.action,
           nodes: this.node
         })
