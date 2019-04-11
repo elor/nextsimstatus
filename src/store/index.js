@@ -179,6 +179,7 @@ export default new Vuex.Store({
     simpcstatus (state) { // 3
       return Object.values(state.simpcs).map(pc => ({
         ...pc,
+        cores: pc.cores || 8,
         number: Number(pc.hostname.replace(/\D/g, '')),
         usernames: uniq((pc.users || []).map(user => user.split(' ')[0]).filter(user => user)),
         inactive:
