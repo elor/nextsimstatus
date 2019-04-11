@@ -27,7 +27,7 @@ export default {
     control () {
       if (
         this.is_admin &&
-        confirm(`Really ${this.action.toUpperCase()} node ${this.node}?`)
+        confirm(`${this.action.toUpperCase()} node ${this.node}?`)
       ) {
         this.controlNodes({
           action: this.action,
