@@ -10,18 +10,18 @@
       <v-card-text>
         <v-layout row wrap v-if="User">
           <grid-card title="User">
-            {{User.UserName}}
+            <user-chip :login="User.UserName"/>
           </grid-card>
 
           <grid-card title="Job Stats">
             <p>
-              <span v-for="[key, value] in Object.entries(User.JobCount).filter(a => a[1])" :key="key" class="mx-2">
-                {{value}} {{key}}
-              </span>
+              <span
+                v-for="[key, value] in Object.entries(User.JobCount).filter(a => a[1])"
+                :key="key"
+                class="mx-2"
+              >{{value}} {{key}}</span>
             </p>
-            <p>
-            {{User.NumCPUs}} Cores
-            </p>
+            <p>{{User.NumCPUs}} Cores</p>
           </grid-card>
 
           <grid-card title="Nodes">
@@ -33,8 +33,10 @@
 
           <grid-card title="SimPCs">
             <span v-for="pc in User.PCs" :key="pc.number">
-              <router-link :class="{'grey--text':pc.inactive}" :to="`/simpc${pc.number}`">{{pc.hostname}}</router-link>
-              &nbsp;
+              <router-link
+                :class="{'grey--text':pc.inactive}"
+                :to="`/simpc${pc.number}`"
+              >{{pc.hostname}}</router-link>&nbsp;
             </span>
           </grid-card>
         </v-layout>
@@ -42,10 +44,7 @@
       </v-card-text>
     </v-card>
 
-    <JobList v-if="User" :title="`${User.Jobs.length} Jobs`"
-             :items="User.Jobs">
-    </JobList>
-
+    <JobList v-if="User" :title="`${User.Jobs.length} Jobs`" :items="User.Jobs"></JobList>
   </v-container>
 </template>
 
@@ -55,13 +54,15 @@ import GridCard from '@/components/GridCard'
 import JobList from '@/components/JobList'
 import SourceView from '@/components/SourceView'
 import NodeLoad from '@/components/NodeLoad'
+import UserChip from '@/components/UserChip'
 
 export default {
   components: {
     JobList,
     GridCard,
     SourceView,
-    NodeLoad
+    NodeLoad,
+    UserChip
   },
   computed: {
     ...mapGetters(['userstatus', 'nodestatus']),
@@ -74,7 +75,9 @@ export default {
       )[0]
     },
     nodes () {
-      return this.nodestatus.filter(node => node.users.includes(this.User.UserName))
+      return this.nodestatus.filter(node =>
+        node.users.includes(this.User.UserName)
+      )
     }
   }
 }
