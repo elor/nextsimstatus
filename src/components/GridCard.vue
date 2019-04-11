@@ -43,7 +43,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .gridcard {
   min-height: 155px;
   max-height: 310px;
@@ -51,5 +51,10 @@ export default {
 
 .gridcard.wrap {
   max-height: initial;
+}
+
+.gridcard .v-subheader {
+  height: 24px;
+  padding-left: 0px;
 }
 </style>
