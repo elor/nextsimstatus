@@ -144,7 +144,7 @@ export default {
         path = `~/${path.substr(tildeuser.length)}`
       }
       const ZERO_WIDTH_SPACE = '\u200b'
-      return path.replace(/\//g, `/${ZERO_WIDTH_SPACE}`)
+      return path.replace(/\//g, `${ZERO_WIDTH_SPACE}/`)
     },
     isValidTime (time) {
       return time && time !== 'Unknown' && time !== '00:00:00'
