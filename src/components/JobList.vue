@@ -42,7 +42,14 @@
           </td>
           <td>{{props.item.ArrayTaskId}}</td>
           <td>{{props.item.JobName}}</td>
-          <td>{{capitalize(props.item.JobState)}}</td>
+          <td>
+            <v-tooltip right>
+              <template v-slot:activator="{ on }">
+                <span v-on="on">{{capitalize(props.item.JobState)}}</span>
+              </template>
+              Reason: {{props.item.Reason}}
+            </v-tooltip>
+          </td>
           <td>
             <span v-for="node in props.item.NodeNames" :key="node">
               <router-link :to="`/${node}`">{{node}}</router-link>&nbsp;
