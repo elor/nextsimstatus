@@ -38,10 +38,11 @@ class ControlHandler(BaseHTTPRequestHandler):
 
         try:
             if self.is_admin():
-                output = jobs.control(self.action, self.jobs)
+                output = jobs.control(
+                    self.action, self.jobs, payload=self.payload)
             else:
                 output = jobs.control(
-                    self.action, self.jobs, self.current_user)
+                    self.action, self.jobs, payload=self.payload, user=self.current_user)
 
         except OSError, err:
             command_str = ' '.join(jobs.command(self.action, self.jobs))
@@ -206,6 +207,12 @@ class ControlHandler(BaseHTTPRequestHandler):
     def jobs(self):
         if 'jobs' in self.params:
             return self.params['jobs']
+        return None
+
+    @property
+    def payload(self):
+        if 'payload' in self.params:
+            return self.params['payload']
         return None
 
     error_message_format = 'Error %(code)d (%(explain)s): "%(message)s"'
