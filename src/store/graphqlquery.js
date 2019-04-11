@@ -28,6 +28,7 @@ export default `
     Reason
     NumCPUs
     WorkDir
+    ExitCode
     Gres
     Partition
     Dependency
