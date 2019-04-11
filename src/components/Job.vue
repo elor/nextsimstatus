@@ -4,6 +4,8 @@
       <v-card-title>
         <h2>{{title}}</h2>
         <v-spacer></v-spacer>
+        <job-action-block v-if="Job" :jobs="[Job]" :jobuser="Job.UserName"/>
+        <v-spacer></v-spacer>
         <source-view v-if="Job" :title="title" :value="Job"></source-view>
       </v-card-title>
 
@@ -21,11 +23,13 @@
 import { mapGetters } from 'vuex'
 import JobList from '@/components/JobList'
 import SourceView from '@/components/SourceView'
+import JobActionBlock from '@/components/JobActionBlock'
 
 export default {
   components: {
     JobList,
-    SourceView
+    SourceView,
+    JobActionBlock
   },
   computed: {
     ...mapGetters(['jobstatus']),
