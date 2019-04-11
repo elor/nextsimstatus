@@ -25,7 +25,11 @@ export default {
     jobs: Array,
     action: String,
     icon: String,
-    color: String
+    color: String,
+    numeric: {
+      type: Boolean,
+      default: false
+    }
   },
   computed: {
     ...mapState(['user']),
@@ -50,13 +54,28 @@ export default {
   methods: {
     ...mapActions(['controlJobs']),
     control () {
-      if (
-        this.can_control &&
-        confirm(`${this.action.toUpperCase()} job ${this.jobids}?`)
-      ) {
+      if (!this.can_control) {
+        return
+      }
+
+      let confirmation = false
+      let payload
+      if (this.numeric) {
+        payload = prompt(
+          `${this.action.toUpperCase()} job ${this.jobids} - how much?`
+        )
+        console.log(payload)
+        confirmation = payload !== null && payload !== undefined
+      } else {
+        confirmation = confirm(
+          `${this.action.toUpperCase()} job ${this.jobids}?`
+        )
+      }
+      if (confirmation) {
         this.controlJobs({
           action: this.action,
-          jobs: this.jobids
+          jobs: this.jobids,
+          payload: payload
         })
       }
     }
