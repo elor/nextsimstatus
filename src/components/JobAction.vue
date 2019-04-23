@@ -1,14 +1,7 @@
 <template>
   <v-tooltip top>
     <template v-slot:activator="{ on }">
-      <v-btn
-        :disabled="!jobs.length || !can_control"
-        :color="color"
-        fab
-        small
-        @click="control"
-        v-on="on"
-      >
+      <v-btn :disabled="disabled" :color="color" fab small @click="control" v-on="on">
         <v-icon>{{icon}}</v-icon>
       </v-btn>
     </template>
@@ -29,6 +22,14 @@ export default {
     numeric: {
       type: Boolean,
       default: false
+    },
+    array_only: {
+      type: Boolean,
+      default: false
+    },
+    when: {
+      type: String,
+      default: ''
     }
   },
   computed: {
@@ -40,6 +41,9 @@ export default {
     jobusers () {
       return this.jobs.map(job => job.UserName)
     },
+    JobStates () {
+      return uniq(this.jobs.map(job => job.JobState))
+    },
     singular_owner () {
       const owners = uniq(this.jobusers)
       if (owners.length !== 1) return undefined
@@ -49,6 +53,21 @@ export default {
       return (
         this.is_admin || (this.user && this.singular_owner === this.user.login)
       )
+    },
+    when_split () {
+      return this.when.split(',').map(s => s.toUpperCase())
+    },
+    when_enabled () {
+      return !this.when.length || this.when_split.some(when => this.JobStates.includes(when))
+    },
+    is_array () {
+      return this.jobs.some(job => job.JobId === job.ArrayJobId)
+    },
+    array_enabled () {
+      return !this.array_only || this.is_array
+    },
+    disabled () {
+      return !this.jobs.length || !this.can_control || !this.array_enabled || !this.when_enabled
     }
   },
   methods: {
