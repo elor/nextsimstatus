@@ -294,6 +294,9 @@ export default new Vuex.Store({
       }
     },
     updateControl (state, status, message) {
+    },
+    clearErrors (state) {
+      state.errors = []
     }
   },
 

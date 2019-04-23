@@ -48,7 +48,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-toolbar-side-icon v-if="errors.length">
+      <v-toolbar-side-icon v-if="errors.length" @click="clearErrors">
         <v-badge overlap right color="red">
           <span slot="badge">{{errors.length}}</span>
           <v-icon large color="red">error</v-icon>
@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 
 import LoginMenu from '@/components/LoginMenu'
 
@@ -115,6 +115,7 @@ export default {
   },
   methods: {
     ...mapActions(['mainsimFetch', 'mqttReconnect']),
+    ...mapMutations(['clearErrors']),
     refresh () {
       this.mainsimFetch()
       this.mqttReconnect()
