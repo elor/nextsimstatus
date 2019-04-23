@@ -55,6 +55,8 @@
         </v-badge>
       </v-toolbar-side-icon>
 
+      <error-snack v-for="(error, index) of errors" :key="index" :error="error"/>
+
       <v-chip v-model="update_available" close>Update available</v-chip>
       {{dates.now.toLocaleString()}}
       <v-btn
@@ -78,6 +80,7 @@
 import { mapState, mapActions, mapMutations } from 'vuex'
 
 import LoginMenu from '@/components/LoginMenu'
+import ErrorSnack from '@/components/ErrorSnack'
 
 export default {
   data () {
@@ -88,7 +91,8 @@ export default {
     }
   },
   components: {
-    LoginMenu
+    LoginMenu,
+    ErrorSnack
   },
   computed: {
     ...mapState(['errors', 'dates', 'options', 'jobs', 'updating', 'sources']),
