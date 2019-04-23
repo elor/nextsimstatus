@@ -22,7 +22,7 @@
       "parser": "babel-eslint"
     }
   },
-  "window.zoomLevel": 0,
+  "window.zoomLevel": 1,
   "vetur.format.defaultFormatter.js": "vscode-typescript",
   "vetur.format.defaultFormatter.ts": "vscode-typescript",
   "editor.tabSize": 2
