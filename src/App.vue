@@ -51,7 +51,7 @@
       <v-toolbar-side-icon v-if="errors.length" @click="clearErrors">
         <v-badge overlap right color="red">
           <span slot="badge">{{errors.length}}</span>
-          <v-icon large color="red">error</v-icon>
+          <v-icon large color="red">notification_important</v-icon>
         </v-badge>
       </v-toolbar-side-icon>
 
