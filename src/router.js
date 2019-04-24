@@ -98,7 +98,7 @@ export default new Router({
     path: '/enssim',
     name: 'EnsSim',
     component: EnsSim,
-    icon: 'error'
+    icon: 'error_outline'
   },
   {
     path: '/mensa',
