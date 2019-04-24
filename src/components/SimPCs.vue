@@ -52,9 +52,9 @@
             </span>
           </td>
           <td>
-            <cpu-load :load="props.item.load_1min" :cores="4" precise></cpu-load>
-            <cpu-load :load="props.item.load_5min" :cores="4" precise></cpu-load>
-            <cpu-load :load="props.item.load_15min" :cores="4" precise></cpu-load>
+            <cpu-load :load="props.item.load_1min" :cores="props.item.cores" precise></cpu-load>
+            <cpu-load :load="props.item.load_5min" :cores="props.item.cores" precise></cpu-load>
+            <cpu-load :load="props.item.load_15min" :cores="props.item.cores" precise></cpu-load>
             <v-tooltip v-if="props.item.load_1min > 5.0" bottom>
               <v-icon color="warning" slot="activator">warning</v-icon>
               <span>High CPU Load</span>
