@@ -21,7 +21,7 @@
               <v-progress-circular
                 :value="MemPercent"
                 :color="MemPercent > 90 ? 'red' : 'light-blue'"
-              >{{MemPercent}}</v-progress-circular>
+              >{{MemGig}}</v-progress-circular>
               <v-progress-circular
                 v-for="gres in Gres"
                 :key="gres.ressource"
@@ -41,7 +41,7 @@
             <a href="https://en.wikipedia.org/wiki/Load_(computing)">Load</a>
             : {{Node.CPULoad}} ({{CPULoadPercent}}%)
             <br>
-            RAM: {{Math.round((Node.RealMemory - Node.FreeMem)/1000)}}/{{Node.RealMemory / 1000}} GB ({{MemPercent}}%)
+            RAM: {{MemGig}}/{{Node.RealMemory / 1000}} GB ({{MemPercent}}%)
           </grid-card>
 
           <grid-card title="Users">
@@ -143,6 +143,9 @@ export default {
     },
     MemPercent () {
       return 100 - Math.round((100 * this.Node.FreeMem) / this.Node.RealMemory)
+    },
+    MemGig () {
+      return Math.ceil((this.Node.RealMemory - this.Node.FreeMem) / 1000)
     },
     CPULoadPercent () {
       return Math.round((100 * this.Node.CPULoad) / this.Node.CPUTot)

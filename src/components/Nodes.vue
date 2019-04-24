@@ -61,7 +61,7 @@
               <v-progress-circular
                 :value="100*(1 - props.item.FreeMem/props.item.RealMemory)"
                 :color="props.item.FreeMem < 0.1*props.item.RealMemory ? 'red' : 'light-blue'"
-              ></v-progress-circular>
+              >{{Math.ceil((props.item.RealMemory-props.item.FreeMem)/1000)}}</v-progress-circular>
             </td>
             <td>{{props.item.Partitions}}</td>
             <td>
