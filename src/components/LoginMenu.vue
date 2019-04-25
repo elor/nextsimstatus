@@ -3,8 +3,8 @@
     <v-chip
       slot="activator"
       size="24"
-      :color="logged_in ? 'white' : 'primary'"
-      :text-color="logged_in ? 'primary' : 'dark'"
+      :color="logged_in || light ? 'white' : 'primary'"
+      :text-color="logged_in || light ? 'primary' : 'dark'"
     >
       <v-icon :color="usercolor" class="mr-1">account_circle</v-icon>
       {{user.login || 'login'}}
@@ -97,6 +97,12 @@ export default {
   components: {
     UserChip
   },
+  props: {
+    light: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
       dialog: false,
@@ -120,7 +126,7 @@ export default {
       return !!this.user.name
     },
     usercolor () {
-      return this.logged_in ? usercolor(this.user.login) : 'white'
+      return this.logged_in ? usercolor(this.user.login) : (this.light ? 'primary' : 'white')
     }
   },
   methods: {
