@@ -48,15 +48,21 @@
       numeric
     />
   </div>
+  <div v-else>
+    Melde dich an, um deine Jobs zu steuern:
+    <login-menu light></login-menu>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import JobAction from '@/components/JobAction'
+import LoginMenu from '@/components/LoginMenu'
 
 export default {
   components: {
-    JobAction
+    JobAction,
+    LoginMenu
   },
   props: {
     jobs: Array
