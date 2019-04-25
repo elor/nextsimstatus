@@ -27,7 +27,7 @@
       <v-card-text>
         <v-list subheader>
           <v-subheader>Meine Seiten</v-subheader>
-          <v-list-tile :to="pages.user">
+          <v-list-tile :to="pages.user" @click="dialog=false">
             <v-list-tile-action>
               <v-icon :color="usercolor">person</v-icon>
             </v-list-tile-action>
