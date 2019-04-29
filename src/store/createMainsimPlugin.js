@@ -86,19 +86,23 @@ function registerMQTT (store) {
   })
 
   mqttClient.on('message', (topic, message) => {
-    switch (topic) {
-      case 'slurm/nodes':
-        store.commit('updateNodes', unpack64(message))
-        break
-      case 'slurm/jobs':
-        store.commit('updateJobs', unpack64(message))
-        break
-      case (topic.match(/simpc\/simpc\d+/) || {}).input:
-        store.commit('updateSimPC', unpack(message))
-        break
-      case 'racks/racks':
-        store.commit('updateRacks', unpack64(message))
-        break
+    try {
+      switch (topic) {
+        case 'slurm/nodes':
+          store.commit('updateNodes', unpack64(message))
+          break
+        case 'slurm/jobs':
+          store.commit('updateJobs', unpack64(message))
+          break
+        case (topic.match(/simpc\/simpc\d+/) || {}).input:
+          store.commit('updateSimPC', unpack(message))
+          break
+        case 'racks/racks':
+          store.commit('updateRacks', unpack64(message))
+          break
+      }
+    } catch (error) {
+      store.commit('newError', error)
     }
   })
 
