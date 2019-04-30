@@ -64,7 +64,7 @@
                     v-for="pc in user.PCs"
                     :key="pc.hostname"
                     :value="100 * (pc.load_1min || 0.0) / pc.cores"
-                    :color="pc.load_1min > cores ? 'red' : 'green'"
+                    :color="pc.load_1min > pc.cores ? 'red' : 'green'"
                   >
                     <router-link :to="`/simpc${pc.number}`">{{pc.number}}</router-link>
                   </v-progress-circular>
