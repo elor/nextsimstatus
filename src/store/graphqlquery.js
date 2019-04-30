@@ -57,6 +57,13 @@ export default `
     users
     cores
     vpn
+    utmp {
+      user
+      time
+      line
+      host
+      pid
+    }
   }
 }
 `
