@@ -84,7 +84,27 @@ type SimPC {
   users: [String]
   vpn: Boolean
   updates: Int,
-  cores: Int
+  cores: Int,
+  utmp: [Utmp]
+}
+
+type Utmp {
+  addr0: Int,
+  addr1: Int,
+  addr2: Int,
+  addr3: Int,
+  exit0: Int,
+  exit1: Int,
+  host: String,
+  id: String,
+  line: String,
+  pid: Int,
+  sec: Int,
+  session: Int,
+  time: String,
+  type: Int,
+  usec: Int,
+  user: String
 }
 
 type Mount {
