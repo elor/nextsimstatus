@@ -63,8 +63,8 @@
                   <v-progress-circular
                     v-for="pc in user.PCs"
                     :key="pc.hostname"
-                    :value="pc.load_1min !== undefined ? (10 + 90 * pc.load_1min / 5.0) : 0.0"
-                    :color="pc.load_1min > 5.0 ? 'red' : 'green'"
+                    :value="100 * (pc.load_1min || 0.0) / pc.cores"
+                    :color="pc.load_1min > cores ? 'red' : 'green'"
                   >
                     <router-link :to="`/simpc${pc.number}`">{{pc.number}}</router-link>
                   </v-progress-circular>
@@ -97,8 +97,8 @@
         <v-progress-circular
           v-for="pc in simpcstatus"
           :key="pc.hostname"
-          :value="pc.load_1min !== undefined ? (10 + 90 * pc.load_1min / 5.0) : 0.0"
-          :color="pc.load_1min > 5.0 ? 'red' : 'green'"
+          :value="100 * (pc.load_1min || 0.0) / pc.cores"
+          :color="pc.load_1min > pc.cores ? 'red' : 'green'"
         >
           <router-link :to="`/simpc${pc.number}`">{{pc.number}}</router-link>
         </v-progress-circular>
