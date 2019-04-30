@@ -3,6 +3,9 @@
 const receiver = require('./receiver')
 const listener = require('./listener')
 const assert = require('assert')
+const args = require('minimist')(process.argv.slice(-1))
+
+const PORT = Number(args._[0]) || 8080
 
 let store = {
   nodes: {},
@@ -45,7 +48,7 @@ function print () {
 
 let mqttClient = receiver.connect(updateCallback)
 assert(mqttClient)
-let httpServer = listener.listen(8080, getDataCallback)
+let httpServer = listener.listen(PORT, getDataCallback)
 assert(httpServer)
 
 let printerval = setInterval(print, 5000)
