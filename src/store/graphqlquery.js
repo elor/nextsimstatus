@@ -55,6 +55,7 @@ export default `
     release
     uptime
     users
+    cores
     vpn
   }
 }
