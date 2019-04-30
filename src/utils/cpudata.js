@@ -1,5 +1,5 @@
 import { mergeWith, intersection } from 'lodash'
-import { drainstates, failstates } from './nodeStates'
+import { drainstates, failstates, rebootstates } from './nodeStates'
 import splitStates from './splitStates'
 
 function sum (A, B) {
@@ -20,10 +20,13 @@ export default function cpudata (...nodes) {
     let free = 0
     let fail = 0
     let drain = 0
+    let reboot = 0
 
     const states = splitStates(node.State)
 
-    if (hasState(states, drainstates)) {
+    if (hasState(states, rebootstates)) {
+      reboot = rest
+    } else if (hasState(states, drainstates)) {
       drain = rest
     } else if (hasState(states, failstates)) {
       fail = rest
@@ -31,9 +34,10 @@ export default function cpudata (...nodes) {
       free = rest
     }
 
-    return { total, allocated, free, error, drain, fail }
+    return { total, allocated, free, error, drain, reboot, fail }
   })
 
   const reduced = mergeWith({}, ...cpudataPerNode, sum)
+
   return reduced
 }

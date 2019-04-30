@@ -23,6 +23,7 @@ export default {
       const system = [
         { name: 'Free', cpus: this.nodecpus.free },
         { name: 'Drain', cpus: this.nodecpus.drain },
+        { name: 'Reboot', cpus: this.nodecpus.reboot },
         { name: 'Error', cpus: this.nodecpus.error },
         { name: 'Failure', cpus: this.nodecpus.fail }
       ].filter(sys => sys.cpus)
