@@ -1,0 +1,14 @@
+[Unit]
+Description=MainSimStatus Quota Reporter
+After=syslog.target network.target beegfs-client.service
+ConditionFileIsExecutable=/opt/mainsimstatus/daemons/mainsim/mainsim-daemon.sh
+
+[Service]
+ExecStart=/opt/mainsimstatus/daemons/mainsim/mainsim-daemon.sh quota /opt/mainsimstatus/secrets.json
+
+Restart=always
+RestartSec=15
+
+[Install]
+WantedBy=multi-user.target
+
