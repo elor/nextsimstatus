@@ -2,7 +2,8 @@
   <v-container fluid>
     <v-card>
       <v-card-title>
-        <v-btn to="/nodes">Nodes</v-btn>Overview
+        <v-btn to="/nodes">Nodes</v-btn>
+        <v-btn to="/jobs">{{jobstatus.length}} Jobs</v-btn>
       </v-card-title>
       <v-card-text>
         <v-layout row wrap>
@@ -34,16 +35,11 @@
         </v-layout>
       </v-card-text>
     </v-card>
-    <v-card>
-      <v-card-title>
-        <v-btn to="/jobs">Jobs</v-btn>Overview
-      </v-card-title>
-      <v-card-text>{{jobstatus.length}} Jobs</v-card-text>
-    </v-card>
 
     <v-card>
       <v-card-title>
-        <v-btn to="/users">Users</v-btn>Overview
+        <v-btn to="/users">Users</v-btn>
+        <v-btn to="/simpcs">SimPCs</v-btn>
       </v-card-title>
       <v-card-text>
         <v-layout row wrap>
@@ -87,12 +83,6 @@
           </v-flex>
         </v-layout>
       </v-card-text>
-    </v-card>
-
-    <v-card>
-      <v-card-title>
-        <v-btn to="/simpcs">SimPCs</v-btn>Overview
-      </v-card-title>
       <v-card-text>
         <v-progress-circular
           v-for="pc in simpcstatus"
