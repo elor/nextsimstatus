@@ -33,16 +33,19 @@ case "$dataset" in
         runfile="./slurm/$dataset.sh"
         topic="slurm/$dataset"
         interval=1
+        hard_interval=0
         ;;
     racks)
         runfile="./racks/rackstatus.py"
         topic="racks/$dataset"
         interval=60
+        hard_interval=0
         ;;
     quota)
         runfile="./beegfs/quota.py"
         topic="beegfs/quota"
         interval=60
+        hard_interval=60
         ;;
     *)
         echo "DATASET must be one of 'nodes', 'jobs', 'racks' or 'quota', not \"$dataset\"" >&2
@@ -73,5 +76,9 @@ EOF
         old_data="$data_json"
         last_data=$now
         echo "$dataset $(date) $(wc -c <<< "$data_json")B"
+    fi
+
+    if (( hard_interval > 0)); then
+        sleep $(( last_data + hard_interval - now ))
     fi
 done
