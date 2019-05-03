@@ -78,6 +78,7 @@ function registerMQTT (store) {
       mqttClient.subscribe('slurm/jobs')
       mqttClient.subscribe('simpc/#')
       mqttClient.subscribe('racks/racks')
+      mqttClient.subscribe('beegfs/quota')
     }
   })
 
@@ -100,6 +101,8 @@ function registerMQTT (store) {
         case 'racks/racks':
           store.commit('updateRacks', unpack64(message))
           break
+        case 'beegfs/quota':
+          store.commit('updateQuota', unpack64(message))
       }
     } catch (error) {
       store.commit('newError', error)

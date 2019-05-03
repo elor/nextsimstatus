@@ -16,15 +16,22 @@
         </v-layout>
       </v-card-text>
     </v-card>
+    <v-card>
+      <v-card-text>
+        <pie-chart :chart-data="quotaData" hidelegend :tooltip="tooltip"></pie-chart>
+      </v-card-text>
+    </v-card>
   </v-container>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import GridCard from '@/components/GridCard'
 import CoresPieChart from '@/components/CoresPieChart'
 import PieChart from '@/components/PieChart'
 import usercolor from '../utils/usercolor'
+
+import { sortBy } from 'lodash'
 
 const colors = {
   blue: '#03a9f4',
@@ -52,6 +59,7 @@ export default {
     CoresPieChart
   },
   computed: {
+    ...mapState(['beegfs']),
     ...mapGetters(['nodestatus', 'userstatus', 'partitionstatus']),
     nodeData () {
       return {
@@ -66,6 +74,35 @@ export default {
           }
         ]
       }
+    },
+    quotaData () {
+      return {
+        labels: this.quotas.map(user => user.name),
+        datasets: [
+          {
+            label: 'Bytes',
+            data: this.quotas.map(user => user.bytes),
+            backgroundColor: this.quotas.map(user =>
+              usercolor(user.name)
+            )
+          }
+        ]
+      }
+    },
+    quotas () {
+      const userBytesSum = Object.values(this.beegfs.quota).reduce((sum, user) => sum + Number(user.bytes), 0)
+
+      return [
+        ...sortBy(Object.values(this.beegfs.quota), a => -Number(a.bytes)),
+        {
+          name: 'System',
+          bytes: Math.max(0, this.beegfs.total - this.beegfs.free - userBytesSum)
+        },
+        {
+          name: 'Free',
+          bytes: this.beegfs.free
+        }
+      ]
     },
     userData () {
       const users = this.userstatus
@@ -116,6 +153,14 @@ export default {
           backgroundColor: [colors.blue, colors.green, colors.red]
         }))
       }
+    }
+  },
+  methods: {
+    tooltip ({ datasetIndex, index }, { labels, datasets }) {
+      const username = labels[index]
+      const bytes = datasets[datasetIndex].data[index]
+      const gigabytes = Math.ceil(bytes / (1024 ** 3))
+      return `${username}: ${gigabytes} GB`
     }
   }
 }

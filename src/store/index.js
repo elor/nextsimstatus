@@ -64,6 +64,11 @@ export default new Vuex.Store({
       jobs: new Date(0),
       now: new Date()
     },
+    beegfs: {
+      total: 104004797333504,
+      free: 88672509624320,
+      quota: {}
+    },
     updating: false,
     sources,
     options: {
@@ -266,6 +271,9 @@ export default new Vuex.Store({
     },
     updateSimPC (state, simpc) {
       state.simpcs[simpc.hostname] = simpc
+    },
+    updateQuota (state, quota) {
+      state.beegfs.quota = quota
     },
     updateRacks (state, racks) {
       if (!isEqual(state.racks, racks)) {

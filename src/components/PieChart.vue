@@ -17,16 +17,21 @@ export default {
   props: {
     height: String,
     width: String,
-    hidelegend: Boolean
+    hidelegend: Boolean,
+    tooltip: Function
   },
   mixins: [mixins.reactiveProp],
   computed: {
     config () {
-      return {
+      let conf = {
         maintainAspectRatio: false,
         legend: {
           position: 'right',
           display: !this.hidelegend
+        },
+        tooltips: {
+          callbacks: {
+          }
         },
         plugins: {
           labels: {
@@ -38,6 +43,12 @@ export default {
           }
         }
       }
+
+      if (this.tooltip) {
+        conf.tooltips.callbacks.label = this.tooltip
+      }
+
+      return conf
     },
     style () {
       let style = {}
