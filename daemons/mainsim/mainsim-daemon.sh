@@ -45,7 +45,7 @@ case "$dataset" in
         runfile="./beegfs/quota.py"
         topic="beegfs/quota"
         interval=60
-        hard_interval=60
+        hard_interval=12
         ;;
     *)
         echo "DATASET must be one of 'nodes', 'jobs', 'racks' or 'quota', not \"$dataset\"" >&2
