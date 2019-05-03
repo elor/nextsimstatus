@@ -21,6 +21,8 @@ if (( ${#@} == 2 )); then
     if [ -s "$secrets_file" ]; then
         mqtt_password=$(python -c "import json; print json.load(open('$secrets_file'))['mqtt']")
     fi
+else
+    secrets_file=""
 fi
 
 runfile=""
@@ -37,8 +39,13 @@ case "$dataset" in
         topic="racks/$dataset"
         interval=60
         ;;
+    quota)
+        runfile="./beegfs/quota.py"
+        topic="beegfs/quota"
+        interval=60
+        ;;
     *)
-        echo "DATASET must be one of \"nodes\" or \"jobs\", not \"$dataset\"" >&2
+        echo "DATASET must be one of 'nodes', 'jobs', 'racks' or 'quota', not \"$dataset\"" >&2
         exit 1
         ;;
 esac
