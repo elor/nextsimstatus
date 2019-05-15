@@ -73,7 +73,7 @@
           </td>
           <td>{{format(props.item.lastupdate)}}</td>
           <td>
-            {{props.item.updates || '?'}}
+            {{props.item.updates === undefined ? '???' : props.item.updates}}
             <v-tooltip v-if="props.item.updates > 10" bottom>
               <v-icon color="warning" slot="activator">warning</v-icon>
               <span>Too many pending updates. Please update.</span>
