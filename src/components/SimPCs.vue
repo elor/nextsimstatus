@@ -65,18 +65,18 @@
             </v-tooltip>
           </td>
           <td>
-            {{props.item.release}}
-            <v-tooltip v-if="props.item.isoldrelease" bottom>
-              <v-icon slot="activator" color="warning">warning</v-icon>
-              <span>Deprecated OS version. Please upgrade</span>
-            </v-tooltip>
-          </td>
-          <td>{{format(props.item.lastupdate)}}</td>
-          <td>
             {{format(props.item.uptime)}}
             <v-tooltip v-if="props.item.uptime > FIVE_DAYS" bottom>
               <v-icon color="warning" slot="activator">warning</v-icon>
               <span>Long uptime. Please reboot</span>
+            </v-tooltip>
+          </td>
+          <td>{{format(props.item.lastupdate)}}</td>
+          <td>
+            {{props.item.updates || '?'}}
+            <v-tooltip v-if="props.item.updates > 10" bottom>
+              <v-icon color="warning" slot="activator">warning</v-icon>
+              <span>Too many pending updates. Please update.</span>
             </v-tooltip>
           </td>
         </tr>
@@ -102,9 +102,9 @@ export default {
         { text: 'Name', value: 'hostname' },
         { text: 'Users', value: 'users' },
         { text: 'Load', value: 'load' },
-        { text: 'Release', value: 'release' },
+        { text: 'Uptime', value: 'uptime' },
         { text: 'Heartbeat', value: 'lastupdate' },
-        { text: 'Uptime', value: 'uptime' }
+        { text: 'Updates', value: 'updates' }
       ],
       search: '',
       visibility: 'recent',
