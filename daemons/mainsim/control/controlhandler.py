@@ -17,6 +17,8 @@ class ControlHandler(BaseHTTPRequestHandler):
             self.handle_nodes()
         elif self.path == '/control/jobs':
             self.handle_jobs()
+        elif self.path == '/control/logs':
+            self.handle_logs()
         else:
             self.send_error(404)
 
@@ -88,6 +90,39 @@ class ControlHandler(BaseHTTPRequestHandler):
             command_str = ' '.join(nodes.command(self.action, self.nodes))
             self.send_error(
                 500, 'Error while running `{}`: {}'.format(command_str, err))
+            return
+
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(output)
+
+    def handle_logs():
+        if not self.current_user:
+            self.send_error(403, 'You are not logged in')
+            return
+
+        try:
+            jobs.test(self.jobs, self.current_user, self.is_admin())
+        except OSError, err:
+            self.send_error(
+                500, 'OSError: {} (while testing job definition `{}`'.format(err, self.jobs))
+            return
+        except RuntimeError, err:
+            self.send_error(
+                500, 'Invalid job query: `{}`. {}'.format(self.jobs, err))
+            return
+
+        try:
+            user = None if self.is_admin() else self.current_user
+            output = [jobs.log(job, user=user) for job in self.jobs]
+
+        except OSError, err:
+            self.send_error(
+                500, 'OSError: {} while reading job logs'.format(err))
+            return
+        except RuntimeError, err:
+            self.send_error(
+                500, 'RuntimeError {} while reading job logs'.format(err))
             return
 
         self.send_response(200)

@@ -41,6 +41,34 @@ def control(action, jobs, user=None, payload=None):
             'NonZero Return Code {}: {}'.format(return_code, err))
     return out
 
+def logfiles(jobid, user=None):
+    return_code, out, err = run_command(['scontrol', 'show', 'job', jobid], user=user)
+    if return_code:
+        raise RuntimeError('NonZero Return Code {}: {}'.format(return_code, err))
+    lines = [line.strip().split('=') for line in out.split('\n')]
+    pairs = [{pair[0]: pair[1]}for pair in lines if len(pair)==2 and pair[0].startswith('Std')]
+    files = {}
+    for file in pairs:
+        files.update(file)
+    return files
+
+def printlog(logfile, user=None):
+    return_code, out, err = run_command(['cat', logfile], user=user)
+    if return_code:
+        raise RuntimeError('NonZero Return Code {}: {}'.format(return_code, err))
+    return out
+    
+
+def log(jobid, user=None):
+    files = logfiles(jobid, user)
+
+    return {
+        "JobId": jobid,
+        "StdOutFile": files['StdOut'],
+        "StdOut": printlog(files['StdOut']),
+        "StdErrFile": files['StdOut'],
+        "StdErr": printlog(files['StdErr'])
+    }
 
 if __name__ == "__main__":
     from sys import argv, exit
