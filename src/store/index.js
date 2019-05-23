@@ -319,8 +319,6 @@ export default new Vuex.Store({
       } else {
         state.joblogs[index] = object
       }
-
-      console.log(state.joblogs)
     },
     clearErrors (state) {
       state.errors = []

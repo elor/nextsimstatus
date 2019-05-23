@@ -14,6 +14,11 @@ export default {
   props: {
     job: Object
   },
+  data () {
+    return {
+      interval: undefined
+    }
+  },
   computed: {
     ...mapState(['user', 'joblogs']),
     ...mapGetters(['is_admin']),
@@ -61,12 +66,11 @@ export default {
     }
   },
   mounted () {
-    const fetchAndRepeat = (timeout) => {
-      this.fetchLogs()
-      window.setTimeout(fetchAndRepeat, 1000)
-    }
-
-    fetchAndRepeat(1000)
+    this.fetchLogs()
+    this.interval = window.setInterval(() => this.fetchLogs(), 5000)
+  },
+  beforeDestroy () {
+    window.clearInterval(this.interval)
   }
 }
 </script>
