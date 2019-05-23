@@ -53,7 +53,7 @@ def logfiles(jobid, user=None):
     return files
 
 def printlog(logfile, user=None):
-    return_code, out, err = run_command(['tail', '-n50', logfile], user=user)
+    return_code, out, err = run_command(['tail', '-n20', logfile], user=user)
     if return_code:
         raise RuntimeError('NonZero Return Code {}: {}'.format(return_code, err))
     return out
