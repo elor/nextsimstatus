@@ -17,6 +17,7 @@ import Software from '@/components/Software'
 import Users from '@/components/Users'
 import User from '@/components/User'
 import Manual from '@/components/Manual'
+import Stats from '@/components/Stats'
 import Test from '@/components/Test'
 
 Vue.use(Router)
@@ -49,7 +50,7 @@ export default new Router({
   {
     path: '/stats',
     name: 'Stats',
-    component: Todo,
+    component: Stats,
     icon: 'pie_chart'
   },
   {
