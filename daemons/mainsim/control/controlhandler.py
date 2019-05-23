@@ -96,7 +96,7 @@ class ControlHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(output)
 
-    def handle_logs():
+    def handle_logs(self):
         if not self.current_user:
             self.send_error(403, 'You are not logged in')
             return
