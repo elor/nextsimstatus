@@ -128,7 +128,7 @@ class ControlHandler(BaseHTTPRequestHandler):
 
         self.send_response(200)
         self.end_headers()
-        self.wfile.write(output)
+        self.wfile.write(json.dumps(output))
 
     def do_OPTIONS(self):
         self.send_response(200)
