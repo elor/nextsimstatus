@@ -3,7 +3,8 @@ import axios from 'axios'
 const config = {
   mainsim: {
     nodesURL: 'https://mainsim.etit.tu-chemnitz.de/control/nodes',
-    jobsURL: 'https://mainsim.etit.tu-chemnitz.de/control/jobs'
+    jobsURL: 'https://mainsim.etit.tu-chemnitz.de/control/jobs',
+    logsURL: 'https://mainsim.etit.tu-chemnitz.de/control/logs'
   }
 }
 
@@ -32,6 +33,11 @@ export default function createControlPlugin () {
             .catch(errorMessage => store.commit('newError', errorMessage))
           break
         case 'controlJobs':
+          control(config.mainsim.jobsURL, state.jwtToken, action.payload)
+            .then(({ status, data }) => store.commit('updateControl', status, data))
+            .catch(errorMessage => store.commit('newError', errorMessage))
+          break
+        case 'controlLogs':
           control(config.mainsim.jobsURL, state.jwtToken, action.payload)
             .then(({ status, data }) => store.commit('updateControl', status, data))
             .catch(errorMessage => store.commit('newError', errorMessage))
