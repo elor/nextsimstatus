@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Todo from '@/components/Todo'
+// import Todo from '@/components/Todo'
 
 import Dashboard from '@/components/Dashboard'
 import Job from '@/components/Job'

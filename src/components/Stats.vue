@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
 import GridCard from '@/components/GridCard'
 import CoresPieChart from '@/components/CoresPieChart'
 import QuotaPieChart from '@/components/QuotaPieChart'
