@@ -38,8 +38,10 @@ export default function createControlPlugin () {
             .catch(errorMessage => store.commit('newError', errorMessage))
           break
         case 'controlLogs':
-          control(config.mainsim.jobsURL, state.jwtToken, action.payload)
-            .then(({ status, data }) => store.commit('updateControl', status, data))
+          control(config.mainsim.logsURL, state.jwtToken, action.payload)
+            .then(({ status, data }) => { store.commit('updateControl', status, data); return data })
+            .then(jobLogs => jobLogs.forEach(
+              ({ JobId, StdOutFile, StdOut, StdErrFile, StdErr }) => store.commit('updateJobLog', { JobId, StdOutFile, StdOut, StdErrFile, StdErr })))
             .catch(errorMessage => store.commit('newError', errorMessage))
           break
       }

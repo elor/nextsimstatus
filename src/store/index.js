@@ -54,6 +54,7 @@ export default new Vuex.Store({
   state: {
     nodes: [],
     jobs: [],
+    joblogs: [],
     racks: [],
     errors: [],
     nodecpus: { allocated: 0, free: 0, error: 0, total: 0, drain: 0, fail: 0 },
@@ -303,6 +304,24 @@ export default new Vuex.Store({
     },
     updateControl (state, status, message) {
     },
+    updateJobLog (state, { JobId, StdOutFile, StdOut, StdErrFile, StdErr }) {
+      const object = {
+        JobId,
+        StdOutFile,
+        StdOut,
+        StdErrFile,
+        StdErr
+      }
+
+      const index = state.joblogs.findIndex(logs => logs.JobId === JobId)
+      if (index === -1) {
+        state.joblogs.push(object)
+      } else {
+        state.joblogs[index] = object
+      }
+
+      console.log(state.joblogs)
+    },
     clearErrors (state) {
       state.errors = []
     }
@@ -316,7 +335,8 @@ export default new Vuex.Store({
     renewToken () { },
     verifyToken () { },
     controlNodes ({ action, nodes }) { },
-    controlJobs ({ action, jobs }) { }
+    controlJobs ({ action, jobs }) { },
+    controlLogs ({ jobs }) { }
   },
 
   plugins: [
