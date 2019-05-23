@@ -42,7 +42,7 @@ def control(action, jobs, user=None, payload=None):
     return out
 
 def logfiles(jobid, user=None):
-    return_code, out, err = run_command(['scontrol', 'show', 'job', jobid], user=user)
+    return_code, out, err = run_command(['scontrol', 'show', 'job', str(jobid)], user=user)
     if return_code:
         raise RuntimeError('NonZero Return Code {}: {}'.format(return_code, err))
     lines = [line.strip().split('=') for line in out.split('\n')]
@@ -53,7 +53,7 @@ def logfiles(jobid, user=None):
     return files
 
 def printlog(logfile, user=None):
-    return_code, out, err = run_command(['cat', logfile], user=user)
+    return_code, out, err = run_command(['tail', '-n50', logfile], user=user)
     if return_code:
         raise RuntimeError('NonZero Return Code {}: {}'.format(return_code, err))
     return out
@@ -62,12 +62,15 @@ def printlog(logfile, user=None):
 def log(jobid, user=None):
     files = logfiles(jobid, user)
 
+    StdOut = files['StdOut']
+    StdErr = files['StdErr']
+
     return {
         "JobId": jobid,
         "StdOutFile": files['StdOut'],
         "StdOut": printlog(files['StdOut']),
         "StdErrFile": files['StdOut'],
-        "StdErr": printlog(files['StdErr'])
+        "StdErr": printlog(files['StdErr']) if StdErr != StdOut else '<same as StdOut>'
     }
 
 if __name__ == "__main__":

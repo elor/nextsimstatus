@@ -102,7 +102,8 @@ class ControlHandler(BaseHTTPRequestHandler):
             return
 
         try:
-            jobs.test(self.jobs, self.current_user, self.is_admin())
+            for job in self.jobs:
+                jobs.test(str(job), self.current_user, self.is_admin())
         except OSError, err:
             self.send_error(
                 500, 'OSError: {} (while testing job definition `{}`'.format(err, self.jobs))
