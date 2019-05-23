@@ -1,18 +1,28 @@
 <template>
   <div>
-    <h3>StdOut</h3>
-    <pre>{{StdOut}}</pre>
-    <h3>StdErr</h3>
-    <pre>{{StdErr}}</pre>
+    <div v-if="can_control">
+      <h3>StdOut</h3>
+      <pre>{{StdOut}}</pre>
+      <h3>StdErr</h3>
+      <pre>{{StdErr}}</pre>
+    </div>
+    <div v-else>
+      Melde dich an, um deine Logs zu sehen:
+      <login-menu light></login-menu>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions, mapState } from 'vuex'
+import LoginMenu from '@/components/LoginMenu'
 
 export default {
   props: {
     job: Object
+  },
+  components: {
+    LoginMenu
   },
   data () {
     return {
@@ -46,6 +56,11 @@ export default {
   },
   watch: {
     job (after, before) {
+      if (!before && after) {
+        this.fetchLogs()
+      }
+    },
+    can_control (after, before) {
       if (!before && after) {
         this.fetchLogs()
       }

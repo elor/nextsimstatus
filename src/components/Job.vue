@@ -65,6 +65,14 @@
         </v-layout>
         <p v-else>Keine Daten</p>
       </v-card-text>
+
+      <v-card-text>
+        <v-card>
+          <v-card-text>
+            <job-log :job="Job"></job-log>
+          </v-card-text>
+        </v-card>
+      </v-card-text>
     </v-card>
 
     <JobList v-if="SubJobs.length" :title="`${SubJobs.length} Array Jobs`" :items="SubJobs"></JobList>
@@ -80,11 +88,13 @@ import JobActionBlock from '@/components/JobActionBlock'
 import GridCard from '@/components/GridCard'
 import UserChip from '@/components/UserChip'
 import JobChip from '@/components/JobChip'
+import JobLog from '@/components/JobLog'
 import NodeLoad from '@/components/NodeLoad'
 
 export default {
   components: {
     JobList,
+    JobLog,
     SourceView,
     JobActionBlock,
     GridCard,
