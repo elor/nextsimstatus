@@ -1,9 +1,11 @@
 <template>
   <div>
     <div v-if="can_control">
-      <h3>StdOut</h3>
+      <v-subheader v-if="logs && logs.StdOutFile">StdOut: {{logs.StdOutFile}}</v-subheader>
+      <v-subheader v-else>StdOut</v-subheader>
       <pre>{{StdOut}}</pre>
-      <h3>StdErr</h3>
+      <v-subheader v-if="logs && logs.StdErrFile">StdErr: {{logs.StdErrFile}}</v-subheader>
+      <v-subheader v-else>StdErr</v-subheader>
       <pre>{{StdErr}}</pre>
     </div>
     <div v-else>
