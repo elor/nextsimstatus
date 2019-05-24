@@ -51,9 +51,16 @@
             <v-icon slot="icon" v-if="SimPC.isoldrelease" color="warning">warning</v-icon>
             <div>
               Updates:
-              <v-icon v-if="SimPC.updates > 10" color="warning">warning</v-icon>
+              <v-tooltip v-if="SimPC.updates > 10" bottom>
+                <v-icon color="warning" slot="activator">warning</v-icon>
+                <span>Reboot Required</span>
+              </v-tooltip>
               <span v-if="SimPC.updates">{{SimPC.updates}} available</span>
               <span v-else>up-to-date</span>
+              <v-tooltip v-if="SimPC.rebootrequired" bottom>
+                <v-icon color="warning" slot="activator">update</v-icon>
+                <span>Reboot Required</span>
+              </v-tooltip>
             </div>
             <div>Uptime: {{format(SimPC.uptime)}}</div>
             <div>
