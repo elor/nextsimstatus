@@ -57,6 +57,7 @@ export default `
     users
     cores
     vpn
+    rebootrequired
     utmp {
       user
       time
