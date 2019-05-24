@@ -1,5 +1,6 @@
 <template>
   <v-chip
+    v-ripple
     small
     :color="color"
     :disabled="disabled"
