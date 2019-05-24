@@ -115,7 +115,9 @@ class ControlHandler(BaseHTTPRequestHandler):
 
         try:
             user = None if self.is_admin() else self.current_user
-            output = [jobs.log(job, user=user) for job in self.jobs]
+            lines = self.params['lines'] if 'lines' in self.params else None
+            output = [jobs.log(job, lines=lines, user=user)
+                      for job in self.jobs]
 
         except OSError, err:
             self.send_error(

@@ -41,25 +41,32 @@ def control(action, jobs, user=None, payload=None):
             'NonZero Return Code {}: {}'.format(return_code, err))
     return out
 
+
 def logfiles(jobid, user=None):
-    return_code, out, err = run_command(['scontrol', 'show', 'job', str(jobid)], user=user)
+    return_code, out, err = run_command(
+        ['scontrol', 'show', 'job', str(jobid)], user=user)
     if return_code:
-        raise RuntimeError('NonZero Return Code {}: {}'.format(return_code, err))
+        raise RuntimeError(
+            'NonZero Return Code {}: {}'.format(return_code, err))
     lines = [line.strip().split('=') for line in out.split('\n')]
-    pairs = [{pair[0]: pair[1]}for pair in lines if len(pair)==2 and pair[0].startswith('Std')]
+    pairs = [{pair[0]: pair[1]}
+             for pair in lines if len(pair) == 2 and pair[0].startswith('Std')]
     files = {}
     for file in pairs:
         files.update(file)
     return files
 
-def printlog(logfile, user=None):
-    return_code, out, err = run_command(['tail', '-n20', logfile], user=user)
-    if return_code:
-        raise RuntimeError('NonZero Return Code {}: {}'.format(return_code, err))
-    return out
-    
 
-def log(jobid, user=None):
+def printlog(logfile, lines=20, user=None):
+    return_code, out, err = run_command(
+        ['tail', '-n', str(lines), logfile], user=user)
+    if return_code:
+        raise RuntimeError(
+            'NonZero Return Code {}: {}'.format(return_code, err))
+    return out
+
+
+def log(jobid, lines=20, user=None):
     files = logfiles(jobid, user)
 
     StdOut = files['StdOut']
@@ -68,10 +75,11 @@ def log(jobid, user=None):
     return {
         "JobId": jobid,
         "StdOutFile": files['StdOut'],
-        "StdOut": printlog(files['StdOut']),
+        "StdOut": printlog(files['StdOut'], lines, user),
         "StdErrFile": files['StdOut'],
-        "StdErr": printlog(files['StdErr']) if StdErr != StdOut else '<same as StdOut>'
+        "StdErr": printlog(files['StdErr'], lines, user) if StdErr != StdOut else '<same as StdOut>'
     }
+
 
 if __name__ == "__main__":
     from sys import argv, exit
