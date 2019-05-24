@@ -83,6 +83,7 @@ type SimPC {
   uptime: Float
   users: [String]
   vpn: Boolean
+  rebootrequired: Boolean
   updates: Int,
   cores: Int,
   utmp: [Utmp]
