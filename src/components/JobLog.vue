@@ -1,8 +1,32 @@
 <template>
   <div>
     <div v-if="can_control">
-      <v-subheader v-if="logs && logs.StdOutFile">StdOut: {{logs.StdOutFile}}</v-subheader>
-      <v-subheader v-else>StdOut</v-subheader>
+      <v-layout row wrap align-end>
+        <v-subheader v-if="logs && logs.StdOutFile">StdOut: {{logs.StdOutFile}}</v-subheader>
+        <v-subheader v-else>StdOut</v-subheader>
+        <v-subheader>
+          <v-scale-transition>
+            <v-progress-circular
+              size="20"
+              width="2"
+              v-if="refreshing"
+              indeterminate
+              color="primary"
+            />
+          </v-scale-transition>
+        </v-subheader>
+        <v-spacer></v-spacer>
+        <v-flex md1 sm2 xs4>
+          <v-subheader>
+            <v-select
+              label="Lines"
+              :items="[20, 50, 200, 1000, { text: 'All', value: 987654321 }]"
+              v-model="lines"
+              @change="fetchLogs"
+            ></v-select>
+          </v-subheader>
+        </v-flex>
+      </v-layout>
       <pre>{{StdOut}}</pre>
       <v-subheader v-if="logs && logs.StdErrFile">StdErr: {{logs.StdErrFile}}</v-subheader>
       <v-subheader v-else>StdErr</v-subheader>
@@ -28,7 +52,9 @@ export default {
   },
   data () {
     return {
-      interval: undefined
+      interval: undefined,
+      lines: 20,
+      refreshing: false
     }
   },
   computed: {
@@ -66,6 +92,9 @@ export default {
       if (!before && after) {
         this.fetchLogs()
       }
+    },
+    logs () {
+      this.refreshing = false
     }
   },
   methods: {
@@ -79,7 +108,8 @@ export default {
         return
       }
 
-      this.controlLogs({ jobs: [this.jobid] })
+      this.refreshing = true
+      this.controlLogs({ jobs: [this.jobid], lines: this.lines })
     }
   },
   mounted () {
