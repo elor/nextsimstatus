@@ -44,6 +44,10 @@
               <v-icon slot="activator">lock</v-icon>
               <span>VPN running</span>
             </v-tooltip>
+            <v-tooltip v-if="props.item.rebootrequired" bottom>
+              <v-icon color="warning" slot="activator">update</v-icon>
+              <span>Reboot Required</span>
+            </v-tooltip>
           </td>
           <td>
             <span v-for="user in props.item.usernames" :key="user">
