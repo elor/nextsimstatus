@@ -21,7 +21,7 @@
 
       <v-list>
         <template v-for="route in items">
-          <v-list-tile :key="route.path" :to="route.path" v-if="!route.hidden">
+          <v-list-tile v-ripple :key="route.path" :to="route.path" v-if="!route.hidden">
             <v-list-tile-action>
               <v-icon v-html="route.icon"></v-icon>
             </v-list-tile-action>
