@@ -10,6 +10,10 @@
           <grid-card title="BeeGFS Usage">
             <quota-pie-chart height="180" hidelegend></quota-pie-chart>
           </grid-card>
+
+          <grid-card title="BeeGFS Usage (Users only)">
+            <quota-pie-chart height="180" hidelegend usersonly></quota-pie-chart>
+          </grid-card>
         </v-layout>
       </v-card-text>
     </v-card>

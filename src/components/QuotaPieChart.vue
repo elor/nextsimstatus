@@ -13,7 +13,11 @@ export default {
   props: {
     height: String,
     width: String,
-    hidelegend: Boolean
+    hidelegend: Boolean,
+    usersonly: {
+      type: Boolean,
+      default: false
+    }
   },
   components: {
     PieChart
@@ -21,32 +25,50 @@ export default {
   computed: {
     ...mapState(['beegfs']),
     quotaData () {
+      let dataset = this.usersonly ? this.users : this.quotas
+
+      if (!dataset.length) {
+        dataset = [{
+          name: 'Retrieving data...',
+          bytes: this.beegfs.total
+        }]
+      }
+
       return {
-        labels: this.quotas.map(user => user.name),
+        labels: dataset.map(user => user.name),
         datasets: [
           {
             label: 'Bytes',
-            data: this.quotas.map(user => user.bytes),
-            backgroundColor: this.quotas.map(user =>
+            data: dataset.map(user => user.bytes),
+            backgroundColor: dataset.map(user =>
               usercolor(user.name)
             )
           }
         ]
       }
     },
-    quotas () {
+    system () {
       const userBytesSum = Object.values(this.beegfs.quota).reduce((sum, user) => sum + Number(user.bytes), 0)
 
+      return {
+        name: 'System',
+        bytes: Math.max(0, this.beegfs.total - this.beegfs.free - userBytesSum)
+      }
+    },
+    free () {
+      return {
+        name: 'Free',
+        bytes: this.beegfs.free
+      }
+    },
+    users () {
+      return sortBy(Object.values(this.beegfs.quota), a => -Number(a.bytes))
+    },
+    quotas () {
       return [
-        ...sortBy(Object.values(this.beegfs.quota), a => -Number(a.bytes)),
-        {
-          name: 'System',
-          bytes: Math.max(0, this.beegfs.total - this.beegfs.free - userBytesSum)
-        },
-        {
-          name: 'Free',
-          bytes: this.beegfs.free
-        }
+        ...this.users,
+        this.system,
+        this.free
       ]
     }
   },
