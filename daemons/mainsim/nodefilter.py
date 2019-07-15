@@ -36,7 +36,10 @@ def filterfunc(job):
     newjob = {}
     for key in job:
         if key in ALLOWED and job[key]:
-            newjob[key] = ALLOWED[key](job[key])
+            try:
+                newjob[key] = ALLOWED[key](job[key])
+            except:
+                newjob[key] = ALLOWED[key](0)
     return newjob
 
 
