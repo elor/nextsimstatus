@@ -15,7 +15,7 @@
 
       <v-card-text>
         <v-text-field
-          append-icon="label_outline"
+          append-icon="fa-tag"
           label="NodeList definition"
           hide-details
           :error="!(nodenames && nodenames.length)"

@@ -5,7 +5,7 @@
       when="PENDING,REQUEUED"
       action="top"
       color="light-green"
-      icon="vertical_align_top"
+      icon="fa-angle-double-up"
     />
 
     <job-action
@@ -13,7 +13,7 @@
       when="PENDING,REQUEUED"
       action="release"
       color="light-green"
-      icon="play_arrow"
+      icon="fa-play"
     />
 
     <job-action
@@ -21,7 +21,7 @@
       when="PENDING,REQUEUED,BOOT_FAIL"
       action="hold"
       color="warning"
-      icon="lock"
+      icon="fa-hand-paper"
     />
 
     <job-action
@@ -29,14 +29,14 @@
       when="RUNNING,SUSPENDED,STOPPED,PENDING,REQUEUED"
       action="abort"
       color="error"
-      icon="cancel"
+      icon="fa-ban"
     />
     <job-action
       :jobs="jobs"
       when="COMPLETED,CANCELLED,FAILED,BOOT_FAIL,NODE_FAIL,PREEMPTED"
       action="requeue"
       color="light-blue"
-      icon="refresh"
+      icon="fa-redo"
     />
     <job-action
       :jobs="jobs"
@@ -44,7 +44,7 @@
       array_only
       action="throttle"
       color="primary"
-      icon="list"
+      icon="fa-percentage"
       numeric
     />
   </div>

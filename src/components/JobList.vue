@@ -5,10 +5,16 @@
       <span v-if="can_select_anything">({{selected.length}} selected)</span>
       <v-spacer></v-spacer>
 
-      <job-action-block :jobs="selected"/>
+      <job-action-block :jobs="selected" />
       <v-spacer></v-spacer>
       <v-flex xs="12" md="6" lg="4">
-        <v-text-field append-icon="search" label="Search" single-line hide-details v-model="search"></v-text-field>
+        <v-text-field
+          append-icon="fa-search"
+          label="Search"
+          single-line
+          hide-details
+          v-model="search"
+        ></v-text-field>
       </v-flex>
     </v-card-title>
     <v-data-table
@@ -35,10 +41,10 @@
             />
           </td>
           <td>
-            <job-chip :job="props.item"/>
+            <job-chip :job="props.item" />
           </td>
           <td>
-            <user-chip :login="props.item.UserName"/>
+            <user-chip :login="props.item.UserName" />
           </td>
           <td>{{props.item.ArrayTaskId}}</td>
           <td>{{props.item.JobName}}</td>

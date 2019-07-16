@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-card>
       <v-card-text>
-        <v-textarea append-icon="edit" label="Input" hide-details v-model="input"></v-textarea>
+        <v-textarea append-icon="fa-pen" label="Input" hide-details v-model="input"></v-textarea>
 
         <v-layout wrap>
           <v-flex xs="12" md="4">

@@ -6,7 +6,7 @@
           <v-spacer></v-spacer>
           <v-flex xs="12" md="6">
             <v-text-field
-              append-icon="search"
+              append-icon="fa-search"
               label="Search"
               single-line
               hide-details
@@ -18,7 +18,7 @@
       <v-data-table :headers="headers" :items="userstatus" :search="search" hide-actions>
         <template slot="items" slot-scope="props">
           <td>
-            <user-chip :login="props.item.UserName"/>
+            <user-chip :login="props.item.UserName" />
           </td>
           <td>
             <span v-for="pc in props.item.PCs" :key="pc.number">

@@ -1,12 +1,12 @@
 <template>
   <div v-if="is_admin">
-    <node-action :node="node" action="drain" color="light-blue" icon="lock"/>
-    <node-action :node="node" action="resume" color="light-green" icon="play_arrow"/>
-    <node-action :node="node" action="reboot" color="green" icon="update"/>
+    <node-action :node="node" action="drain" color="light-blue" icon="fa-hand-paper" />
+    <node-action :node="node" action="resume" color="light-green" icon="fa-play" />
+    <node-action :node="node" action="reboot" color="green" icon="fa-clock" />
 
-    <node-action :node="node" action="boot" color="warning" icon="refresh"/>
-    <node-action :node="node" action="halt" color="warning" icon="power_settings_new"/>
-    <node-action :node="node" action="kill" color="error" icon="power_off"/>
+    <node-action :node="node" action="boot" color="warning" icon="fa-bolt" />
+    <node-action :node="node" action="halt" color="warning" icon="fa-power-off" />
+    <node-action :node="node" action="kill" color="error" icon="fa-plug" />
   </div>
   <div v-else>
     Melde dich als Admin an, um Knoten zu steuern:

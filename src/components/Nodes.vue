@@ -13,7 +13,7 @@
 
           <v-flex xs="12" md="6" lg="4">
             <v-text-field
-              append-icon="search"
+              append-icon="fa-search"
               label="Search"
               single-line
               hide-details
