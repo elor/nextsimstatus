@@ -11,31 +11,31 @@
         <v-layout v-if="SimPC" row wrap>
           <grid-card title="CPU/RAM">
             <template slot="icon">
-              <cpu-load precise :load="SimPC.load_1min" :cores="SimPC.cores"/>
-              <cpu-load precise :load="SimPC.load_5min" :cores="SimPC.cores"/>
-              <cpu-load precise :load="SimPC.load_15min" :cores="SimPC.cores"/>
+              <cpu-load precise :load="SimPC.load_1min" :cores="SimPC.cores" />
+              <cpu-load precise :load="SimPC.load_5min" :cores="SimPC.cores" />
+              <cpu-load precise :load="SimPC.load_15min" :cores="SimPC.cores" />
             </template>
             <a href="https://en.wikipedia.org/wiki/Load_(computing)">Load</a>
             1min:
             {{SimPC.load_1min}} ({{percent_1min}}%)
-            <br>
+            <br />
             <a href="https://en.wikipedia.org/wiki/Load_(computing)">Load</a>
             5min:
             {{SimPC.load_5min}} ({{percent_5min}}%)
-            <br>
+            <br />
             <a href="https://en.wikipedia.org/wiki/Load_(computing)">Load</a>
             15min:
             {{SimPC.load_15min}} ({{percent_15min}}%)
-            <br>
+            <br />
           </grid-card>
 
           <grid-card title="Users">
-            <user-chip v-for="user in SimPC.usernames" :key="user" :login="user"/>
+            <user-chip v-for="user in SimPC.usernames" :key="user" :login="user" />
           </grid-card>
 
           <grid-card title="Devices">
             <b>Mounts:</b>
-            <br>
+            <br />
             <div v-for="mount in SimPC.mounts" :key="mount.mount">
               <v-tooltip right>
                 <template v-slot:activator="{on}">
@@ -69,6 +69,7 @@
               {{format(SimPC.lastupdate)}}
             </div>
             VPN: {{SimPC.vpn ? 'ACTIVE' : 'off'}}
+            <div v-if="is_admin && SimPC.mac && SimPC.mac.nice">MAC: {{SimPC.mac.nice}}</div>
           </grid-card>
         </v-layout>
         <span v-else>Keine Daten empfangen</span>
@@ -93,7 +94,7 @@ export default {
     CpuLoad
   },
   computed: {
-    ...mapGetters(['simpcstatus']),
+    ...mapGetters(['simpcstatus', 'is_admin']),
     number () {
       return Number(this.$route.params.id)
     },
