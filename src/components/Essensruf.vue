@@ -2,17 +2,20 @@
   <v-speed-dial v-model="fab" bottom right direction="left" transition="slide-x-reverse-transition">
     <template v-slot:activator>
       <v-btn v-model="fab" :color="logged_in ? 'primary' : 'grey'" dark fab>
-        <v-icon>message</v-icon>
+        <v-icon>fa-bell</v-icon>
       </v-btn>
     </template>
     <v-btn fab dark small :color="logged_in ? 'indigo' : 'grey'" @click="sendMessage('coffee')">
-      <v-icon>local_cafe</v-icon>
+      <v-icon>fa-coffee</v-icon>
+    </v-btn>
+    <v-btn fab dark small :color="logged_in ? 'indigo' : 'grey'" @click="sendMessage('icecream')">
+      <v-icon>fa-ice-cream</v-icon>
     </v-btn>
     <v-btn fab dark small :color="logged_in ? 'red' : 'grey'" @click="sendMessage('cake')">
-      <v-icon>cake</v-icon>
+      <v-icon>fa-birthday-cake</v-icon>
     </v-btn>
     <v-btn fab dark small :color="logged_in ? 'green' : 'grey'" @click="sendMessage('lunch')">
-      <v-icon>restaurant</v-icon>
+      <v-icon>fa-utensils</v-icon>
     </v-btn>
   </v-speed-dial>
 </template>
@@ -72,9 +75,11 @@ export default {
       console.log(message)
       console.groupEnd()
 
-      axios.post(url, '', { headers: { Authorization: this.jwtToken, message } })
-        .then(result => alert(result.data))
-        .catch(error => alert(error))
+      if (confirm('Nachricht wirklich schicken?')) {
+        axios.post(url, '', { headers: { Authorization: this.jwtToken, message } })
+          .then(result => alert(result.data))
+          .catch(error => alert(error))
+      }
     }
   }
 }
