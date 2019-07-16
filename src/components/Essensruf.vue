@@ -1,11 +1,5 @@
 <template>
-  <v-speed-dial
-    v-model="fab"
-    bottom
-    right
-    direction="left"
-    transition="slide-x-reverse-transition"
-  >
+  <v-speed-dial v-model="fab" bottom right direction="left" transition="slide-x-reverse-transition">
     <template v-slot:activator>
       <v-btn v-model="fab" :color="logged_in ? 'primary' : 'grey'" dark fab>
         <v-icon>message</v-icon>
@@ -28,6 +22,14 @@ import axios from 'axios'
 import { mapState } from 'vuex'
 
 const ESSENSRUF_URL = 'https://mainsimweb.etit.tu-chemnitz.de/essensruf'
+const BROADCAST_URL = 'https://mainsimweb.etit.tu-chemnitz.de/broadcast'
+
+const MESSAGES = {
+  icecream: 'Es gibt Eis!',
+  coffee: 'Kaffee ist fertig!',
+  cake: 'Es gibt Lecker Kuchen!',
+  test: 'Testnachricht, bitte ignorieren.'
+}
 
 export default {
   data: () => ({
@@ -41,14 +43,21 @@ export default {
   },
   methods: {
     sendMessage (topic) {
+      if (!this.logged_in) {
+        alert('Du musst dich anmelden, um eine Nachricht zu schicken.')
+        return
+      }
+
       let url
+      let message = ''
       switch (topic) {
         case 'cake':
-          alert('Der Kuchenruf ist leider noch nicht verfügbar.\nBitte ruf stattdessen über den Gang.')
-          return
         case 'coffee':
-          alert('Der Kaffeeruf ist leider noch nicht verfügbar.\nBitte gib Erik unverzüglich Bescheid.')
-          return
+        case 'icecream':
+        case 'test':
+          url = BROADCAST_URL
+          message = MESSAGES[topic]
+          break
         case 'lunch':
           url = ESSENSRUF_URL
           break
@@ -57,14 +66,13 @@ export default {
           return
       }
 
-      if (!this.logged_in) {
-        alert('Du musst dich anmelden, um eine Nachricht zu schicken.')
-        return
-      }
-
+      console.group()
       console.log(`sending message. Topic: ${topic}`)
+      console.log(`Message:`)
+      console.log(message)
+      console.groupEnd()
 
-      axios.post(url, '', { headers: { Authorization: this.jwtToken } })
+      axios.post(url, '', { headers: { Authorization: this.jwtToken, message } })
         .then(result => alert(result.data))
         .catch(error => alert(error))
     }
