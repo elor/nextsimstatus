@@ -27,43 +27,43 @@ export default new Router({
     path: '/',
     name: 'Dashboard',
     component: Dashboard,
-    icon: 'dashboard'
+    icon: 'fa-tachometer-alt'
   },
   {
     path: '/nodes',
     name: 'Nodes',
     component: Nodes,
-    icon: 'dns'
+    icon: 'fa-server'
   },
   {
     path: '/jobs',
     name: 'Jobs',
     component: Jobs,
-    icon: 'assignment'
+    icon: 'fa-clipboard-list'
   },
   {
     path: '/users',
     name: 'Users',
     component: Users,
-    icon: 'people'
+    icon: 'fa-users'
   },
   {
     path: '/stats',
     name: 'Stats',
     component: Stats,
-    icon: 'pie_chart'
+    icon: 'fa-chart-pie'
   },
   {
     path: '/simpcs',
     name: 'SimPCs',
     component: SimPCs,
-    icon: 'computer'
+    icon: 'fa-desktop'
   },
   {
     path: '/apps',
     name: 'Software',
     component: Software,
-    icon: 'apps'
+    icon: 'fa-mouse-pointer'
   },
   {
     path: '/test',
@@ -75,7 +75,7 @@ export default new Router({
     path: '/manual',
     name: 'Manual',
     component: Manual,
-    icon: 'help_outline'
+    icon: 'fa-info-circle'
   },
   {
     path: '/apps/periodyfier',
@@ -99,13 +99,13 @@ export default new Router({
     path: '/enssim',
     name: 'EnsSim',
     component: EnsSim,
-    icon: 'error_outline'
+    icon: 'fa-carrot'
   },
   {
     path: '/mensa',
     name: 'Mensa',
     component: Mensa,
-    icon: 'restaurant'
+    icon: 'fa-utensils'
   },
   {
     path: '*',
