@@ -2,11 +2,7 @@
   <v-container fluid>
     <v-card>
       <v-card-text>
-        <v-textarea append-icon="edit"
-                      label="Input"
-                      hide-details
-                      v-model="input">
-        </v-textarea>
+        <v-textarea append-icon="edit" label="Input" hide-details v-model="input"></v-textarea>
 
         <v-layout wrap>
           <v-flex xs="12" md="4">
@@ -20,24 +16,29 @@
           </v-flex>
         </v-layout>
         <p class="text-xs-center mt-2 mb-1">
-          <v-icon>arrow_downward</v-icon>
+          <v-icon>fa-arrow-down</v-icon>
         </p>
 
         <p class="text-xs-center mt-5">
           <span v-for="(line, lineno) in lines" :key="lineno">
-            <span class="mr-4 mb-3 word" v-for="(word, index) in line.filter(word => !filter.complete || !numMismatches(word))" :key="index+word.join()">
-              <Element v-for="(part, position) in word"
-                       :key="position+part"
-                       :symbol="part"
-                       :color="colors[lineno][index][position]"
-                       :rawtext="filter.rawtext"/>
+            <span
+              class="mr-4 mb-3 word"
+              v-for="(word, index) in line.filter(word => !filter.complete || !numMismatches(word))"
+              :key="index+word.join()"
+            >
+              <Element
+                v-for="(part, position) in word"
+                :key="position+part"
+                :symbol="part"
+                :color="colors[lineno][index][position]"
+                :rawtext="filter.rawtext"
+              />
               <span>&nbsp;</span>
             </span>
-            <br>
+            <br />
           </span>
         </p>
       </v-card-text>
-
     </v-card>
   </v-container>
 </template>

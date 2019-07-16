@@ -4,11 +4,11 @@
       <v-card-title>
         <v-layout wrap>
           <v-flex xs="12" md="6" lg="4">
-            <node-action-block :node="selected_nodenames"/>
+            <node-action-block :node="selected_nodenames" />
           </v-flex>
 
           <v-flex xs="12" md="6" lg="4">
-            <NodeList/>
+            <NodeList />
           </v-flex>
 
           <v-flex xs="12" md="6" lg="4">
@@ -34,7 +34,7 @@
         <template v-slot:items="props">
           <tr @click="props.selected = !props.selected" :active="props.selected">
             <td v-if="is_admin">
-              <v-checkbox :input-value="props.selected" primary hide-details/>
+              <v-checkbox :input-value="props.selected" primary hide-details />
             </td>
             <td>
               <router-link :to="`/${props.item.NodeName}`">{{props.item.NodeName}}</router-link>
@@ -47,14 +47,14 @@
             </td>
             <td>
               <span v-for="job in props.item.pureJobs" :key="job.JobId">
-                <job-chip :job="job"/>
+                <job-chip :job="job" />
               </span>
               <span v-for="array in props.item.jobArrays" :key="array.JobId">
-                <job-chip :job="array"/>
+                <job-chip :job="array" />
               </span>
             </td>
             <td>
-              <user-chip v-for="user in props.item.users" :key="user" :login="user"/>
+              <user-chip v-for="user in props.item.users" :key="user" :login="user" />
             </td>
             <td>
               <cpu-load :load="Number(props.item.CPULoad)" :cores="Number(props.item.CPUTot)"></cpu-load>
@@ -66,8 +66,8 @@
             <td>{{props.item.Partitions}}</td>
             <td>
               <span v-for="state in props.item.States" :key="state">
-                <v-icon color="warning" v-if="isWarningState(state)">warning</v-icon>
-                <v-icon color="error" v-if="isFailState(state)">error</v-icon>
+                <v-icon color="warning" v-if="isWarningState(state)" small>fa-exclamation-triangle</v-icon>
+                <v-icon color="error" v-if="isFailState(state)">fa-skull-crossbones</v-icon>
                 {{capitalize(state)}}
                 <span v-if="!props.item.State.endsWith(state)">&nbsp;</span>
               </span>

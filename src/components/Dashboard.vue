@@ -47,7 +47,7 @@
             <v-card class="ma-1 pa-1" height="70" :to="`/users/${user.UserName}`">
               <v-layout>
                 <v-flex xs4>
-                  <user-chip :login="user.UserName"/>
+                  <user-chip :login="user.UserName" />
                 </v-flex>
 
                 <v-flex xs4>
@@ -73,7 +73,7 @@
                   :key="key"
                   class="mx-2"
                 >
-                  <v-icon color="warning" v-if="key=='Failed'">warning</v-icon>
+                  <v-icon color="warning" v-if="key=='Failed'">fa-exclamation-triangle</v-icon>
                   {{value}}
                   {{key}}
                 </span>

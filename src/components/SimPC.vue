@@ -48,24 +48,24 @@
           </grid-card>
 
           <grid-card :title="`Ubuntu ${SimPC.release}`">
-            <v-icon slot="icon" v-if="SimPC.isoldrelease" color="warning">warning</v-icon>
+            <v-icon slot="icon" v-if="SimPC.isoldrelease" color="warning">fa-exclamation-triangle</v-icon>
             <div>
               Updates:
               <v-tooltip v-if="SimPC.updates > 10" bottom>
-                <v-icon color="warning" slot="activator">warning</v-icon>
+                <v-icon color="warning" slot="activator">fa-exclamation-triangle</v-icon>
                 <span>Reboot Required</span>
               </v-tooltip>
               <span v-if="SimPC.updates">{{SimPC.updates}} available</span>
               <span v-else>up-to-date</span>
               <v-tooltip v-if="SimPC.rebootrequired" bottom>
-                <v-icon color="warning" slot="activator">update</v-icon>
+                <v-icon color="warning" slot="activator">fa-fire</v-icon>
                 <span>Reboot Required</span>
               </v-tooltip>
             </div>
             <div>Uptime: {{format(SimPC.uptime)}}</div>
             <div>
               Heartbeat:
-              <v-icon v-if="SimPC.inactive" color="warning">warning</v-icon>
+              <v-icon v-if="SimPC.inactive" color="warning">fa-exclamation-triangle</v-icon>
               {{format(SimPC.lastupdate)}}
             </div>
             VPN: {{SimPC.vpn ? 'ACTIVE' : 'off'}}

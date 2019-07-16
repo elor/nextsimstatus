@@ -6,10 +6,10 @@
           <v-flex xs="12" md="4">
             <v-radio-group v-model="visibility">
               <v-layout row wrap>
-                <v-radio label="all" value="all"/>
-                <v-radio label="recent" value="recent"/>
-                <v-radio label="current" value="current"/>
-                <v-radio label="login" value="login"/>
+                <v-radio label="all" value="all" />
+                <v-radio label="recent" value="recent" />
+                <v-radio label="current" value="current" />
+                <v-radio label="login" value="login" />
               </v-layout>
             </v-radio-group>
           </v-flex>
@@ -37,22 +37,22 @@
               :to="`/simpc${props.item.number}`"
             >{{props.item.hostname}}</router-link>
             <v-tooltip v-if="!props.item.inactive && props.item.mounts.length < 2" bottom>
-              <v-icon color="error" slot="activator">error</v-icon>
+              <v-icon small class="ml-1" color="error" slot="activator">fa-hdd</v-icon>
               <span>Missing Mounts</span>
             </v-tooltip>
             <v-tooltip v-if="props.item.vpn" bottom>
-              <v-icon slot="activator">lock</v-icon>
+              <v-icon small class="ml-1" slot="activator">fa-lock</v-icon>
               <span>VPN running</span>
             </v-tooltip>
             <v-tooltip v-if="props.item.rebootrequired" bottom>
-              <v-icon color="warning" slot="activator">update</v-icon>
+              <v-icon small class="ml-1" color="warning" slot="activator">fa-power-off</v-icon>
               <span>Reboot Required</span>
             </v-tooltip>
           </td>
           <td>
             <span v-for="user in props.item.usernames" :key="user">
               <user-chip :login="user" :disabled="props.item.inactive"></user-chip>
-              <br>
+              <br />
             </span>
           </td>
           <td>
@@ -60,18 +60,18 @@
             <cpu-load :load="props.item.load_5min" :cores="props.item.cores" precise></cpu-load>
             <cpu-load :load="props.item.load_15min" :cores="props.item.cores" precise></cpu-load>
             <v-tooltip v-if="props.item.load_1min > 5.0" bottom>
-              <v-icon color="warning" slot="activator">warning</v-icon>
+              <v-icon color="warning" slot="activator">fa-burn</v-icon>
               <span>High CPU Load</span>
             </v-tooltip>
             <v-tooltip v-if="props.item.load_1min > 10.0" bottom>
-              <v-icon color="error" slot="activator">error</v-icon>
+              <v-icon color="error" slot="activator">fa-fire-extinguisher</v-icon>
               <span>Excessive CPU Load. Did a Core lock up, e.g. due to BeeGFS/NFS Failure?</span>
             </v-tooltip>
           </td>
           <td>
             {{format(props.item.uptime)}}
             <v-tooltip v-if="props.item.uptime > FIVE_DAYS" bottom>
-              <v-icon color="warning" slot="activator">warning</v-icon>
+              <v-icon color="warning" slot="activator">fa-hourglass-end</v-icon>
               <span>Long uptime. Please reboot</span>
             </v-tooltip>
           </td>
@@ -79,7 +79,7 @@
           <td>
             {{props.item.updates === undefined ? '???' : props.item.updates}}
             <v-tooltip v-if="props.item.updates > 10" bottom>
-              <v-icon color="warning" slot="activator">warning</v-icon>
+              <v-icon color="warning" slot="activator">fa-exclamation-triangle</v-icon>
               <span>Too many pending updates. Please update.</span>
             </v-tooltip>
           </td>
