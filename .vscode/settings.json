@@ -25,5 +25,6 @@
   "window.zoomLevel": 1,
   "vetur.format.defaultFormatter.js": "vscode-typescript",
   "vetur.format.defaultFormatter.ts": "vscode-typescript",
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "search.usePCRE2": true
 }
