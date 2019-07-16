@@ -62,6 +62,31 @@ app.post('/essensruf', async (request, response) => {
   }
 })
 
+app.post('/broadcast', async (request, response) => {
+  try {
+    const jsonWebToken = request.get('Authorization') || request.body.token
+
+    const decodedToken = await verifyToken(jsonWebToken)
+    if (!decodedToken) {
+      throw new Error('Unauthorized: Token is invalid')
+    }
+    const message = request.get('Message')
+
+    await sendMessage(message)
+
+    response.setHeader('Content-Type', 'text/plain')
+    response.send(message)
+  } catch (error) {
+    console.error(error)
+    if (error.response && error.response.status) {
+      response.status(error.response.status)
+      response.send(error.response.statusText)
+    } else {
+      response.status(500)
+      response.send(error.toString())
+    }
+  }
+})
 app.listen(PORT)
 
 console.log(`serving on port ${PORT}`)
