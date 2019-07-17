@@ -1,0 +1,13 @@
+[Unit]
+Description=Send Emergency Email when Rack water supply overheats
+After=syslog.target network.target slurmctld.service
+ConditionFileIsExecutable=/opt/mainsimstatus/daemons/mainsim/racks/failmail.py
+
+[Service]
+ExecStart=/opt/mainsimstatus/daemons/mainsim/racks/failmail.py /opt/mainsimstatus/secrets.json
+
+Restart=always
+RestartSec=15
+
+[Install]
+WantedBy=multi-user.target
