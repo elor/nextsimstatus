@@ -92,7 +92,10 @@ class Rack(object):
     def login(self, user, password):
         data = {"user": user, "pwd": password, "pagename": "login"}
 
-        response = requests.post(self.url("login"), data=data, verify=False)
+	try:
+        	response = requests.post(self.url("login"), data=data, verify=False)
+	except:
+		return False
 
         expected_url = self.url("start_web")
 
