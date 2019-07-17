@@ -6,22 +6,38 @@ import json
 import datetime
 from time import sleep
 from rackstatus import Rack, RACKS
-
 from sendadminmail import sendMail
 
-POLLING_INTERVAL = 20
-ALLOWED_SUCCESSIVE_FAILURES = 5
-
-SUPPLY_WATER_THRESHOLD_CELSIUS = 12
-VALVE_THRESHOLD = 20
-
 RECIPIENTS=[
-    'main-simadmins@lists.tu-chemnitz.de',
-    # 'michael.fischer@main.tu-chemnitz.de',
-    # 'frank.weber@main.tu-chemnitz.de'
+    'main-simadmin@lists.tu-chemnitz.de',
+    'michael.fischer@main.tu-chemnitz.de',
+    'frank.weber@main.tu-chemnitz.de'
 ]
 
 SENDER = 'erik.lorenz@zfm.tu-chemnitz.de'
+
+POLLING_INTERVAL = 30
+ALLOWED_SUCCESSIVE_FAILURES = 5
+
+SUPPLY_WATER_THRESHOLD_CELSIUS = 16
+VALVE_THRESHOLD = 20
+
+SUBJECT_TEMPLATE = u'[C50.240]: Kühlwasserausfall: Zulauf bei {}°C'
+
+MESSAGE_TEMPLATE = u'''Der Kühlwasserzulauf der Serverschränke in Raum C50.240 hat soeben die Schwelltemperatur von {}°C überschritten.
+Es ist aktuell {}°C heiß und erhitzt sich weiter.
+
+------
+Wenn du diese Nachricht zu oft erhältst oder künftig nicht mehr erhalten möchtest, wende dich bitte an
+main-simadmin.lists.tu-chemnitz.de
+
+Du kannst dich auch direkt an die Administratoren wenden:
+Andreas Zienert (andreas.zienert@zfm.tu-chemnitz.de).
+Erik Lorenz (erik.lorenz@zfm.tu-chemnitz.de)
+
+Sag ihnen, sie sollen beim Mainsimstatus in 'failmail.py' die RECIPIENTS anpassen.
+'''
+
 
 def rack_supply_temperature(racknumber, user, password):
     rack = Rack(racknumber)
@@ -35,8 +51,10 @@ def rack_supply_temperature(racknumber, user, password):
     log("Login failed")
     return None
 
+
 def log(message):
     print "{}: {}".format(datetime.datetime.now().isoformat(), message)
+
 
 if __name__ == "__main__":
     secrets_file = sys.argv[1]
@@ -58,21 +76,8 @@ if __name__ == "__main__":
             if successive_failures == ALLOWED_SUCCESSIVE_FAILURES:
                 log("ERROR! MUST SEND MAIL!!!")
 
-                subject=u'[C50.240]: Kühlwasserausfall: Zulauf bei {}°C'.format(mean_temperature)
-                message=u'''
-Der Kühlwasserzulauf der Serverschränke in Raum C50.240 hat soeben die Schwelltemperatur von {}°C überschritten.
-Es ist aktuell {}°C heiß und erhitzt sich weiter.
-
-------
-Wenn du diese Nachricht zu oft erhältst oder künftig nicht mehr erhalten möchtest, wende dich bitte an
-main-simadmin.lists.tu-chemnitz.de
-
-Du kannst dich auch direkt an die Administratoren wenden:
-Andreas Zienert (andreas.zienert@zfm.tu-chemnitz.de).
-Erik Lorenz (erik.lorenz@zfm.tu-chemnitz.de)
-
-Sag ihnen, sie sollen beim Mainsimstatus in 'failmail.py' die RECIPIENTS anpassen.
-                '''.format(SUPPLY_WATER_THRESHOLD_CELSIUS, mean_temperature)
+                subject=SUBJECT_TEMPLATE.format(mean_temperature)
+                message=MESSAGE_TEMPLATE.format(SUPPLY_WATER_THRESHOLD_CELSIUS, mean_temperature)
 
                 for recipient in RECIPIENTS:
                     sendMail(sender=SENDER, recipient=recipient, subject=subject, message=message)
