@@ -8,7 +8,7 @@ from time import sleep
 from rackstatus import Rack, RACKS
 from sendadminmail import sendMail
 
-RECIPIENTS=[
+RECIPIENTS = [
     'main-simadmin@lists.tu-chemnitz.de',
     'michael.fischer@main.tu-chemnitz.de',
     'frank.weber@main.tu-chemnitz.de'
@@ -24,7 +24,7 @@ VALVE_THRESHOLD = 20
 
 SUBJECT_TEMPLATE = u'[C50.240]: Kühlwasserausfall: Zulauf bei {}°C'
 
-MESSAGE_TEMPLATE = u'''Der Kühlwasserzulauf der Serverschränke in Raum C50.240 hat soeben die Schwelltemperatur von {}°C überschritten.
+MESSAGE_TEMPLATE = u'''Der Kühlwasserzulauf der Serverschränke in Raum C50.240 hat die Schwelltemperatur von {}°C überschritten.
 Es ist aktuell {}°C heiß und erhitzt sich weiter.
 
 ------
@@ -37,6 +37,8 @@ Erik Lorenz (erik.lorenz@zfm.tu-chemnitz.de)
 
 Sag ihnen, sie sollen beim Mainsimstatus in 'failmail.py' die RECIPIENTS anpassen.
 '''
+
+ONE_DAY_OF_POLLING = 86400 / POLLING_INTERVAL
 
 
 def rack_supply_temperature(racknumber, user, password):
@@ -64,29 +66,36 @@ if __name__ == "__main__":
 
     successive_failures = 0
     while True:
-        temperatures = [temperature for temperature in [rack_supply_temperature(rack_num, user, password) for rack_num in RACKS] if temperature]
-        
+        temperatures = [temperature for temperature in [rack_supply_temperature(
+            rack_num, user, password) for rack_num in RACKS] if temperature]
+
         if len(temperatures):
             mean_temperature = sum(temperatures) / len(temperatures)
             log("Mean Temperature: {:.1f}".format(mean_temperature))
-        
+
         if any([temperature > SUPPLY_WATER_THRESHOLD_CELSIUS for temperature in temperatures]):
             successive_failures += 1
             log("Failure No. {}".format(successive_failures))
             if successive_failures == ALLOWED_SUCCESSIVE_FAILURES:
                 log("ERROR! MUST SEND MAIL!!!")
 
-                subject=SUBJECT_TEMPLATE.format(mean_temperature)
-                message=MESSAGE_TEMPLATE.format(SUPPLY_WATER_THRESHOLD_CELSIUS, mean_temperature)
+                subject = SUBJECT_TEMPLATE.format(mean_temperature)
+                message = MESSAGE_TEMPLATE.format(
+                    SUPPLY_WATER_THRESHOLD_CELSIUS, mean_temperature)
 
                 for recipient in RECIPIENTS:
-                    sendMail(sender=SENDER, recipient=recipient, subject=subject, message=message)
+                    sendMail(sender=SENDER, recipient=recipient,
+                             subject=subject, message=message)
             elif successive_failures > ALLOWED_SUCCESSIVE_FAILURES:
                 log("Still overheated")
+                if successive_failures > ONE_DAY_OF_POLLING:
+                    # reset to trigger re-sending of the mail
+                    successive_failures = 0
+
         elif successive_failures:
             log("Resetting successive_failures")
             successive_failures = 0
-    
+
         sleep(POLLING_INTERVAL)
 
 log("Exiting infinite loop somehow...")
