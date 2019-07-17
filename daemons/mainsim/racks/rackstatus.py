@@ -93,7 +93,7 @@ class Rack(object):
         data = {"user": user, "pwd": password, "pagename": "login"}
 
 	try:
-        	response = requests.post(self.url("login"), data=data, verify=False)
+        	response = requests.post(self.url("login"), data=data, verify=False, timeout=1)
 	except:
 		return False
 
