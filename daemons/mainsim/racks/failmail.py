@@ -11,16 +11,19 @@ from sendadminmail import sendMail
 RECIPIENTS = [
     'main-simadmin@lists.tu-chemnitz.de',
     'michael.fischer@main.tu-chemnitz.de',
-    'frank.weber@main.tu-chemnitz.de'
+    'frank.weber@main.tu-chemnitz.de',
+    'erik.e.lorenz@gmail.com'
 ]
 
 SENDER = 'erik.lorenz@zfm.tu-chemnitz.de'
 
-POLLING_INTERVAL = 30
-ALLOWED_SUCCESSIVE_FAILURES = 5
+EMAIL_THRESHOLD = 86400  # seconds
 
-SUPPLY_WATER_THRESHOLD_CELSIUS = 16
-VALVE_THRESHOLD = 20
+POLLING_INTERVAL = 30  # seconds
+ALLOWED_SUCCESSIVE_FAILURES = 5  # times
+
+SUPPLY_WATER_THRESHOLD_CELSIUS = 16  # degrees C
+VALVE_THRESHOLD = 20  # %open
 
 SUBJECT_TEMPLATE = u'[C50.240]: Kühlwasserausfall: Zulauf bei {}°C'
 
@@ -38,7 +41,8 @@ Erik Lorenz (erik.lorenz@zfm.tu-chemnitz.de)
 Sag ihnen, sie sollen beim Mainsimstatus in 'failmail.py' die RECIPIENTS anpassen.
 '''
 
-ONE_DAY_OF_POLLING = 86400 / POLLING_INTERVAL
+
+ONE_DAY_OF_POLLING = EMAIL_THRESHOLD / POLLING_INTERVAL  # number of polls
 
 
 def rack_supply_temperature(racknumber, user, password):
