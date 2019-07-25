@@ -78,6 +78,7 @@ type SimPC {
   hostname: String
   load: [Float]
   mounts: [Mount]
+  mac: String,
   printers: [String]
   release: String
   uptime: Float
