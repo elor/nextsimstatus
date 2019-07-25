@@ -69,7 +69,7 @@
               {{format(SimPC.lastupdate)}}
             </div>
             VPN: {{SimPC.vpn ? 'ACTIVE' : 'off'}}
-            <div v-if="is_admin && SimPC.mac && SimPC.mac.nice">MAC: {{SimPC.mac.nice}}</div>
+            <div v-if="is_admin && SimPC.mac">MAC: {{SimPC.mac}}</div>
           </grid-card>
         </v-layout>
         <span v-else>Keine Daten empfangen</span>
