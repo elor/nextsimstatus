@@ -47,6 +47,7 @@ export default `
     datetime
     hostname
     load
+    mac
     mounts {
       mount
     }
