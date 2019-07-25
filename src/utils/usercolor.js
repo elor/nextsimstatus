@@ -13,7 +13,8 @@ const mapping = {
   err: colors.red,
   fail: colors.red,
   drain: colors.plum,
-  alloc: colors.blue
+  alloc: colors.blue,
+  'a.zienert': colors.blue
 }
 
 export default function usercolor (name) {
