@@ -60,18 +60,18 @@
             <cpu-load :load="props.item.load_5min" :cores="props.item.cores" precise></cpu-load>
             <cpu-load :load="props.item.load_15min" :cores="props.item.cores" precise></cpu-load>
             <v-tooltip v-if="props.item.load_1min > 5.0" bottom>
-              <v-icon color="warning" slot="activator">fa-burn</v-icon>
+              <v-icon small color="warning" slot="activator">fa-burn</v-icon>
               <span>High CPU Load</span>
             </v-tooltip>
             <v-tooltip v-if="props.item.load_1min > 10.0" bottom>
-              <v-icon color="error" slot="activator">fa-fire-extinguisher</v-icon>
+              <v-icon small color="error" slot="activator">fa-fire-extinguisher</v-icon>
               <span>Excessive CPU Load. Did a Core lock up, e.g. due to BeeGFS/NFS Failure?</span>
             </v-tooltip>
           </td>
           <td>
             {{format(props.item.uptime)}}
             <v-tooltip v-if="props.item.uptime > FIVE_DAYS" bottom>
-              <v-icon color="warning" slot="activator">fa-hourglass-end</v-icon>
+              <v-icon small color="warning" slot="activator">fa-hourglass-end</v-icon>
               <span>Long uptime. Please reboot</span>
             </v-tooltip>
           </td>
@@ -79,7 +79,7 @@
           <td>
             {{props.item.updates === undefined ? '???' : props.item.updates}}
             <v-tooltip v-if="props.item.updates > 10" bottom>
-              <v-icon color="warning" slot="activator">fa-exclamation-triangle</v-icon>
+              <v-icon small color="warning" slot="activator">fa-exclamation-triangle</v-icon>
               <span>Too many pending updates. Please update.</span>
             </v-tooltip>
           </td>
