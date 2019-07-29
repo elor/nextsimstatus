@@ -69,13 +69,15 @@
             </v-tooltip>
           </td>
           <td>
-            {{format(props.item.uptime)}}
+            <duration :seconds="props.item.uptime" since />
             <v-tooltip v-if="props.item.uptime > FIVE_DAYS" bottom>
               <v-icon small color="warning" slot="activator">fa-hourglass-end</v-icon>
               <span>Long uptime. Please reboot</span>
             </v-tooltip>
           </td>
-          <td>{{format(props.item.lastupdate)}}</td>
+          <td>
+            <duration :seconds="props.item.lastupdate" since />
+          </td>
           <td>
             {{props.item.updates === undefined ? '???' : props.item.updates}}
             <v-tooltip v-if="props.item.updates > 10" bottom>
@@ -94,11 +96,13 @@ import { mapGetters } from 'vuex'
 import { format } from '../utils/time.js'
 import CpuLoad from '@/components/CpuLoad'
 import UserChip from '@/components/UserChip'
+import Duration from '@/components/Duration'
 
 export default {
   components: {
     CpuLoad,
-    UserChip
+    UserChip,
+    Duration
   },
   data () {
     return {
