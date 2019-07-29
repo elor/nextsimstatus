@@ -62,11 +62,14 @@
             </span>
           </td>
           <td>{{props.item.NumCPUs}}</td>
-          <td>{{props.item.RunTime}}</td>
           <td>
-            <time
-              :datetime="props.item.StartTime === 'Unknown' ? props.item.SubmitTime : props.item.StartTime"
-            >{{(props.item.StartTime === "Unknown" ? props.item.SubmitTime : props.item.StartTime).replace("T", " ")}}</time>
+            <duration :iso="props.item.RunTime" since />
+          </td>
+          <td>
+            <duration
+              :iso="props.item.StartTime === 'Unknown' ? props.item.SubmitTime : props.item.StartTime"
+              since
+            />
           </td>
         </tr>
       </template>
@@ -80,6 +83,7 @@ import { capitalize } from '../utils/capitalize'
 import UserChip from '@/components/UserChip'
 import JobChip from '@/components/JobChip'
 import JobActionBlock from '@/components/JobActionBlock'
+import Duration from '@/components/Duration'
 import { mapGetters, mapState } from 'vuex'
 
 export default {
@@ -87,7 +91,8 @@ export default {
   components: {
     UserChip,
     JobChip,
-    JobActionBlock
+    JobActionBlock,
+    Duration
   },
   data () {
     return {

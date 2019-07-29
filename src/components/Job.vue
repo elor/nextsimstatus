@@ -4,7 +4,7 @@
       <v-card-title>
         <h2>{{title}}</h2>
         <v-spacer></v-spacer>
-        <job-action-block v-if="Job" :jobs="[Job]"/>
+        <job-action-block v-if="Job" :jobs="[Job]" />
         <v-spacer></v-spacer>
         <source-view v-if="Job" :title="title" :value="Job"></source-view>
       </v-card-title>
@@ -12,7 +12,7 @@
       <v-card-text>
         <v-layout v-if="Job" row wrap>
           <grid-card :title="`Job (${Job.Partition} Partition)`">
-            <user-chip :login="Job.UserName" slot="icon"/>
+            <user-chip :login="Job.UserName" slot="icon" />
             <div>State: {{Job.JobState}}</div>
             <div v-if="Job.Reason && Job.Reason != 'None'">Reason: {{Job.Reason}}</div>
             <div>
@@ -29,7 +29,7 @@
               <span class="mr-2" v-if="Job === ParentJob">{{SubJobs.length}} Children</span>
               <span v-else>
                 Parent:
-                <job-chip :job="ParentJob"/>
+                <job-chip :job="ParentJob" />
               </span>
               <span v-if="Job.ArrayTaskId">(Task {{Job.ArrayTaskId}})</span>
             </div>
@@ -46,7 +46,7 @@
             </div>
             <div v-if="SubNodeNames && SubNodeNames.length">
               <b>SubJobs:</b>
-              <br>
+              <br />
               <node-load v-for="node in subnodes" :key="node.NodeName" :node="node"></node-load>
             </div>
           </grid-card>
@@ -59,7 +59,10 @@
 
           <grid-card title="Time">
             <div v-for="time in times" :key="time">
-              <span v-if="isValidTime(Job[time])">{{time}}: {{Job[time]}}</span>
+              <span v-if="isValidTime(Job[time])">
+                {{time}}:
+                <duration :iso="Job[time]" :since="time !== 'TimeLimit'" />
+              </span>
             </div>
           </grid-card>
         </v-layout>
@@ -90,6 +93,7 @@ import UserChip from '@/components/UserChip'
 import JobChip from '@/components/JobChip'
 import JobLog from '@/components/JobLog'
 import NodeLoad from '@/components/NodeLoad'
+import Duration from '@/components/Duration'
 
 export default {
   components: {
@@ -100,7 +104,8 @@ export default {
     GridCard,
     UserChip,
     JobChip,
-    NodeLoad
+    NodeLoad,
+    Duration
   },
   computed: {
     ...mapGetters(['jobstatus', 'nodestatus']),
