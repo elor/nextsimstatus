@@ -1,7 +1,7 @@
 <template>
   <v-tooltip top :disabled="!hovertext">
     <template v-slot:activator="{ on }">
-      <span v-on="on">{{formatted_seconds}}</span>
+      <span v-on="on">{{formatted}}</span>
     </template>
     <span>{{hovertext}}</span>
   </v-tooltip>
@@ -10,19 +10,34 @@
 <script>
 import { format } from '../utils/time.js'
 
-const TIME_FORMAT = {
+const LOCALE = 'de-DE'
+const LONG_TIME_FORMAT = {
   weekday: 'long',
   year: 'numeric',
   month: 'long',
-  day: 'numeric',
+  day: '2-digit',
   hour: 'numeric',
   minute: 'numeric',
   second: 'numeric'
 }
 
+const SHORT_TIME_FORMAT = {
+  ...LONG_TIME_FORMAT,
+  weekday: 'short',
+  year: '2-digit',
+  month: '2-digit'
+}
+
 export default {
   props: {
-    seconds: Number,
+    seconds: {
+      type: Number,
+      default: undefined
+    },
+    iso: {
+      type: String,
+      default: undefined
+    },
     since: {
       type: Boolean,
       default: false
@@ -33,15 +48,21 @@ export default {
     }
   },
   computed: {
-    milliseconds () {
-      return this.seconds * 1000
-    },
-    formatted_seconds () {
-      return format(this.seconds)
+    formatted () {
+      if (this.seconds) {
+        return format(this.seconds)
+      } else if (this.iso) {
+        return new Date(this.iso).toLocaleString(LOCALE, SHORT_TIME_FORMAT)
+      }
+      return undefined
     },
     hovertext () {
       if (this.since) {
-        return new Date(new Date() - this.milliseconds).toLocaleString('de-DE', TIME_FORMAT)
+        if (this.seconds) {
+          return new Date(new Date() - 1000 * this.seconds).toLocaleString(LOCALE, LONG_TIME_FORMAT)
+        } else if (this.iso) {
+          return new Date(this.iso).toLocaleString(LOCALE, LONG_TIME_FORMAT)
+        }
       }
 
       return undefined

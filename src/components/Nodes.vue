@@ -72,7 +72,9 @@
                 <span v-if="!props.item.State.endsWith(state)">&nbsp;</span>
               </span>
             </td>
-            <td>{{props.item.BootTime}}</td>
+            <td>
+              <duration :iso="props.item.BootTime" since />
+            </td>
           </tr>
         </template>
       </v-data-table>
@@ -88,6 +90,7 @@ import { capitalize } from '../utils/capitalize'
 import UserChip from '@/components/UserChip'
 import JobChip from '@/components/JobChip'
 import NodeActionBlock from '@/components/NodeActionBlock'
+import Duration from '@/components/Duration'
 
 import { warnstates, failstates } from '../utils/nodeStates'
 
@@ -97,7 +100,8 @@ export default {
     CpuLoad,
     UserChip,
     JobChip,
-    NodeActionBlock
+    NodeActionBlock,
+    Duration
   },
   data () {
     return {
