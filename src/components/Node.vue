@@ -4,7 +4,7 @@
       <v-card-title>
         <h2>Node {{NodeName}}</h2>
         <v-spacer></v-spacer>
-        <node-action-block :node="NodeName"/>
+        <node-action-block :node="NodeName" />
         <v-spacer></v-spacer>
         <source-view v-if="Node" :title="`Node ${NodeName}`" :value="Node"></source-view>
       </v-card-title>
@@ -37,35 +37,36 @@
               v-for="gres in Gres"
               :key="gres.ressource"
             >, {{gres.ressource}}: {{gres.jobs}}/{{gres.total}}</span>
-            <br>
+            <br />
             <a href="https://en.wikipedia.org/wiki/Load_(computing)">Load</a>
             : {{Node.CPULoad}} ({{CPULoadPercent}}%)
-            <br>
+            <br />
             RAM: {{MemGig}}/{{Node.RealMemory / 1000}} GB ({{MemPercent}}%)
           </grid-card>
 
           <grid-card title="Users">
             <span v-for="user in Node.users" :key="user">
-              <user-chip :login="user"/>
+              <user-chip :login="user" />
             </span>
           </grid-card>
 
           <grid-card :title="`SLURM ${Node.Version || ''}`">
             Partitions: {{Node.Partitions}}
-            <br>
+            <br />
             State: {{Node.States.join(", ")}}
-            <br>
+            <br />
             <span v-if="Node.Reason">
               Reason: {{Node.Reason}}
-              <br>
+              <br />
             </span>
             Ressources: {{Node.Gres}}
           </grid-card>
 
           <grid-card title="Host">
-            Boot Time: {{Node.BootTime}}
-            <br>
-            Slurmd Start Time: {{Node.SlurmdStartTime}}
+            Boot Time:
+            <duration :iso="Node.BootTime" since />
+            <br />Slurmd Start:
+            <duration :iso="Node.SlurmdStartTime" since />
           </grid-card>
         </v-layout>
         <span v-else>Keine Daten empfangen</span>
@@ -84,6 +85,7 @@ import SourceView from '@/components/SourceView'
 import CpuLoad from '@/components/CpuLoad'
 import UserChip from '@/components/UserChip'
 import NodeActionBlock from '@/components/NodeActionBlock'
+import Duration from '@/components/Duration'
 import { uniq, concat } from 'lodash'
 
 function deGres (Gres) {
@@ -98,7 +100,8 @@ export default {
     SourceView,
     CpuLoad,
     NodeActionBlock,
-    UserChip
+    UserChip,
+    Duration
   },
   computed: {
     ...mapGetters(['nodestatus', 'is_admin']),
