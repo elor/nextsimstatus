@@ -62,11 +62,14 @@
                 <span>Reboot Required</span>
               </v-tooltip>
             </div>
-            <div>Uptime: {{format(SimPC.uptime)}}</div>
+            <div>
+              Uptime:
+              <duration :seconds="SimPC.uptime" since />
+            </div>
             <div>
               Heartbeat:
               <v-icon v-if="SimPC.inactive" color="warning">fa-exclamation-triangle</v-icon>
-              {{format(SimPC.lastupdate)}}
+              <duration :seconds="SimPC.lastupdate" since />
             </div>
             VPN: {{SimPC.vpn ? 'ACTIVE' : 'off'}}
             <div v-if="is_admin && SimPC.mac">MAC: {{SimPC.mac}}</div>
@@ -84,6 +87,7 @@ import SourceView from '@/components/SourceView'
 import GridCard from '@/components/GridCard'
 import UserChip from '@/components/UserChip'
 import CpuLoad from '@/components/CpuLoad'
+import Duration from '@/components/Duration'
 import { format } from '@/utils/time'
 
 export default {
@@ -91,7 +95,8 @@ export default {
     SourceView,
     GridCard,
     UserChip,
-    CpuLoad
+    CpuLoad,
+    Duration
   },
   computed: {
     ...mapGetters(['simpcstatus', 'is_admin']),
