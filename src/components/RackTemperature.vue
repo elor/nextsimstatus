@@ -1,17 +1,23 @@
 <template>
-  <span>
-    <v-icon small v-if="isnan" class="mr-3">fa-question</v-icon>
-    <template v-else>
-      <v-icon :color="color">fa-thermometer-{{icon}}</v-icon>
-      <span class="mr-2" :class="{[`${color}--text`]:true}">{{Math.round(value)}}</span>
+  <v-tooltip top>
+    <template v-slot:activator="{ on }">
+      <span v-on="on">
+        <v-icon small v-if="isnan" class="mr-3">fa-question</v-icon>
+        <template v-else>
+          <v-icon :color="color">fa-thermometer-{{icon}}</v-icon>
+          <span class="mr-2" :class="{[`${color}--text`]:true}">{{Math.round(value)}}</span>
+        </template>
+      </span>
     </template>
-  </span>
+    <span>{{title}}</span>
+  </v-tooltip>
 </template>
 
 <script>
 export default {
   props: {
-    values: Object
+    values: Object,
+    title: String
   },
   computed: {
     color () {
