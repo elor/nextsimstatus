@@ -11,8 +11,8 @@ module.exports.listen = function (PORT, getDataCallback) {
       error: 'Error while processing the request',
       message: error ? error.message || error.msg || error : ''
     },
-    null,
-    '  '
+      null,
+      '  '
     )
   }
 
@@ -21,7 +21,8 @@ module.exports.listen = function (PORT, getDataCallback) {
     nodes: () => getDataCallback().nodes,
     jobs: () => getDataCallback().jobs,
     users: () => Object.values(getDataCallback().users),
-    simpcs: () => Object.values(getDataCallback().simpcs)
+    simpcs: () => Object.values(getDataCallback().simpcs),
+    racks: () => getDataCallback().racks
   }
 
   app.use(cors())

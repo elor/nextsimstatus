@@ -40,6 +40,8 @@ exports.connect = function (receive) {
         case (topic.match(/simpc\/simpc\d+/) || {}).input:
           receive('simpc', unpack(message))
           break
+        case 'racks/racks':
+          receive('racks', unpack64(message))
       }
     } catch (err) {
       console.error(err)

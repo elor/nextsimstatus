@@ -12,22 +12,26 @@ let store = {
   jobs: {},
   users: {},
   simpcs: {},
+  racks: [],
   lastupdate: new Date(0),
   cachestart: new Date()
 }
 
 const receiveFuncs = {
-  nodes (msg) {
-    store.nodes = msg
+  nodes (nodes) {
+    store.nodes = nodes
   },
-  jobs (msg) {
-    store.jobs = msg
+  jobs (jobs) {
+    store.jobs = jobs
   },
-  users (msg) {
-    store.users = msg
+  users (users) {
+    store.users = users
   },
   simpc (simpc) {
     store.simpcs[simpc.hostname] = simpc
+  },
+  racks (racks) {
+    store.racks = racks
   }
 }
 

@@ -10,6 +10,7 @@ type Query {
   jobs: [Job]
   users: [User]
   simpcs: [SimPC]
+  racks: [Rack]
 }
 
 type Node {
@@ -114,5 +115,21 @@ type Mount {
   options: [String]
   source: String
   type: String
+}
+
+type Rack {
+  error: String
+  name: String
+  shortname: String
+  cooling_capacity: Float
+  fan_running: Boolean
+  fan_speed: Float
+  return_air: Float
+  return_water: Float
+  supply_air: Float
+  supply_water: Float
+  valve_position: Float
+  valve_position_redundant: Float
+  water_flow: Float
 }
 `)
