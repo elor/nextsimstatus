@@ -277,6 +277,7 @@ export default new Vuex.Store({
       state.beegfs.quota = quota
     },
     updateRacks (state, racks) {
+      racks = racks.map(rack => rack.error ? { error: rack.error } : rack)
       if (!isEqual(state.racks, racks)) {
         state.racks = racks
       }

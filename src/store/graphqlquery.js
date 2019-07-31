@@ -67,5 +67,21 @@ export default `
       pid
     }
   }
+
+  racks {
+    error
+    name
+    shortname
+    cooling_capacity
+    fan_running
+    fan_speed
+    return_air
+    return_water
+    supply_air
+    supply_water
+    valve_position
+    valve_position_redundant
+    water_flow
+  }
 }
 `
