@@ -287,6 +287,7 @@ export default new Vuex.Store({
         date: new Date(),
         message: errorMessage
       })
+      console.error(errorMessage)
     },
     startUpdating (state) {
       state.updating = true
