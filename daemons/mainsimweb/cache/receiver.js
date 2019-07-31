@@ -42,6 +42,10 @@ exports.connect = function (receive) {
           break
         case 'racks/racks':
           receive('racks', unpack64(message))
+          break
+        case 'beegfs/quota':
+          receive('quotas', unpack64(message))
+          break
       }
     } catch (err) {
       console.error(err)

@@ -11,6 +11,7 @@ type Query {
   users: [User]
   simpcs: [SimPC]
   racks: [Rack]
+  quotas: [Quota]
 }
 
 type Node {
@@ -131,5 +132,14 @@ type Rack {
   valve_position: Float
   valve_position_redundant: Float
   water_flow: Float
+}
+
+type Quota {
+  name: String
+  id: String
+  bytes_hard_quota: String
+  files_hard_quota: String
+  bytes: String
+  files: String
 }
 `)

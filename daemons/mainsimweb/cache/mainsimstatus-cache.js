@@ -13,6 +13,7 @@ let store = {
   users: {},
   simpcs: {},
   racks: [],
+  quotas: {},
   lastupdate: new Date(0),
   cachestart: new Date()
 }
@@ -32,6 +33,10 @@ const receiveFuncs = {
   },
   racks (racks) {
     store.racks = racks
+  },
+  quotas (quotas) {
+    store.quotas = quotas
+    console.log(store.quotas)
   }
 }
 
