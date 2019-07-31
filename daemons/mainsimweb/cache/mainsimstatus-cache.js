@@ -36,7 +36,6 @@ const receiveFuncs = {
   },
   quotas (quotas) {
     store.quotas = quotas
-    console.log(store.quotas)
   }
 }
 
