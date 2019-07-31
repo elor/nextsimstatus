@@ -83,5 +83,14 @@ export default `
     valve_position_redundant
     water_flow
   }
+
+  quotas {
+    name
+    id
+    bytes
+    files
+    bytes_hard_quota
+    files_hard_quota
+  }
 }
 `

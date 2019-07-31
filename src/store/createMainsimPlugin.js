@@ -42,6 +42,7 @@ function fetch (store) {
       store.commit('updateJobs', data.jobs)
       data.simpcs.forEach(simpc => store.commit('updateSimPC', simpc))
       store.commit('updateRacks', data.racks)
+      store.commit('updateQuota', Object.fromEntries(data.quotas.map(quota => [quota.name, quota])))
     })
     .catch(error => store.commit('newError', error))
 
