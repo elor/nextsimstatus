@@ -39,7 +39,7 @@ Darüber erhält er Zugriff auf die Austauschverzeichnisse der jeweiligen Ordnun
 Mehr dazu unten. 
 
 Das **Passwort** wird beim Erstellen eures Nutzers erstmalig gesetzt.\\
-Ihr könnt euer Passwort jederzeit an jedem simpc sowie auf mainsim.etit.tu-chemnitz.de mit dem Befehl \`passwd\` zurücksetzen.
+Ihr könnt euer Passwort jederzeit auf mainsim.etit.tu-chemnitz.de mit dem Befehl \`passwd\` zurücksetzen.
 Wenn ihr euer Passwort mal vergessen habt, können es die MainSim-Admins zurücksetzen.
 Sag ihnen einfach, dass sie es per *Apache Directory Studio* ändern müssen.
 `
