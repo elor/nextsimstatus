@@ -147,8 +147,8 @@ export default {
   },
   methods: {
     sanitizePath (path, root = '') {
-      if (path == undefined) {
-        return 'undefined'
+      if (!path) {
+        return root || 'undefined'
       }
       if (path.startsWith(root)) {
         path = path.substr(root.length)
