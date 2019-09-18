@@ -18,7 +18,11 @@ export default {
     height: String,
     width: String,
     hidelegend: Boolean,
-    tooltip: Function
+    tooltip: Function,
+    hrefs: {
+      type: Array,
+      default: () => []
+    }
   },
   mixins: [mixins.reactiveProp],
   computed: {
@@ -40,6 +44,11 @@ export default {
             position: 'border',
             fontColor: '#fff',
             textShadow: true
+          }
+        },
+        onClick: (event, elements) => {
+          if (elements && elements.length && elements[0]) {
+            this.onClick(elements[0]._index)
           }
         }
       }
@@ -72,6 +81,14 @@ export default {
       }
 
       return style
+    }
+  },
+  methods: {
+    onClick (index) {
+      let route = this.hrefs[index]
+      if (route) {
+        this.$router.push(route)
+      }
     }
   },
   watch: {
