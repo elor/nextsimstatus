@@ -99,7 +99,7 @@ export default {
     errors () {
       this.errors
         .filter(error => error.message.startsWith(`Job #${this.jobid}:`))
-        .foreach(error => {
+        .forEach(error => {
           this.removeError(error)
           this.logs = { StdOut: error.message, StdErr: error.message }
         })
