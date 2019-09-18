@@ -1,5 +1,11 @@
 <template>
-  <pie-chart :chart-data="quotaData" :tooltip="tooltip" :hidelegend="hidelegend" :height="height"></pie-chart>
+  <pie-chart
+    :chart-data="quotaData"
+    :tooltip="tooltip"
+    :hidelegend="hidelegend"
+    :height="height"
+    :hrefs="quotaData.hrefs"
+  ></pie-chart>
 </template>
 
 <script>
@@ -34,8 +40,16 @@ export default {
         }]
       }
 
+      const hrefs = dataset.map(user => {
+        if (/^.\..*$/.test(user.name)) {
+          return `/users/${user.name}`
+        }
+        return undefined
+      })
+
       return {
         labels: dataset.map(user => user.name),
+        hrefs: hrefs,
         datasets: [
           {
             label: 'Bytes',
