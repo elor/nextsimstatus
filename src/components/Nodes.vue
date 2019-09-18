@@ -17,7 +17,8 @@
               label="Search"
               single-line
               hide-details
-              v-model="search"
+              :value="searchterm"
+              @input="search"
             />
           </v-flex>
         </v-layout>
@@ -26,7 +27,7 @@
         :headers="headers"
         :items="nodestatus"
         item-key="NodeName"
-        :search="search"
+        :search="searchterm"
         hide-actions
         :select-all="is_admin"
         v-model="selected"
@@ -155,7 +156,6 @@ export default {
           value: 'BootTime'
         }
       ],
-      search: '',
       selected: []
     }
   },
@@ -163,6 +163,9 @@ export default {
     ...mapGetters(['nodestatus', 'is_admin']),
     selected_nodenames () {
       return this.selected.map(node => node.NodeName).join(',')
+    },
+    searchterm () {
+      return this.$route.params.search || ''
     }
   },
   methods: {
@@ -172,6 +175,21 @@ export default {
     },
     isFailState (state) {
       return failstates.includes(state)
+    },
+    search (term) {
+      console.log(arguments)
+
+      if (term === this.searchterm) {
+        return
+      }
+
+      if (!term) {
+        this.$router.push(`/nodes`)
+      } else if (!this.searchterm) {
+        this.$router.push(`/nodes/${term}`)
+      } else {
+        this.$router.replace(`/nodes/${term}`)
+      }
     }
   }
 }
