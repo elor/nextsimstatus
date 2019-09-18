@@ -324,6 +324,11 @@ export default new Vuex.Store({
     },
     clearErrors (state) {
       state.errors = []
+    },
+    removeError (state, error) {
+      if (state.errors.includes(error)) {
+        state.errors = state.errors.filter(err => err !== error)
+      }
     }
   },
 

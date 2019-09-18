@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapState } from 'vuex'
+import { mapGetters, mapActions, mapState, mapMutations } from 'vuex'
 import LoginMenu from '@/components/LoginMenu'
 
 export default {
@@ -58,7 +58,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user', 'joblogs']),
+    ...mapState(['user', 'joblogs', 'errors']),
     ...mapGetters(['is_admin']),
     jobid () {
       return this.job.JobId
@@ -95,9 +95,18 @@ export default {
     },
     logs () {
       this.refreshing = false
+    },
+    errors () {
+      this.errors
+        .filter(error => error.message.startswith(`Job #${this.jobid}:`))
+        .foreach(error => {
+          this.removeError(error)
+          this.logs = { StdOut: error.message, StdErr: error.message }
+        })
     }
   },
   methods: {
+    ...mapMutations(['removeError']),
     ...mapActions(['controlLogs']),
     fetchLogs () {
       if (!this.job) {

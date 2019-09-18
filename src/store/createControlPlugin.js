@@ -42,7 +42,7 @@ export default function createControlPlugin () {
             .then(({ status, data }) => { store.commit('updateControl', status, data); return data })
             .then(jobLogs => jobLogs.forEach(
               ({ JobId, StdOutFile, StdOut, StdErrFile, StdErr }) => store.commit('updateJobLog', { JobId, StdOutFile, StdOut, StdErrFile, StdErr })))
-            .catch(errorMessage => store.commit('newError', errorMessage))
+            .catch(errorMessage => store.commit('newError', `Job #${action.payload.jobs[0]}: ${errorMessage}`))
           break
       }
     })
