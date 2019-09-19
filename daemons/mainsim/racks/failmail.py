@@ -79,11 +79,12 @@ if __name__ == "__main__":
         if len(temperatures):
             mean_temperature = sum(temperatures) / len(temperatures)
             max_temperature = max(temperatures)
-            log("Mean Temperature: {:.1f}".format(mean_temperature))
-            log("Max Temperature: {:.1f}".format(max_temperature))
         else:
             mean_temperature = 0.0
             max_temperature = 0.0
+
+        log("Mean Temperature: {:.1f}".format(mean_temperature))
+        log("Max Temperature: {:.1f}".format(max_temperature))
 
         if max_temperature > SUPPLY_WATER_THRESHOLD_CELSIUS:
             successive_failures += 1
