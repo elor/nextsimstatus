@@ -28,15 +28,18 @@ VALVE_THRESHOLD = 20  # %open
 SUBJECT_TEMPLATE = u'[C50.240]: Kühlwasserausfall: Zulauf bei {}°C'
 
 MESSAGE_TEMPLATE = u'''Der Kühlwasserzulauf der Serverschränke in Raum C50.240 hat die Schwelltemperatur von {}°C überschritten.
-Es ist aktuell {}°C heiß und erhitzt sich weiter.
+Es ist aktuell {}°C heiß. (Mittelwert über alle Schränke: {}°C).
+
+Diese Nachricht wurde automatisch generiert.
 
 ------
-Wenn du diese Nachricht zu oft erhältst oder künftig nicht mehr erhalten möchtest, wende dich bitte an
-main-simadmin.lists.tu-chemnitz.de
+
+Wenn du diese Nachricht künftig nicht mehr erhalten möchtest, wende dich bitte an
+<main-simadmin.lists.tu-chemnitz.de>
 
 Du kannst dich auch direkt an die Administratoren wenden:
 Andreas Zienert (andreas.zienert@zfm.tu-chemnitz.de).
-Erik Lorenz (erik.lorenz@zfm.tu-chemnitz.de)
+Erik Lorenz (erik.lorenz@zfm.tu-chemnitz.de, Tel. 33182)
 
 Sag ihnen, sie sollen beim Mainsimstatus in 'failmail.py' die RECIPIENTS anpassen.
 '''
@@ -75,17 +78,24 @@ if __name__ == "__main__":
 
         if len(temperatures):
             mean_temperature = sum(temperatures) / len(temperatures)
+            max_temperature = max(temperatures)
             log("Mean Temperature: {:.1f}".format(mean_temperature))
+            log("Max Temperature: {:.1f}".format(max_temperature))
+        else:
+            mean_temperature = 0.0
+            max_temperature = 0.0
 
-        if any([temperature > SUPPLY_WATER_THRESHOLD_CELSIUS for temperature in temperatures]):
+        if max_temperature > SUPPLY_WATER_THRESHOLD_CELSIUS:
             successive_failures += 1
             log("Failure No. {}".format(successive_failures))
             if successive_failures == ALLOWED_SUCCESSIVE_FAILURES:
                 log("ERROR! MUST SEND MAIL!!!")
 
-                subject = SUBJECT_TEMPLATE.format(mean_temperature)
+                subject = SUBJECT_TEMPLATE.format(max_temperature)
                 message = MESSAGE_TEMPLATE.format(
-                    SUPPLY_WATER_THRESHOLD_CELSIUS, mean_temperature)
+                    SUPPLY_WATER_THRESHOLD_CELSIUS,
+                    max_temperature,
+                    mean_temperature)
 
                 for recipient in RECIPIENTS:
                     sendMail(sender=SENDER, recipient=recipient,
