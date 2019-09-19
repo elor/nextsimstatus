@@ -67,10 +67,12 @@ def log(message):
 
 if __name__ == "__main__":
     secrets_file = sys.argv[1]
+    log("secrets file: {}".format(secrets_file))
     secrets = json.load(open(secrets_file))
     user = secrets['rack_user']
     password = secrets['rack_pass']
 
+    log("Starting polling loop. interval: {}".format(POLLING_INTERVAL))
     successive_failures = 0
     while True:
         temperatures = [temperature for temperature in [rack_supply_temperature(
