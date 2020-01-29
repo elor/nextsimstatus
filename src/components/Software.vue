@@ -2,6 +2,7 @@
   <v-container fluid>
     <v-layout>
       <v-btn href="https://mainsim.etit.tu-chemnitz.de/gitlab">GitLab</v-btn>
+      <v-btn href="https://mainsim.etit.tu-chemnitz.de/jupyter">Jupyter</v-btn>
       <v-btn to="apps/periodyfier">Periodyfier</v-btn>
       <v-btn href="https://www.tu-chemnitz.de/main/">MAIN-Webseite</v-btn>
     </v-layout>
