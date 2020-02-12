@@ -15,11 +15,10 @@
       <SoftwareCard
         title="CKAN"
         hidetitle
-      >Lege Forschungsdaten ab, suche nach Dateien, ordne sie Projekten zu und veröffentliche Ergebnisse.</SoftwareCard>
+      >Lege Forschungsdaten ab, suche nach Dateien, ordne sie Projekten zu und teile sie mit anderen.</SoftwareCard>
 
       <SoftwareCard
         title="Periodyfier"
-        hidetitle
         href="/#/apps/periodyfier"
       >Erstelle bunten Text aus Element-Symbolen</SoftwareCard>
     </v-layout>
@@ -38,13 +37,14 @@
 
       <SoftwareCard title="TUC-Cloud">Tausche Dateien zwischen Geräten aus und teile sie mit Anderen</SoftwareCard>
       <SoftwareCard
-        title="Fraunhofer-Cloud"
+        title="FhG-Cloud"
+        src="owncloud"
       >Tausche Dateien zwischen Geräten aus und teile sie mit Anderen. Ist ständig kaputt.</SoftwareCard>
 
       <SoftwareCard
         title="MAIN-Webseite"
         href="https://www.tu-chemnitz.de/main/"
-      >Die offizielle Uniseite rund ums MAIN-Gebäude</SoftwareCard>
+      >Die offizielle Infoseite rund um unser MAIN-Gebäude</SoftwareCard>
 
       <SoftwareCard title="ENAS-Intranet" src="enas" href="http://intranet.enas.fraunhofer.de">
         Für ENAS-Angestellte:
