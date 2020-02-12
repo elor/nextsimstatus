@@ -54,6 +54,11 @@
 
     <h2>Administrationswerkzeuge</h2>
     <v-layout wrap row>
+      <SoftwareCard title="MainSimStatus" href="/">
+        Überwache und steuere deine Rechnungen.
+        <br />SimAdmins haben Superkräfte
+      </SoftwareCard>
+
       <SoftwareCard title="Ganglia" hidetitle>Überwache CPU, RAM und Festplatten aller Rechenknoten</SoftwareCard>
 
       <SoftwareCard title="xcat-doc" src="xcat">Dokumentation des XCAT-Clustermanagers (Manpages)</SoftwareCard>
