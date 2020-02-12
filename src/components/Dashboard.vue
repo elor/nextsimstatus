@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-card>
+    <v-card class="mb-3">
       <v-card-title>
         <v-btn to="/nodes">Nodes</v-btn>
         <v-btn to="/jobs">{{jobstatus.length}} Jobs</v-btn>
@@ -12,7 +12,7 @@
           </grid-card>
 
           <grid-card title="Partitions">
-            <div class="mb-2" v-for="partition in partitionstatus" :key="partition.PartitionName">
+            <div class="mb-3" v-for="partition in partitionstatus" :key="partition.PartitionName">
               <v-progress-circular
                 slot="icon"
                 :value="100*partition.CPUAlloc/partition.CPUTot"
@@ -36,7 +36,7 @@
       </v-card-text>
     </v-card>
 
-    <v-card>
+    <v-card class="mb-3">
       <v-card-title>
         <v-btn to="/users">Users</v-btn>
         <v-btn to="/simpcs">SimPCs</v-btn>
@@ -94,11 +94,21 @@
         </v-progress-circular>
       </v-card-text>
     </v-card>
+
+    <v-card class="mb-3">
+      <v-card-title>
+        <v-btn to="/apps">Software</v-btn>
+      </v-card-title>
+      <v-card-content>
+        <Software></Software>
+      </v-card-content>
+    </v-card>
   </v-container>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import Software from '@/components/Software'
 import GridCard from '@/components/GridCard'
 import CoresPieChart from '@/components/CoresPieChart'
 import Rack from '@/components/Rack'
@@ -107,6 +117,7 @@ import UserChip from '@/components/UserChip'
 
 export default {
   components: {
+    Software,
     GridCard,
     CoresPieChart,
     Rack,
