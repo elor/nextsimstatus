@@ -37,7 +37,7 @@ export default new Router({
   },
   {
     path: '/nodes/:search',
-    name: 'Nodes',
+    name: 'Nodesearch',
     component: Nodes,
     icon: 'fa-server'
   },
