@@ -1,33 +1,81 @@
 <template>
   <v-container fluid>
-    <v-layout>
-      <v-btn href="https://mainsim.etit.tu-chemnitz.de/gitlab">GitLab</v-btn>
-      <v-btn href="https://mainsim.etit.tu-chemnitz.de/jupyter">Jupyter</v-btn>
-      <v-btn to="apps/periodyfier">Periodyfier</v-btn>
-      <v-btn href="https://www.tu-chemnitz.de/main/">MAIN-Webseite</v-btn>
+    <h2>Werkzeuge für die Wissenschaft</h2>
+    <v-layout wrap row>
+      <SoftwareCard
+        title="Gitlab"
+        hidetitle
+      >Lege deinen Quellcode ab, überwache deine Builds und tracke deine Bugs</SoftwareCard>
+
+      <SoftwareCard
+        title="Jupyter"
+        hidetitle
+      >Arbeite interaktiv mit Python an wissenschaftlichen Daten und visualisiere sie im Browser</SoftwareCard>
+
+      <SoftwareCard
+        title="CKAN"
+        hidetitle
+      >Lege Forschungsdaten ab, suche nach Dateien, ordne sie Projekten zu und veröffentliche Ergebnisse.</SoftwareCard>
+
+      <SoftwareCard
+        title="Periodyfier"
+        hidetitle
+        href="/#/apps/periodyfier"
+      >Erstelle bunten Text aus Element-Symbolen</SoftwareCard>
     </v-layout>
-    <v-layout>
-      <v-btn href="https://mainsim.etit.tu-chemnitz.de/ganglia">Ganglia CPU-Monitoring</v-btn>
-      <v-btn href="https://mainsim.etit.tu-chemnitz.de/xcat-doc">xCAT Documentation (Manpages)</v-btn>
-      <v-btn href="https://mainsim.etit.tu-chemnitz.de/nagios">Nagios Host-Monitoring</v-btn>
-      <v-btn href="https://mainsimweb.etit.tu-chemnitz.de/graphql">GraphQL Backend</v-btn>
+
+    <h2>TUC, DFN, FhG & Co.</h2>
+    <v-layout wrap row>
+      <SoftwareCard
+        title="Terminplaner"
+        href="https://terminplaner4.dfn.de/"
+      >Stimme Termine ab - Doodle vom Deutschen Forschungsnetz</SoftwareCard>
+      <SoftwareCard
+        title="dfnconf"
+        hidetitle
+        href="http://www.conf.dfn.de/"
+      >DFN Konferenztelefonie - Der Konferenzdienst im Deutschen Forschungsnetz</SoftwareCard>
+
+      <SoftwareCard title="TUC-Cloud">Tausche Dateien zwischen Geräten aus und teile sie mit Anderen</SoftwareCard>
+      <SoftwareCard
+        title="Fraunhofer-Cloud"
+      >Tausche Dateien zwischen Geräten aus und teile sie mit Anderen. Ist ständig kaputt.</SoftwareCard>
+
+      <SoftwareCard
+        title="MAIN-Webseite"
+        href="https://www.tu-chemnitz.de/main/"
+      >Die offizielle Uniseite rund ums MAIN-Gebäude</SoftwareCard>
+
+      <SoftwareCard title="ENAS-Intranet" src="enas" href="http://intranet.enas.fraunhofer.de">
+        Für ENAS-Angestellte:
+        <br />Suche Vorlagen, gesetzliche Regelungen und Formulare.
+      </SoftwareCard>
     </v-layout>
-    <v-layout>
-      <v-btn href="https://tuc.cloud">TUC-Cloud</v-btn>
-      <v-btn href="https://terminplaner4.dfn.de/">DFN Terminplaner</v-btn>
-      <v-btn href="http://www.conf.dfn.de/">DFN Konferenztelefonie</v-btn>
-    </v-layout>
-    <v-layout>
-      <v-btn href="https://owncloud.fraunhofer.de">Fraunhofer-Cloud</v-btn>
-      <v-btn href="http://intranet.intern.enas.fraunhofer.de">ENAS-Intranet</v-btn>
+
+    <h2>Administrationswerkzeuge</h2>
+    <v-layout wrap row>
+      <SoftwareCard title="Ganglia" hidetitle>Überwache CPU, RAM und Festplatten aller Rechenknoten</SoftwareCard>
+
+      <SoftwareCard title="xcat-doc" src="xcat">Dokumentation des XCAT-Clustermanagers (Manpages)</SoftwareCard>
+
+      <SoftwareCard
+        title="Nagios"
+        hidetitle
+      >Überwache den Systemzustand und die Daemons aller Knoten</SoftwareCard>
+      <SoftwareCard title="GraphQL">Direktzugriff auf MainSimStatus-Datenbank</SoftwareCard>
     </v-layout>
   </v-container>
 </template>
 
 <script>
+import SoftwareCard from '@/components/SoftwareCard'
+
 import { mapGetters } from 'vuex'
 
 export default {
+  components: {
+    SoftwareCard
+  },
   data () {
     return {}
   },
