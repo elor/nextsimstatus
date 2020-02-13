@@ -3,6 +3,11 @@
     <h2>Werkzeuge für die Wissenschaft</h2>
     <v-layout wrap row>
       <SoftwareCard
+        title="scholar"
+        hidetitle
+        href="https://scholar.google.com/"
+      >Suche nach Publikationen und Autoren</SoftwareCard>
+      <SoftwareCard
         title="Gitlab"
         hidetitle
       >Lege deinen Quellcode ab, überwache deine Builds und tracke deine Bugs</SoftwareCard>
