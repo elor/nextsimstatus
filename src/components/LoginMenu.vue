@@ -89,6 +89,7 @@
 
 <script>
 import usercolor from '../utils/usercolor'
+import groupcolor from '../utils/groupcolor'
 import { mapActions, mapState, mapGetters } from 'vuex'
 import { ADMIN_GROUP } from '../config'
 import UserChip from '@/components/UserChip'
@@ -131,6 +132,7 @@ export default {
   },
   methods: {
     ...mapActions(['login', 'logout']),
+    groupcolor,
     performLogin () {
       this.login(this.credentials)
       this.clear()
@@ -142,7 +144,6 @@ export default {
       this.credentials.username = ''
       this.credentials.password = ''
     },
-    groupcolor: usercolor,
     is_admin_group (group) {
       return group === ADMIN_GROUP
     }
