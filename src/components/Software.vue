@@ -119,6 +119,12 @@
       >Erstelle bunten Text aus Element-Symbolen</SoftwareCard>
 
       <SoftwareCard
+        title="Vuetify"
+        href="https://vuetifyjs.com/en/components/api-explorer"
+        usergroup="simadmin"
+      >Direktlink zur Dokumentation des Frameworks, auf dem MainSimStatus basiert</SoftwareCard>
+
+      <SoftwareCard
         title="Deine Ergänzung"
         href="https://mainsim.etit.tu-chemnitz.de:4485/simadmin/mainsimstatus/blob/master/src/components/Software.vue"
         src="simcrew"
