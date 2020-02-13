@@ -5,9 +5,8 @@
         <v-img class="align-end" height="100px" :src="sanitized_src" contain>
           <h1 v-if="!hidetitle">{{title}}</h1>
         </v-img>
+        <GroupChip :group="usergroup" v-if="usergroup" class="float-right ma-2" />
       </v-card-title>
-
-      <GroupChip :group="usergroup" v-if="usergroup" />
 
       <v-card-text class="text--primary">
         <div>
@@ -86,6 +85,8 @@ h1 {
 }
 
 .float-right {
-  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 </style>
