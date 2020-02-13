@@ -1,13 +1,11 @@
 <template>
   <v-card width="250" class="ma-2 pa-2 flexcard">
     <v-flex>
-      <v-route :href="sanitized_href">
-        <v-card-title class="pb-0">
-          <v-img class="align-end" height="100px" :src="sanitized_src" contain>
-            <h1 v-if="!hidetitle">{{title}}</h1>
-          </v-img>
-        </v-card-title>
-      </v-route>
+      <v-card-title class="pb-0">
+        <v-img class="align-end" height="100px" :src="sanitized_src" contain>
+          <h1 v-if="!hidetitle">{{title}}</h1>
+        </v-img>
+      </v-card-title>
 
       <v-card-text class="text--primary">
         <div>

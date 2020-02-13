@@ -99,9 +99,9 @@
       <v-card-title>
         <v-btn to="/apps">Software</v-btn>
       </v-card-title>
-      <v-card-content>
+      <v-card-text>
         <Software></Software>
-      </v-card-content>
+      </v-card-text>
     </v-card>
   </v-container>
 </template>
