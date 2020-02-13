@@ -136,17 +136,9 @@
 <script>
 import SoftwareCard from '@/components/SoftwareCard'
 
-import { mapGetters } from 'vuex'
-
 export default {
   components: {
     SoftwareCard
-  },
-  data () {
-    return {}
-  },
-  computed: {
-    ...mapGetters(['nodestatus', 'queuestatus'])
   }
 }
 </script>

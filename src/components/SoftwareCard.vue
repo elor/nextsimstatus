@@ -52,9 +52,6 @@ export default {
   components: {
     GroupChip
   },
-  data () {
-    return {}
-  },
   computed: {
     ...mapState(['user']),
     ...mapGetters(['is_admin']),
