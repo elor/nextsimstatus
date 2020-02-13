@@ -1,6 +1,7 @@
 <template>
   <v-card width="250" class="ma-2 pa-2 flexcard" v-if="visible">
     <v-flex>
+      <GroupChip :group="usergroup" v-if="usergroup" class="float-right" />
       <v-card-title class="pb-0">
         <v-img class="align-end" height="100px" :src="sanitized_src" contain>
           <h1 v-if="!hidetitle">{{title}}</h1>
@@ -25,6 +26,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import GroupChip from '@/components/GroupChip'
 
 export default {
   props: {
@@ -46,6 +48,9 @@ export default {
     },
     'href': String,
     'text': String
+  },
+  components: {
+    GroupChip
   },
   data () {
     return {}
@@ -76,5 +81,9 @@ h1 {
 .flexcard {
   display: flex;
   flex-direction: column;
+}
+
+.float-right {
+  float: right;
 }
 </style>
