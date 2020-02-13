@@ -92,13 +92,18 @@
 
       <SoftwareCard title="Ganglia" hidetitle>Überwache CPU, RAM und Festplatten aller Rechenknoten</SoftwareCard>
 
-      <SoftwareCard title="xcat-doc" src="xcat">Dokumentation des XCAT-Clustermanagers (Manpages)</SoftwareCard>
+      <SoftwareCard
+        title="xcat-doc"
+        src="xcat"
+        usergroup="simadmin"
+      >Dokumentation des XCAT-Clustermanagers (Manpages)</SoftwareCard>
 
       <SoftwareCard
         title="Nagios"
         hidetitle
+        usergroup="simadmin"
       >Überwache den Systemzustand und die Daemons aller Knoten</SoftwareCard>
-      <SoftwareCard title="GraphQL">Direktzugriff auf MainSimStatus-Datenbank</SoftwareCard>
+      <SoftwareCard title="GraphQL" usergroup="simadmin">Direktzugriff auf MainSimStatus-Datenbank</SoftwareCard>
     </v-layout>
 
     <h2>Spielereien</h2>
