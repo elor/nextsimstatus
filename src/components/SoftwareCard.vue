@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import GroupChip from '@/components/GroupChip'
 
 export default {
@@ -58,6 +58,7 @@ export default {
   },
   computed: {
     ...mapState(['user']),
+    ...mapGetters(['is_admin']),
     sanitized_src () {
       if (this.src && this.src.startsWith('http')) {
         return this.src
@@ -68,7 +69,7 @@ export default {
       return this.href || `https://mainsim.etit.tu-chemnitz.de/${this.title.toLowerCase()}`
     },
     visible () {
-      return this.usergroup === undefined || this.user.groups.includes(this.usergroup)
+      return this.usergroup === undefined || this.is_admin || this.user.groups.includes(this.usergroup)
     }
   }
 }
