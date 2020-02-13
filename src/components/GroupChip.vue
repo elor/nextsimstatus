@@ -1,6 +1,6 @@
 <template>
   <v-chip small :color="color" :dark="isDark">
-    <v-icon small v-if="is_admin_group">fa-star</v-icon>
+    <v-icon size="100%" v-if="is_admin_group">fa-star</v-icon>
     {{group}}
   </v-chip>
 </template>
