@@ -1,5 +1,5 @@
 <template>
-  <v-card width="250" class="ma-2 pa-2 flexcard">
+  <v-card width="250" class="ma-2 pa-2 flexcard" v-if="visible">
     <v-flex>
       <v-card-title class="pb-0">
         <v-img class="align-end" height="100px" :src="sanitized_src" contain>
@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   props: {
     'title': {
@@ -38,6 +40,10 @@ export default {
       type: Boolean,
       default: false
     },
+    'usergroup': {
+      type: String,
+      default: undefined
+    },
     'href': String,
     'text': String
   },
@@ -45,6 +51,7 @@ export default {
     return {}
   },
   computed: {
+    ...mapState(['user']),
     sanitized_src () {
       if (this.src && this.src.startsWith('http')) {
         return this.src
@@ -53,6 +60,9 @@ export default {
     },
     sanitized_href () {
       return this.href || `https://mainsim.etit.tu-chemnitz.de/${this.title.toLowerCase()}`
+    },
+    visible () {
+      return this.usergroup === undefined || this.user.groups.includes(this.usergroup)
     }
   }
 }
