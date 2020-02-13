@@ -1,10 +1,14 @@
 <template>
-  <v-chip small :color="color" :dark="isDark">{{group}}</v-chip>
+  <v-chip small :color="color" :dark="isDark">
+    <v-icon small v-if="is_admin_group">fa-star</v-icon>
+    {{group}}
+  </v-chip>
 </template>
 
 <script>
 import groupcolor from '../utils/groupcolor'
 import { isDark } from '../utils/color'
+import { ADMIN_GROUP } from '../config'
 
 export default {
   props: {
@@ -16,6 +20,9 @@ export default {
     },
     isDark () {
       return isDark(this.color)
+    },
+    is_admin_group () {
+      return this.group === ADMIN_GROUP
     }
   },
   methods: {
