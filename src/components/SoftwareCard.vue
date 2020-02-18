@@ -1,5 +1,5 @@
 <template>
-  <v-card width="250" class="ma-2 pa-2 flexcard" v-if="visible">
+  <v-card width="250" class="ma-2 pa-2 flexcard" v-if="visible" :href="sanitized_href">
     <v-flex>
       <v-card-title class="pb-0">
         <v-img class="align-end" height="100px" :src="sanitized_src" contain>
