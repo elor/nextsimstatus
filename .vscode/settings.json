@@ -26,5 +26,7 @@
   "vetur.format.defaultFormatter.js": "vscode-typescript",
   "vetur.format.defaultFormatter.ts": "vscode-typescript",
   "editor.tabSize": 2,
-  "search.usePCRE2": true
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }
