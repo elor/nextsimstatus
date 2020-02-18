@@ -44,42 +44,50 @@
       <v-card-text>
         <v-layout row wrap>
           <v-flex lg3 md4 sm6 xs12 v-for="user in users_sorted" :key="user.UserName">
-            <v-card class="ma-1 pa-1" height="70" :to="`/users/${user.UserName}`">
-              <v-layout>
-                <v-flex xs4>
-                  <user-chip :login="user.UserName" />
-                </v-flex>
+            <v-hover v-slot:default="{ hover }">
+              <v-card
+                class="ma-1 pa-1"
+                height="70"
+                :to="`/users/${user.UserName}`"
+                :elevation="hover ? 8 : 2"
+                v-ripple
+              >
+                <v-layout>
+                  <v-flex xs4>
+                    <user-chip :login="user.UserName" />
+                  </v-flex>
 
-                <v-flex xs4>
-                  <div>{{user.NumCPUs}} Cores</div>
-                </v-flex>
+                  <v-flex xs4>
+                    <div>{{user.NumCPUs}} Cores</div>
+                  </v-flex>
 
-                <v-flex xs4 v-if="user.PCs.length">
-                  SimPC:
-                  <v-progress-circular
-                    v-for="pc in user.PCs"
-                    :key="pc.hostname"
-                    :value="100 * (pc.load_1min || 0.0) / pc.cores"
-                    :color="pc.load_1min > pc.cores ? 'red' : 'green'"
+                  <v-flex xs4 v-if="user.PCs.length">
+                    SimPC:
+                    <v-progress-circular
+                      v-for="pc in user.PCs"
+                      :key="pc.hostname"
+                      :value="100 * (pc.load_1min || 0.0) / pc.cores"
+                      :color="pc.load_1min > pc.cores ? 'red' : 'green'"
+                    >
+                      <router-link :to="`/simpc${pc.number}`">{{pc.number}}</router-link>
+                    </v-progress-circular>
+                  </v-flex>
+                </v-layout>
+                <div v-if="user.Jobs.length">
+                  Jobs:
+                  <span
+                    v-for="[key, value] in Object.entries(user.JobCount).filter(a => a[1])"
+                    :key="key"
+                    class="mx-2"
                   >
-                    <router-link :to="`/simpc${pc.number}`">{{pc.number}}</router-link>
-                  </v-progress-circular>
-                </v-flex>
-              </v-layout>
-              <div v-if="user.Jobs.length">
-                Jobs:
-                <span
-                  v-for="[key, value] in Object.entries(user.JobCount).filter(a => a[1])"
-                  :key="key"
-                  class="mx-2"
-                >
-                  <v-icon color="warning" v-if="key=='Failed'">fa-exclamation-triangle</v-icon>
-                  {{value}}
-                  {{key}}
-                </span>
-              </div>
-              <i v-else>Keine Jobs</i>
-            </v-card>
+                    <v-icon color="warning" v-if="key=='Failed'">fa-exclamation-triangle</v-icon>
+                    {{value}}
+                    {{key}}
+                  </span>
+                </div>
+                <i v-else>Keine Jobs</i>
+              </v-card>
+            </v-hover>
           </v-flex>
         </v-layout>
       </v-card-text>

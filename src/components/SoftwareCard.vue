@@ -1,27 +1,36 @@
 <template>
-  <v-card width="250" class="ma-2 pa-2 flexcard" v-if="visible" :href="sanitized_href">
-    <v-flex>
-      <v-card-title class="pb-0">
-        <v-img class="align-end" height="100px" :src="sanitized_src" contain>
-          <h1 v-if="!hidetitle">{{title}}</h1>
-        </v-img>
-        <GroupChip :group="usergroup" v-if="usergroup" class="float-right ma-2" />
-      </v-card-title>
+  <v-hover v-slot:default="{ hover }">
+    <v-card
+      v-ripple
+      width="250"
+      class="ma-2 pa-2 flexcard"
+      v-if="visible"
+      :href="sanitized_href"
+      :elevation="hover ? 8 : 2"
+    >
+      <v-flex>
+        <v-card-title class="pb-0">
+          <v-img class="align-end" height="100px" :src="sanitized_src" contain>
+            <h1 v-if="!hidetitle">{{title}}</h1>
+          </v-img>
+          <GroupChip :group="usergroup" v-if="usergroup" class="float-right ma-2" />
+        </v-card-title>
 
-      <v-card-text class="text--primary">
-        <div>
-          <slot></slot>
-        </div>
-      </v-card-text>
-    </v-flex>
+        <v-card-text class="text--primary">
+          <div>
+            <slot></slot>
+          </div>
+        </v-card-text>
+      </v-flex>
 
-    <v-card-actions>
-      <v-btn text :href="sanitized_href">Öffne {{title}}</v-btn>
-      <v-btn fab flat small :href="sanitized_href" target="_blank">
-        <v-icon small>fa-external-link-alt</v-icon>
-      </v-btn>
-    </v-card-actions>
-  </v-card>
+      <v-card-actions>
+        <v-btn text :href="sanitized_href">Öffne {{title}}</v-btn>
+        <v-btn fab flat small :href="sanitized_href" target="_blank">
+          <v-icon small>fa-external-link-alt</v-icon>
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-hover>
 </template>
 
 <script>
