@@ -24,7 +24,7 @@
 
       <SoftwareCard
         title="TUC-Wiki"
-        href="https://wiki.tu-chemnitz.de/"
+        href="https://wiki.tu-chemnitz.de/ENAS/BeolSimulation"
         src="foswiki"
       >Tausche Wissen und Erfahrungen mit den anderen Simulanten aus</SoftwareCard>
     </v-layout>
