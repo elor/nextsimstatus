@@ -62,11 +62,16 @@
         href="http://www.conf.dfn.de/"
       >DFN Konferenztelefonie - Der Konferenzdienst im Deutschen Forschungsnetz</SoftwareCard>
 
-      <SoftwareCard title="TUC-Cloud">Tausche Dateien zwischen Geräten aus und teile sie mit Anderen</SoftwareCard>
+      <SoftwareCard
+        title="TUC-Cloud"
+        href="https://tuc.cloud/"
+      >Tausche Dateien zwischen Geräten aus und teile sie mit Anderen</SoftwareCard>
+
       <SoftwareCard
         usergroup="enas"
         title="FhG-Cloud"
         src="owncloud"
+        href="https://owncloud.fraunhofer.de/"
       >Tausche Dateien zwischen Geräten aus und teile sie mit Anderen. Ist ständig kaputt.</SoftwareCard>
 
       <SoftwareCard
