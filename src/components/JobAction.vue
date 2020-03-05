@@ -27,6 +27,10 @@ export default {
       type: Boolean,
       default: false
     },
+    admin_only: {
+      type: Boolean,
+      default: false
+    },
     when: {
       type: String,
       default: ''
@@ -51,7 +55,7 @@ export default {
     },
     can_control () {
       return (
-        this.is_admin || (this.user && this.singular_owner === this.user.login)
+        this.is_admin || (!this.admin_only && this.user && this.singular_owner === this.user.login)
       )
     },
     when_split () {
