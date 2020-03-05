@@ -24,7 +24,7 @@
 
       <SoftwareCard
         title="TUC-Wiki"
-        href="https://wiki.tu-chemnitz.de/"
+        href="https://wiki.tu-chemnitz.de/ENAS/BeolSimulation"
         src="foswiki"
       >Tausche Wissen und Erfahrungen mit den anderen Simulanten aus</SoftwareCard>
     </v-layout>
@@ -62,11 +62,16 @@
         href="http://www.conf.dfn.de/"
       >DFN Konferenztelefonie - Der Konferenzdienst im Deutschen Forschungsnetz</SoftwareCard>
 
-      <SoftwareCard title="TUC-Cloud">Tausche Dateien zwischen Geräten aus und teile sie mit Anderen</SoftwareCard>
+      <SoftwareCard
+        title="TUC-Cloud"
+        href="https://tuc.cloud/"
+      >Tausche Dateien zwischen Geräten aus und teile sie mit Anderen</SoftwareCard>
+
       <SoftwareCard
         usergroup="enas"
         title="FhG-Cloud"
         src="owncloud"
+        href="https://owncloud.fraunhofer.de/"
       >Tausche Dateien zwischen Geräten aus und teile sie mit Anderen. Ist ständig kaputt.</SoftwareCard>
 
       <SoftwareCard
