@@ -9,7 +9,7 @@ COMMAND_BY_ACTION = {
     'requeue': lambda jobs, _=None: ['scontrol', 'requeue', jobs],
     'top': lambda jobs, _=None: ['scontrol', 'top', jobs],
     'throttle': lambda jobs, count: ['scontrol', 'update', 'JobId={}'.format(jobs), 'ArrayTaskThrottle={}'.format(count)],
-    'increase_timelimit': lambda jobs, limit: ['scontrol', 'update', 'JobId={}'.format(jobs), 'TimeLimit=+=1-00:00:00'],
+    'increase_timelimit': lambda jobs, limit: ['scontrol', 'update', 'JobId={}'.format(jobs), 'TimeLimit+=1-00:00:00'],
 }
 
 
