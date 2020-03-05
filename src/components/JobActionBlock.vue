@@ -52,7 +52,7 @@
       when="RUNNING,PENDING,REQUEUED"
       admin_only
       action="increase_timelimit"
-      color="primary"
+      color="purple"
       icon="fa-hourglass-end"
     />
   </div>
