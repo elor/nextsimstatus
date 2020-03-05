@@ -47,6 +47,14 @@
       icon="fa-percentage"
       numeric
     />
+    <job-action
+      :jobs="jobs"
+      when="RUNNING,PENDING,REQUEUED"
+      admin_only
+      action="increase_timelimit"
+      color="primary"
+      icon="fa-hourglass-end"
+    />
   </div>
   <div v-else>
     Melde dich an, um deine Jobs zu steuern:
