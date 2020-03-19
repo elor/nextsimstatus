@@ -31,6 +31,8 @@
 
     <h2>TUC, DFN & Co.</h2>
     <v-layout wrap row>
+      <SoftwareCard title="Jitsi">Videokonferenzen und Screensharing - alles über unserem Mainsim</SoftwareCard>
+
       <SoftwareCard
         usergroup="enas"
         title="ENAS-Intranet"
