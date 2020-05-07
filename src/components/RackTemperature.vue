@@ -51,6 +51,12 @@ export default {
     max () {
       return this.values.max
     },
+    low () {
+      return this.values.low
+    },
+    high () {
+      return this.values.high
+    },
     isnan () {
       return isNaN(this.value)
     },
