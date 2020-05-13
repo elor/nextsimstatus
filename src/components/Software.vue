@@ -31,7 +31,12 @@
 
     <h2>TUC, DFN & Co.</h2>
     <v-layout wrap row>
-      <SoftwareCard title="Jitsi">Videokonferenzen und Screensharing - alles über unserem Mainsim</SoftwareCard>
+      <SoftwareCard
+        title="BigBlueButton"
+        href="https://webroom.hrz.tu-chemnitz.de"
+      >Zuverlässige Videokonferenz- und Screensharing Lösung der Uni</SoftwareCard>
+
+      <SoftwareCard title="Jitsi">Videokonferenzen und Screensharing direkt über Mainsim</SoftwareCard>
 
       <SoftwareCard
         usergroup="enas"
