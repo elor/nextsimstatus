@@ -1,6 +1,6 @@
 <template>
   <v-flex lg3 md4 sm6 xs12>
-    <v-card class="gridcard ma-2" :class="{'wrap': wrap}" :style="style">
+    <v-card class="gridcard ma-2" :class="{'wrap': wrap}" :style="style" :href="href">
       <v-card-title v-if="title" class="pb-0">
         <v-layout row>
           <v-subheader>{{title}}</v-subheader>
@@ -24,7 +24,11 @@ export default {
   props: {
     title: String,
     height: String,
-    wrap: Boolean
+    wrap: Boolean,
+    href: {
+      type: String,
+      default: undefined
+    }
   },
   computed: {
     style () {
