@@ -36,7 +36,7 @@ function clickDelay () {
 function fetch (store) {
   store.commit('startUpdating')
 
-  let fetchPromise = request(config.graphql.endpoint, config.graphql.query)
+  const fetchPromise = request(config.graphql.endpoint, config.graphql.query)
     .then(data => {
       store.commit('updateNodes', data.nodes)
       store.commit('updateJobs', data.jobs)

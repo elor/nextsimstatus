@@ -39,24 +39,24 @@ import GroupChip from '@/components/GroupChip'
 
 export default {
   props: {
-    'title': {
+    title: {
       type: String,
       default: ''
     },
-    'src': {
+    src: {
       type: String,
       default: undefined
     },
-    'hidetitle': {
+    hidetitle: {
       type: Boolean,
       default: false
     },
-    'usergroup': {
+    usergroup: {
       type: String,
       default: undefined
     },
-    'href': String,
-    'text': String
+    href: String,
+    text: String
   },
   components: {
     GroupChip

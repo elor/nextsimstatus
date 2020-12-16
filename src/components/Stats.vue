@@ -53,11 +53,11 @@ export default {
       period: 'day',
       available_periods: ['hour', '2hr', '4hr', 'day', 'week', 'month', 'year'],
       chart_titles: {
-        'load_one': 'CPU Load',
-        'proc_run': 'Running Processes',
-        'mem_free': 'Free RAM',
-        'bytes_in': 'Bytes Received',
-        'bytes_out': 'Bytes Sent'
+        load_one: 'CPU Load',
+        proc_run: 'Running Processes',
+        mem_free: 'Free RAM',
+        bytes_in: 'Bytes Received',
+        bytes_out: 'Bytes Sent'
       }
     }
   },

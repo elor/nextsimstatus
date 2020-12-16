@@ -1,5 +1,5 @@
 export default function usercores (jobs) {
-  let users = {}
+  const users = {}
 
   jobs.forEach(job => {
     users[job.UserName] = (users[job.UserName] || 0) + Number(job.NumCPUs)

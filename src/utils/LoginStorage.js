@@ -21,16 +21,19 @@ export default class LoginStorage {
     this.key = key
     this.supported = storageSupport()
   }
+
   read () {
     if (this.supported) {
       return window.localStorage.getItem(this.key)
     }
   }
+
   write (token) {
     if (this.supported) {
       return window.localStorage.setItem(this.key, token)
     }
   }
+
   clear () {
     if (this.supported) {
       return window.localStorage.removeItem(this.key)

@@ -1,8 +1,8 @@
 import { range, flattenDeep, flatten, uniq, padStart } from 'lodash'
 
 export function nodels (definition) {
-  let re = /([a-z0-9]+)(\[(\d+([,-]\d+)*)\])?/g
-  let strictRe = /^([a-z0-9]+)(\[(\d+([,-]\d+)*)\])?(,([a-z0-9]+)(\[(\d+([,-]\d+)*)\])?)*$/
+  const re = /([a-z0-9]+)(\[(\d+([,-]\d+)*)\])?/g
+  const strictRe = /^([a-z0-9]+)(\[(\d+([,-]\d+)*)\])?(,([a-z0-9]+)(\[(\d+([,-]\d+)*)\])?)*$/
 
   if (!strictRe.test(definition)) {
     return []
@@ -16,10 +16,10 @@ export function nodels (definition) {
 }
 
 function matchAll (re, string) {
-  let matches = []
+  const matches = []
 
   for (;;) {
-    let match = re.exec(string)
+    const match = re.exec(string)
     if (!match) {
       break
     }

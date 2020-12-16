@@ -22,7 +22,7 @@ export default function usercolor (name) {
     return mapping[name.toLowerCase()]
   }
 
-  let hexColor = md5(name + md5(name)).substr(19, 6)
+  const hexColor = md5(name + md5(name)).substr(19, 6)
 
   return `#${hexColor}`
 }

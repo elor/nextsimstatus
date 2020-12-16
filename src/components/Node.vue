@@ -121,7 +121,7 @@ export default {
         .map(job => job.Gres)
         .map(deGres)
         .reduce((a, b) => {
-          for (let key in b) {
+          for (const key in b) {
             a[key] = b[key] + (a[key] || 0)
           }
           return a

@@ -13,11 +13,11 @@ import PieChart from '@/components/PieChart'
 import usercolor from '../utils/usercolor'
 
 const HREFS = {
-  'Free': '/nodes/IDLE',
-  'Drain': '/nodes/DRAIN',
-  'Reboot': '/nodes/REBOOT',
-  'Error': '/nodes',
-  'Failure': '/nodes'
+  Free: '/nodes/IDLE',
+  Drain: '/nodes/DRAIN',
+  Reboot: '/nodes/REBOOT',
+  Error: '/nodes',
+  Failure: '/nodes'
 }
 
 export default {

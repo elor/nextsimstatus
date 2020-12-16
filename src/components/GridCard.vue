@@ -32,7 +32,7 @@ export default {
   },
   computed: {
     style () {
-      let style = {}
+      const style = {}
 
       if (this.height) {
         style.height = isInt(this.height) ? `${this.height}px` : this.height

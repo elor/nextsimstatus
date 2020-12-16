@@ -71,7 +71,7 @@ export default {
 
       console.group()
       console.log(`sending message. Topic: ${topic}`)
-      console.log(`Message:`)
+      console.log('Message:')
       console.log(message)
       console.groupEnd()
 

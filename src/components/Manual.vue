@@ -38,7 +38,7 @@ export default {
         return this.items
       }
 
-      let regex = new RegExp(this.search, 'i')
+      const regex = new RegExp(this.search, 'i')
       return this.items.filter(
         item => regex.test(item.title) || regex.test(item.markdown)
       )
@@ -46,8 +46,8 @@ export default {
   },
   methods: {
     parse (markdown) {
-      let reader = new commonmark.Parser()
-      let writer = new commonmark.HtmlRenderer()
+      const reader = new commonmark.Parser()
+      const writer = new commonmark.HtmlRenderer()
       return writer.render(reader.parse(markdown))
     }
   }

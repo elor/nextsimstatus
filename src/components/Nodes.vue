@@ -184,7 +184,7 @@ export default {
       }
 
       if (!term) {
-        this.$router.push(`/nodes`)
+        this.$router.push('/nodes')
       } else if (!this.searchterm) {
         this.$router.push(`/nodes/${term}`)
       } else {

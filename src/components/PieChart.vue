@@ -27,7 +27,7 @@ export default {
   mixins: [mixins.reactiveProp],
   computed: {
     config () {
-      let conf = {
+      const conf = {
         maintainAspectRatio: false,
         legend: {
           position: 'right',
@@ -60,7 +60,7 @@ export default {
       return conf
     },
     style () {
-      let style = {}
+      const style = {}
 
       if (this.inline) {
         style.display = 'inline'
@@ -85,7 +85,7 @@ export default {
   },
   methods: {
     onClick (index) {
-      let route = this.hrefs[index]
+      const route = this.hrefs[index]
       if (route) {
         this.$router.push(route)
       }
