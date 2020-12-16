@@ -102,12 +102,20 @@
 
     <h2>Administrationswerkzeuge</h2>
     <v-layout wrap row>
+      <SoftwareCard title="Grafana" hidetitle href="https://mainsimweb.etit.tu-chemnitz.de/grafana">
+        System-Monitorung und Zeitreihenanalyse.
+        <br />Führt alle Sensordaten und Auslastungen zusammen
+      </SoftwareCard>
+
       <SoftwareCard title="MainSimStatus" href="/">
         Überwache und steuere deine Rechnungen.
         <br />SimAdmins haben Superkräfte
       </SoftwareCard>
 
-      <SoftwareCard title="Ganglia" hidetitle>Überwache CPU, RAM und Festplatten aller Rechenknoten</SoftwareCard>
+      <SoftwareCard title="LAM" usergroup="simadmin" href="http://mainsimweb.etit.tu-chemnitz.de:8741/lam">
+        LDAP Account Manager (Admins only):
+        <br />Richte neue Benutzer ein und ändere Passwörter
+      </SoftwareCard>
 
       <SoftwareCard
         title="xcat-doc"
@@ -115,11 +123,18 @@
         usergroup="simadmin"
       >Dokumentation des XCAT-Clustermanagers (Manpages)</SoftwareCard>
 
+      <SoftwareCard title="Ganglia" hidetitle usergroup="simadmin">
+        Überwache CPU, RAM und Festplatten aller Rechenknoten.
+        (deprecated)
+      </SoftwareCard>
+
       <SoftwareCard
         title="Nagios"
         hidetitle
         usergroup="simadmin"
-      >Überwache den Systemzustand und die Daemons aller Knoten</SoftwareCard>
+      >Überwache den Systemzustand und die Daemons aller Knoten
+        (deprecated)
+      </SoftwareCard>
       <SoftwareCard title="GraphQL" usergroup="simadmin">Direktzugriff auf MainSimStatus-Datenbank</SoftwareCard>
     </v-layout>
 
