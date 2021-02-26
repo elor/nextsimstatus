@@ -17,7 +17,7 @@
         </v-layout>
 
         <v-btn-toggle v-model="period" mandatory>
-          <v-btn v-for="text in available_periods" :key="text" flat :value="text">{{text}}</v-btn>
+          <v-btn v-for="text in available_periods" :key="text" text :value="text">{{text}}</v-btn>
         </v-btn-toggle>
 
         <v-layout row wrap>

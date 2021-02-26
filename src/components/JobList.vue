@@ -22,57 +22,40 @@
       :items="items"
       item-key="JobId"
       :search="search"
-      :rows-per-page-items="[15,50,100, {text:'All', value:-1}]"
-      disable-initial-sort
-      :select-all="can_select_anything"
+      :show-select="can_select_anything"
       v-model="selected"
     >
-      <template v-slot:items="props">
-        <tr
-          @click="props.selected = can_select(props.item) ? !props.selected : false"
-          :active="props.selected"
-        >
-          <td v-if="can_select_anything">
-            <v-checkbox
-              v-if="can_select(props.item)"
-              :input-value="props.selected"
-              primary
-              hide-details
-            />
-          </td>
-          <td>
-            <job-chip :job="props.item" />
-          </td>
-          <td>
-            <user-chip :login="props.item.UserName" />
-          </td>
-          <td>{{props.item.ArrayTaskId}}</td>
-          <td>{{props.item.JobName}}</td>
-          <td>
-            <v-tooltip right>
-              <template v-slot:activator="{ on }">
-                <span v-on="on">{{capitalize(props.item.JobState)}}</span>
-              </template>
-              Reason: {{props.item.Reason}}
-            </v-tooltip>
-          </td>
-          <td>
-            <span v-for="node in props.item.NodeNames" :key="node">
-              <router-link :to="`/${node}`">{{node}}</router-link>&nbsp;
-            </span>
-          </td>
-          <td>{{props.item.NumCPUs}}</td>
-          <td>
-            <duration :iso="props.item.RunTime" since />
-          </td>
-          <td>
-            <duration
-              :iso="props.item.StartTime === 'Unknown' ? props.item.SubmitTime : props.item.StartTime"
-              since
-            />
-          </td>
-        </tr>
+      <template v-slot:item.JobID="props">
+        <job-chip :job="props.item" />
       </template>
+
+      <template v-slot:item.UserName="props">
+        <user-chip :login="props.item.UserName" />
+      </template>
+
+      <template v-slot:item.JobState="props">
+        <v-tooltip right>
+          <template v-slot:activator="{ on }">
+            <span v-on="on">{{capitalize(props.item.JobState)}}</span>
+          </template>
+          Reason: {{props.item.Reason}}
+        </v-tooltip>
+      </template>
+
+      <template v-slot:item.NodeNames="props">
+        <span v-for="node in props.item.NodeNames" :key="node">
+          <router-link :to="`/${node}`">{{node}}</router-link>&nbsp;
+        </span>
+      </template>
+
+      <template v-slot:item.RunTime="props">
+        <duration :iso="props.item.RunTime" since />
+      </template>
+
+      <template v-slot:item.StartTime="props">
+        <duration :iso="props.item.StartTime === 'Unknown' ? props.item.SubmitTime : props.item.StartTime" since />
+      </template>
+
       <template slot="no-data">There are no jobs here.</template>
     </v-data-table>
   </v-card>

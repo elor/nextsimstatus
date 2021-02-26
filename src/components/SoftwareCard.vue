@@ -25,7 +25,7 @@
 
       <v-card-actions>
         <v-btn text :href="sanitized_href">Öffne {{title}}</v-btn>
-        <v-btn fab flat small :href="sanitized_href" target="_blank">
+        <v-btn fab text small :href="sanitized_href" target="_blank">
           <v-icon small>fa-external-link-alt</v-icon>
         </v-btn>
       </v-card-actions>

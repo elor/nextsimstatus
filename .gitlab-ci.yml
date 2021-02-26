@@ -35,6 +35,7 @@ build:docker-mainsimweb:
     - docker-compose push
 
 deploy:docker-mainsimweb:
+  only: master
   extends: .docker-compose
   stage: deploy
   script:
@@ -43,6 +44,7 @@ deploy:docker-mainsimweb:
     - docker-compose up --no-build --remove-orphans --detach
 
 deploy:mainsimweb:
+  only: master
   stage: deploy
   tags:
     - mainsimweb
@@ -53,6 +55,7 @@ deploy:mainsimweb:
     - rsync -arv --delete dist/ /var/www/html
 
 deploy:mainsim:
+  only: master
   stage: deploy
   tags:
     - mainsim

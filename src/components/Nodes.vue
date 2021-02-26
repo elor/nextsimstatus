@@ -28,56 +28,56 @@
         :items="nodestatus"
         item-key="NodeName"
         :search="searchterm"
-        hide-actions
-        :select-all="is_admin"
+        hide-default-footer
+        :items-per-page="-1"
+        :show-select="is_admin"
         v-model="selected"
       >
-        <template v-slot:items="props">
-          <tr @click="props.selected = !props.selected" :active="props.selected">
-            <td v-if="is_admin">
-              <v-checkbox :input-value="props.selected" primary hide-details />
-            </td>
-            <td>
-              <router-link :to="`/${props.item.NodeName}`">{{props.item.NodeName}}</router-link>
-            </td>
-            <td>
-              <v-progress-circular
-                :value="100*props.item.CPUAlloc/props.item.CPUTot"
-                :color="props.item.CPUAlloc == props.item.CPUTot ? 'light-blue' : 'green'"
-              >{{props.item.CPUAlloc}}</v-progress-circular>
-            </td>
-            <td>
-              <span v-for="job in props.item.pureJobs" :key="job.JobId">
-                <job-chip :job="job" />
-              </span>
-              <span v-for="array in props.item.jobArrays" :key="array.JobId">
-                <job-chip :job="array" />
-              </span>
-            </td>
-            <td>
-              <user-chip v-for="user in props.item.users" :key="user" :login="user" />
-            </td>
-            <td>
-              <cpu-load :load="Number(props.item.CPULoad)" :cores="Number(props.item.CPUTot)"></cpu-load>
-              <v-progress-circular
-                :value="100*(1 - props.item.FreeMem/props.item.RealMemory)"
-                :color="props.item.FreeMem < 0.1*props.item.RealMemory ? 'red' : 'light-blue'"
-              >{{Math.ceil((props.item.RealMemory-props.item.FreeMem)/1000)}}</v-progress-circular>
-            </td>
-            <td>{{props.item.Partitions}}</td>
-            <td>
-              <span v-for="state in props.item.States" :key="state">
-                <v-icon color="warning" v-if="isWarningState(state)" small>fa-exclamation-triangle</v-icon>
-                <v-icon color="error" v-if="isFailState(state)">fa-skull-crossbones</v-icon>
-                {{capitalize(state)}}
-                <span v-if="!props.item.State.endsWith(state)">&nbsp;</span>
-              </span>
-            </td>
-            <td>
-              <duration :iso="props.item.BootTime" since />
-            </td>
-          </tr>
+        <template v-slot:item.NodeName="props">
+          <router-link :to="`/${props.item.NodeName}`">{{props.item.NodeName}}</router-link>
         </template>
+
+        <template v-slot:item.CPUAlloc="props">
+          <v-progress-circular
+            :value="100*props.item.CPUAlloc/props.item.CPUTot"
+            :color="props.item.CPUAlloc == props.item.CPUTot ? 'light-blue' : 'green'"
+          >{{props.item.CPUAlloc}}</v-progress-circular>
+        </template>
+
+        <template v-slot:item.jobs="props">
+          <span v-for="job in props.item.pureJobs" :key="job.JobId">
+            <JobChip :job="job" />
+          </span>
+          <span v-for="array in props.item.jobArrays" :key="array.JobId">
+            <JobChip :job="array" />
+          </span>
+        </template>
+
+        <template v-slot:item.users="props">
+          <UserChip v-for="user in props.item.users" :key="user" :login="user" />
+        </template>
+
+        <template v-slot:item.CPULoad="props">
+          <cpu-load :load="Number(props.item.CPULoad)" :cores="Number(props.item.CPUTot)"></cpu-load>
+          <v-progress-circular
+            :value="100*(1 - props.item.FreeMem/props.item.RealMemory)"
+            :color="props.item.FreeMem < 0.1*props.item.RealMemory ? 'red' : 'light-blue'"
+          >{{Math.ceil((props.item.RealMemory-props.item.FreeMem)/1000)}}</v-progress-circular>
+        </template>
+
+        <template v-slot:item.State="props">
+          <span v-for="state in props.item.States" :key="state">
+            <v-icon color="warning" v-if="isWarningState(state)" small>fa-exclamation-triangle</v-icon>
+            <v-icon color="error" v-if="isFailState(state)">fa-skull-crossbones</v-icon>
+            {{capitalize(state)}}
+            <span v-if="!props.item.State.endsWith(state)">&nbsp;</span>
+          </span>
+        </template>
+
+        <template v-slot:item.BootTime="props">
+          <duration :iso="props.item.BootTime" since />
+        </template>
+
       </v-data-table>
     </v-card>
   </v-container>

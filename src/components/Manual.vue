@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import commonmark from 'commonmark'
+import { Parser, HtmlRenderer } from 'commonmark'
 import manual from '@/manual'
 
 export default {
@@ -46,8 +46,8 @@ export default {
   },
   methods: {
     parse (markdown) {
-      const reader = new commonmark.Parser()
-      const writer = new commonmark.HtmlRenderer()
+      const reader = new Parser()
+      const writer = new HtmlRenderer()
       return writer.render(reader.parse(markdown))
     }
   }
