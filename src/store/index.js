@@ -192,9 +192,9 @@ export default new Vuex.Store({
           !pc.datetime || state.dates.now - new Date(pc.datetime) > TEN_SECONDS,
         lastupdate: pc.datetime
           ? Math.max(
-              0,
-              Math.floor((state.dates.now - new Date(pc.datetime)) / 1000)
-            )
+            0,
+            Math.floor((state.dates.now - new Date(pc.datetime)) / 1000)
+          )
           : undefined,
         isoldrelease: DEPRECATED_RELEASES.includes(pc.release),
         load_1min: pc.load && Number(pc.load[0]),
