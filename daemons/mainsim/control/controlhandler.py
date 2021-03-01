@@ -19,6 +19,8 @@ class ControlHandler(BaseHTTPRequestHandler):
             self.handle_jobs()
         elif self.path == '/control/logs':
             self.handle_logs()
+        elif self.path == '/control/jobscripts':
+            self.handle_jobscripts()
         else:
             self.send_error(404)
 
@@ -117,6 +119,41 @@ class ControlHandler(BaseHTTPRequestHandler):
             user = None if self.is_admin() else self.current_user
             lines = self.params['lines'] if 'lines' in self.params else None
             output = [jobs.log(job, lines=lines, user=user)
+                      for job in self.jobs]
+
+        except OSError, err:
+            self.send_error(
+                500, 'OSError: {} while reading job logs'.format(err))
+            return
+        except RuntimeError, err:
+            self.send_error(
+                500, 'RuntimeError {} while reading job logs'.format(err))
+            return
+
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(json.dumps(output))
+
+    def handle_jobscripts(self):
+        if not self.current_user:
+            self.send_error(403, 'You are not logged in')
+            return
+
+        try:
+            for job in self.jobs:
+                jobs.test(str(job), self.current_user, self.is_admin())
+        except OSError, err:
+            self.send_error(
+                500, 'OSError: {} (while testing job definition `{}`'.format(err, self.jobs))
+            return
+        except RuntimeError, err:
+            self.send_error(
+                500, 'Invalid job query: `{}`. {}'.format(self.jobs, err))
+            return
+
+        try:
+            user = None if self.is_admin() else self.current_user
+            output = [jobs.jobscript(job, user=user)
                       for job in self.jobs]
 
         except OSError, err:

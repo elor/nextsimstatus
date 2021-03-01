@@ -14,8 +14,8 @@ COMMAND_BY_ACTION = {
 
 
 def test(jobs, user, is_admin):
-    command = COMMAND_BY_ACTION['test'](jobs)
-    return_code, out, err = run_command(command)
+    test_command = COMMAND_BY_ACTION['test'](jobs)
+    return_code, out, err = run_command(test_command)
     if return_code:
         raise RuntimeError(
             'NonZero Return Code {}: {}'.format(return_code, err))
@@ -82,7 +82,23 @@ def log(jobid, lines=20, user=None):
     }
 
 
-if __name__ == "__main__":
+def jobscript(jobid, user=None):
+    return_code, out, err = run_command(
+        ['scontrol', 'write', 'batch_script', str(jobid), '/dev/stdout'], user=user)
+    if return_code:
+        raise RuntimeError(
+            'NonZero Return Code {}: {}'.format(return_code, err))
+    return {
+        "JobId": jobid,
+        "JobScript": out
+    }
+
+
+def main():
     from sys import argv, exit
     cmd, jobs, user = argv
-    print test(jobs, user, user == config.ADMIN_GROUP)
+    print(test(jobs, user, user == config.ADMIN_GROUP))
+
+
+if __name__ == "__main__":
+    main()

@@ -323,10 +323,9 @@ export default new Vuex.Store({
         state.joblogs[index] = object
       }
     },
-    updateJobScript (state, { JobId, JobScriptFile, JobScript }) {
+    updateJobScript (state, { JobId, JobScript }) {
       const object = {
         JobId,
-        JobScriptFile,
         JobScript
       }
 

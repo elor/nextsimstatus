@@ -31,8 +31,7 @@
       <v-subheader v-if="logs && logs.StdErrFile">StdErr: {{logs.StdErrFile}}</v-subheader>
       <v-subheader v-else>StdErr</v-subheader>
       <pre>{{StdErr}}</pre>
-      <v-subheader v-if="jobscript && jobscript.JobScriptFile">JobScript: {{jobscript.JobScriptFile}}</v-subheader>
-      <v-subheader v-else>JobScript</v-subheader>
+      <v-subheader>JobScript: {{job ? sanitizePath(job.Command) : 'retrieving...'}}</v-subheader>
       <pre>{{JobScript}}</pre>
     </div>
     <div v-else>
@@ -108,6 +107,20 @@ export default {
   },
   methods: {
     ...mapActions(['controlLogs', 'controlJobScript']),
+    sanitizePath (path, root = '') {
+      if (!path) {
+        return root || 'undefined'
+      }
+      if (path.startsWith(root)) {
+        path = path.substr(root.length)
+      }
+      const beegfshomeusers = '/beegfs-home/users/'
+      if (path.startsWith(beegfshomeusers)) {
+        path = `~${path.substr(beegfshomeusers.length)}`
+      }
+
+      return path
+    },
     fetchLogs () {
       if (!this.job) {
         return

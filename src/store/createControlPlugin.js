@@ -51,9 +51,9 @@ export default function createControlPlugin () {
           control(config.mainsim.jobscriptURL, state.jwtToken, action.payload)
             .then(({ status, data }) => { store.commit('updateControl', status, data); return data })
             .then(jobScript => jobScript.forEach(
-              ({ JobId, JobScriptFile, JobScript }) => store.commit('updateJobScript', { JobId, JobScriptFile, JobScript })))
+              ({ JobId, JobScript }) => store.commit('updateJobScript', { JobId, JobScript })))
             .catch(errorMessage => action.payload.jobs.forEach(JobId => {
-              store.commit('updateJobScript', { JobId, JobScriptFile: '<error>', JobScript: errorMessage })
+              store.commit('updateJobScript', { JobId, JobScript: errorMessage })
             }))
           break
       }
