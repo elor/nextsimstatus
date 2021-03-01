@@ -4,7 +4,8 @@ const config = {
   mainsim: {
     nodesURL: 'https://mainsim.etit.tu-chemnitz.de/control/nodes',
     jobsURL: 'https://mainsim.etit.tu-chemnitz.de/control/jobs',
-    logsURL: 'https://mainsim.etit.tu-chemnitz.de/control/logs'
+    logsURL: 'https://mainsim.etit.tu-chemnitz.de/control/logs',
+    jobscriptURL: 'https://mainsim.etit.tu-chemnitz.de/control/jobscript'
   }
 }
 
@@ -44,6 +45,15 @@ export default function createControlPlugin () {
               ({ JobId, StdOutFile, StdOut, StdErrFile, StdErr }) => store.commit('updateJobLog', { JobId, StdOutFile, StdOut, StdErrFile, StdErr })))
             .catch(errorMessage => action.payload.jobs.forEach(JobId => {
               store.commit('updateJobLog', { JobId, StdOutFile: '<error>', StdOut: errorMessage, StdErrFile: '<error>', StdErr: errorMessage })
+            }))
+          break
+        case 'controlJobScript':
+          control(config.mainsim.jobscriptURL, state.jwtToken, action.payload)
+            .then(({ status, data }) => { store.commit('updateControl', status, data); return data })
+            .then(jobScript => jobScript.forEach(
+              ({ JobId, JobScriptFile, JobScript }) => store.commit('updateJobScript', { JobId, JobScriptFile, JobScript })))
+            .catch(errorMessage => action.payload.jobs.forEach(JobId => {
+              store.commit('updateJobScript', { JobId, JobScriptFile: '<error>', JobScript: errorMessage })
             }))
           break
       }

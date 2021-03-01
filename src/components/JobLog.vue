@@ -31,6 +31,9 @@
       <v-subheader v-if="logs && logs.StdErrFile">StdErr: {{logs.StdErrFile}}</v-subheader>
       <v-subheader v-else>StdErr</v-subheader>
       <pre>{{StdErr}}</pre>
+      <v-subheader v-if="jobscript && jobscript.JobScriptFile">JobScript: {{jobscript.JobScriptFile}}</v-subheader>
+      <v-subheader v-else>JobScript</v-subheader>
+      <pre>{{JobScript}}</pre>
     </div>
     <div v-else>
       Melde dich an, um deine Logs zu sehen:
@@ -58,7 +61,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user', 'joblogs']),
+    ...mapState(['user', 'joblogs', 'jobscripts']),
     ...mapGetters(['is_admin']),
     jobid () {
       return this.job.JobId
@@ -75,11 +78,17 @@ export default {
     logs () {
       return this.joblogs.filter(logs => logs.JobId === this.jobid)[0]
     },
+    jobscript () {
+      return this.jobscripts.filter(jobscript => jobscript.JobId === this.jobid)[0]
+    },
     StdOut () {
       return this.logs ? this.logs.StdOut : 'Retrieving logs...'
     },
     StdErr () {
       return this.logs ? this.logs.StdErr : 'Retrieving logs...'
+    },
+    JobScript () {
+      return this.jobscript ? this.jobscript.JobScript : 'Retrieving job script...'
     }
   },
   watch: {
@@ -98,7 +107,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['controlLogs']),
+    ...mapActions(['controlLogs', 'controlJobScript']),
     fetchLogs () {
       if (!this.job) {
         return
@@ -110,10 +119,22 @@ export default {
 
       this.refreshing = true
       this.controlLogs({ jobs: [this.jobid], lines: this.lines })
+    },
+    fetchScript () {
+      if (!this.job) {
+        return
+      }
+      if (!this.can_control) {
+        console.log('cannot control')
+        return
+      }
+
+      this.controlJobScript({ jobs: [this.jobid], lines: this.lines })
     }
   },
   mounted () {
     this.fetchLogs()
+    this.fetchScript()
     this.interval = window.setInterval(() => this.fetchLogs(), 5000)
   },
   beforeDestroy () {

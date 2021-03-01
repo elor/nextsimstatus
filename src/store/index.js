@@ -55,6 +55,7 @@ export default new Vuex.Store({
     nodes: [],
     jobs: [],
     joblogs: [],
+    jobscripts: [],
     racks: [],
     errors: [],
     nodecpus: { allocated: 0, free: 0, error: 0, total: 0, drain: 0, fail: 0 },
@@ -322,6 +323,21 @@ export default new Vuex.Store({
         state.joblogs[index] = object
       }
     },
+    updateJobScript (state, { JobId, JobScriptFile, JobScript }) {
+      const object = {
+        JobId,
+        JobScriptFile,
+        JobScript
+      }
+
+      console.log(JobId)
+      const index = state.jobscripts.findIndex(script => script.JobId === JobId)
+      if (index === -1) {
+        state.jobscripts.push(object)
+      } else {
+        state.jobscripts[index] = object
+      }
+    },
     clearErrors (state) {
       state.errors = []
     },
@@ -341,7 +357,8 @@ export default new Vuex.Store({
     verifyToken () { },
     controlNodes ({ action, nodes }) { },
     controlJobs ({ action, jobs }) { },
-    controlLogs ({ jobs }) { }
+    controlLogs ({ jobs }) { },
+    controlJobScript ({ jobs }) { }
   },
 
   plugins: [
