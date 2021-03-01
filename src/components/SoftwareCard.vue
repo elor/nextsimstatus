@@ -11,7 +11,7 @@
       <v-flex>
         <v-card-title class="pb-0">
           <v-img class="align-end" height="100px" :src="sanitized_src" contain>
-            <h1 v-if="!hidetitle">{{title}}</h1>
+            <h3 v-if="!hidetitle">{{title}}</h3>
           </v-img>
           <GroupChip :group="usergroup" v-if="usergroup" class="float-right ma-2" />
         </v-card-title>
