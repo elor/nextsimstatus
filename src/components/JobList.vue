@@ -25,7 +25,7 @@
       :show-select="can_select_anything"
       v-model="selected"
     >
-      <template v-slot:item.JobID="props">
+      <template v-slot:item.JobId="props">
         <job-chip :job="props.item" />
       </template>
 

@@ -39,7 +39,7 @@
           <grid-card title="Nodes">
             <template v-if="BatchHostNode" slot="icon">
               <v-subheader>BatchHost:</v-subheader>
-              <node-load :node="BatchHostNode"></node-load>
+              <node-load :node="BatchHostNode" class="text-body-2 text-no-wrap"></node-load>
             </template>
             <div v-if="Job.NodeNames">
               <node-load v-for="node in nodes" :key="node.NodeName" :node="node"></node-load>

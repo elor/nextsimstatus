@@ -1,14 +1,14 @@
 <template>
   <v-container fluid>
     <v-text-field append-icon="fa-search" label="Search" single-line hide-details v-model="search"></v-text-field>
-    <v-expansion-panel v-model="panel" expand inset focusable>
-      <v-expansion-panel-content v-for="item in parsed_items" :key="item.title">
-        <h3 slot="header">{{item.title}}</h3>
-        <v-card>
-          <v-card-text v-html="item.html"></v-card-text>
-        </v-card>
-      </v-expansion-panel-content>
-    </v-expansion-panel>
+    <v-expansion-panels multiple inset v-model="panels">
+      <v-expansion-panel v-for="item in parsed_items" :key="item.title">
+        <v-expansion-panel-header>{{item.title}}</v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <div v-html="item.html"/>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
   </v-container>
 </template>
 
@@ -20,7 +20,8 @@ export default {
   data () {
     return {
       items: manual,
-      search: ''
+      search: '',
+      panels: [0]
     }
   },
   computed: {

@@ -19,18 +19,17 @@
         <v-toolbar-title v-show="!miniVariant">MainSim</v-toolbar-title>
       </v-toolbar>
 
-      <v-list>
-        <template v-for="route in items">
-          <v-list-item v-ripple :key="route.path" :to="route.path" v-if="!route.hidden">
-            <v-list-item-action>
-              <v-icon v-html="route.icon"></v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title v-text="route.name"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </template>
+      <v-list dense nav>
+        <v-list-item v-for="route in items.filter(route=>!route.hidden)" v-ripple :key="route.path" :to="route.path" link>
+          <v-list-item-icon :class="{'justify-center': miniVariant}">
+            <v-icon dense>{{ route.icon }}</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>{{route.name}}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
+
     </v-navigation-drawer>
 
     <v-app-bar app absolute dark color="primary">

@@ -16,9 +16,11 @@
           </grid-card>
         </v-layout>
 
-        <v-btn-toggle v-model="period" mandatory>
-          <v-btn v-for="text in available_periods" :key="text" text :value="text">{{text}}</v-btn>
-        </v-btn-toggle>
+        <v-container>
+          <v-btn-toggle v-model="period" mandatory>
+            <v-btn v-for="text in available_periods" :key="text" text :value="text">{{text}}</v-btn>
+          </v-btn-toggle>
+        </v-container>
 
         <v-layout row wrap>
           <grid-card
@@ -29,6 +31,11 @@
           >
             <v-img :alt="key" :src="ganglia_chart(key, period)" />
           </grid-card>
+
+          <SoftwareCard title="Grafana" hidetitle href="https://mainsimweb.etit.tu-chemnitz.de/grafana">
+            Mehr:<br>
+            System-Monitorung und Zeitreihenanalyse mit Grafana
+          </SoftwareCard>
         </v-layout>
       </v-card-text>
     </v-card>
@@ -41,12 +48,14 @@ import { mapGetters } from 'vuex'
 import GridCard from '@/components/GridCard'
 import CoresPieChart from '@/components/CoresPieChart'
 import QuotaPieChart from '@/components/QuotaPieChart'
+import SoftwareCard from '@/components/SoftwareCard'
 
 export default {
   components: {
     GridCard,
     CoresPieChart,
-    QuotaPieChart
+    QuotaPieChart,
+    SoftwareCard
   },
   data () {
     return {
