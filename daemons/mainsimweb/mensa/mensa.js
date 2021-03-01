@@ -21,7 +21,7 @@ function filterPlan ({ datum, essen }) {
   const filtered = {
     datum,
     datum_str: formatMenuDate(datum),
-    essen: essen.map(filterEssen)
+    essen: (essen||[]).map(filterEssen)
   }
   return filtered
 }
