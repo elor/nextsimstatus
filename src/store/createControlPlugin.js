@@ -5,7 +5,7 @@ const config = {
     nodesURL: 'https://mainsim.etit.tu-chemnitz.de/control/nodes',
     jobsURL: 'https://mainsim.etit.tu-chemnitz.de/control/jobs',
     logsURL: 'https://mainsim.etit.tu-chemnitz.de/control/logs',
-    jobscriptURL: 'https://mainsim.etit.tu-chemnitz.de/control/jobscript'
+    jobscriptURL: 'https://mainsim.etit.tu-chemnitz.de/control/jobscripts'
   }
 }
 

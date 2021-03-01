@@ -329,7 +329,6 @@ export default new Vuex.Store({
         JobScript
       }
 
-      console.log(JobId)
       const index = state.jobscripts.findIndex(script => script.JobId === JobId)
       if (index === -1) {
         state.jobscripts.push(object)

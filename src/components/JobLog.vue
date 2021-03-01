@@ -22,7 +22,7 @@
               label="Lines"
               :items="[20, 50, 200, 1000, { text: 'All', value: 987654321 }]"
               v-model="lines"
-              @change="fetchLogs"
+              @change="fetch"
             ></v-select>
           </v-subheader>
         </v-flex>
@@ -31,8 +31,8 @@
       <v-subheader v-if="logs && logs.StdErrFile">StdErr: {{logs.StdErrFile}}</v-subheader>
       <v-subheader v-else>StdErr</v-subheader>
       <pre>{{StdErr}}</pre>
-      <v-subheader>JobScript: {{job ? sanitizePath(job.Command) : 'retrieving...'}}</v-subheader>
-      <pre>{{JobScript}}</pre>
+      <v-subheader>JobScript: {{job ? sanitizePath(job.Command) : 'Retrieving...'}}</v-subheader>
+      <pre @click="fetchScript">{{JobScript || 'Retrieving...'}}</pre>
     </div>
     <div v-else>
       Melde dich an, um deine Logs zu sehen:
@@ -77,28 +77,26 @@ export default {
     logs () {
       return this.joblogs.filter(logs => logs.JobId === this.jobid)[0]
     },
-    jobscript () {
-      return this.jobscripts.filter(jobscript => jobscript.JobId === this.jobid)[0]
+    JobScript () {
+      const job = this.jobscripts.filter(jobscript => jobscript.JobId === this.jobid)[0]
+      return job && job.JobScript
     },
     StdOut () {
       return this.logs ? this.logs.StdOut : 'Retrieving logs...'
     },
     StdErr () {
       return this.logs ? this.logs.StdErr : 'Retrieving logs...'
-    },
-    JobScript () {
-      return this.jobscript ? this.jobscript.JobScript : 'Retrieving job script...'
     }
   },
   watch: {
     job (after, before) {
       if (!before && after) {
-        this.fetchLogs()
+        this.fetch()
       }
     },
     can_control (after, before) {
       if (!before && after) {
-        this.fetchLogs()
+        this.fetch()
       }
     },
     logs () {
@@ -143,12 +141,18 @@ export default {
       }
 
       this.controlJobScript({ jobs: [this.jobid], lines: this.lines })
+    },
+    fetch () {
+      this.fetchLogs()
+
+      if (!this.JobScript) {
+        this.fetchScript()
+      }
     }
   },
   mounted () {
-    this.fetchLogs()
-    this.fetchScript()
-    this.interval = window.setInterval(() => this.fetchLogs(), 5000)
+    this.fetch()
+    this.interval = window.setInterval(() => this.fetch(), 5000)
   },
   beforeDestroy () {
     window.clearInterval(this.interval)
