@@ -39,8 +39,6 @@
           href="https://webroom.hrz.tu-chemnitz.de"
         >Zuverlässige Videokonferenz- und Screensharing Lösung der Uni</SoftwareCard>
 
-        <SoftwareCard title="Jitsi">Videokonferenzen und Screensharing direkt über Mainsim</SoftwareCard>
-
         <SoftwareCard
           usergroup="enas"
           title="ENAS-Intranet"
