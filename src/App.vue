@@ -9,32 +9,31 @@
       app
     >
       <v-toolbar dark color="primary">
-        <v-toolbar-side-icon v-if="isMobile" @click.stop="mobileDrawer = !mobileDrawer">
+        <v-app-bar-nav-icon v-if="isMobile" @click.stop="mobileDrawer = !mobileDrawer">
           <v-icon>fa-chevron-left</v-icon>
-        </v-toolbar-side-icon>
-        <v-toolbar-side-icon v-else @click.stop="miniVariant = !miniVariant">
+        </v-app-bar-nav-icon>
+        <v-app-bar-nav-icon v-else @click.stop="miniVariant = !miniVariant">
           <v-icon v-if="miniVariant">fa-bars</v-icon>
           <v-icon v-else>fa-chevron-left</v-icon>
-        </v-toolbar-side-icon>
+        </v-app-bar-nav-icon>
         <v-toolbar-title v-show="!miniVariant">MainSim</v-toolbar-title>
       </v-toolbar>
 
-      <v-list>
-        <template v-for="route in items">
-          <v-list-tile v-ripple :key="route.path" :to="route.path" v-if="!route.hidden">
-            <v-list-tile-action>
-              <v-icon v-html="route.icon"></v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title v-text="route.name"></v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </template>
+      <v-list dense nav>
+        <v-list-item v-for="route in items.filter(route=>!route.hidden)" v-ripple :key="route.path" :to="route.path" link>
+          <v-list-item-icon :class="{'justify-center': miniVariant}">
+            <v-icon dense>{{ route.icon }}</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>{{route.name}}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
+
     </v-navigation-drawer>
 
-    <v-toolbar app absolute dark color="primary">
-      <v-toolbar-side-icon v-if="isMobile" @click.stop="mobileDrawer = !mobileDrawer"></v-toolbar-side-icon>
+    <v-app-bar app absolute dark color="primary">
+      <v-app-bar-nav-icon v-if="isMobile" @click.stop="mobileDrawer = !mobileDrawer"></v-app-bar-nav-icon>
 
       <login-menu></login-menu>
 
@@ -57,7 +56,6 @@
 
       <error-snack v-for="(error, index) of errors" :key="index" :error="error" />
 
-      <v-chip v-model="update_available" close>Update available</v-chip>
       {{dates.now.toLocaleString()}}
       <v-btn
         :disabled="updating"
@@ -68,11 +66,11 @@
       >
         <v-icon @click.stop="refresh">fa-sync</v-icon>
       </v-btn>
-    </v-toolbar>
+    </v-app-bar>
 
-    <v-content>
+    <v-main>
       <router-view />
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
@@ -86,8 +84,7 @@ export default {
   data () {
     return {
       mobileDrawer: false,
-      miniVariant: true,
-      update_available: false
+      miniVariant: true
     }
   },
   components: {
@@ -109,7 +106,7 @@ export default {
       }
     },
     isMobile () {
-      return this.$vuetify.breakpoint.mdAndDown
+      return this.$vuetify.breakpoint.mobile
     },
     items () {
       return this.$router.options.routes.filter(

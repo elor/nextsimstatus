@@ -15,29 +15,31 @@
           </v-flex>
         </v-layout>
       </v-card-title>
-      <v-data-table :headers="headers" :items="userstatus" :search="search" hide-actions>
-        <template slot="items" slot-scope="props">
-          <td>
-            <user-chip :login="props.item.UserName" />
-          </td>
-          <td>
-            <span v-for="pc in props.item.PCs" :key="pc.number">
-              <router-link
-                :class="{'grey--text':pc.inactive}"
-                :to="`/simpc${pc.number}`"
-              >{{pc.hostname}}</router-link>&nbsp;
-            </span>
-          </td>
-          <td>
-            <router-link :to="`/users/${props.item.UserName}`">{{props.item.JobCount.Running}}</router-link>
-          </td>
-          <td>{{props.item.NumCPUs}}</td>
-          <td>
-            <node-load v-for="node in nodes(props.item)" :key="node.NodeName" :node="node"></node-load>
-          </td>
-          <td>
-            <router-link :to="`/users/${props.item.UserName}`">{{props.item.JobCount.Other}}</router-link>
-          </td>
+      <v-data-table :headers="headers" :items="userstatus" :search="search" :items-per-page="-1" hide-default-footer>
+
+        <template v-slot:item.UserName="props">
+          <user-chip :login="props.item.UserName" />
+        </template>
+
+        <template v-slot:item.PCNames="props">
+          <span v-for="pc in props.item.PCs" :key="pc.number">
+            <router-link
+              :class="{'grey--text':pc.inactive}"
+              :to="`/simpc${pc.number}`"
+            >{{pc.hostname}}</router-link>&nbsp;
+          </span>
+        </template>
+
+        <template v-slot:item.JobCount.Running="props">
+          <router-link :to="`/users/${props.item.UserName}`">{{props.item.JobCount.Running}}</router-link>
+        </template>
+
+        <template v-slot:item.NodeNames="props">
+          <node-load v-for="node in nodes(props.item)" :key="node.NodeName" :node="node"></node-load>
+        </template>
+
+        <template v-slot:item.JobCount.Other="props">
+          <router-link :to="`/users/${props.item.UserName}`">{{props.item.JobCount.Other}}</router-link>
         </template>
       </v-data-table>
     </v-card>

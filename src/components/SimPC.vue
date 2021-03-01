@@ -11,9 +11,9 @@
         <v-layout v-if="SimPC" row wrap>
           <grid-card title="CPU/RAM">
             <template slot="icon">
-              <cpu-load precise :load="SimPC.load_1min" :cores="SimPC.cores" />
-              <cpu-load precise :load="SimPC.load_5min" :cores="SimPC.cores" />
-              <cpu-load precise :load="SimPC.load_15min" :cores="SimPC.cores" />
+              <cpu-load precise :load="SimPC.load_1min" :cores="SimPC.cores" class="text-body-2 text-no-wrap"/>
+              <cpu-load precise :load="SimPC.load_5min" :cores="SimPC.cores" class="text-body-2 text-no-wrap"/>
+              <cpu-load precise :load="SimPC.load_15min" :cores="SimPC.cores" class="text-body-2 text-no-wrap"/>
             </template>
             <a href="https://en.wikipedia.org/wiki/Load_(computing)">Load</a>
             1min:
@@ -52,13 +52,17 @@
             <div>
               Updates:
               <v-tooltip v-if="SimPC.updates > 10" bottom>
-                <v-icon color="warning" slot="activator">fa-exclamation-triangle</v-icon>
+                <template v-slot:activator="{on}">
+                  <v-icon v-on="on" color="warning">fa-exclamation-triangle</v-icon>
+                </template>
                 <span>Reboot Required</span>
               </v-tooltip>
               <span v-if="SimPC.updates">{{SimPC.updates}} available</span>
               <span v-else>up-to-date</span>
               <v-tooltip v-if="SimPC.rebootrequired" bottom>
-                <v-icon color="warning" slot="activator">fa-fire</v-icon>
+                <template v-slot:activator="{on}">
+                  <v-icon v-on="on" color="warning">fa-fire</v-icon>
+                </template>
                 <span>Reboot Required</span>
               </v-tooltip>
             </div>

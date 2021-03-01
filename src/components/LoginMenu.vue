@@ -1,20 +1,22 @@
 <template>
   <v-dialog max-width="300px" v-model="dialog">
-    <v-chip
-      slot="activator"
-      size="24"
-      :color="logged_in || light ? 'white' : 'primary'"
-      :text-color="logged_in || light ? 'primary' : 'dark'"
-    >
-      <v-icon :color="usercolor" class="mr-1">fa-user-circle</v-icon>
-      {{user.login || 'login'}}
-      <v-tooltip bottom v-if="is_admin">
-        <template v-slot:activator="{ on }">
-          <v-icon small v-on="on">fa-star</v-icon>
-        </template>
-        <span>simadmin</span>
-      </v-tooltip>
-    </v-chip>
+    <template v-slot:activator="{ on }">
+      <v-chip
+        v-on="on"
+        size="24"
+        :color="logged_in || light ? 'white' : 'primary'"
+        :text-color="logged_in || light ? 'primary' : 'dark'"
+      >
+        <v-icon :color="usercolor" class="mr-1">fa-user-circle</v-icon>
+        {{user.login || 'login'}}
+        <v-tooltip bottom v-if="is_admin">
+          <template v-slot:activator="{ on }">
+            <v-icon small v-on="on">fa-star</v-icon>
+          </template>
+          <span>simadmin</span>
+        </v-tooltip>
+      </v-chip>
+    </template>
 
     <v-card v-if="logged_in">
       <v-card-title class="headline">
@@ -27,25 +29,25 @@
       <v-card-text>
         <v-list subheader>
           <v-subheader>Meine Seiten</v-subheader>
-          <v-list-tile :to="pages.user" @click="dialog=false">
-            <v-list-tile-action>
+          <v-list-item :to="pages.user" @click="dialog=false">
+            <v-list-item-action>
               <v-icon :color="usercolor">fa-user</v-icon>
-            </v-list-tile-action>
+            </v-list-item-action>
             {{user.login}}
-          </v-list-tile>
+          </v-list-item>
         </v-list>
       </v-card-text>
 
       <v-card-text>
         <v-list subheader>
           <v-subheader>Meine Gruppen</v-subheader>
-          <v-list-tile v-for="group in user.groups" :key="group">
-            <v-list-tile-action>
+          <v-list-item v-for="group in user.groups" :key="group">
+            <v-list-item-action>
               <v-icon v-if="is_admin_group(group)" :color="groupcolor(group)">fa-star</v-icon>
               <v-icon v-else :color="groupcolor(group)">fa-user-friends</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>{{group}}</v-list-tile-content>
-          </v-list-tile>
+            </v-list-item-action>
+            <v-list-item-content>{{group}}</v-list-item-content>
+          </v-list-item>
         </v-list>
       </v-card-text>
 

@@ -1,19 +1,19 @@
 <template>
   <v-list>
     <template v-for="error in errors">
-      <v-list-tile :key="error.message || ''">
-        <v-list-tile-content>
-          <v-list-tile-title v-text="error.message"></v-list-tile-title>
-          <v-list-tile-sub-title v-text="error.date.toLocaleString()"></v-list-tile-sub-title>
-        </v-list-tile-content>
-      </v-list-tile>
+      <v-list-item :key="error.message || ''">
+        <v-list-item-content>
+          <v-list-item-title v-text="error.message"></v-list-item-title>
+          <v-list-item-sub-title v-text="error.date.toLocaleString()"></v-list-item-sub-title>
+        </v-list-item-content>
+      </v-list-item>
       <v-divider :key="`${error.message || ''}-divider`"></v-divider>
     </template>
-    <v-list-tile>
-      <v-list-tile-sub-title class="text-xs-center">
+    <v-list-item>
+      <v-list-item-sub-title class="text-xs-center">
         {{errors.length}} errors captured
-      </v-list-tile-sub-title>
-    </v-list-tile>
+      </v-list-item-sub-title>
+    </v-list-item>
   </v-list>
 </template>
 

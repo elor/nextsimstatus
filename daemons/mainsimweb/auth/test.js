@@ -1,7 +1,7 @@
 const ldap = require('./ldap')
 const jwt = require('./jwt')
 
-ldap.login('t.user', 't.password')
+ldap.login('t.user', 't.passwd')
   .then(ldapMatch => {
     console.log(ldapMatch)
     return jwt.sign(ldapMatch)

@@ -1,7 +1,7 @@
 <template>
   <v-flex lg3 md4 sm6 xs12>
     <v-card class="gridcard ma-2" :class="{'wrap': wrap}" :style="style" :href="href">
-      <v-card-title v-if="title" class="pb-0">
+      <v-card-title v-if="title">
         <v-layout row>
           <v-subheader>{{title}}</v-subheader>
           <v-spacer></v-spacer>

@@ -1,26 +1,27 @@
 <template>
   <v-container fluid>
     <v-text-field append-icon="fa-search" label="Search" single-line hide-details v-model="search"></v-text-field>
-    <v-expansion-panel v-model="panel" expand inset focusable>
-      <v-expansion-panel-content v-for="item in parsed_items" :key="item.title">
-        <h3 slot="header">{{item.title}}</h3>
-        <v-card>
-          <v-card-text v-html="item.html"></v-card-text>
-        </v-card>
-      </v-expansion-panel-content>
-    </v-expansion-panel>
+    <v-expansion-panels multiple inset v-model="panels">
+      <v-expansion-panel v-for="item in parsed_items" :key="item.title">
+        <v-expansion-panel-header>{{item.title}}</v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <div v-html="item.html"/>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
   </v-container>
 </template>
 
 <script>
-import commonmark from 'commonmark'
+import { Parser, HtmlRenderer } from 'commonmark'
 import manual from '@/manual'
 
 export default {
   data () {
     return {
       items: manual,
-      search: ''
+      search: '',
+      panels: [0]
     }
   },
   computed: {
@@ -46,8 +47,8 @@ export default {
   },
   methods: {
     parse (markdown) {
-      const reader = new commonmark.Parser()
-      const writer = new commonmark.HtmlRenderer()
+      const reader = new Parser()
+      const writer = new HtmlRenderer()
       return writer.render(reader.parse(markdown))
     }
   }

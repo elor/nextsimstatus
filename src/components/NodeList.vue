@@ -1,10 +1,12 @@
 <template>
   <v-dialog v-model="dialog" max-width="500">
-    <v-btn slot="activator" flat color="primary" outline>
-      NodeLS
-      &nbsp;
-      <v-icon small>fa-tag</v-icon>
-    </v-btn>
+    <template v-slot:activator="{on}">
+      <v-btn v-on="on" text color="primary" outlined>
+        NodeLS
+        &nbsp;
+        <v-icon small>fa-tag</v-icon>
+      </v-btn>
+    </template>
     <v-card>
       <v-toolbar dark color="primary">
         <v-btn icon @click.native="dialog = false" dark>

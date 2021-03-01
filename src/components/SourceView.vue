@@ -1,10 +1,12 @@
 <template>
   <v-dialog v-model="dialog" scrollable>
-    <v-btn slot="activator" flat color="primary" outline>
-      <slot name="button-content">
-        <v-icon small class="mr-1">fa-code</v-icon>View Source
-      </slot>
-    </v-btn>
+    <template v-slot:activator="{on}">
+      <v-btn v-on="on" text color="primary" outlined>
+        <slot name="button-content">
+          <v-icon small class="mr-1">fa-code</v-icon>View Source
+        </slot>
+      </v-btn>
+    </template>
 
     <v-card @keyup.esc="close">
       <v-toolbar dark color="primary">

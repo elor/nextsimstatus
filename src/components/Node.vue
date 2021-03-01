@@ -16,17 +16,20 @@
               <v-progress-circular
                 :value="100*Node.CPUAlloc/Node.CPUTot"
                 :color="Node.CPUAlloc == Node.CPUTot ? 'light-blue' : 'green'"
+                class="text-body-2 text-no-wrap"
               >{{Node.CPUAlloc}}</v-progress-circular>
-              <cpu-load :load="Number(Node.CPULoad)" :cores="Number(Node.CPUTot)"></cpu-load>
+              <cpu-load :load="Number(Node.CPULoad)" :cores="Number(Node.CPUTot)" class="text-body-2 text-no-wrap"></cpu-load>
               <v-progress-circular
                 :value="MemPercent"
                 :color="MemPercent > 90 ? 'red' : 'light-blue'"
+                class="text-body-2 text-no-wrap"
               >{{MemGig}}</v-progress-circular>
               <v-progress-circular
                 v-for="gres in Gres"
                 :key="gres.ressource"
                 :value="gres.percent"
                 color="light-blue"
+                class="text-body-2 text-no-wrap"
               >{{gres.jobs}}/{{gres.total}}</v-progress-circular>
             </template>
             {{Node.CPUAlloc}} / {{Node.CPUTot}} allocated

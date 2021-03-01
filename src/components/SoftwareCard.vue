@@ -11,7 +11,7 @@
       <v-flex>
         <v-card-title class="pb-0">
           <v-img class="align-end" height="100px" :src="sanitized_src" contain>
-            <h1 v-if="!hidetitle">{{title}}</h1>
+            <h3 v-if="!hidetitle">{{title}}</h3>
           </v-img>
           <GroupChip :group="usergroup" v-if="usergroup" class="float-right ma-2" />
         </v-card-title>
@@ -25,7 +25,7 @@
 
       <v-card-actions>
         <v-btn text :href="sanitized_href">Öffne {{title}}</v-btn>
-        <v-btn fab flat small :href="sanitized_href" target="_blank">
+        <v-btn fab text small :href="sanitized_href" target="_blank">
           <v-icon small>fa-external-link-alt</v-icon>
         </v-btn>
       </v-card-actions>

@@ -1,7 +1,7 @@
 <template>
   <v-snackbar color="error" v-if="error" v-model="active" top :timeout="6000">
     {{error.message}}
-    <v-btn color="primary" flat @click="active=false">Close</v-btn>
+    <v-btn color="primary" text @click="active=false">Close</v-btn>
   </v-snackbar>
 </template>
 

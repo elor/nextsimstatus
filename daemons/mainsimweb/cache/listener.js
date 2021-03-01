@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const graphqlHTTP = require('express-graphql')
+const {graphqlHTTP} = require('express-graphql')
 const serverSchema = require('./graphqlschema')
 
 module.exports.listen = function (PORT, getDataCallback) {
