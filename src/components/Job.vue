@@ -70,11 +70,7 @@
       </v-card-text>
 
       <v-card-text>
-        <v-card>
-          <v-card-text>
-            <job-log :job="Job"></job-log>
-          </v-card-text>
-        </v-card>
+        <job-log :job="Job"></job-log>
       </v-card-text>
     </v-card>
 

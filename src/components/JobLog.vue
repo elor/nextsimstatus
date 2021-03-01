@@ -1,11 +1,10 @@
 <template>
   <div>
-    <div v-if="can_control">
-      <v-layout row wrap align-end>
-        <v-subheader v-if="logs && logs.StdOutFile">StdOut: {{logs.StdOutFile}}</v-subheader>
-        <v-subheader v-else>StdOut</v-subheader>
-        <v-subheader>
-          <v-scale-transition>
+    <v-expansion-panels v-model="logpanels" v-if="can_control" multiple>
+      <v-expansion-panel>
+        <v-expansion-panel-header>
+          Output<span v-if="logs && logs.StdOutFile">: {{logs.StdOutFile}}</span>
+          <template v-slot:actions>
             <v-progress-circular
               size="20"
               width="2"
@@ -13,27 +12,66 @@
               indeterminate
               color="primary"
             />
-          </v-scale-transition>
-        </v-subheader>
-        <v-spacer></v-spacer>
-        <v-flex md1 sm2 xs4>
-          <v-subheader>
-            <v-select
-              label="Lines"
-              :items="[20, 50, 200, 1000, { text: 'All', value: 987654321 }]"
-              v-model="lines"
-              @change="fetch"
-            ></v-select>
-          </v-subheader>
-        </v-flex>
-      </v-layout>
-      <pre>{{StdOut}}</pre>
-      <v-subheader v-if="logs && logs.StdErrFile">StdErr: {{logs.StdErrFile}}</v-subheader>
-      <v-subheader v-else>StdErr</v-subheader>
-      <pre>{{StdErr}}</pre>
-      <v-subheader>JobScript: {{job ? sanitizePath(job.Command) : 'Retrieving...'}}</v-subheader>
-      <pre @click="fetchScript">{{JobScript || 'Retrieving...'}}</pre>
-    </div>
+            <v-icon color="info">fa-file-alt</v-icon>
+          </template>
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <v-flex lg1 md2 sm3 xs4 style="float: right">
+            <v-subheader>
+              <v-select
+                label="Lines"
+                :items="[20, 50, 200, 1000, { text: 'All', value: 987654321 }]"
+                v-model="lines"
+                @change="fetch"
+              ></v-select>
+            </v-subheader>
+          </v-flex>
+          <pre>{{StdOut}}</pre>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+
+      <v-expansion-panel :disabled="logs && logs.StdOutFile == logs.StdErrFile">
+        <v-expansion-panel-header>
+          Error Output<span v-if="logs && logs.StdErrFile">: {{logs.StdErrFile}}</span>
+          <template v-slot:actions>
+            <v-progress-circular
+              size="20"
+              width="2"
+              v-if="refreshing"
+              indeterminate
+              color="primary"
+            />
+            <v-icon color="error">fa-exclamation</v-icon>
+          </template>
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <v-flex lg1 md2 sm3 xs4 style="float: right">
+            <v-subheader>
+              <v-select
+                label="Lines"
+                :items="[20, 50, 200, 1000, { text: 'All', value: 987654321 }]"
+                v-model="lines"
+                @change="fetch"
+              ></v-select>
+            </v-subheader>
+          </v-flex>
+          <pre>{{StdErr}}</pre>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+
+      <v-expansion-panel>
+        <v-expansion-panel-header>
+          JobScript: {{job ? sanitizePath(job.Command) : 'Retrieving...'}}
+          <template v-slot:actions>
+            <v-icon color="info">fa-scroll</v-icon>
+          </template>
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <pre @click="fetchScript">{{JobScript || 'Retrieving...'}}</pre>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
+
     <div v-else>
       Melde dich an, um deine Logs zu sehen:
       <login-menu light></login-menu>
@@ -56,7 +94,8 @@ export default {
     return {
       interval: undefined,
       lines: 20,
-      refreshing: false
+      refreshing: false,
+      logpanels: [0]
     }
   },
   computed: {
@@ -70,9 +109,6 @@ export default {
     },
     can_control () {
       return this.is_admin || (this.user && this.owner === this.user.login)
-    },
-    disabled () {
-      return !this.jobs || !this.can_control
     },
     logs () {
       return this.joblogs.filter(logs => logs.JobId === this.jobid)[0]
