@@ -4,11 +4,6 @@
     <v-container fluid>
       <v-layout wrap row>
         <SoftwareCard
-          title="scholar"
-          hidetitle
-          href="https://scholar.google.com/"
-        >Suche nach Publikationen und Autoren</SoftwareCard>
-        <SoftwareCard
           title="Gitlab"
           hidetitle
         >Lege deinen Quellcode ab, überwache deine Builds und tracke deine Bugs</SoftwareCard>
@@ -19,15 +14,16 @@
         >Arbeite interaktiv mit Python an wissenschaftlichen Daten und visualisiere sie im Browser</SoftwareCard>
 
         <SoftwareCard
-          title="CKAN"
-          hidetitle
-        >Lege Forschungsdaten ab, suche nach Dateien, ordne sie Projekten zu und teile sie mit anderen.</SoftwareCard>
-
-        <SoftwareCard
           title="TUC-Wiki"
           href="https://wiki.tu-chemnitz.de/ENAS/BeolSimulation"
           src="foswiki"
         >Tausche Wissen und Erfahrungen mit den anderen Simulanten aus</SoftwareCard>
+
+        <SoftwareCard
+          title="scholar"
+          hidetitle
+          href="https://scholar.google.com/"
+        >Suche nach Publikationen und Autoren</SoftwareCard>
       </v-layout>
     </v-container>
 
