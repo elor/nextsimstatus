@@ -5,25 +5,25 @@ services:
     image: mainsim.etit.tu-chemnitz.de:5555/simadmin/mainsimstatus/auth
     ports:
      - 127.0.0.1:1881:8000
-    restart: on-failure
+    restart: always
   cache:
     build: cache
     image: mainsim.etit.tu-chemnitz.de:5555/simadmin/mainsimstatus/cache
     ports:
      - 127.0.0.1:1880:8080
-    restart: on-failure
+    restart: always
   mensa:
     build: mensa
     image: mainsim.etit.tu-chemnitz.de:5555/simadmin/mainsimstatus/mensa
     ports:
      - 127.0.0.1:1885:8000
-    restart: on-failure
+    restart: always
   essensruf:
     build: essensruf
     image: mainsim.etit.tu-chemnitz.de:5555/simadmin/mainsimstatus/essensruf
     ports:
      - 127.0.0.1:1886:8000
-    restart: on-failure
+    restart: always
   mqtt:
     build: mqtt
     image: mainsim.etit.tu-chemnitz.de:5555/simadmin/mainsimstatus/mqtt
@@ -31,4 +31,4 @@ services:
      - 1883:1883
      - 8883:8883
      - 9001:9001
-    restart: on-failure
+    restart: always
