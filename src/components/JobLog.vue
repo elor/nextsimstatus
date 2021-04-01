@@ -102,10 +102,10 @@ export default {
     ...mapState(['user', 'joblogs', 'jobscripts']),
     ...mapGetters(['is_admin']),
     jobid () {
-      return this.job.JobId
+      return this.job && this.job.JobId
     },
     owner () {
-      return this.job.UserName
+      return this.job && this.job.UserName
     },
     can_control () {
       return this.is_admin || (this.user && this.owner === this.user.login)
