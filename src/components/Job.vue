@@ -6,7 +6,7 @@
         <v-spacer></v-spacer>
         <job-action-block v-if="Job" :jobs="[Job]" />
         <v-spacer></v-spacer>
-        <source-view v-if="Job" :title="title" :value="Job"></source-view>
+        <source-view v-if="Job && can_control" :title="title" :value="Job"></source-view>
       </v-card-title>
 
       <v-card-text>
@@ -52,9 +52,14 @@
           </grid-card>
 
           <grid-card title="Script">
-            <div>ExitCode: {{Job.ExitCode}}</div>
-            <div class="long-path">WorkDir: {{sanitizePath(Job.WorkDir)}}</div>
-            <div class="long-path">Command: {{sanitizePath(Job.Command, `${Job.WorkDir}/`)}}</div>
+            <div v-if="can_control">
+              <div>ExitCode: {{Job.ExitCode}}</div>
+              <div class="long-path">WorkDir: {{sanitizePath(Job.WorkDir)}}</div>
+              <div class="long-path">Command: {{sanitizePath(Job.Command, `${Job.WorkDir}/`)}}</div>
+            </div>
+            <div v-else>
+            Melde dich an, um deinen Jobscript, sein Verzeichnis und seinen ExitCode zu sehen.
+            </div>
           </grid-card>
 
           <grid-card title="Time">
@@ -79,7 +84,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import { uniq, flatten, sum } from 'lodash'
 import JobList from '@/components/JobList'
 import SourceView from '@/components/SourceView'
@@ -104,7 +109,14 @@ export default {
     Duration
   },
   computed: {
-    ...mapGetters(['jobstatus', 'nodestatus']),
+    ...mapState(['user']),
+    ...mapGetters(['jobstatus', 'nodestatus', 'is_admin']),
+    owner () {
+      return this.Job && this.Job.UserName
+    },
+    can_control () {
+      return this.is_admin || (this.user && this.owner === this.user.login)
+    },
     JobId () {
       return Number(this.$route.params.id)
     },
