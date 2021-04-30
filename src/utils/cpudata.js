@@ -13,7 +13,7 @@ function hasState (states, reference) {
 export default function cpudata (...nodes) {
   const cpudataPerNode = nodes.map(node => {
     const allocated = Number(node.CPUAlloc)
-    const error = Number(node.CPUErr)
+    const error = Number(node.CPUErr || 0)
     const total = Number(node.CPUTot)
     const rest = total - allocated - error
 
