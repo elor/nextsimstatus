@@ -8,7 +8,6 @@ webpack:
   image: node:latest
   script:
     - npm install
-    - npm audit fix || :
     - npm run lint
     - npm run build
   artifacts:
