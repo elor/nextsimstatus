@@ -84,7 +84,7 @@ def log(jobid, lines=20, user=None):
 
 def jobscript(jobid, user=None):
     return_code, out, err = run_command(
-        ['scontrol', 'write', 'batch_script', str(jobid), '/dev/stdout'], user=user)
+        ['scontrol', 'write', 'batch_script', str(jobid), '-'], user=user)
     if return_code:
         raise RuntimeError(
             'NonZero Return Code {}: {}'.format(return_code, err))
