@@ -12,42 +12,31 @@
             </v-btn-toggle>
           </v-flex>
           <v-flex xs="12" md="8">
-            <v-text-field
-              append-icon="fa-search"
-              label="Search"
-              single-line
-              hide-details
-              v-model="search"
-            ></v-text-field>
+            <v-text-field append-icon="fa-search" label="Search" single-line hide-details v-model="search"></v-text-field>
           </v-flex>
         </v-layout>
       </v-card-title>
 
       <v-data-table :headers="headers" :items="simpcstatus" :search="search" hide-default-footer :items-per-page="-1">
         <template v-slot:item="props">
-          <tr
-            :class="{'grey--text':props.item.inactive}"
-            v-if="visible(props.item)"
-          >
+          <tr :class="{ 'grey--text': props.item.inactive }" v-if="visible(props.item)">
             <td>
-              <router-link
-                :class="{'grey--text':props.item.inactive}"
-                :to="`/simpc${props.item.number}`"
-              >{{props.item.hostname}}</router-link>
-              <v-tooltip v-if="!props.item.inactive && props.item.mounts.length < 2" bottom>
-                <template v-slot:activator="{on}">
+              <router-link :class="{ 'grey--text': props.item.inactive }" :to="`/simpc${props.item.number}`">{{
+                props.item.hostname }}</router-link>
+              <v-tooltip v-if="!props.item.inactive && props.item.mounts.length < 1" bottom>
+                <template v-slot:activator="{ on }">
                   <v-icon v-on="on" small class="ml-1" color="error">fa-hdd</v-icon>
                 </template>
                 <span>Missing Mounts</span>
               </v-tooltip>
               <v-tooltip v-if="props.item.vpn" bottom>
-                <template v-slot:activator="{on}">
+                <template v-slot:activator="{ on }">
                   <v-icon v-on="on" small class="ml-1">fa-lock</v-icon>
                 </template>
                 <span>VPN running</span>
               </v-tooltip>
               <v-tooltip v-if="props.item.rebootrequired" bottom>
-                <template v-slot:activator="{on}">
+                <template v-slot:activator="{ on }">
                   <v-icon v-on="on" small class="ml-1" color="warning">fa-power-off</v-icon>
                 </template>
                 <span>Reboot Required</span>
@@ -64,13 +53,13 @@
               <cpu-load :load="props.item.load_5min" :cores="props.item.cores" precise></cpu-load>
               <cpu-load :load="props.item.load_15min" :cores="props.item.cores" precise></cpu-load>
               <v-tooltip v-if="props.item.load_1min > 5.0" bottom>
-                <template v-slot:activator="{on}">
+                <template v-slot:activator="{ on }">
                   <v-icon v-on="on" small color="warning">fa-burn</v-icon>
                 </template>
                 <span>High CPU Load</span>
               </v-tooltip>
               <v-tooltip v-if="props.item.load_1min > 10.0" bottom>
-                <template v-slot:activator="{on}">
+                <template v-slot:activator="{ on }">
                   <v-icon v-on="on" small color="error">fa-fire-extinguisher</v-icon>
                 </template>
                 <span>Excessive CPU Load. Did a Core lock up, e.g. due to BeeGFS/NFS Failure?</span>
@@ -79,7 +68,7 @@
             <td>
               <duration :seconds="props.item.uptime" since />
               <v-tooltip v-if="props.item.uptime > FIVE_DAYS" bottom>
-                <template v-slot:activator="{on}">
+                <template v-slot:activator="{ on }">
                   <v-icon v-on="on" small color="warning">fa-hourglass-end</v-icon>
                 </template>
                 <span>Long uptime. Please reboot</span>
@@ -89,9 +78,9 @@
               <duration :seconds="props.item.lastupdate" since />
             </td>
             <td>
-              {{props.item.updates === undefined ? '???' : props.item.updates}}
+              {{ props.item.updates === undefined ? '???' : props.item.updates }}
               <v-tooltip v-if="props.item.updates > 10" bottom>
-                <template v-slot:activator="{on}">
+                <template v-slot:activator="{ on }">
                   <v-icon v-on="on" small color="warning">fa-exclamation-triangle</v-icon>
                 </template>
                 <span>Too many pending updates. Please update.</span>
@@ -117,7 +106,7 @@ export default {
     UserChip,
     Duration
   },
-  data () {
+  data() {
     const VIS = {
       all: 0,
       recent: 1,
@@ -146,7 +135,7 @@ export default {
   },
   methods: {
     format,
-    visible (pc) {
+    visible(pc) {
       switch (this.visibility) {
         case this.VIS.all:
           return true
@@ -161,7 +150,7 @@ export default {
       }
     }
   },
-  created () {
+  created() {
     this.tabledata = this.simpcstatus
   }
 }
