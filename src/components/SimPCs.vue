@@ -23,7 +23,7 @@
             <td>
               <router-link :class="{ 'grey--text': props.item.inactive }"
                 :to="`/simpc${props.item.number}`">{{ props.item.hostname }}</router-link>
-              <v-tooltip v-if="!props.item.inactive && props.item.mounts.length < 2" bottom>
+              <v-tooltip v-if="!props.item.inactive && props.item.mounts.length < 1" bottom>
                 <template v-slot:activator="{ on }">
                   <v-icon v-on="on" small class="ml-1" color="error">fa-hdd</v-icon>
                 </template>
