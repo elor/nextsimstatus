@@ -21,9 +21,9 @@
         <template v-slot:item="props">
           <tr :class="{ 'grey--text': props.item.inactive }" v-if="visible(props.item)">
             <td>
-              <router-link :class="{ 'grey--text': props.item.inactive }" :to="`/simpc${props.item.number}`">{{
-                props.item.hostname }}</router-link>
-              <v-tooltip v-if="!props.item.inactive && props.item.mounts.length < 1" bottom>
+              <router-link :class="{ 'grey--text': props.item.inactive }"
+                :to="`/simpc${props.item.number}`">{{ props.item.hostname }}</router-link>
+              <v-tooltip v-if="!props.item.inactive && props.item.mounts.length < 2" bottom>
                 <template v-slot:activator="{ on }">
                   <v-icon v-on="on" small class="ml-1" color="error">fa-hdd</v-icon>
                 </template>
@@ -106,7 +106,7 @@ export default {
     UserChip,
     Duration
   },
-  data() {
+  data () {
     const VIS = {
       all: 0,
       recent: 1,
@@ -135,7 +135,7 @@ export default {
   },
   methods: {
     format,
-    visible(pc) {
+    visible (pc) {
       switch (this.visibility) {
         case this.VIS.all:
           return true
@@ -150,7 +150,7 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.tabledata = this.simpcstatus
   }
 }
