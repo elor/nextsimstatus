@@ -10,23 +10,23 @@ const URLS = {
   cafeteria: BASE_URL(7)
 }
 
-async function getPlan (URL) {
+async function getPlan(URL) {
   const { data } = await axios.get(URL)
   const json = JSON.parse(toJson(data)).speiseplan
 
   return filterPlan(json)
 }
 
-function filterPlan ({ datum, essen }) {
+function filterPlan({ datum, essen }) {
   const filtered = {
     datum,
     datum_str: formatMenuDate(datum),
-    essen: (essen||[]).map(filterEssen)
+    essen: (essen || []).map(filterEssen).filter(isNoAd)
   }
   return filtered
 }
 
-function filterEssen (essen) {
+function filterEssen(essen) {
   const toBool = (str) => str.toLowerCase() === 'true'
 
   return {
@@ -43,7 +43,14 @@ function filterEssen (essen) {
   }
 }
 
-async function getAllPlans (options) {
+function isNoAd(essen) {
+  // ad titles are surrounded by either xXx {title} xXx, yYy {title} yYy or zZz {title} zZz
+  const adRegex = /([xyz])\1\1\s+.*\s+\1\1\1/i
+
+  return !adRegex.test(essen.kategorie)
+}
+
+async function getAllPlans(options) {
   options = options || {}
 
   let plans = {}
@@ -62,11 +69,11 @@ async function getAllPlans (options) {
   return plans
 }
 
-function formatMenuDate ({ tag, monat, jahr }) {
+function formatMenuDate({ tag, monat, jahr }) {
   return `${tag}.${monat}.${jahr}`.replace(/\b(\d)\./g, '0$1.')
 }
 
-function preise (pr) {
+function preise(pr) {
   if (!pr) {
     return []
   }
@@ -76,11 +83,11 @@ function preise (pr) {
   return pr.map(preis => preis.$t)
 }
 
-function capitalize (text) {
+function capitalize(text) {
   return `${text.charAt(0).toUpperCase()}${text.substr(1).toLowerCase()}`
 }
 
-function stripAllergens (deutsch) {
+function stripAllergens(deutsch) {
   return deutsch
     .replace(/\(\d+(\s*,\s*\d*)*\)?/g, '')
     .replace(/\s*,\s*/g, ', ')
@@ -88,7 +95,7 @@ function stripAllergens (deutsch) {
     .trim()
 }
 
-function toText ({ name, datum, essen }) {
+function toText({ name, datum, essen }) {
   const title = `${capitalize(name)} (${formatMenuDate(datum)})`
 
   const items = essen.map(meal => {
