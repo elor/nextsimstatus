@@ -12,6 +12,9 @@
           </grid-card>
 
           <grid-card title="Partitions">
+            <div class="mb-3 mt-3" v-if="!partitionstatus || partitionstatus.length === 0">
+              Couldn't load node partitions from SLURM
+            </div>
             <div class="mb-3" v-for="partition in partitionstatus" :key="partition.PartitionName">
               <v-progress-circular
                 slot="icon"
