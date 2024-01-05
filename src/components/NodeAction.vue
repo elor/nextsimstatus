@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     ...mapActions(['controlNodes']),
-    control () {
+    control() {
       if (
         this.is_admin &&
         confirm(`${this.action.toUpperCase()} node ${this.node}?`)

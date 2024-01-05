@@ -90,7 +90,7 @@ export default {
   components: {
     LoginMenu
   },
-  data () {
+  data() {
     return {
       interval: undefined,
       lines: 20,
@@ -101,47 +101,47 @@ export default {
   computed: {
     ...mapState(['user', 'joblogs', 'jobscripts']),
     ...mapGetters(['is_admin']),
-    jobid () {
+    jobid() {
       return this.job && this.job.JobId
     },
-    owner () {
+    owner() {
       return this.job && this.job.UserName
     },
-    can_control () {
+    can_control() {
       return this.is_admin || (this.user && this.owner === this.user.login)
     },
-    logs () {
+    logs() {
       return this.joblogs.filter(logs => logs.JobId === this.jobid)[0]
     },
-    JobScript () {
+    JobScript() {
       const job = this.jobscripts.filter(jobscript => jobscript.JobId === this.jobid)[0]
       return job && job.JobScript
     },
-    StdOut () {
+    StdOut() {
       return this.logs ? this.logs.StdOut : 'Retrieving logs...'
     },
-    StdErr () {
+    StdErr() {
       return this.logs ? this.logs.StdErr : 'Retrieving logs...'
     }
   },
   watch: {
-    job (after, before) {
+    job(after, before) {
       if (!before && after) {
         this.fetch()
       }
     },
-    can_control (after, before) {
+    can_control(after, before) {
       if (!before && after) {
         this.fetch()
       }
     },
-    logs () {
+    logs() {
       this.refreshing = false
     }
   },
   methods: {
     ...mapActions(['controlLogs', 'controlJobScript']),
-    sanitizePath (path, root = '') {
+    sanitizePath(path, root = '') {
       if (!path) {
         return root || 'undefined'
       }
@@ -155,7 +155,7 @@ export default {
 
       return path
     },
-    fetchLogs () {
+    fetchLogs() {
       if (!this.job) {
         return
       }
@@ -167,7 +167,7 @@ export default {
       this.refreshing = true
       this.controlLogs({ jobs: [this.jobid], lines: this.lines })
     },
-    fetchScript () {
+    fetchScript() {
       if (!this.job) {
         return
       }
@@ -178,7 +178,7 @@ export default {
 
       this.controlJobScript({ jobs: [this.jobid], lines: this.lines })
     },
-    fetch () {
+    fetch() {
       this.fetchLogs()
 
       if (!this.JobScript) {
@@ -186,11 +186,11 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     this.fetch()
     this.interval = window.setInterval(() => this.fetch(), 5000)
   },
-  beforeDestroy () {
+  beforeDestroy() {
     window.clearInterval(this.interval)
   }
 }

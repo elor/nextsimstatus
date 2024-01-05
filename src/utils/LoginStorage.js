@@ -1,4 +1,4 @@
-function storageSupport () {
+function storageSupport() {
   if (!window.localStorage) {
     return false
   }
@@ -17,24 +17,24 @@ function storageSupport () {
 }
 
 export default class LoginStorage {
-  constructor (key) {
+  constructor(key) {
     this.key = key
     this.supported = storageSupport()
   }
 
-  read () {
+  read() {
     if (this.supported) {
       return window.localStorage.getItem(this.key)
     }
   }
 
-  write (token) {
+  write(token) {
     if (this.supported) {
       return window.localStorage.setItem(this.key, token)
     }
   }
 
-  clear () {
+  clear() {
     if (this.supported) {
       return window.localStorage.removeItem(this.key)
     }

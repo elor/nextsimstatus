@@ -18,22 +18,22 @@ const config = {
   }
 }
 
-function unpack64 (message) {
+function unpack64(message) {
   const binary = Buffer.from(message.toString(), 'base64')
   const json = zlib.gunzipSync(binary).toString()
   return JSON.parse(json)
 }
 
-function unpack (message) {
+function unpack(message) {
   const json = zlib.gunzipSync(message).toString()
   return JSON.parse(json)
 }
 
-function clickDelay () {
+function clickDelay() {
   return new Promise(resolve => setTimeout(resolve, 500))
 }
 
-function fetch (store) {
+function fetch(store) {
   store.commit('startUpdating')
 
   const fetchPromise = request(config.graphql.endpoint, config.graphql.query)
@@ -52,7 +52,7 @@ function fetch (store) {
   )
 }
 
-function registerGraphQL (store) {
+function registerGraphQL(store) {
   if (config.graphql.enabled) {
     // GraphQL Section
     fetch(store)
@@ -62,14 +62,14 @@ function registerGraphQL (store) {
   }
 }
 
-function unregisterMQTT (store) {
+function unregisterMQTT(store) {
   if (mqttClient) {
     mqttClient.end()
     mqttClient = undefined
   }
 }
 
-function registerMQTT (store) {
+function registerMQTT(store) {
   unregisterMQTT(store)
   mqttClient = mqtt.connect(config.mqtt.endpoint)
 
@@ -114,7 +114,7 @@ function registerMQTT (store) {
   mqttClient.on('error', error => store.commit('newError', error))
 }
 
-export default function createMainsimPlugin (sources) {
+export default function createMainsimPlugin(sources) {
   config.mqtt.enabled = sources.mqtt
   config.graphql.enabled = sources.graphql
   config.graphql.interval = sources.graphql_interval

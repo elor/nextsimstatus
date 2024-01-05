@@ -1,4 +1,4 @@
-export function capitalize (word) {
+export function capitalize(word) {
   switch (word.length) {
     case 0:
       return ''

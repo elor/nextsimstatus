@@ -104,19 +104,19 @@ export default {
   },
   computed: {
     ...mapGetters(['simpcstatus', 'is_admin']),
-    number () {
+    number() {
       return Number(this.$route.params.id)
     },
-    SimPC () {
+    SimPC() {
       return this.simpcstatus.filter(simpc => simpc.number === this.number)[0]
     },
-    percent_1min () {
+    percent_1min() {
       return Math.ceil((100 * this.SimPC.load_1min) / this.SimPC.cores)
     },
-    percent_5min () {
+    percent_5min() {
       return Math.ceil((100 * this.SimPC.load_5min) / this.SimPC.cores)
     },
-    percent_15min () {
+    percent_15min() {
       return Math.ceil((100 * this.SimPC.load_15min) / this.SimPC.cores)
     }
   },

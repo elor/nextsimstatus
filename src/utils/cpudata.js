@@ -2,15 +2,15 @@ import { mergeWith, intersection } from 'lodash'
 import { drainstates, failstates, rebootstates } from './nodeStates'
 import splitStates from './splitStates'
 
-function sum (A, B) {
+function sum(A, B) {
   return (A || 0) + (B || 0)
 }
 
-function hasState (states, reference) {
+function hasState(states, reference) {
   return !!intersection(states, reference).length
 }
 
-export default function cpudata (...nodes) {
+export default function cpudata(...nodes) {
   const cpudataPerNode = nodes.map(node => {
     const allocated = Number(node.CPUAlloc)
     const error = Number(node.CPUErr || 0)

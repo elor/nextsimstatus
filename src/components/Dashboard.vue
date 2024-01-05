@@ -140,7 +140,7 @@ export default {
       'simpcstatus',
       'rackstatus'
     ]),
-    users_sorted () {
+    users_sorted() {
       return this.userstatus
         .slice()
         .sort(

@@ -12,7 +12,7 @@ export default {
   props: {
     error: Object
   },
-  data () {
+  data() {
     return {
       active: false
     }
@@ -20,7 +20,7 @@ export default {
   computed: {
     ...mapState(['errors'])
   },
-  mounted () {
+  mounted() {
     this.active = true
   }
 }

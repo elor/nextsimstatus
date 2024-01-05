@@ -44,14 +44,14 @@ export default {
   components: {
     Essensruf
   },
-  data () {
+  data() {
     return {
       mensa: undefined,
       cafeteria: undefined
     }
   },
   methods: {
-    fetch () {
+    fetch() {
       axios.get(MENU_URL)
         .then(response => {
           this.mensa = response.data.mensa
@@ -62,7 +62,7 @@ export default {
         })
     }
   },
-  mounted () {
+  mounted() {
     this.fetch()
   }
 }

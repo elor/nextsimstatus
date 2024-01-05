@@ -1,7 +1,7 @@
 import { zipWith, sum } from 'lodash'
 import colorConvert from 'color-convert'
 
-export function mix (...hexColors) {
+export function mix(...hexColors) {
   const colors = hexColors.map(fromString)
   const mixedColor = zipWith(...colors,
     (...components) => Math.floor(sum(components) / components.length)
@@ -9,15 +9,15 @@ export function mix (...hexColors) {
   return toString(mixedColor)
 }
 
-export function fromString (hexRGB) {
+export function fromString(hexRGB) {
   return colorConvert.hex.rgb(hexRGB)
 }
 
-export function toString (rgb) {
+export function toString(rgb) {
   return colorConvert.rgb.hex(rgb)
 }
 
-export function isDark (hexRGB, threshold = 0x40) {
+export function isDark(hexRGB, threshold = 0x40) {
   const HSL = colorConvert.hex.hsl(hexRGB)
   const L = HSL[2]
   return L < threshold

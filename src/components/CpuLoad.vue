@@ -12,7 +12,7 @@ export default {
     precise: Boolean
   },
   computed: {
-    color () {
+    color() {
       if (this.percent >= 110) {
         return 'red'
       } else if (this.percent >= 90) {
@@ -21,10 +21,10 @@ export default {
         return 'green'
       }
     },
-    percent () {
+    percent() {
       return 100 * this.load / this.cores
     },
-    value () {
+    value() {
       return this.precise ? this.load : Math.round(this.load)
     }
   }

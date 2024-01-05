@@ -46,7 +46,7 @@ const sources = {
   mqtt: true
 }
 
-function userNameFromJob (job) {
+function userNameFromJob(job) {
   return job.UserId.replace(/\(\d+\)/, '')
 }
 
@@ -84,7 +84,7 @@ export default new Vuex.Store({
   },
 
   getters: {
-    nodestatus (state, getters) { // 7
+    nodestatus(state, getters) { // 7
       return state.nodes
         .map(node => ({
           ...node,
@@ -111,10 +111,10 @@ export default new Vuex.Store({
           pureJobs: node.jobs.filter(job => !job.ArrayJobId)
         }))
     },
-    partitions (state) {
+    partitions(state) {
       return uniq(state.nodes.map(node => node.Partitions))
     },
-    partitionstatus (state, getters) { // 1
+    partitionstatus(state, getters) { // 1
       return getters.partitions
         .map(partition => ({
           PartitionName: partition,
@@ -128,7 +128,7 @@ export default new Vuex.Store({
           CPUTot: sum(partition.Nodes.map(node => Number(node.CPUTot)))
         }))
     },
-    jobstatus (state) { // 4
+    jobstatus(state) { // 4
       return state.jobs
         .map(job => ({
           ...job,
@@ -137,7 +137,7 @@ export default new Vuex.Store({
         }))
         .reverse()
     },
-    userstatus (state, getters) { // 5
+    userstatus(state, getters) { // 5
       const users = uniq([
         ...getters.jobstatus.map(job => job.UserName),
         ...flatten(getters.simpcstatus.map(pc => pc.usernames))
@@ -183,7 +183,7 @@ export default new Vuex.Store({
         }))
       return sortBy(users, 'UserName')
     },
-    simpcstatus (state) { // 3
+    simpcstatus(state) { // 3
       return Object.values(state.simpcs).map(pc => ({
         ...pc,
         cores: pc.cores || 8,
@@ -203,7 +203,7 @@ export default new Vuex.Store({
         load_15min: pc.load && Number(pc.load[2])
       }))
     },
-    rackstatus (state) { // 1
+    rackstatus(state) { // 1
       return state.racks.map(rack => ({
         ...rack,
         temperatures: {
@@ -238,16 +238,16 @@ export default new Vuex.Store({
         }
       }))
     },
-    is_admin (state) {
+    is_admin(state) {
       return state.user.groups.includes(ADMIN_GROUP)
     },
-    logged_in (state) {
+    logged_in(state) {
       return !!(state.user.name && state.jwtToken)
     }
   },
 
   mutations: {
-    updateNodes (state, nodes) {
+    updateNodes(state, nodes) {
       state.nodes = nodes
       state.dates.nodes = new Date()
 
@@ -257,7 +257,7 @@ export default new Vuex.Store({
         state.nodecpus = nodecpus
       }
     },
-    updateJobs (state, jobs) {
+    updateJobs(state, jobs) {
       state.jobs = jobs
       state.dates.jobs = new Date()
 
@@ -268,35 +268,35 @@ export default new Vuex.Store({
         state.usercpus = usercpus
       }
     },
-    updateNowDate (state, now) {
+    updateNowDate(state, now) {
       state.dates.now = now
     },
-    updateSimPC (state, simpc) {
+    updateSimPC(state, simpc) {
       state.simpcs[simpc.hostname] = simpc
     },
-    updateQuota (state, quota) {
+    updateQuota(state, quota) {
       state.beegfs.quota = quota
     },
-    updateRacks (state, racks) {
+    updateRacks(state, racks) {
       racks = racks.map(rack => rack.error ? { error: rack.error } : rack)
       if (!isEqual(state.racks, racks)) {
         state.racks = racks
       }
     },
-    newError (state, errorMessage) {
+    newError(state, errorMessage) {
       state.errors.push({
         date: new Date(),
         message: errorMessage
       })
       console.error(errorMessage)
     },
-    startUpdating (state) {
+    startUpdating(state) {
       state.updating = true
     },
-    stopUpdating (state) {
+    stopUpdating(state) {
       state.updating = false
     },
-    setUser (state, { user, token }) {
+    setUser(state, { user, token }) {
       if (user && token) {
         state.user = user
         state.jwtToken = token
@@ -305,9 +305,9 @@ export default new Vuex.Store({
         state.jwtToken = undefined
       }
     },
-    updateControl (state, status, message) {
+    updateControl(state, status, message) {
     },
-    updateJobLog (state, { JobId, StdOutFile, StdOut, StdErrFile, StdErr }) {
+    updateJobLog(state, { JobId, StdOutFile, StdOut, StdErrFile, StdErr }) {
       const object = {
         JobId,
         StdOutFile,
@@ -323,7 +323,7 @@ export default new Vuex.Store({
         state.joblogs[index] = object
       }
     },
-    updateJobScript (state, { JobId, JobScript }) {
+    updateJobScript(state, { JobId, JobScript }) {
       const object = {
         JobId,
         JobScript
@@ -336,10 +336,10 @@ export default new Vuex.Store({
         state.jobscripts[index] = object
       }
     },
-    clearErrors (state) {
+    clearErrors(state) {
       state.errors = []
     },
-    removeError (state, error) {
+    removeError(state, error) {
       if (state.errors.includes(error)) {
         state.errors = state.errors.filter(err => err !== error)
       }
@@ -347,16 +347,16 @@ export default new Vuex.Store({
   },
 
   actions: {
-    mainsimFetch () { },
-    mqttReconnect () { },
-    login (credentials) { },
-    logout () { },
-    renewToken () { },
-    verifyToken () { },
-    controlNodes ({ action, nodes }) { },
-    controlJobs ({ action, jobs }) { },
-    controlLogs ({ jobs }) { },
-    controlJobScript ({ jobs }) { }
+    mainsimFetch() { },
+    mqttReconnect() { },
+    login(credentials) { },
+    logout() { },
+    renewToken() { },
+    verifyToken() { },
+    controlNodes({ action, nodes }) { },
+    controlJobs({ action, jobs }) { },
+    controlLogs({ jobs }) { },
+    controlJobScript({ jobs }) { }
   },
 
   plugins: [

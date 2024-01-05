@@ -1,6 +1,6 @@
 import { range, flattenDeep, flatten, uniq, padStart } from 'lodash'
 
-export function nodels (definition) {
+export function nodels(definition) {
   const re = /([a-z0-9]+)(\[(\d+([,-]\d+)*)\])?/g
   const strictRe = /^([a-z0-9]+)(\[(\d+([,-]\d+)*)\])?(,([a-z0-9]+)(\[(\d+([,-]\d+)*)\])?)*$/
 
@@ -15,7 +15,7 @@ export function nodels (definition) {
   return uniq(nodes)
 }
 
-function matchAll (re, string) {
+function matchAll(re, string) {
   const matches = []
 
   for (;;) {
@@ -29,7 +29,7 @@ function matchAll (re, string) {
   return matches
 }
 
-function def2nums (def) {
+function def2nums(def) {
   if (!def) {
     return ['']
   }

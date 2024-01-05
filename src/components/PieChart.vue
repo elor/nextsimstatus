@@ -8,7 +8,7 @@
 import { Pie, mixins } from 'vue-chartjs'
 import 'chartjs-plugin-labels'
 
-function isInt (string) {
+function isInt(string) {
   return /^\d+$/.test(string)
 }
 
@@ -26,7 +26,7 @@ export default {
   },
   mixins: [mixins.reactiveProp],
   computed: {
-    config () {
+    config() {
       const conf = {
         maintainAspectRatio: false,
         legend: {
@@ -59,7 +59,7 @@ export default {
 
       return conf
     },
-    style () {
+    style() {
       const style = {}
 
       if (this.inline) {
@@ -68,7 +68,7 @@ export default {
 
       return style
     },
-    containerstyle () {
+    containerstyle() {
       let style = {}
       style = {}
 
@@ -84,7 +84,7 @@ export default {
     }
   },
   methods: {
-    onClick (index) {
+    onClick(index) {
       const route = this.hrefs[index]
       if (route) {
         this.$router.push(route)
@@ -92,11 +92,11 @@ export default {
     }
   },
   watch: {
-    hidelegend () {
+    hidelegend() {
       this.render()
     }
   },
-  mounted () {
+  mounted() {
     // Overwriting base render method with actual data.
     this.renderChart(this.chartData, this.config)
   }

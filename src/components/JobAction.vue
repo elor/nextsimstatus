@@ -39,44 +39,44 @@ export default {
   computed: {
     ...mapState(['user']),
     ...mapGetters(['is_admin']),
-    jobids () {
+    jobids() {
       return this.jobs.map(job => job.JobId).join(',')
     },
-    jobusers () {
+    jobusers() {
       return this.jobs.map(job => job.UserName)
     },
-    JobStates () {
+    JobStates() {
       return uniq(this.jobs.map(job => job.JobState))
     },
-    singular_owner () {
+    singular_owner() {
       const owners = uniq(this.jobusers)
       if (owners.length !== 1) return undefined
       return owners[0]
     },
-    can_control () {
+    can_control() {
       return (
         this.is_admin || (!this.admin_only && this.user && this.singular_owner === this.user.login)
       )
     },
-    when_split () {
+    when_split() {
       return this.when.split(',').map(s => s.toUpperCase())
     },
-    when_enabled () {
+    when_enabled() {
       return !this.when.length || this.when_split.some(when => this.JobStates.includes(when))
     },
-    is_array () {
+    is_array() {
       return this.jobs.some(job => job.JobId === job.ArrayJobId)
     },
-    array_enabled () {
+    array_enabled() {
       return !this.array_only || this.is_array
     },
-    disabled () {
+    disabled() {
       return !this.jobs.length || !this.can_control || !this.array_enabled || !this.when_enabled
     }
   },
   methods: {
     ...mapActions(['controlJobs']),
-    control () {
+    control() {
       if (!this.can_control) {
         return
       }

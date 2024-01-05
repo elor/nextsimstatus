@@ -39,11 +39,11 @@ const colors = {
   red: '#f44336'
 }
 
-function sum (array) {
+function sum(array) {
   return array.reduce((a, b) => a + b, 0)
 }
 
-function cpudata (nodes) {
+function cpudata(nodes) {
   const allocCPUs = sum(nodes.map(node => Number(node.CPUAlloc)))
   const errCPUs = sum(nodes.map(node => Number(node.CPUErr)))
   const totalCPUs = sum(nodes.map(node => Number(node.CPUTot)))
@@ -61,7 +61,7 @@ export default {
   computed: {
     ...mapState(['beegfs']),
     ...mapGetters(['nodestatus', 'userstatus', 'partitionstatus']),
-    nodeData () {
+    nodeData() {
       return {
         labels: this.nodestatus.map(node => node.NodeName),
         datasets: [
@@ -75,7 +75,7 @@ export default {
         ]
       }
     },
-    quotaData () {
+    quotaData() {
       return {
         labels: this.quotas.map(user => user.name),
         datasets: [
@@ -89,7 +89,7 @@ export default {
         ]
       }
     },
-    quotas () {
+    quotas() {
       const userBytesSum = Object.values(this.beegfs.quota).reduce((sum, user) => sum + Number(user.bytes), 0)
 
       return [
@@ -104,7 +104,7 @@ export default {
         }
       ]
     },
-    userData () {
+    userData() {
       const users = this.userstatus
         .filter(user => user.NumCPUs)
         .map(user => ({
@@ -125,7 +125,7 @@ export default {
         ]
       }
     },
-    allocData () {
+    allocData() {
       const allocations = cpudata(this.nodestatus)
       const users = this.userData
 
@@ -144,7 +144,7 @@ export default {
         ]
       }
     },
-    partitionData () {
+    partitionData() {
       return {
         labels: ['Alloc', 'Free', 'Err'],
         datasets: this.partitionstatus.map(partition => ({
@@ -156,7 +156,7 @@ export default {
     }
   },
   methods: {
-    tooltip ({ datasetIndex, index }, { labels, datasets }) {
+    tooltip({ datasetIndex, index }, { labels, datasets }) {
       const username = labels[index]
       const bytes = datasets[datasetIndex].data[index]
       const gigabytes = Math.ceil(bytes / (1024 ** 3))

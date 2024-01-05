@@ -40,12 +40,12 @@ export default {
   }),
   computed: {
     ...mapState(['user', 'jwtToken']),
-    logged_in () {
+    logged_in() {
       return this.user.name && this.jwtToken
     }
   },
   methods: {
-    sendMessage (topic) {
+    sendMessage(topic) {
       if (!this.logged_in) {
         alert('Du musst dich anmelden, um eine Nachricht zu schicken.')
         return

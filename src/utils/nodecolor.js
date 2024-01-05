@@ -1,4 +1,4 @@
-export default function nodecolor (node) {
+export default function nodecolor(node) {
   switch (true) {
     case node.CPUAlloc && node.CPULoad > node.CPUTot * 1.1:
       return 'red'

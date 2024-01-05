@@ -17,7 +17,7 @@ export default {
   props: {
     job: {
       type: Object,
-      default () {
+      default() {
         return {
           JobId: 0,
           UserName: 'error'
@@ -30,16 +30,16 @@ export default {
     }
   },
   computed: {
-    JobId () {
+    JobId() {
       return this.job.JobId || this.job.ArrayJobId
     },
-    color () {
+    color() {
       return this.job.UserName ? usercolor(this.job.UserName) : 'grey'
     },
-    isDark () {
+    isDark() {
       return isDark(this.color)
     },
-    multiplicity () {
+    multiplicity() {
       if (this.job.jobs) {
         return `${this.job.jobs.length}x `
       } else {

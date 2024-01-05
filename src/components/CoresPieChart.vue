@@ -32,7 +32,7 @@ export default {
   computed: {
     ...mapGetters(['userstatus']),
     ...mapState(['usercpus', 'nodecpus']),
-    allocData () {
+    allocData() {
       const system = [
         { name: 'Free', cpus: this.nodecpus.free },
         { name: 'Drain', cpus: this.nodecpus.drain },

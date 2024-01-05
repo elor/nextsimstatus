@@ -56,7 +56,7 @@ export default {
     NodeLoad,
     UserChip
   },
-  data () {
+  data() {
     return {
       headers: [
         {
@@ -103,7 +103,7 @@ export default {
     ...mapGetters(['userstatus', 'nodestatus'])
   },
   methods: {
-    nodes (user) {
+    nodes(user) {
       return this.nodestatus.filter(node => node.users.includes(user.UserName))
     }
   }

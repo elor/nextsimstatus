@@ -22,10 +22,10 @@ export default {
     }
   },
   computed: {
-    color () {
+    color() {
       return usercolor(this.login)
     },
-    isDark () {
+    isDark() {
       return isDark(this.color)
     }
   }

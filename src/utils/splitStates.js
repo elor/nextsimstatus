@@ -1,6 +1,6 @@
 import { flatten } from 'lodash'
 
-export default function splitStates (state) {
+export default function splitStates(state) {
   return flatten(state.split('+')
     .map(state => state.endsWith('*')
       ? [state.replace(/\**$/, ''), '*']

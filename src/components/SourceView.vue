@@ -27,18 +27,18 @@
 <script>
 export default {
   props: ['title', 'value'],
-  data () {
+  data() {
     return {
       dialog: false
     }
   },
   computed: {
-    json_value () {
+    json_value() {
       return JSON.stringify(this.value, undefined, '  ')
     }
   },
   methods: {
-    close () {
+    close() {
       this.dialog = false
     }
   }

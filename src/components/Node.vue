@@ -91,7 +91,7 @@ import NodeActionBlock from '@/components/NodeActionBlock'
 import Duration from '@/components/Duration'
 import { uniq, concat } from 'lodash'
 
-function deGres (Gres) {
+function deGres(Gres) {
   const [type, count] = Gres.split(':')
   return { [type]: Number(count) }
 }
@@ -108,13 +108,13 @@ export default {
   },
   computed: {
     ...mapGetters(['nodestatus', 'is_admin']),
-    NodeName () {
+    NodeName() {
       return `sim${this.$route.params.id}`
     },
-    Node () {
+    Node() {
       return this.nodestatus.filter(node => node.NodeName === this.NodeName)[0]
     },
-    Gres () {
+    Gres() {
       if (!this.Node.Gres || this.Node.Gres === '(null)') {
         return undefined
       }
@@ -147,16 +147,16 @@ export default {
           percent: Math.round((100 * gres.jobs) / (gres.total || 1))
         }))
     },
-    MemPercent () {
+    MemPercent() {
       return 100 - Math.round((100 * this.Node.FreeMem) / this.Node.RealMemory)
     },
-    MemGig () {
+    MemGig() {
       return Math.ceil((this.Node.RealMemory - this.Node.FreeMem) / 1000)
     },
-    CPULoadPercent () {
+    CPULoadPercent() {
       return Math.round((100 * this.Node.CPULoad) / this.Node.CPUTot)
     },
-    Jobs () {
+    Jobs() {
       return this.Node.jobs || []
     }
   }

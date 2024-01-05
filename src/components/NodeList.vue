@@ -36,14 +36,14 @@
 import { nodels } from '../utils/nodels'
 
 export default {
-  data () {
+  data() {
     return {
       dialog: false,
       query: 'sim[02,04-05,22,28]'
     }
   },
   computed: {
-    nodenames () {
+    nodenames() {
       return nodels(this.query)
     }
   }

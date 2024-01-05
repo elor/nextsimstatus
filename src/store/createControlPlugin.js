@@ -9,7 +9,7 @@ const config = {
   }
 }
 
-async function control (url, authentication, payload) {
+async function control(url, authentication, payload) {
   if (!authentication) {
     throw new Error('No login token')
   }
@@ -24,7 +24,7 @@ async function control (url, authentication, payload) {
   return { status, data }
 }
 
-export default function createControlPlugin () {
+export default function createControlPlugin() {
   return store => {
     store.subscribeAction((action, state) => {
       switch (action.type) {

@@ -14,16 +14,16 @@ export default {
     node: Object
   },
   computed: {
-    percent () {
+    percent() {
       return 100 * this.node.CPUAlloc / this.node.CPUTot
     },
-    color () {
+    color() {
       return nodecolor(this.node)
     },
-    name () {
+    name() {
       return this.node.NodeName
     },
-    number () {
+    number() {
       return Number(this.name.replace(/\D/g, ''))
     }
   }

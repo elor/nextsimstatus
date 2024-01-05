@@ -20,7 +20,7 @@ export default {
     title: String
   },
   computed: {
-    color () {
+    color() {
       if (this.value >= this.high) {
         return 'red'
       } else if (this.value <= this.low) {
@@ -29,7 +29,7 @@ export default {
         return 'green'
       }
     },
-    icon () {
+    icon() {
       if (this.value >= this.max) {
         return 'full'
       } else if (this.value >= this.high) {
@@ -42,28 +42,28 @@ export default {
         return 'empty'
       }
     },
-    value () {
+    value() {
       return this.values.val
     },
-    min () {
+    min() {
       return this.values.min
     },
-    max () {
+    max() {
       return this.values.max
     },
-    low () {
+    low() {
       return this.values.low
     },
-    high () {
+    high() {
       return this.values.high
     },
-    isnan () {
+    isnan() {
       return isNaN(this.value)
     },
-    percent () {
+    percent() {
       return 100 * (this.value - this.min) / (this.max - this.min)
     },
-    text () {
+    text() {
       return Math.round(this.value)
     }
   }

@@ -66,15 +66,15 @@ export default {
   },
   computed: {
     ...mapGetters(['userstatus', 'nodestatus']),
-    username () {
+    username() {
       return this.$route.params.id
     },
-    User () {
+    User() {
       return this.userstatus.filter(
         user => user.UserName === this.username || user.UserID === this.username
       )[0]
     },
-    nodes () {
+    nodes() {
       return this.nodestatus.filter(node =>
         node.users.includes(this.User.UserName)
       )

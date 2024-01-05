@@ -16,7 +16,7 @@
 </template>
 
 <script>
-function isInt (string) {
+function isInt(string) {
   return /^\d+$/.test(string)
 }
 
@@ -31,7 +31,7 @@ export default {
     }
   },
   computed: {
-    style () {
+    style() {
       const style = {}
 
       if (this.height) {
@@ -41,7 +41,7 @@ export default {
       return style
     }
   },
-  data () {
+  data() {
     return {}
   }
 }

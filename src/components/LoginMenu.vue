@@ -106,7 +106,7 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {
       dialog: false,
       credentials: {
@@ -118,35 +118,35 @@ export default {
   computed: {
     ...mapState(['user']),
     ...mapGetters(['is_admin']),
-    pages () {
+    pages() {
       const login = this.user.login
 
       return {
         user: `/users/${login}`
       }
     },
-    logged_in () {
+    logged_in() {
       return !!this.user.name
     },
-    usercolor () {
+    usercolor() {
       return this.logged_in ? usercolor(this.user.login) : (this.light ? 'primary' : 'white')
     }
   },
   methods: {
     ...mapActions(['login', 'logout']),
     groupcolor,
-    performLogin () {
+    performLogin() {
       this.login(this.credentials)
       this.clear()
     },
-    close () {
+    close() {
       this.dialog = false
     },
-    clear () {
+    clear() {
       this.credentials.username = ''
       this.credentials.password = ''
     },
-    is_admin_group (group) {
+    is_admin_group(group) {
       return group === ADMIN_GROUP
     }
   }

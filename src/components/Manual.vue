@@ -17,7 +17,7 @@ import { Parser, HtmlRenderer } from 'commonmark'
 import manual from '@/manual'
 
 export default {
-  data () {
+  data() {
     return {
       items: manual,
       search: '',
@@ -25,16 +25,16 @@ export default {
     }
   },
   computed: {
-    parsed_items () {
+    parsed_items() {
       return this.filtered_items.map(item => ({
         ...item,
         html: item.html || this.parse(item.markdown)
       }))
     },
-    panel () {
+    panel() {
       return this.items.map(item => !!item.active)
     },
-    filtered_items () {
+    filtered_items() {
       if (!this.search) {
         return this.items
       }
@@ -46,7 +46,7 @@ export default {
     }
   },
   methods: {
-    parse (markdown) {
+    parse(markdown) {
       const reader = new Parser()
       const writer = new HtmlRenderer()
       return writer.render(reader.parse(markdown))

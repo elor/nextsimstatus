@@ -30,7 +30,7 @@ export default {
   },
   computed: {
     ...mapState(['beegfs']),
-    quotaData () {
+    quotaData() {
       let dataset = this.usersonly ? this.users : this.quotas
 
       if (!dataset.length) {
@@ -61,7 +61,7 @@ export default {
         ]
       }
     },
-    system () {
+    system() {
       const userBytesSum = Object.values(this.beegfs.quota).reduce((sum, user) => sum + Number(user.bytes), 0)
 
       return {
@@ -69,16 +69,16 @@ export default {
         bytes: Math.max(0, this.beegfs.total - this.beegfs.free - userBytesSum)
       }
     },
-    free () {
+    free() {
       return {
         name: 'Free',
         bytes: this.beegfs.free
       }
     },
-    users () {
+    users() {
       return sortBy(Object.values(this.beegfs.quota), a => -Number(a.bytes))
     },
-    quotas () {
+    quotas() {
       return [
         ...this.users,
         this.system,
@@ -87,7 +87,7 @@ export default {
     }
   },
   methods: {
-    tooltip ({ datasetIndex, index }, { labels, datasets }) {
+    tooltip({ datasetIndex, index }, { labels, datasets }) {
       const username = labels[index]
       const bytes = datasets[datasetIndex].data[index]
       const gigabytes = Math.ceil(bytes / (1024 ** 3))

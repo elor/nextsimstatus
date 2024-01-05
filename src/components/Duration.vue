@@ -45,25 +45,25 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {
     }
   },
   computed: {
-    iso_seconds () {
+    iso_seconds() {
       if (this.iso && RUNTIME_REGEX.test(this.iso)) {
         const [days, hours, minutes, seconds] = this.iso.match(RUNTIME_REGEX).slice(1).map(str => Number(str || 0))
         return seconds + 60 * (minutes + 60 * (hours + 24 * days))
       }
       return undefined
     },
-    iso_date () {
+    iso_date() {
       if (this.iso && this.iso_seconds === undefined) {
         return new Date(this.iso)
       }
       return undefined
     },
-    formatted () {
+    formatted() {
       if (this.seconds !== undefined) {
         return format(this.seconds)
       } else if (this.iso_seconds !== undefined) {
@@ -73,7 +73,7 @@ export default {
       }
       return undefined
     },
-    hovertext () {
+    hovertext() {
       if (this.since) {
         if (this.seconds !== undefined) {
           return new Date(new Date() - 1000 * this.seconds).toLocaleString(LOCALE, LONG_TIME_FORMAT)

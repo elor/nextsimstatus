@@ -15,13 +15,13 @@ export default {
     group: String
   },
   computed: {
-    color () {
+    color() {
       return this.groupcolor(this.group)
     },
-    isDark () {
+    isDark() {
       return isDark(this.color)
     },
-    is_admin_group () {
+    is_admin_group() {
       return this.group === ADMIN_GROUP
     }
   },

@@ -57,7 +57,7 @@ export default {
     QuotaPieChart,
     SoftwareCard
   },
-  data () {
+  data() {
     return {
       period: 'day',
       available_periods: ['hour', '2hr', '4hr', 'day', 'week', 'month', 'year'],
@@ -74,10 +74,10 @@ export default {
     ...mapGetters(['is_admin'])
   },
   methods: {
-    ganglia_chart (dataset) {
+    ganglia_chart(dataset) {
       return `https://mainsim.etit.tu-chemnitz.de/ganglia/stacked.php?c=MainSim&m=${dataset}&r=${this.period}`
     },
-    ganglia_link (dataset) {
+    ganglia_link(dataset) {
       return this.is_admin ? `https://mainsim.etit.tu-chemnitz.de/ganglia/?c=MainSim&m=${dataset}&r=${this.period}` : this.ganglia_chart(dataset)
     }
   }

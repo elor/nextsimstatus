@@ -1,4 +1,4 @@
-function appendTimeValue (string, value, singular, plural) {
+function appendTimeValue(string, value, singular, plural) {
   switch (value) {
     case 0:
       return string
@@ -9,7 +9,7 @@ function appendTimeValue (string, value, singular, plural) {
   }
 }
 
-export function format (seconds) {
+export function format(seconds) {
   if (seconds === undefined) {
     return undefined
   }

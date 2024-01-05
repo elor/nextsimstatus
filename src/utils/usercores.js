@@ -1,4 +1,4 @@
-export default function usercores (jobs) {
+export default function usercores(jobs) {
   const users = {}
 
   jobs.forEach(job => {

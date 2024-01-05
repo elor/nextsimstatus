@@ -64,16 +64,16 @@ export default {
   computed: {
     ...mapState(['user']),
     ...mapGetters(['is_admin']),
-    sanitized_src () {
+    sanitized_src() {
       if (this.src && this.src.startsWith('http')) {
         return this.src
       }
       return `img/ext/icons/${this.src || this.title.toLowerCase()}.png`
     },
-    sanitized_href () {
+    sanitized_href() {
       return this.href || `https://mainsim.etit.tu-chemnitz.de/${this.title.toLowerCase()}`
     },
-    visible () {
+    visible() {
       return this.usergroup === undefined || this.is_admin || this.user.groups.includes(this.usergroup)
     }
   }

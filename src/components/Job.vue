@@ -111,50 +111,50 @@ export default {
   computed: {
     ...mapState(['user']),
     ...mapGetters(['jobstatus', 'nodestatus', 'is_admin']),
-    owner () {
+    owner() {
       return this.Job && this.Job.UserName
     },
-    can_control () {
+    can_control() {
       return this.is_admin || (this.user && this.owner === this.user.login)
     },
-    JobId () {
+    JobId() {
       return Number(this.$route.params.id)
     },
-    Job () {
+    Job() {
       return this.jobstatus.filter(job => Number(job.JobId) === this.JobId)[0]
     },
-    SubJobs () {
+    SubJobs() {
       return this.jobstatus.filter(
         job => Number(job.ArrayJobId) === this.JobId
       )
     },
-    SubJobCores () {
+    SubJobCores() {
       return sum(this.SubJobs.map(job => job.NumCPUs))
     },
-    ParentJob () {
+    ParentJob() {
       return this.jobstatus.filter(job => job.JobId === this.Job.ArrayJobId)[0]
     },
-    title () {
+    title() {
       return `Job #${this.JobId}${this.Job ? `: ${this.Job.JobName}` : ''}`
     },
-    SubNodeNames () {
+    SubNodeNames() {
       return uniq(flatten(this.SubJobs.map(job => job.NodeNames)))
     },
-    BatchHostNode () {
+    BatchHostNode() {
       return this.nodestatus.filter(node => this.Job.BatchHost === node.NodeName)[0]
     },
-    nodes () {
+    nodes() {
       return this.nodestatus.filter(node => this.Job.NodeNames.includes(node.NodeName))
     },
-    subnodes () {
+    subnodes() {
       return this.nodestatus.filter(node => this.SubNodeNames.includes(node.NodeName))
     },
-    times () {
+    times() {
       return Object.keys(this.Job).filter(key => key.endsWith('Time') || key.startsWith('Time')).sort()
     }
   },
   methods: {
-    sanitizePath (path, root = '') {
+    sanitizePath(path, root = '') {
       if (!path) {
         return root || 'undefined'
       }
@@ -171,7 +171,7 @@ export default {
       }
       return path
     },
-    isValidTime (time) {
+    isValidTime(time) {
       return time && time !== 'Unknown' && time !== '00:00:00'
     }
   }

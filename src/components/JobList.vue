@@ -77,7 +77,7 @@ export default {
     JobActionBlock,
     Duration
   },
-  data () {
+  data() {
     return {
       headers: [
         {
@@ -142,20 +142,20 @@ export default {
   computed: {
     ...mapState(['user']),
     ...mapGetters(['logged_in', 'is_admin']),
-    can_select_anything () {
+    can_select_anything() {
       return this.items.some(this.can_select)
     }
   },
   methods: {
     capitalize,
-    can_select (job) {
+    can_select(job) {
       return (
         this.is_admin || (this.logged_in && job.UserName === this.user.login)
       )
     }
   },
   watch: {
-    selected () {
+    selected() {
       const allowed = this.selected.filter(job => this.can_select(job))
       if (allowed.length !== this.selected.length) {
         this.selected = allowed

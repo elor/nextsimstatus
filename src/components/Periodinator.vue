@@ -51,7 +51,7 @@ import { capitalize } from '../utils/capitalize'
 import random from '../utils/random'
 import examples from '../assets/periodinator-examples'
 
-function deumlaut (string) {
+function deumlaut(string) {
   return string
     .replace(/ä/g, 'ae')
     .replace(/ö/g, 'oe')
@@ -59,7 +59,7 @@ function deumlaut (string) {
     .replace(/ß/g, 'ss')
 }
 
-function decomposition (word) {
+function decomposition(word) {
   word = deumlaut(word.toLowerCase())
   return range(word.length)
     .map(i => word.substring(i, i + 2))
@@ -73,7 +73,7 @@ function decomposition (word) {
     .map((a, i) => (a.length ? a : [word[i]]))
 }
 
-function possibilities (graph) {
+function possibilities(graph) {
   if (graph.length === 0) {
     return []
   }
@@ -93,16 +93,16 @@ function possibilities (graph) {
   )
 }
 
-function numMismatches (sequence) {
+function numMismatches(sequence) {
   return sequence.filter(part => part.toLowerCase() === part).length
 }
 
-function sequenceSortFn (a, b) {
+function sequenceSortFn(a, b) {
   return numMismatches(a) - numMismatches(b) || a.length - b.length
 }
 
 export default {
-  data () {
+  data() {
     return {
       input: random.pick(examples),
       filter: {
@@ -112,7 +112,7 @@ export default {
     }
   },
   computed: {
-    lines () {
+    lines() {
       return this.input.split('\n').map(line => {
         return line
           .split(/\s+/)
@@ -123,7 +123,7 @@ export default {
           .filter(word => word && word.length)
       })
     },
-    colors () {
+    colors() {
       return this.lines.map(words => {
         const lengths = words.map(word => word.length)
         const offsets = lengths.map((_, index) =>
@@ -143,7 +143,7 @@ export default {
   },
   methods: {
     numMismatches,
-    pickRandom () {
+    pickRandom() {
       this.input = random.pick(
         examples.filter(sentence => sentence !== this.input)
       )

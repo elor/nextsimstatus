@@ -26,7 +26,7 @@ import { elements, symbols } from '../utils/elements'
 export default {
   props: ['symbol', 'color', 'rawtext'],
   computed: {
-    element () {
+    element() {
       return (
         elements[this.symbol] || {
           symbol: this.symbol,
@@ -36,10 +36,10 @@ export default {
         }
       )
     },
-    open () {
+    open() {
       return !this.element.name && !this.rawtext
     },
-    completions () {
+    completions() {
       return symbols.filter(symbol =>
         symbol.toLowerCase().startsWith(this.symbol.toLowerCase())
       )

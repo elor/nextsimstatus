@@ -81,7 +81,7 @@ import LoginMenu from '@/components/LoginMenu'
 import ErrorSnack from '@/components/ErrorSnack'
 
 export default {
-  data () {
+  data() {
     return {
       mobileDrawer: false,
       miniVariant: true
@@ -94,21 +94,21 @@ export default {
   computed: {
     ...mapState(['errors', 'dates', 'options', 'jobs', 'updating', 'sources']),
     drawer: {
-      get () {
+      get() {
         if (this.isMobile) {
           return this.mobileDrawer
         } else {
           return true
         }
       },
-      set (value) {
+      set(value) {
         this.mobileDrawer = value
       }
     },
-    isMobile () {
+    isMobile() {
       return this.$vuetify.breakpoint.mobile
     },
-    items () {
+    items() {
       return this.$router.options.routes.filter(
         route => !route.path.match(/:/)
       )
@@ -117,23 +117,23 @@ export default {
   methods: {
     ...mapActions(['mainsimFetch', 'mqttReconnect']),
     ...mapMutations(['clearErrors']),
-    refresh () {
+    refresh() {
       this.mainsimFetch()
       this.mqttReconnect()
     }
   },
   name: 'App',
   watch: {
-    isMobile (mobile) {
+    isMobile(mobile) {
       if (!mobile) {
         this.mobileDrawer = false
       }
     }
   },
-  mounted () {
+  mounted() {
     this.$nextTick(() => window.addEventListener('focus', this.refresh))
   },
-  beforeDestroy () {
+  beforeDestroy() {
     window.removeEventListener('focus', this.refresh)
   }
 }

@@ -104,7 +104,7 @@ export default {
     NodeActionBlock,
     Duration
   },
-  data () {
+  data() {
     return {
       headers: [
         {
@@ -161,22 +161,22 @@ export default {
   },
   computed: {
     ...mapGetters(['nodestatus', 'is_admin']),
-    selected_nodenames () {
+    selected_nodenames() {
       return this.selected.map(node => node.NodeName).join(',')
     },
-    searchterm () {
+    searchterm() {
       return this.$route.params.search || ''
     }
   },
   methods: {
     capitalize,
-    isWarningState (state) {
+    isWarningState(state) {
       return warnstates.includes(state)
     },
-    isFailState (state) {
+    isFailState(state) {
       return failstates.includes(state)
     },
-    search (term) {
+    search(term) {
       console.log(arguments)
 
       if (term === this.searchterm) {

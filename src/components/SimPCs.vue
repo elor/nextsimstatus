@@ -106,7 +106,7 @@ export default {
     UserChip,
     Duration
   },
-  data () {
+  data() {
     const VIS = {
       all: 0,
       recent: 1,
@@ -135,7 +135,7 @@ export default {
   },
   methods: {
     format,
-    visible (pc) {
+    visible(pc) {
       switch (this.visibility) {
         case this.VIS.all:
           return true
@@ -150,7 +150,7 @@ export default {
       }
     }
   },
-  created () {
+  created() {
     this.tabledata = this.simpcstatus
   }
 }

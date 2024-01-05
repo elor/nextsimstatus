@@ -17,7 +17,7 @@ const mapping = {
   'a.zienert': '#034f84'
 }
 
-export default function usercolor (name) {
+export default function usercolor(name) {
   if (mapping[name.toLowerCase()]) {
     return mapping[name.toLowerCase()]
   }

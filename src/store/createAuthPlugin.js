@@ -11,7 +11,7 @@ const config =
   storageKey: 'mainsimweb-auth-token'
 }
 
-function login (payload, store, storage) {
+function login(payload, store, storage) {
   const { username, password } = payload
 
   axios.post(config.loginUrl, { username, password })
@@ -25,12 +25,12 @@ function login (payload, store, storage) {
     })
 }
 
-function logout (store, storage) {
+function logout(store, storage) {
   store.commit('setUser', {})
   storage.clear()
 }
 
-function verify (store, storage) {
+function verify(store, storage) {
   const token = storage.read()
 
   if (!token) {
@@ -50,7 +50,7 @@ function verify (store, storage) {
     })
 }
 
-function init (store, storage) {
+function init(store, storage) {
   const token = storage.read()
 
   if (!token) {
@@ -67,7 +67,7 @@ function init (store, storage) {
   verify(store, storage)
 }
 
-function renew (store, storage) {
+function renew(store, storage) {
   const token = storage.read()
 
   axios.post(config.renewUrl, { token })
@@ -81,7 +81,7 @@ function renew (store, storage) {
     })
 }
 
-export default function createAuthPlugin () {
+export default function createAuthPlugin() {
   const storage = new LoginStorage(STORAGE_KEY)
 
   return store => {
