@@ -20,8 +20,16 @@ const config = {
 
 function unpack64(message) {
   const binary = Buffer.from(message.toString(), 'base64')
-  const json = zlib.gunzipSync(binary).toString()
-  return JSON.parse(json)
+  const unzipped = zlib.gunzipSync(binary)
+  const json = unzipped.toString()
+  try {
+    const parsed = JSON.parse(json)
+    return parsed
+  } catch (e) {
+    console.error(e)
+    console.log(`'${json}'`)
+    throw (e)
+  }
 }
 
 function unpack(message) {
@@ -95,7 +103,12 @@ function registerMQTT(store) {
           store.commit('updateNodes', unpack64(message))
           break
         case 'slurm/jobs':
-          store.commit('updateJobs', unpack64(message))
+          try {
+            const jobs = unpack64(message)
+            store.commit('updateJobs', jobs)
+          } catch (err) {
+            console.error('jobs were empty or ill-defined')
+          }
           break
         case (topic.match(/simpc\/simpc\d+/) || {}).input:
           store.commit('updateSimPC', unpack(message))
