@@ -95,14 +95,17 @@
         </v-layout>
       </v-card-text>
       <v-card-text>
-        <v-progress-circular
+        <router-link
           v-for="pc in simpcstatus"
           :key="pc.hostname"
-          :value="100 * (pc.load_1min || 0.0) / pc.cores"
-          :color="pc.load_1min > pc.cores ? 'red' : 'green'"
-        >
-          <router-link :to="`/simpc${pc.number}`">{{pc.number}}</router-link>
-        </v-progress-circular>
+          :to="pc.hostname">
+          <v-progress-circular
+            :value="100 * (pc.load_1min || 0.0) / pc.cores"
+            :color="pc.load_1min > pc.cores ? 'red' : 'green'"
+          >
+            {{pc.number}}
+          </v-progress-circular>
+        </router-link>
       </v-card-text>
     </v-card>
 
