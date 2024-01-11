@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="`/${name}`">
+  <router-link :to="`/${name}`">
     <v-progress-circular :value="percent" :color="color">
       {{number}}
     </v-progress-circular>
