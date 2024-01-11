@@ -146,6 +146,12 @@ export default {
     users_sorted() {
       return this.userstatus
         .slice()
+        .map(user => {
+          return {
+            ...user,
+            PCs: user.PCs.filter(pc => !pc.inactive)
+          }
+        })
         .sort(
           (a, b) =>
             b.NumCPUs - a.NumCPUs ||
