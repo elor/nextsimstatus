@@ -21,9 +21,7 @@
                 :value="100*partition.CPUAlloc/partition.CPUTot"
                 :color="partition.CPUAlloc == partition.CPUTot ? 'light-blue' : 'green'"
               >
-                <b>
-                  <router-link to="/nodes">{{partition.PartitionName}}</router-link>
-                </b>
+                <b>{{partition.PartitionName}}</b>
               </v-progress-circular>
               <node-load v-for="node in partition.Nodes" :key="node.NodeName" :node="node"></node-load>
             </div>
