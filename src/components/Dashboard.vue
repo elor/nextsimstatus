@@ -15,7 +15,7 @@
             <div class="mb-3 mt-3" v-if="!partitionstatus || partitionstatus.length === 0">
               Couldn't load node partitions from SLURM
             </div>
-            <div class="mb-3" v-for="partition in partitionstatus" :key="partition.PartitionName">
+            <div class="mb-3 mr-3" v-for="partition in partitionstatus" :key="partition.PartitionName" style="float:left">
               <v-progress-circular
                 slot="icon"
                 :value="100*partition.CPUAlloc/partition.CPUTot"
@@ -25,6 +25,7 @@
               </v-progress-circular>
               <node-load v-for="node in partition.Nodes" :key="node.NodeName" :node="node"></node-load>
             </div>
+            <div style="clear:both"></div>
           </grid-card>
 
           <grid-card title="Racks">
