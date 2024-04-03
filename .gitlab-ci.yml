@@ -35,7 +35,7 @@ build:docker-mainsimweb:
 
 deploy:docker-mainsimweb:
   only:
-   - master
+    - master
   extends: .docker-compose
   stage: deploy
   script:
@@ -67,5 +67,6 @@ deploy:mainsim:
     - webpack
   script:
     - rsync -av --delete dist/ /var/www/html
+    - ln -s /etc/motd /var/www/html/motd
     - rsync -av --delete daemons/mainsim /opt/mainsimstatus/daemons/
     - cp -v /opt/mainsimstatus/daemons/mainsim/systemd/*.service /etc/systemd/system/
