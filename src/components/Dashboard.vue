@@ -1,5 +1,7 @@
 <template>
   <v-container fluid>
+    <v-alert type="warning" dismissible v-if="motd">/etc/motd:<pre>{{motd}}</pre></v-alert>
+
     <v-card class="mb-3">
       <v-card-title>
         <v-btn to="/nodes">Nodes</v-btn>
@@ -123,7 +125,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import Software from '@/components/Software'
 import GridCard from '@/components/GridCard'
 import CoresPieChart from '@/components/CoresPieChart'
@@ -148,6 +150,7 @@ export default {
       'simpcstatus',
       'rackstatus'
     ]),
+    ...mapState(['motd']),
     users_sorted() {
       return this.userstatus
         .slice()
