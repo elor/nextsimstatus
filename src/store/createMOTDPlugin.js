@@ -12,8 +12,18 @@ export default function createMOTDPlugin() {
 
     updateMOTD(store)
 
+    const oneMinute = 1000 * 60
+
     window.setInterval(() => {
       updateMOTD(store)
-    }, 1000 * 60) // update every minute
+    }, oneMinute) // update every minute
+
+    store.subscribeAction(action => {
+      switch (action.type) {
+        case 'updateMOTD':
+          updateMOTD(store)
+          break
+      }
+    })
   }
 }

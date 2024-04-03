@@ -354,6 +354,7 @@ export default new Vuex.Store({
   actions: {
     mainsimFetch() { },
     mqttReconnect() { },
+    updateMOTD() { },
     login(credentials) { },
     logout() { },
     renewToken() { },

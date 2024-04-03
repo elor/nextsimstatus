@@ -115,11 +115,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['mainsimFetch', 'mqttReconnect']),
+    ...mapActions(['mainsimFetch', 'mqttReconnect', 'updateMOTD']),
     ...mapMutations(['clearErrors']),
     refresh() {
       this.mainsimFetch()
       this.mqttReconnect()
+      this.updateMOTD()
     }
   },
   name: 'App',
