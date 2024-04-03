@@ -34,3 +34,6 @@ services:
      - 8883:8883
      - 9001:9001
     restart: always
+
+volumes:
+  auth_secret.txt:
