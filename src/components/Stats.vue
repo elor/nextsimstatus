@@ -6,14 +6,6 @@
           <grid-card title="Core Allocation">
             <cores-pie-chart height="180" hidelegend></cores-pie-chart>
           </grid-card>
-
-          <grid-card title="BeeGFS Usage">
-            <quota-pie-chart height="180" hidelegend></quota-pie-chart>
-          </grid-card>
-
-          <grid-card title="BeeGFS Usage (Users only)">
-            <quota-pie-chart height="180" hidelegend usersonly></quota-pie-chart>
-          </grid-card>
         </v-layout>
 
         <v-container>
@@ -47,14 +39,12 @@ import { mapGetters } from 'vuex'
 
 import GridCard from '@/components/GridCard'
 import CoresPieChart from '@/components/CoresPieChart'
-import QuotaPieChart from '@/components/QuotaPieChart'
 import SoftwareCard from '@/components/SoftwareCard'
 
 export default {
   components: {
     GridCard,
     CoresPieChart,
-    QuotaPieChart,
     SoftwareCard
   },
   data() {
