@@ -20,8 +20,6 @@ webpack:
     - mainsimweb-docker
   dependencies: []
   before_script:
-    - apk add py-pip
-    - pip install docker-compose==1.23.0
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
 
 build:docker-mainsimweb:
@@ -30,8 +28,8 @@ build:docker-mainsimweb:
   script:
     - cd daemons/mainsimweb
     - pwd
-    - docker-compose build --parallel --pull
-    - docker-compose push
+    - docker compose build --parallel --pull
+    - docker compose push
 
 deploy:docker-mainsimweb:
   only:
@@ -40,8 +38,8 @@ deploy:docker-mainsimweb:
   stage: deploy
   script:
     - cd daemons/mainsimweb
-    - docker-compose pull --include-deps
-    - docker-compose up --no-build --remove-orphans --detach
+    - docker compose pull --include-deps
+    - docker compose up --no-build --remove-orphans --detach
 
 deploy:mainsimweb:
   only:
