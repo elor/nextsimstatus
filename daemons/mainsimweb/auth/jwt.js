@@ -4,9 +4,12 @@ const { promisify } = require('util')
 const fs = require('fs')
 const path = require('path')
 
+// read SECRETS_FILE from environment (SECRETS_FILE)
+const SECRETS_FILE = process.env.SECRETS_FILE || 'auth_secret.txt'
+
 // READ SECRET FROM auth_secret.txt, or create a random one if it doesn't exist
-function get_or_create_secret() {
-  const secret_path = path.join(__dirname, 'auth_secret.txt')
+function get_or_create_secret () {
+  const secret_path = SECRETS_FILE;
   if (fs.existsSync(secret_path)) {
     return fs.readFileSync(secret_path, 'utf8')
   } else {
