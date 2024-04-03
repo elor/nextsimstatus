@@ -45,8 +45,12 @@ function verify(store, storage) {
       }
     })
     .catch(error => {
+      // 401: logout
+      // 404 / 500: server error, try again later
       console.error(error)
-      logout(store, storage)
+      if (error.response && error.response.status === 401) {
+        return logout(store, storage)
+      }
     })
 }
 
