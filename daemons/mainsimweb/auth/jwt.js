@@ -21,10 +21,10 @@ function get_or_create_secret () {
 
 const SECRET = get_or_create_secret()
 const OPTIONS = {
-  expiresIn: '10d'
+  expiresIn: '30d'
 }
 
-const RENEWGRACEPERIOD = 3 * 86400
+const RENEWGRACEPERIOD = 7 * 86400
 
 function epochNow () {
   const now = new Date()
