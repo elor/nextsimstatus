@@ -12,6 +12,7 @@ import createMainsimPlugin from './createMainsimPlugin'
 import createNowTimePlugin from './createNowTimePlugin'
 import createAuthPlugin from './createAuthPlugin'
 import createControlPlugin from './createControlPlugin'
+import createMOTDPlugin from './createMOTDPlugin'
 
 import { ADMIN_GROUP } from '../config'
 
@@ -80,7 +81,8 @@ export default new Vuex.Store({
       name: '',
       groups: []
     },
-    jwtToken: undefined
+    jwtToken: undefined,
+    motd: ''
   },
 
   getters: {
@@ -343,6 +345,9 @@ export default new Vuex.Store({
       if (state.errors.includes(error)) {
         state.errors = state.errors.filter(err => err !== error)
       }
+    },
+    updateMOTD(state, motd) {
+      state.motd = motd
     }
   },
 
@@ -363,6 +368,7 @@ export default new Vuex.Store({
     createMainsimPlugin(sources),
     createNowTimePlugin(1000),
     createAuthPlugin(),
-    createControlPlugin()
+    createControlPlugin(),
+    createMOTDPlugin()
   ]
 })
