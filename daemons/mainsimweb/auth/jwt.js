@@ -1,8 +1,22 @@
 const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
 const { promisify } = require('util')
+const fs = require('fs')
+const path = require('path')
 
-const SECRET = crypto.randomBytes(512)
+// READ SECRET FROM auth_secret.txt, or create a random one if it doesn't exist
+function get_or_create_secret() {
+  const secret_path = path.join(__dirname, 'auth_secret.txt')
+  if (fs.existsSync(secret_path)) {
+    return fs.readFileSync(secret_path, 'utf8')
+  } else {
+    const new_secret = crypto.randomBytes(512)
+    fs.writeFileSync(secret_path, new_secret)
+    return new_secret
+  }
+}
+
+const SECRET = get_or_create_secret()
 const OPTIONS = {
   expiresIn: '10d'
 }
