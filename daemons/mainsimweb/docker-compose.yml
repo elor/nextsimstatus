@@ -4,7 +4,7 @@ services:
     build: auth
     image: mainsim.etit.tu-chemnitz.de:5555/simadmin/mainsimstatus/auth
     volumes:
-      - auth_secret.txt:auth_secret.txt
+      - ./auth_secret.txt:auth_secret.txt
     ports:
      - 127.0.0.1:1881:8000
     restart: always
@@ -34,6 +34,3 @@ services:
      - 8883:8883
      - 9001:9001
     restart: always
-
-volumes:
-  auth_secret.txt:
