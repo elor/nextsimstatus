@@ -5,8 +5,11 @@ export default function splitStates(state) {
     .map(state => state.endsWith('*')
       ? [state.replace(/\**$/, ''), '*']
       : (state.endsWith('@')
-        ? [state.replace(/@*$/, ''), '@']
-        : state
+        ? [state.replace(/@*$/, ''), 'REBOOT']
+        : (state.endsWith('$')
+          ? [state.replace(/\$*$/, ''), 'RESERVED']
+          : state
+        )
       )
     )
   )

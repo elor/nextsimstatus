@@ -4,6 +4,7 @@ const colors = {
   blue: '#03a9f4',
   green: '#4caf50',
   red: '#f44336',
+  orange: '#fb8c00',
   plum: '#c37cfc'
 }
 
@@ -14,6 +15,7 @@ const mapping = {
   fail: colors.red,
   drain: colors.plum,
   alloc: colors.blue,
+  reserved: colors.orange,
   'a.zienert': '#034f84'
 }
 

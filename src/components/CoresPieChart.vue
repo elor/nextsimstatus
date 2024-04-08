@@ -16,6 +16,7 @@ const HREFS = {
   Free: '/nodes/IDLE',
   Drain: '/nodes/DRAIN',
   Reboot: '/nodes/REBOOT',
+  Reserved: '/nodes/RESERVED',
   Error: '/nodes',
   Failure: '/nodes'
 }
@@ -37,6 +38,7 @@ export default {
         { name: 'Free', cpus: this.nodecpus.free },
         { name: 'Drain', cpus: this.nodecpus.drain },
         { name: 'Reboot', cpus: this.nodecpus.reboot },
+        { name: 'Reserved', cpus: this.nodecpus.reserved },
         { name: 'Error', cpus: this.nodecpus.error },
         { name: 'Failure', cpus: this.nodecpus.fail }
       ].filter(sys => sys.cpus)

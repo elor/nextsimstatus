@@ -59,7 +59,7 @@ export default new Vuex.Store({
     jobscripts: [],
     racks: [],
     errors: [],
-    nodecpus: { allocated: 0, free: 0, error: 0, total: 0, drain: 0, fail: 0 },
+    nodecpus: { allocated: 0, free: 0, error: 0, total: 0, drain: 0, fail: 0, reserved: 0 },
     usercpus: [],
     simpcs: initialSimpcs,
     dates: {
