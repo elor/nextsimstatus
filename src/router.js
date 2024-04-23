@@ -8,7 +8,6 @@ import Job from '@/components/Job'
 import Jobs from '@/components/Jobs'
 import Node from '@/components/Node'
 import Nodes from '@/components/Nodes'
-import EnsSim from '@/components/EnsSim'
 import SimPCs from '@/components/SimPCs'
 import SimPC from '@/components/SimPC'
 import Periodinator from '@/components/Periodinator'
@@ -100,12 +99,6 @@ export default new Router({
     name: 'Periodyctionary',
     component: Periodinator,
     hidden: true
-  },
-  {
-    path: '/enssim',
-    name: 'EnsSim',
-    component: EnsSim,
-    icon: 'fa-carrot'
   },
   {
     path: '/mensa',
