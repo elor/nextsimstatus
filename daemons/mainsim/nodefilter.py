@@ -16,6 +16,7 @@ ALLOWED = {
     "NodeHostName": str,
     "Version": str,
     "OS": str,
+    "Reason": str,
     "RealMemory": int,
     "AllocMem": int,
     "FreeMem": int,
