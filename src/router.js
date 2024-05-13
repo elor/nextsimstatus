@@ -12,7 +12,6 @@ import SimPCs from '@/components/SimPCs'
 import SimPC from '@/components/SimPC'
 import Periodinator from '@/components/Periodinator'
 import Mensa from '@/components/Mensa'
-import Software from '@/components/Software'
 import Users from '@/components/Users'
 import User from '@/components/User'
 // import Manual from '@/components/Manual'
@@ -63,12 +62,6 @@ export default new Router({
     name: 'SimPCs',
     component: SimPCs,
     icon: 'fa-desktop'
-  },
-  {
-    path: '/apps',
-    name: 'Software',
-    component: Software,
-    icon: 'fa-mouse-pointer'
   },
   {
     path: '/test',

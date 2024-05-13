@@ -112,21 +112,11 @@
         </router-link>
       </v-card-text>
     </v-card>
-
-    <v-card class="mb-3">
-      <v-card-title>
-        <v-btn to="/apps">Software</v-btn>
-      </v-card-title>
-      <v-card-text>
-        <Software></Software>
-      </v-card-text>
-    </v-card>
   </v-container>
 </template>
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-import Software from '@/components/Software'
 import GridCard from '@/components/GridCard'
 import CoresPieChart from '@/components/CoresPieChart'
 import Rack from '@/components/Rack'
@@ -135,7 +125,6 @@ import UserChip from '@/components/UserChip'
 
 export default {
   components: {
-    Software,
     GridCard,
     CoresPieChart,
     Rack,
