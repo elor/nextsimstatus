@@ -66,12 +66,19 @@
         </template>
 
         <template v-slot:item.State="props">
-          <span v-for="state in props.item.States" :key="state">
-            <v-icon color="warning" v-if="isWarningState(state)" small>fa-exclamation-triangle</v-icon>
-            <v-icon color="error" v-if="isFailState(state)">fa-skull-crossbones</v-icon>
-            {{capitalize(state)}}
-            <span v-if="!props.item.State.endsWith(state)">&nbsp;</span>
-          </span>
+          <v-tooltip right>
+            <template v-slot:activator="{ on }">
+              <span v-on="on">
+                <span v-for="state in props.item.States" :key="state">
+                  <v-icon color="warning" v-if="isWarningState(state)" small>fa-exclamation-triangle</v-icon>
+                  <v-icon color="error" v-if="isFailState(state)">fa-skull-crossbones</v-icon>
+                  {{capitalize(state)}}
+                  <span v-if="!props.item.State.endsWith(state)">&nbsp;</span>
+                </span>
+              </span>
+            </template>
+            Reason: {{props.item.Reason}}
+          </v-tooltip>
         </template>
 
         <template v-slot:item.BootTime="props">
