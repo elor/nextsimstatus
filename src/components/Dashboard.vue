@@ -43,7 +43,6 @@
     <v-card class="mb-3">
       <v-card-title>
         <v-btn to="/users">Users</v-btn>
-        <v-btn to="/simpcs">SimPCs</v-btn>
       </v-card-title>
       <v-card-text>
         <v-layout row wrap>
@@ -64,21 +63,6 @@
                   <v-flex xs4>
                     <div>{{user.NumCPUs}} Cores</div>
                   </v-flex>
-
-                  <v-flex xs4 v-if="user.PCs.length">
-                    SimPC:
-                    <router-link
-                      v-for="pc in user.PCs"
-                      :key="pc.hostname"
-                      :to="`/simpc${pc.number}`">
-                      <v-progress-circular
-                        :value="100 * (pc.load_1min || 0.0) / pc.cores"
-                        :color="pc.load_1min > pc.cores ? 'red' : 'green'"
-                      >
-                        {{pc.number}}
-                      </v-progress-circular>
-                    </router-link>
-                  </v-flex>
                 </v-layout>
                 <div v-if="user.Jobs.length">
                   Jobs:
@@ -97,19 +81,6 @@
             </v-hover>
           </v-flex>
         </v-layout>
-      </v-card-text>
-      <v-card-text>
-        <router-link
-          v-for="pc in simpcstatus"
-          :key="pc.hostname"
-          :to="pc.hostname">
-          <v-progress-circular
-            :value="100 * (pc.load_1min || 0.0) / pc.cores"
-            :color="pc.load_1min > pc.cores ? 'red' : 'green'"
-          >
-            {{pc.number}}
-          </v-progress-circular>
-        </router-link>
       </v-card-text>
     </v-card>
   </v-container>
@@ -143,12 +114,6 @@ export default {
     users_sorted() {
       return this.userstatus
         .slice()
-        .map(user => {
-          return {
-            ...user,
-            PCs: user.PCs.filter(pc => !pc.inactive)
-          }
-        })
         .sort(
           (a, b) =>
             b.NumCPUs - a.NumCPUs ||

@@ -21,15 +21,6 @@
           <user-chip :login="props.item.UserName" />
         </template>
 
-        <template v-slot:item.PCNames="props">
-          <span v-for="pc in props.item.PCs" :key="pc.number">
-            <router-link
-              :class="{'grey--text':pc.inactive}"
-              :to="`/simpc${pc.number}`"
-            >{{pc.hostname}}</router-link>&nbsp;
-          </span>
-        </template>
-
         <template v-slot:item.JobCount.Running="props">
           <router-link :to="`/users/${props.item.UserName}`">{{props.item.JobCount.Running}}</router-link>
         </template>
@@ -66,10 +57,10 @@ export default {
           value: 'UserName'
         },
         {
-          text: 'PCs',
+          text: 'Cores',
           align: 'left',
           sortable: true,
-          value: 'PCNames'
+          value: 'NumCPUs'
         },
         {
           text: 'Running',
@@ -78,22 +69,10 @@ export default {
           value: 'JobCount.Running'
         },
         {
-          text: 'Cores',
-          align: 'left',
-          sortable: true,
-          value: 'NumCPUs'
-        },
-        {
           text: 'Nodes',
           align: 'left',
           sortable: true,
           value: 'NodeNames'
-        },
-        {
-          text: 'Other Jobs',
-          align: 'left',
-          sortable: true,
-          value: 'JobCount.Other'
         }
       ],
       search: ''

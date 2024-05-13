@@ -8,8 +8,6 @@ import Job from '@/components/Job'
 import Jobs from '@/components/Jobs'
 import Node from '@/components/Node'
 import Nodes from '@/components/Nodes'
-import SimPCs from '@/components/SimPCs'
-import SimPC from '@/components/SimPC'
 import Periodinator from '@/components/Periodinator'
 import Mensa from '@/components/Mensa'
 import Users from '@/components/Users'
@@ -56,12 +54,6 @@ export default new Router({
     name: 'Stats',
     component: Stats,
     icon: 'fa-chart-pie'
-  },
-  {
-    path: '/simpcs',
-    name: 'SimPCs',
-    component: SimPCs,
-    icon: 'fa-desktop'
   },
   {
     path: '/test',
@@ -115,12 +107,6 @@ export default new Router({
     path: '/users/:id',
     name: 'User',
     component: User,
-    hidden: true
-  },
-  {
-    path: '/simpc:id',
-    name: 'SimPC',
-    component: SimPC,
     hidden: true
   },
   {

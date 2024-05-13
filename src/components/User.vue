@@ -31,14 +31,6 @@
             <template v-else>Keine reservierten Knoten</template>
           </grid-card>
 
-          <grid-card title="SimPCs">
-            <span v-for="pc in User.PCs" :key="pc.number">
-              <router-link
-                :class="{'grey--text':pc.inactive}"
-                :to="`/simpc${pc.number}`"
-              >{{pc.hostname}}</router-link>&nbsp;
-            </span>
-          </grid-card>
         </v-layout>
         <span v-else>Keine Daten verfügbar</span>
       </v-card-text>
