@@ -1,0 +1,14 @@
+[Unit]
+Description=NextSimStatus Racks Reporter
+After=syslog.target network.target
+ConditionFileIsExecutable=/opt/nextsimstatus/rack-proxy/rack-proxy.sh
+
+[Service]
+ExecStart=/opt/nextsimstatus/rack-proxy/rack-proxy.sh /etc/nextsimstatus.json
+
+Restart=always
+RestartSec=15
+
+[Install]
+WantedBy=multi-user.target
+

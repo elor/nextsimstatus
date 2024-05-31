@@ -6,8 +6,8 @@ set -e -u
 SOURCE_BROKER="mainsimweb.etit.tu-chemnitz.de"
 DEST_BROKER="nextsimstatus.etit.tu-chemnitz.de"
 
-if ((${#@} == 2)); then
-	secrets_file="$2"
+if ((${#@} == 1)); then
+	secrets_file="$1"
 	if [ -s "$secrets_file" ]; then
 		mqtt_password=$(jq -r .mqtt "$secrets_file")
 	fi
