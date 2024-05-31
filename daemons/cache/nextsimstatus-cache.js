@@ -36,6 +36,9 @@ const receiveFuncs = {
   },
   quotas (quotas) {
     store.quotas = quotas
+  },
+  newError(error) {
+    console.log(error)
   }
 }
 
