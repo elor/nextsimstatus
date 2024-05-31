@@ -1,8 +1,0 @@
-topic read #
-
-user mqtt
-topic readwrite #
-
-user simpc
-topic readwrite simpc/#
-
