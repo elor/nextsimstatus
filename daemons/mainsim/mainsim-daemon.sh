@@ -19,7 +19,7 @@ mqtt_password=""
 if (( ${#@} == 2 )); then
     secrets_file="$2"
     if [ -s "$secrets_file" ]; then
-        mqtt_password=$(python -c "import json; print json.load(open('$secrets_file'))['mqtt']")
+	    mqtt_password=$(jq -r .mqtt "$secrets_file")
     fi
 else
     secrets_file=""
