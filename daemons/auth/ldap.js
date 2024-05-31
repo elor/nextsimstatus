@@ -3,10 +3,10 @@ const { promisify } = require('util')
 
 function createConfig (username) {
   return {
-    url: 'ldap://mainsim.etit.tu-chemnitz.de',
-    bindDN: `uid=${username},ou=People,dc=etit,dc=tu-chemnitz,dc=de`,
+    url: 'ldap://10.10.0.1',
+    bindDN: `uid=${username},cn=users,cn=accounts,dc=etit,dc=tu-chemnitz,dc=de`,
     personSearch: {
-      base: 'ou=People,dc=etit,dc=tu-chemnitz,dc=de',
+      base: 'cn=users,cn=accounts,dc=etit,dc=tu-chemnitz,dc=de',
       config: {
         scope: 'sub',
         attributes: [
@@ -15,8 +15,6 @@ function createConfig (username) {
           'gidNumber',
           'homeDirectory',
           'loginShell',
-          'shadowLastChange',
-          'shadowMax',
           'sn',
           'uid',
           'uidNumber'
@@ -25,7 +23,7 @@ function createConfig (username) {
       }
     },
     groupSearch: {
-      base: 'ou=Group,dc=etit,dc=tu-chemnitz,dc=de',
+      base: 'cn=groups,cn=accounts,dc=etit,dc=tu-chemnitz,dc=de',
       config: {
         scope: 'sub',
         attributes: [
