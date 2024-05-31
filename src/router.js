@@ -12,7 +12,6 @@ import Periodinator from '@/components/Periodinator'
 import Mensa from '@/components/Mensa'
 import Users from '@/components/Users'
 import User from '@/components/User'
-import Stats from '@/components/Stats'
 import Test from '@/components/Test'
 
 Vue.use(Router)
@@ -47,12 +46,6 @@ export default new Router({
     name: 'Users',
     component: Users,
     icon: 'fa-users'
-  },
-  {
-    path: '/stats',
-    name: 'Stats',
-    component: Stats,
-    icon: 'fa-chart-pie'
   },
   {
     path: '/test',
