@@ -12,7 +12,6 @@ import Periodinator from '@/components/Periodinator'
 import Mensa from '@/components/Mensa'
 import Users from '@/components/Users'
 import User from '@/components/User'
-// import Manual from '@/components/Manual'
 import Stats from '@/components/Stats'
 import Test from '@/components/Test'
 
@@ -61,12 +60,6 @@ export default new Router({
     component: Test,
     hidden: true
   },
-  // {
-  //   path: '/manual',
-  //   name: 'Manual',
-  //   component: Manual,
-  //   icon: 'fa-info-circle'
-  // },
   {
     path: '/apps/periodyfier',
     name: 'Periodyfier',
