@@ -6,6 +6,6 @@ services:
     volumes:
       - ${PWD}:/mainsimstatus
     ports:
-      - "8080:8080"
+      - "8080:8081"
     working_dir: /mainsimstatus
     command: npm run serve
