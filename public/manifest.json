@@ -1,6 +1,6 @@
 {
-  "name": "mainsimstatus",
-  "short_name": "mainsimstatus",
+  "name": "NextSimStatus",
+  "short_name": "NextSimStatus",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
