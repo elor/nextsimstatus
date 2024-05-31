@@ -14,7 +14,7 @@ rsync -rv --delete ./daemons/ /opt/nextsimstatus
 
 (
 	cd /opt/nextsimstatus/
-	podman-compose up --build --detach
+	podman-compose up --build --detach -t 1
 )
 
 echo "Success"
