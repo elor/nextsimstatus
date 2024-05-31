@@ -1,8 +1,8 @@
 {
-  "name": "mainsimstatus-cache",
+  "name": "nextsimstatus-cache",
   "version": "1.0.0",
-  "description": "The mainsimstatus cache daemon",
-  "main": "mainsimstatus-cache.js",
+  "description": "The nextsimstatus cache daemon",
+  "main": "nextsimstatus-cache.js",
   "scripts": {
     "watch": "nodemon --exec 'npm run serve'",
     "serve": "node . 8081"

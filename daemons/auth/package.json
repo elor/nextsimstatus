@@ -1,7 +1,7 @@
 {
-  "name": "mainsimstatus-auth",
+  "name": "nextsimstatus-auth",
   "version": "1.0.0",
-  "description": "The mainsimstatus auth daemon",
+  "description": "The nextsimstatus auth daemon",
   "main": "auth-server.js",
   "author": "Erik E. Lorenz",
   "scripts": {

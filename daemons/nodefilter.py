@@ -33,18 +33,18 @@ ALLOWED = {
 }
 
 
-def filterfunc(job):
-    newjob = {}
-    for key in job:
-        if key in ALLOWED and job[key]:
+def filterfunc(node):
+    newnode = {}
+    for key in node:
+        if key in ALLOWED and node[key]:
             try:
-                newjob[key] = ALLOWED[key](job[key])
+                newnode[key] = ALLOWED[key](node[key])
             except:
-                newjob[key] = ALLOWED[key](0)
-    return newjob
+                newnode[key] = ALLOWED[key](0)
+    return newnode
 
 
-jobs = json.load(sys.stdin)
-newdata = [filterfunc(job) for job in jobs]
+nodes = json.load(sys.stdin)
+newdata = [filterfunc(node) for node in nodes if node['NodeName'] != 'nextsim']
 
 json.dump(newdata, sys.stdout)

@@ -1,7 +1,7 @@
 const mqtt = require('mqtt')
 const zlib = require('zlib')
 
-const host = 'mainsimweb.etit.tu-chemnitz.de'
+const host = 'nextsimstatus.etit.tu-chemnitz.de'
 const port = 1883 // web-based port: 9001
 const url = `mqtt://${host}:${port}`
 

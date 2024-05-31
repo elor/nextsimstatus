@@ -16,7 +16,7 @@ def test(nodes):
 
 
 def command(action, nodes):
-    return ['mainsim', action, nodes]
+    return ['nextsim', action, nodes]
 
 
 def control(action, nodes):

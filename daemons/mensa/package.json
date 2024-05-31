@@ -1,7 +1,7 @@
 {
-  "name": "mainsimstatus-mensa",
+  "name": "nextsimstatus-mensa",
   "version": "1.0.0",
-  "description": "The mainsimstatus mensa daemon",
+  "description": "The nextsimstatus mensa daemon",
   "main": "server.js",
   "author": "Erik E. Lorenz",
   "scripts": {
