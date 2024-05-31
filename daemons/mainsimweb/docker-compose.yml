@@ -22,20 +22,7 @@ services:
     ports:
       - 127.0.0.1:1885:8000
     restart: always
-  essensruf:
-    build: essensruf
-    image: mainsim.etit.tu-chemnitz.de:5555/simadmin/mainsimstatus/essensruf
-    ports:
-      - 127.0.0.1:1886:8000
-    restart: always
-  mqtt:
-    build: mqtt
-    image: mainsim.etit.tu-chemnitz.de:5555/simadmin/mainsimstatus/mqtt
-    ports:
-      - 1883:1883
-      - 8883:8883
-      - 9001:9001
-    restart: always
 
 volumes:
   authsecrets:
+
