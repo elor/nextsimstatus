@@ -14,21 +14,6 @@
           </v-btn-toggle>
         </v-container>
 
-        <v-layout row wrap>
-          <grid-card
-            :title="`${title} ('${key}', last ${period})`"
-            v-for="[key, title] in Object.entries(chart_titles)"
-            :key="key"
-            :href="ganglia_link(key, period)"
-          >
-            <v-img :alt="key" :src="ganglia_chart(key, period)" />
-          </grid-card>
-
-          <SoftwareCard title="Grafana" hidetitle href="https://mainsimweb.etit.tu-chemnitz.de/grafana">
-            Mehr:<br>
-            System-Monitorung und Zeitreihenanalyse mit Grafana
-          </SoftwareCard>
-        </v-layout>
       </v-card-text>
     </v-card>
   </v-container>
@@ -39,13 +24,11 @@ import { mapGetters } from 'vuex'
 
 import GridCard from '@/components/GridCard'
 import CoresPieChart from '@/components/CoresPieChart'
-import SoftwareCard from '@/components/SoftwareCard'
 
 export default {
   components: {
     GridCard,
-    CoresPieChart,
-    SoftwareCard
+    CoresPieChart
   },
   data() {
     return {
@@ -62,14 +45,6 @@ export default {
   },
   computed: {
     ...mapGetters(['is_admin'])
-  },
-  methods: {
-    ganglia_chart(dataset) {
-      return `https://mainsim.etit.tu-chemnitz.de/ganglia/stacked.php?c=MainSim&m=${dataset}&r=${this.period}`
-    },
-    ganglia_link(dataset) {
-      return this.is_admin ? `https://mainsim.etit.tu-chemnitz.de/ganglia/?c=MainSim&m=${dataset}&r=${this.period}` : this.ganglia_chart(dataset)
-    }
   }
 }
 </script>

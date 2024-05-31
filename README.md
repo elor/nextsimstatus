@@ -1,4 +1,4 @@
-# mainsimstatus
+# nextsimstatus
 
 ## Project setup
 ```

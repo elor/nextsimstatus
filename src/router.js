@@ -103,7 +103,7 @@ export default new Router({
     hidden: true
   },
   {
-    path: '/sim:id',
+    path: '/node:id',
     name: 'Node',
     component: Node,
     hidden: true

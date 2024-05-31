@@ -36,14 +36,10 @@
 
 <script>
 import axios from 'axios'
-import Essensruf from '@/components/Essensruf'
 
-const MENU_URL = 'https://mainsimweb.etit.tu-chemnitz.de/mensa'
+const MENU_URL = 'https://nextsimstatus.etit.tu-chemnitz.de/mensa'
 
 export default {
-  components: {
-    Essensruf
-  },
   data() {
     return {
       mensa: undefined,

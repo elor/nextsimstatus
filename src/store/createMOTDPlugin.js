@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const URL = 'https://mainsim.etit.tu-chemnitz.de/motd'
+const URL = 'https://nextsimstatus.etit.tu-chemnitz.de/motd'
 
 export default function createMOTDPlugin() {
   return store => {

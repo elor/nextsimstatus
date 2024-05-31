@@ -1,11 +1,12 @@
 version: "3.8"
 
 services:
-  mainsimstatus:
+  nextsimstatus:
     image: node:16
     volumes:
-      - ${PWD}:/mainsimstatus
+      - ${PWD}:/nextsimstatus
     ports:
+      - "8081:8080"
       - "8080:8081"
-    working_dir: /mainsimstatus
+    working_dir: /nextsimstatus
     command: npm run serve

@@ -9,12 +9,12 @@ const config = {
   graphql: {
     enabled: undefined,
     interval: undefined,
-    endpoint: 'https://mainsimweb.etit.tu-chemnitz.de/graphql',
+    endpoint: 'https://nextsimstatus.etit.tu-chemnitz.de/graphql',
     query: graphqlquery
   },
   mqtt: {
     enabled: undefined,
-    endpoint: 'wss://mainsimweb.etit.tu-chemnitz.de/mqtt'
+    endpoint: 'wss://nextsimstatus.etit.tu-chemnitz.de/mqtt'
   }
 }
 
@@ -127,7 +127,7 @@ function registerMQTT(store) {
   mqttClient.on('error', error => store.commit('newError', error))
 }
 
-export default function createMainsimPlugin(sources) {
+export default function createNextsimPlugin(sources) {
   config.mqtt.enabled = sources.mqtt
   config.graphql.enabled = sources.graphql
   config.graphql.interval = sources.graphql_interval
@@ -145,7 +145,7 @@ export default function createMainsimPlugin(sources) {
 
     store.subscribeAction(action => {
       switch (action.type) {
-        case 'mainsimFetch':
+        case 'nextsimFetch':
           fetch(store)
           break
         case 'mqttReconnect':

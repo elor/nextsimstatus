@@ -4,7 +4,7 @@ function storageSupport() {
   }
 
   try {
-    const testKey = 'mainsimweb-storage-supported'
+    const testKey = 'nextsimweb-storage-supported'
     window.localStorage.setItem(testKey, testKey)
     window.localStorage.removeItem(testKey)
   } catch (e) {

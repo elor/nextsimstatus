@@ -16,7 +16,7 @@
           <v-icon v-if="miniVariant">fa-bars</v-icon>
           <v-icon v-else>fa-chevron-left</v-icon>
         </v-app-bar-nav-icon>
-        <v-toolbar-title v-show="!miniVariant">MainSim</v-toolbar-title>
+        <v-toolbar-title v-show="!miniVariant">NextSim</v-toolbar-title>
       </v-toolbar>
 
       <v-list dense nav>
@@ -37,7 +37,7 @@
 
       <login-menu></login-menu>
 
-      <v-toolbar-title>MainSim {{$route.name}}</v-toolbar-title>
+      <v-toolbar-title>NextSim {{$route.name}}</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -115,10 +115,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['mainsimFetch', 'mqttReconnect', 'updateMOTD']),
+    ...mapActions(['nextsimFetch', 'mqttReconnect', 'updateMOTD']),
     ...mapMutations(['clearErrors']),
     refresh() {
-      this.mainsimFetch()
+      this.nextsimFetch()
       this.mqttReconnect()
       this.updateMOTD()
     }

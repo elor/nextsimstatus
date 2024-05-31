@@ -5,10 +5,10 @@ import { STORAGE_KEY } from '../config'
 
 const config =
 {
-  loginUrl: 'https://mainsimweb.etit.tu-chemnitz.de/auth/login',
-  verifyUrl: 'https://mainsimweb.etit.tu-chemnitz.de/auth/token/check',
-  renewUrl: 'https://mainsimweb.etit.tu-chemnitz.de/auth/token/renew',
-  storageKey: 'mainsimweb-auth-token'
+  loginUrl: 'https://nextsimstatus.etit.tu-chemnitz.de/auth/login',
+  verifyUrl: 'https://nextsimstatus.etit.tu-chemnitz.de/auth/token/check',
+  renewUrl: 'https://nextsimstatus.etit.tu-chemnitz.de/auth/token/renew',
+  storageKey: 'nextsimweb-auth-token'
 }
 
 function login(payload, store, storage) {

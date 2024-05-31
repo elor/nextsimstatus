@@ -1,11 +1,11 @@
 import axios from 'axios'
 
 const config = {
-  mainsim: {
-    nodesURL: 'https://mainsim.etit.tu-chemnitz.de/control/nodes',
-    jobsURL: 'https://mainsim.etit.tu-chemnitz.de/control/jobs',
-    logsURL: 'https://mainsim.etit.tu-chemnitz.de/control/logs',
-    jobscriptURL: 'https://mainsim.etit.tu-chemnitz.de/control/jobscripts'
+  nextsim: {
+    nodesURL: 'https://nextsimstatus.etit.tu-chemnitz.de/control/nodes',
+    jobsURL: 'https://nextsimstatus.etit.tu-chemnitz.de/control/jobs',
+    logsURL: 'https://nextsimstatus.etit.tu-chemnitz.de/control/logs',
+    jobscriptURL: 'https://nextsimstatus.etit.tu-chemnitz.de/control/jobscripts'
   }
 }
 
@@ -29,17 +29,17 @@ export default function createControlPlugin() {
     store.subscribeAction((action, state) => {
       switch (action.type) {
         case 'controlNodes':
-          control(config.mainsim.nodesURL, state.jwtToken, action.payload)
+          control(config.nextsim.nodesURL, state.jwtToken, action.payload)
             .then(({ status, data }) => store.commit('updateControl', data))
             .catch(errorMessage => store.commit('newError', errorMessage))
           break
         case 'controlJobs':
-          control(config.mainsim.jobsURL, state.jwtToken, action.payload)
+          control(config.nextsim.jobsURL, state.jwtToken, action.payload)
             .then(({ status, data }) => store.commit('updateControl', status, data))
             .catch(errorMessage => store.commit('newError', errorMessage))
           break
         case 'controlLogs':
-          control(config.mainsim.logsURL, state.jwtToken, action.payload)
+          control(config.nextsim.logsURL, state.jwtToken, action.payload)
             .then(({ status, data }) => { store.commit('updateControl', status, data); return data })
             .then(jobLogs => jobLogs.forEach(
               ({ JobId, StdOutFile, StdOut, StdErrFile, StdErr }) => store.commit('updateJobLog', { JobId, StdOutFile, StdOut, StdErrFile, StdErr })))
@@ -48,7 +48,7 @@ export default function createControlPlugin() {
             }))
           break
         case 'controlJobScript':
-          control(config.mainsim.jobscriptURL, state.jwtToken, action.payload)
+          control(config.nextsim.jobscriptURL, state.jwtToken, action.payload)
             .then(({ status, data }) => { store.commit('updateControl', status, data); return data })
             .then(jobScript => jobScript.forEach(
               ({ JobId, JobScript }) => store.commit('updateJobScript', { JobId, JobScript })))

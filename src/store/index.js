@@ -8,7 +8,7 @@ import cpudata from '../utils/cpudata'
 import usercores from '../utils/usercores'
 import splitStates from '../utils/splitStates'
 
-import createMainsimPlugin from './createMainsimPlugin'
+import createNextsimPlugin from './createNextsimPlugin'
 import createNowTimePlugin from './createNowTimePlugin'
 import createAuthPlugin from './createAuthPlugin'
 import createControlPlugin from './createControlPlugin'
@@ -352,7 +352,7 @@ export default new Vuex.Store({
   },
 
   actions: {
-    mainsimFetch() { },
+    nextsimFetch() { },
     mqttReconnect() { },
     updateMOTD() { },
     login(credentials) { },
@@ -366,7 +366,7 @@ export default new Vuex.Store({
   },
 
   plugins: [
-    createMainsimPlugin(sources),
+    createNextsimPlugin(sources),
     createNowTimePlugin(1000),
     createAuthPlugin(),
     createControlPlugin(),
