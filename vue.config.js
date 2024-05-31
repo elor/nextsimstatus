@@ -1,7 +1,7 @@
 module.exports = {
   pwa: {
     name: 'NextSimStatus',
-    themeColor: '#1976D2',
+    themeColor: '#75D119',
     workboxOptions: {
       skipWaiting: true
     }
