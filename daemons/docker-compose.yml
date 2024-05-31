@@ -2,7 +2,7 @@ version: "3"
 services:
   auth:
     build: auth
-    image: mainsim.etit.tu-chemnitz.de:5555/simadmin/mainsimstatus/auth
+    image: nextsimstatus/auth
     volumes:
       - authsecrets:/secrets
     environment:
@@ -12,13 +12,13 @@ services:
     restart: always
   cache:
     build: cache
-    image: mainsim.etit.tu-chemnitz.de:5555/simadmin/mainsimstatus/cache
+    image: nextsimstatus/cache
     ports:
       - 127.0.0.1:1880:8080
     restart: always
   mensa:
     build: mensa
-    image: mainsim.etit.tu-chemnitz.de:5555/simadmin/mainsimstatus/mensa
+    image: nextsimstatus/mensa
     ports:
       - 127.0.0.1:1885:8000
     restart: always
