@@ -30,4 +30,4 @@ def control(action, nodes):
 if __name__ == "__main__":
     from sys import argv, exit
     cmd, nodes = argv
-    print test(nodes)
+    print(test(nodes))
