@@ -140,7 +140,7 @@ class ControlHandler(BaseHTTPRequestHandler):
 
         self.send_response(200)
         self.end_headers()
-        self.wfile.write(json.dumps(output))
+        self.wfile.write(json.dumps(output).encode())
 
     def handle_jobscripts(self):
         if not self.current_user:
@@ -173,7 +173,7 @@ class ControlHandler(BaseHTTPRequestHandler):
 
         self.send_response(200)
         self.end_headers()
-        self.wfile.write(json.dumps(output))
+        self.wfile.write(json.dumps(output).encode())
 
     def do_OPTIONS(self):
         self.send_response(200)
