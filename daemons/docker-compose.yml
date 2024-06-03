@@ -16,12 +16,6 @@ services:
     ports:
       - 127.0.0.1:1880:8080
     restart: always
-  mensa:
-    build: mensa
-    image: nextsimstatus/mensa
-    ports:
-      - 127.0.0.1:1885:8000
-    restart: always
 
 volumes:
   authsecrets:

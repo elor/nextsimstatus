@@ -9,7 +9,6 @@ import Jobs from '@/components/Jobs'
 import Node from '@/components/Node'
 import Nodes from '@/components/Nodes'
 import Periodinator from '@/components/Periodinator'
-import Mensa from '@/components/Mensa'
 import Users from '@/components/Users'
 import User from '@/components/User'
 import Test from '@/components/Test'
@@ -70,12 +69,6 @@ export default new Router({
     name: 'Periodyctionary',
     component: Periodinator,
     hidden: true
-  },
-  {
-    path: '/mensa',
-    name: 'Mensa',
-    component: Mensa,
-    icon: 'fa-utensils'
   },
   {
     path: '*',
