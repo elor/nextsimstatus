@@ -58,7 +58,7 @@
             <br />
             State: {{Node.States.join(", ")}}
             <br />
-            <span v-if="Node.Reason">
+            <span>
               Reason: {{Node.Reason}}
               <br />
             </span>
