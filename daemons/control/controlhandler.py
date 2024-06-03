@@ -70,7 +70,7 @@ class ControlHandler(BaseHTTPRequestHandler):
 
     def handle_nodes(self):
         if not self.is_admin():
-            self.send_error(403, "You are no simadmin")
+            self.send_error(403, "You are no admin")
             return
 
         try:

@@ -13,7 +13,7 @@
           <template v-slot:activator="{ on }">
             <v-icon small v-on="on">fa-star</v-icon>
           </template>
-          <span>simadmin</span>
+          <span>admins</span>
         </v-tooltip>
       </v-chip>
     </template>
