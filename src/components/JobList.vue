@@ -44,7 +44,7 @@
 
       <template v-slot:item.NodeNames="props">
         <span v-for="node in props.item.NodeNames" :key="node">
-          <router-link :to="`/${node}`">{{node}}</router-link>&nbsp;
+          <router-link :to="`/node/${node}`">{{node}}</router-link>&nbsp;
         </span>
       </template>
 

@@ -34,7 +34,7 @@
         v-model="selected"
       >
         <template v-slot:item.NodeName="props">
-          <router-link :to="`/${props.item.NodeName}`">{{props.item.NodeName}}</router-link>
+          <router-link :to="`/node/${props.item.NodeName}`">{{props.item.NodeName}}</router-link>
         </template>
 
         <template v-slot:item.CPUAlloc="props">

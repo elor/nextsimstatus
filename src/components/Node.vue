@@ -109,7 +109,7 @@ export default {
   computed: {
     ...mapGetters(['nodestatus', 'is_admin']),
     NodeName() {
-      return `sim${this.$route.params.id}`
+      return this.$route.params.id
     },
     Node() {
       return this.nodestatus.filter(node => node.NodeName === this.NodeName)[0]

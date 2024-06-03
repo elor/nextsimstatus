@@ -89,7 +89,7 @@ export default new Router({
     hidden: true
   },
   {
-    path: '/node:id',
+    path: '/node/:id',
     name: 'Node',
     component: Node,
     hidden: true
