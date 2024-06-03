@@ -248,14 +248,14 @@ class ControlHandler(BaseHTTPRequestHandler):
         if self._params:
             return self._params
 
-        ctype, pdict = cgi.parse_header(self.headers.getheader("content-type"))
+        ctype, pdict = cgi.parse_header(self.headers["content-type"])
         if ctype == "multipart/form-data":
             self._params = cgi.parse_multipart(self.rfile, pdict)
         elif ctype == "application/x-www-form-urlencoded":
-            length = int(self.headers.getheader("content-length"))
+            length = int(self.headers["content-length"])
             self._params = cgi.parse_qs(self.rfile.read(length), keep_blank_values=1)
         elif ctype == "application/json":
-            length = int(self.headers.getheader("content-length"))
+            length = int(self.headers["content-length"])
             self._params = json.loads(self.rfile.read(length))
         else:
             self._params = {}
@@ -267,7 +267,7 @@ class ControlHandler(BaseHTTPRequestHandler):
         authentication = None
 
         if not authentication:
-            authentication = self.headers.getheader("authentication")
+            authentication = self.headers["authentication"]
         if not authentication:
             if "authentication" in self.params:
                 authentication = self.params["authentication"]
