@@ -14,7 +14,7 @@
           <grid-card :title="`Job (${Job.Partition} Partition)`">
             <user-chip :login="Job.UserName" slot="icon" />
             <div>State: {{Job.JobState}}</div>
-            <div v-if="Job.Reason && Job.Reason != 'None'">Reason: {{Job.Reason}}</div>
+            <div>Reason: {{Job.Reason}}</div>
             <div>
               Cores: {{Job.NumCPUs}}
               <span
