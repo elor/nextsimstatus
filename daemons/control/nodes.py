@@ -6,7 +6,7 @@ def test(nodes):
     if not nodes:
         raise RuntimeError('No nodes defined')
 
-    return_code, out, err = run_command(['nodels', nodes])
+    return_code, out, err = run_command(["/opt/xcat/bin/nodels", nodes])
     if return_code:
         raise RuntimeError(
             'NonZero Return Code {}: {}'.format(return_code, err))
