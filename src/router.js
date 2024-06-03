@@ -47,12 +47,6 @@ export default new Router({
     icon: 'fa-users'
   },
   {
-    path: '/mensa',
-    name: 'Mensa',
-    redirect: 'https://www.swcz.de/bilderspeiseplan/',
-    icon: 'fa-utensils'
-  },
-  {
     path: '/test',
     name: 'Test',
     component: Test,

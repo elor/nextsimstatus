@@ -28,6 +28,15 @@
             <v-list-item-title>{{route.name}}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+
+        <v-list-item v-ripple href="https://www.swcz.de/bilderspeiseplan/" link>
+          <v-list-item-icon :class="{'justify-center': miniVariant}">
+            <v-icon dense>fa-utensils</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>Mensa</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
 
     </v-navigation-drawer>
