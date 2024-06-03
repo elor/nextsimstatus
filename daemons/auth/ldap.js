@@ -23,7 +23,7 @@ function createConfig (username) {
       }
     },
     groupSearch: {
-      base: 'cn=groups,cn=accounts,dc=etit,dc=tu-chemnitz,dc=de',
+      base: 'cn=groups,cn=compat,dc=etit,dc=tu-chemnitz,dc=de',
       config: {
         scope: 'sub',
         attributes: [
