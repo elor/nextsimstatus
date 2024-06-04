@@ -45,7 +45,7 @@ df_lines = df_output.strip().split("\n")
 # Parse df output and add it to the 'disk' category
 df_headers = df_lines[0].split()
 df_headers[1] = "kbytes"
-df_headers[5] = "use_percent"
+df_headers[4] = "use_percent"
 
 output["df"] = [
     {header.lower(): value for header, value in zip(df_headers, line.split())}
