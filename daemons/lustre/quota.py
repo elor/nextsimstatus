@@ -29,7 +29,7 @@ for line in lines:
 
     output[category].append(
         {
-            header: (int(value) if value.isdigit() else value)
+            header.lower(): (int(value) if value.isdigit() else value)
             for header, value in zip(headers, values)
             if value not in ["-", ""]
         }
@@ -58,7 +58,7 @@ for line in df_lines[1:]:
     disk_info = {}
 
     for header, value in zip(df_headers, df_values):
-        disk_info[header] = int(value) if value.isdigit() else value
+        disk_info[header.lower()] = int(value) if value.isdigit() else value
 
     output["df"].append(disk_info)
 
