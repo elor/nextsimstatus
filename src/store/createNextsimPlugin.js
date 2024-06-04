@@ -50,7 +50,7 @@ function fetch(store) {
       store.commit('updateJobs', data.jobs)
       data.simpcs.forEach(simpc => store.commit('updateSimPC', simpc))
       store.commit('updateRacks', data.racks)
-      store.commit('updateQuota', Object.fromEntries(data.quotas.map(quota => [quota.name, quota])))
+      store.commit('updateQuotas', data.quotas)
     })
     .catch(error => store.commit('newError', error))
 
@@ -88,7 +88,7 @@ function registerMQTT(store) {
       mqttClient.subscribe('slurm/jobs')
       mqttClient.subscribe('simpc/#')
       mqttClient.subscribe('racks/racks')
-      mqttClient.subscribe('beegfs/quota')
+      mqttClient.subscribe('lustre/quota')
     }
   })
 
@@ -116,7 +116,7 @@ function registerMQTT(store) {
         case 'racks/racks':
           store.commit('updateRacks', unpack64(message))
           break
-        case 'beegfs/quota':
+        case 'lustre/quota':
           store.commit('updateQuota', unpack64(message))
       }
     } catch (error) {

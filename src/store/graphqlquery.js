@@ -85,12 +85,41 @@ export default `
   }
 
   quotas {
-    name
-    id
-    bytes
-    files
-    bytes_hard_quota
-    files_hard_quota
+    user {
+      user
+      filesystem
+      kbytes
+      quota
+      limit
+      files
+      grace
+    }
+    group {
+      group
+      filesystem
+      kbytes
+      quota
+      limit
+      files
+      grace
+    }
+    project {
+      project
+      filesystem
+      kbytes
+      quota
+      limit
+      files
+      grace
+    }
+    df {
+      filesystem
+      kbytes
+      used
+      available
+      use_percent
+      mounted
+    }
   }
 }
 `

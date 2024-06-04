@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-card>
       <v-card-title>
-        <h2>{{title}}</h2>
+        <h2>{{ title }}</h2>
         <v-spacer></v-spacer>
         <job-action-block v-if="Job" :jobs="[Job]" />
         <v-spacer></v-spacer>
@@ -13,25 +13,22 @@
         <v-layout v-if="Job" row wrap>
           <grid-card :title="`Job (${Job.Partition} Partition)`">
             <user-chip :login="Job.UserName" slot="icon" />
-            <div>State: {{Job.JobState}}</div>
-            <div>Reason: {{Job.Reason}}</div>
+            <div>State: {{ Job.JobState }}</div>
+            <div>Reason: {{ Job.Reason }}</div>
             <div>
-              Cores: {{Job.NumCPUs}}
-              <span
-                class="ml-2"
-                v-if="SubJobs && SubJobs.length"
-              >(currently {{SubJobCores}} in JobArray)</span>
+              Cores: {{ Job.NumCPUs }}
+              <span class="ml-2" v-if="SubJobs && SubJobs.length">(currently {{ SubJobCores }} in JobArray)</span>
             </div>
-            <div v-if="Job.Dependency && Job.Dependency !== '(null)'">{{Job.Dependency}}</div>
-            <div v-if="Job.Gres && Job.Gres !== '(null)'">{{Job.Gres}}</div>
-            <div v-if="Job.Features && Job.Features !== '(null)'">{{Job.Features}}</div>
+            <div v-if="Job.Dependency && Job.Dependency !== '(null)'">{{ Job.Dependency }}</div>
+            <div v-if="Job.Gres && Job.Gres !== '(null)'">{{ Job.Gres }}</div>
+            <div v-if="Job.Features && Job.Features !== '(null)'">{{ Job.Features }}</div>
             <div v-if="Job.ArrayJobId">
-              <span class="mr-2" v-if="Job === ParentJob">{{SubJobs.length}} Children</span>
+              <span class="mr-2" v-if="Job === ParentJob">{{ SubJobs.length }} Children</span>
               <span v-else>
                 Parent:
                 <job-chip :job="ParentJob" />
               </span>
-              <span v-if="Job.ArrayTaskId">(Task {{Job.ArrayTaskId}})</span>
+              <span v-if="Job.ArrayTaskId">(Task {{ Job.ArrayTaskId }})</span>
             </div>
             <div v-else></div>
           </grid-card>
@@ -53,19 +50,19 @@
 
           <grid-card title="Script">
             <div v-if="can_control">
-              <div>ExitCode: {{Job.ExitCode}}</div>
-              <div class="long-path">WorkDir: {{sanitizePath(Job.WorkDir)}}</div>
-              <div class="long-path">Command: {{sanitizePath(Job.Command, `${Job.WorkDir}/`)}}</div>
+              <div>ExitCode: {{ Job.ExitCode }}</div>
+              <div class="long-path">WorkDir: {{ sanitizePath(Job.WorkDir) }}</div>
+              <div class="long-path">Command: {{ sanitizePath(Job.Command, `${Job.WorkDir}/`) }}</div>
             </div>
             <div v-else>
-            Melde dich an, um deinen Jobscript, sein Verzeichnis und seinen ExitCode zu sehen.
+              Melde dich an, um deinen Jobscript, sein Verzeichnis und seinen ExitCode zu sehen.
             </div>
           </grid-card>
 
           <grid-card title="Time">
             <div v-for="time in times" :key="time">
               <span v-if="isValidTime(Job[time])">
-                {{time}}:
+                {{ time }}:
                 <duration :iso="Job[time]" :since="time !== 'TimeLimit'" />
               </span>
             </div>
@@ -161,9 +158,9 @@ export default {
       if (path.startsWith(root)) {
         path = path.substr(root.length)
       }
-      const beegfshomeusers = '/beegfs-home/users/'
-      if (path.startsWith(beegfshomeusers)) {
-        path = `~${path.substr(beegfshomeusers.length)}`
+      const homeusers = '/home/'
+      if (path.startsWith(homeusers)) {
+        path = `~${path.substr(homeusers.length)}`
       }
       const tildeuser = `~${this.Job.UserName}/`
       if (path.startsWith(tildeuser)) {

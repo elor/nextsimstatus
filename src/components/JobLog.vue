@@ -3,71 +3,51 @@
     <v-expansion-panels v-model="logpanels" v-if="can_control" multiple>
       <v-expansion-panel>
         <v-expansion-panel-header>
-          Output<span v-if="logs && logs.StdOutFile">: {{logs.StdOutFile}}</span>
+          Output<span v-if="logs && logs.StdOutFile">: {{ logs.StdOutFile }}</span>
           <template v-slot:actions>
-            <v-progress-circular
-              size="20"
-              width="2"
-              v-if="refreshing"
-              indeterminate
-              color="primary"
-            />
+            <v-progress-circular size="20" width="2" v-if="refreshing" indeterminate color="primary" />
             <v-icon color="info">fa-file-alt</v-icon>
           </template>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-flex lg1 md2 sm3 xs4 style="float: right">
             <v-subheader>
-              <v-select
-                label="Lines"
-                :items="[20, 50, 200, 1000, { text: 'All', value: 987654321 }]"
-                v-model="lines"
-                @change="fetch"
-              ></v-select>
+              <v-select label="Lines" :items="[20, 50, 200, 1000, { text: 'All', value: 987654321 }]" v-model="lines"
+                @change="fetch"></v-select>
             </v-subheader>
           </v-flex>
-          <pre>{{StdOut}}</pre>
+          <pre>{{ StdOut }}</pre>
         </v-expansion-panel-content>
       </v-expansion-panel>
 
       <v-expansion-panel :disabled="logs && logs.StdOutFile == logs.StdErrFile">
         <v-expansion-panel-header>
-          Error Output<span v-if="logs && logs.StdErrFile">: {{logs.StdErrFile}}</span>
+          Error Output<span v-if="logs && logs.StdErrFile">: {{ logs.StdErrFile }}</span>
           <template v-slot:actions>
-            <v-progress-circular
-              size="20"
-              width="2"
-              v-if="refreshing"
-              indeterminate
-              color="primary"
-            />
+            <v-progress-circular size="20" width="2" v-if="refreshing" indeterminate color="primary" />
             <v-icon color="error">fa-exclamation</v-icon>
           </template>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-flex lg1 md2 sm3 xs4 style="float: right">
             <v-subheader>
-              <v-select
-                label="Lines"
-                :items="[20, 50, 200, 1000, { text: 'All', value: 987654321 }]"
-                v-model="lines"
-                @change="fetch"
-              ></v-select>
+              <v-select label="Lines" :items="[20, 50, 200, 1000, { text: 'All', value: 987654321 }]" v-model="lines"
+                @change="fetch"></v-select>
             </v-subheader>
           </v-flex>
-          <pre>{{StdErr}}</pre>
+          <pre>{{ StdErr }}</pre>
         </v-expansion-panel-content>
       </v-expansion-panel>
 
       <v-expansion-panel>
         <v-expansion-panel-header>
-          JobScript: {{job ? sanitizePath(job.Command) : 'Retrieving...'}}
+          JobScript: {{ job ? sanitizePath(job.Command) : 'Retrieving...' }}
           <template v-slot:actions>
             <v-icon color="info">fa-scroll</v-icon>
           </template>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-          <pre @click="fetchScript">{{JobScript || 'Retrieving...'}}</pre>
+          <pre @click="fetchScript">{{ JobScript || 'Retrieving...' }}</pre>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -148,9 +128,9 @@ export default {
       if (path.startsWith(root)) {
         path = path.substr(root.length)
       }
-      const beegfshomeusers = '/beegfs-home/users/'
-      if (path.startsWith(beegfshomeusers)) {
-        path = `~${path.substr(beegfshomeusers.length)}`
+      const homeusers = '/home/'
+      if (path.startsWith(homeusers)) {
+        path = `~${path.substr(homeusers.length)}`
       }
 
       return path

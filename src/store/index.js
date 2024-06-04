@@ -67,10 +67,112 @@ export default new Vuex.Store({
       jobs: new Date(0),
       now: new Date()
     },
-    beegfs: {
-      total: 104004797333504,
-      free: 88672509624320,
-      quota: {}
+    quotas: {
+      user: [
+        {
+          user: 'dapfen',
+          filesystem: '/home',
+          kbytes: '0',
+          quota: '0',
+          limit: '0',
+          files: '0',
+          grace: '-'
+        },
+        {
+          user: 'elor',
+          filesystem: '/home',
+          kbytes: '499074788',
+          quota: '0',
+          limit: '0',
+          files: '623354',
+          grace: '-'
+        }
+      ],
+      group: [
+        {
+          group: 'admins',
+          filesystem: '/home',
+          kbytes: '0',
+          quota: '0',
+          limit: '0',
+          files: '0',
+          grace: '-'
+        },
+        {
+          group: 'editors',
+          filesystem: '/home',
+          kbytes: '0',
+          quota: '0',
+          limit: '0',
+          files: '0',
+          grace: '-'
+        },
+        {
+          group: 'enas',
+          filesystem: '/home',
+          kbytes: '40',
+          quota: '0',
+          limit: '0',
+          files: '10',
+          grace: '-'
+        },
+        {
+          group: 'megware',
+          filesystem: '/home',
+          kbytes: '0',
+          quota: '0',
+          limit: '0',
+          files: '0',
+          grace: '-'
+        },
+        {
+          group: 'nextsim',
+          filesystem: '/home',
+          kbytes: '12',
+          quota: '0',
+          limit: '0',
+          files: '3',
+          grace: '-'
+        },
+        {
+          group: 'project_installation',
+          filesystem: '/home',
+          kbytes: '8',
+          quota: '0',
+          limit: '0',
+          files: '2',
+          grace: '-'
+        }
+      ],
+      project: [
+        {
+          project: 'installation',
+          filesystem: '/home',
+          kbytes: '4',
+          quota: '0',
+          limit: '0',
+          files: '1',
+          grace: '-'
+        }
+      ],
+      df: [
+        {
+          filesystem: '10.12.201.1@o2ib,10.12.201.2@o2ib:10.12.201.3@o2ib,10.12.201.4@o2ib:/nexsimfs/cluster',
+          kbytes: '10737418240',
+          used: '370692772',
+          available: '10366725468',
+          use_percent: '4%',
+          mounted: '/cluster'
+        },
+        {
+          filesystem: '10.12.201.1@o2ib,10.12.201.2@o2ib:10.12.201.3@o2ib,10.12.201.4@o2ib:/nexsimfs/home',
+          kbytes: '460329993528',
+          used: '1173610812',
+          available: '435903128572',
+          use_percent: '1%',
+          mounted: '/home'
+        }
+      ]
     },
     updating: false,
     sources,
@@ -276,8 +378,8 @@ export default new Vuex.Store({
     updateSimPC(state, simpc) {
       state.simpcs[simpc.hostname] = simpc
     },
-    updateQuota(state, quota) {
-      state.beegfs.quota = quota
+    updateQuotas(state, quotas) {
+      state.quotas = quotas
     },
     updateRacks(state, racks) {
       racks = racks.map(rack => rack.error ? { error: rack.error } : rack)

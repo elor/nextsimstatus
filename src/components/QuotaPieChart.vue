@@ -1,17 +1,12 @@
 <template>
-  <pie-chart
-    :chart-data="quotaData"
-    :tooltip="tooltip"
-    :hidelegend="hidelegend"
-    :height="height"
-    :hrefs="quotaData.hrefs"
-  ></pie-chart>
+  <pie-chart :chart-data="quotaData" :tooltip="tooltip" :hidelegend="hidelegend" :height="height"
+    :hrefs="quotaData.hrefs"></pie-chart>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import PieChart from '@/components/PieChart'
-import usercolor from '../utils/usercolor'
+import usercolor from '@/utils/usercolor'
 
 import { sortBy } from 'lodash'
 
@@ -19,79 +14,53 @@ export default {
   props: {
     height: String,
     width: String,
-    hidelegend: Boolean,
-    usersonly: {
-      type: Boolean,
-      default: false
-    }
+    hidelegend: Boolean
   },
   components: {
     PieChart
   },
   computed: {
-    ...mapState(['beegfs']),
+    ...mapState(['quotas']),
     quotaData() {
-      let dataset = this.usersonly ? this.users : this.quotas
-
-      if (!dataset.length) {
-        dataset = [{
-          name: 'Retrieving data...',
-          bytes: this.beegfs.total
-        }]
-      }
-
-      const hrefs = dataset.map(user => {
-        if (/^.\..*$/.test(user.name)) {
-          return `/users/${user.name}`
-        }
-        return undefined
-      })
+      const raw = this.quotas.user.map(u => ({ ...u, name: u.user }))
+      const dataset = sortBy(raw, u => -Number(u.kbytes))
+      dataset.push(this.free)
 
       return {
-        labels: dataset.map(user => user.name),
-        hrefs: hrefs,
+        labels: dataset.map(o => o.name),
         datasets: [
           {
-            label: 'Bytes',
-            data: dataset.map(user => user.bytes),
-            backgroundColor: dataset.map(user =>
-              usercolor(user.name)
-            )
+            label: 'kB',
+            data: dataset.map(o => o.kbytes),
+            backgroundColor: dataset.map(o => usercolor(o.name))
           }
         ]
-      }
-    },
-    system() {
-      const userBytesSum = Object.values(this.beegfs.quota).reduce((sum, user) => sum + Number(user.bytes), 0)
-
-      return {
-        name: 'System',
-        bytes: Math.max(0, this.beegfs.total - this.beegfs.free - userBytesSum)
       }
     },
     free() {
       return {
         name: 'Free',
-        bytes: this.beegfs.free
+        kbytes: this.quotas.df.filter(o => o.mounted == '/home')[0].available
       }
-    },
-    users() {
-      return sortBy(Object.values(this.beegfs.quota), a => -Number(a.bytes))
-    },
-    quotas() {
-      return [
-        ...this.users,
-        this.system,
-        this.free
-      ]
     }
   },
   methods: {
     tooltip({ datasetIndex, index }, { labels, datasets }) {
+      let suffix = 'kB'
+      let count = datasets[datasetIndex].data[index]
+      if (count > 1024 ** 3) {
+        count /= 1024 ** 3
+        suffix = 'TB'
+      } else if (count > 1024 ** 2) {
+        count /= 1024 ** 2
+        suffix = 'GB'
+      } else if (count > 1024) {
+        count /= 1024
+        suffix = 'MB'
+      }
+
       const username = labels[index]
-      const bytes = datasets[datasetIndex].data[index]
-      const gigabytes = Math.ceil(bytes / (1024 ** 3))
-      return `${username}: ${gigabytes} GB`
+      return `${username}: ${count.toFixed(2)} ${suffix}`
     }
   }
 }
