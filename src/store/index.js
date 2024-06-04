@@ -244,7 +244,8 @@ export default new Vuex.Store({
     userstatus(state, getters) { // 5
       const users = uniq([
         ...getters.jobstatus.map(job => job.UserName),
-        ...flatten(getters.simpcstatus.map(pc => pc.usernames))
+        ...flatten(getters.simpcstatus.map(pc => pc.usernames)),
+        ...state.quotas.user.map(user => user.user)
       ])
         .map(UserName => ({
           UserName,
