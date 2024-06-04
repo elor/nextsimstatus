@@ -31,7 +31,7 @@ for line in lines:
     output[category][name] = {
         header: (int(value) if value.isdigit() else value)
         for header, value in zip(headers, values)
-        if values not in ["-", ""]
+        if value not in ["-", ""]
     }
 
 # Execute df -k /home command to get disk usage in KB
