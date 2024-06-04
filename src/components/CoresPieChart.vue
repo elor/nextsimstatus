@@ -1,10 +1,5 @@
 <template>
-  <pie-chart
-    :chart-data="allocData"
-    :hidelegend="hidelegend"
-    :height="height"
-    :hrefs="allocData.hrefs"
-  ></pie-chart>
+  <pie-chart :chart-data="allocData" :hidelegend="hidelegend" :height="height" :hrefs="allocData.hrefs"></pie-chart>
 </template>
 
 <script>
@@ -48,13 +43,7 @@ export default {
         ...system.map(sys => sys.name)
       ]
 
-      const hrefs = labels.map(name => {
-        if (/^.\..*$/.test(name)) {
-          return `/users/${name}`
-        }
-        return HREFS[name]
-      })
-
+      const hrefs = labels.map(name => HREFS[name] || `/users/${name}`)
       return {
         labels,
         hrefs,

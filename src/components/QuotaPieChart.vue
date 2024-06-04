@@ -26,8 +26,12 @@ export default {
       const dataset = sortBy(raw, u => -Number(u.kbytes))
       dataset.push(this.free)
 
+      const labels = dataset.map(o => o.name)
+      const hrefs = labels.map(name => `/users/${name}`)
+
       return {
-        labels: dataset.map(o => o.name),
+        labels,
+        hrefs,
         datasets: [
           {
             label: 'kB',
