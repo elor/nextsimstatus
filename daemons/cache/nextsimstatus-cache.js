@@ -43,6 +43,7 @@ const receiveFuncs = {
 }
 
 function updateCallback (topic, message) {
+  console.log(`received ${topic}`)
   store.lastupdate = new Date()
   receiveFuncs[topic](message)
 }

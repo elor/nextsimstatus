@@ -28,11 +28,7 @@ for line in lines:
     values = re.split(r"\s{2,}", line.strip())
 
     output[category].append(
-        {
-            header.lower(): (int(value) if value.isdigit() else value)
-            for header, value in zip(headers, values)
-            if value not in ["-", ""]
-        }
+        {header.lower(): value for header, value in zip(headers, values)}
     )
 
 # Execute df -k /home command to get disk usage in KB
@@ -55,10 +51,7 @@ for line in df_lines[1:]:
     df_values = line.split()
     mount = df_values[-1]
 
-    disk_info = {}
-
-    for header, value in zip(df_headers, df_values):
-        disk_info[header.lower()] = int(value) if value.isdigit() else value
+    disk_info = {header: value for header, value in zip(df_headers, df_values)}
 
     output["df"].append(disk_info)
 

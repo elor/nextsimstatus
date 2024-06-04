@@ -23,7 +23,7 @@ module.exports.listen = function (PORT, getDataCallback) {
     users: () => Object.values(getDataCallback().users),
     simpcs: () => Object.values(getDataCallback().simpcs),
     racks: () => getDataCallback().racks,
-    quotas: () => Object.values(getDataCallback().quotas)
+    quotas: () => getDataCallback().quotas
   }
 
   app.use(cors())

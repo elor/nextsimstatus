@@ -144,38 +144,38 @@ type Quota {
 type UserQuota {
   user: String
   filesystem: String
-  kbytes: Int
-  quota: Int
-  limit: Int
-  files: Int
-  grace: Int
+  kbytes: String
+  quota: String
+  limit: String
+  files: String
+  grace: String
 }
 
 type GroupQuota {
   group: String
   filesystem: String
-  kbytes: Int
-  quota: Int
-  limit: Int
-  files: Int
-  grace: Int
+  kbytes: String
+  quota: String
+  limit: String
+  files: String
+  grace: String
 }
 
 type ProjectQuota {
   project: String
   filesystem: String
-  kbytes: Int
-  quota: Int
-  limit: Int
-  files: Int
-  grace: Int
+  kbytes: String
+  quota: String
+  limit: String
+  files: String
+  grace: String
 }
 
 type DiskFree {
   filesystem: String
-  kbytes: Int
-  used: Int
-  available: Int
+  kbytes: String
+  used: String
+  available: String
   use: String
   mounted: String
 }
