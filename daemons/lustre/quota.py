@@ -52,7 +52,6 @@ output["df"] = {}
 for line in df_lines[1:]:
     df_values = line.split()
     mount = df_values[-1]
-    print(df_values, mount)
 
     disk_info = {}
 
