@@ -48,6 +48,7 @@ df_lines = df_output.strip().split("\n")
 
 # Parse df output and add it to the 'disk' category
 df_headers = df_lines[0].split()
+df_headers[1] = "kbytes"
 output["df"] = []
 
 for line in df_lines[1:]:
