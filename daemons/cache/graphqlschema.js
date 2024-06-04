@@ -135,11 +135,48 @@ type Rack {
 }
 
 type Quota {
-  name: String
-  id: String
-  bytes_hard_quota: String
-  files_hard_quota: String
-  bytes: String
-  files: String
+  user: [UserQuota]
+  group: [GroupQuota]
+  project: [ProjectQuota]
+  df: [DiskFree]
+}
+
+type UserQuota {
+  user: String
+  filesystem: String
+  kbytes: Int
+  quota: Int
+  limit: Int
+  files: Int
+  grace: Int
+}
+
+type GroupQuota {
+  group: String
+  filesystem: String
+  kbytes: Int
+  quota: Int
+  limit: Int
+  files: Int
+  grace: Int
+}
+
+type ProjectQuota {
+  project: String
+  filesystem: String
+  kbytes: Int
+  quota: Int
+  limit: Int
+  files: Int
+  grace: Int
+}
+
+type DiskFree {
+  filesystem: String
+  kbytes: Int
+  used: Int
+  available: Int
+  use: String
+  mounted: String
 }
 `)

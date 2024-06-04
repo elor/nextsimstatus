@@ -43,7 +43,7 @@ exports.connect = function (receive) {
         case 'racks/racks':
           receive('racks', unpack64(message))
           break
-        case 'beegfs/quota':
+        case 'lustre/quota':
           receive('quotas', unpack64(message))
           break
       }
