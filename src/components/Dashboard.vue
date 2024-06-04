@@ -10,7 +10,7 @@
       <v-card-text>
         <v-layout row wrap>
           <grid-card title="Core Allocation">
-            <cores-pie-chart height="180" hidelegend></cores-pie-chart>
+            <cores-pie-chart height="200" hidelegend></cores-pie-chart>
           </grid-card>
 
           <grid-card title="Partitions">
@@ -83,6 +83,16 @@
         </v-layout>
       </v-card-text>
     </v-card>
+
+    <v-card class="mb-3">
+      <v-card-title>
+        <v-btn>Storage</v-btn>
+      </v-card-title>
+      <v-card-text>
+        <QuotaPieChart height="240" :hidelegend="false" />
+      </v-card-text>
+    </v-card>
+
   </v-container>
 </template>
 
@@ -93,6 +103,7 @@ import CoresPieChart from '@/components/CoresPieChart'
 import Rack from '@/components/Rack'
 import NodeLoad from '@/components/NodeLoad'
 import UserChip from '@/components/UserChip'
+import QuotaPieChart from '@/components/QuotaPieChart'
 
 export default {
   components: {
@@ -100,6 +111,7 @@ export default {
     CoresPieChart,
     Rack,
     NodeLoad,
+    QuotaPieChart,
     UserChip
   },
   computed: {
