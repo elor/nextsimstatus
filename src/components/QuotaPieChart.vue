@@ -40,7 +40,7 @@ export default {
     free() {
       return {
         name: 'Free',
-        kbytes: this.quotas.df.filter(o => o.mounted == '/home')[0].available
+        kbytes: this.quotas.df.filter(o => o.mounted === '/home')[0].available
       }
     }
   },
