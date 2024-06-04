@@ -41,9 +41,9 @@ racks) # unused on nextsim, need to plug cables into the PSU
 	interval=60
 	hard_interval=0
 	;;
-quota) # unused on nextsim, might switch to lustre quota
-	runfile="./beegfs/quota.py"
-	topic="beegfs/quota"
+quota)
+	runfile="./lustre/quota.py"
+	topic="lustre/quota"
 	interval=60
 	hard_interval=12
 	;;

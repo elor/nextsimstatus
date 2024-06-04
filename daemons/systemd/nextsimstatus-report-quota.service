@@ -1,0 +1,14 @@
+[Unit]
+Description=NextSimStatus Quota Reporter
+After=syslog.target network.target slurmctld.service
+ConditionFileIsExecutable=/opt/nextsimstatus/nextsim-daemon.sh
+
+[Service]
+ExecStart=/opt/nextsimstatus/nextsim-daemon.sh quota /etc/nextsimstatus.json
+
+Restart=always
+RestartSec=15
+
+[Install]
+WantedBy=multi-user.target
+
