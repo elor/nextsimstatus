@@ -45,7 +45,7 @@ quota)
 	runfile="./lustre/quota.py"
 	topic="lustre/quota"
 	interval=60
-	hard_interval=12
+	hard_interval=120
 	;;
 *)
 	echo "DATASET must be one of 'nodes', 'jobs', 'racks' or 'quota', not \"$dataset\"" >&2
