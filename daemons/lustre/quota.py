@@ -45,15 +45,12 @@ df_lines = df_output.strip().split("\n")
 # Parse df output and add it to the 'disk' category
 df_headers = df_lines[0].split()
 df_headers[1] = "kbytes"
-output["df"] = []
+df_headers[5] = "use_percent"
 
-for line in df_lines[1:]:
-    df_values = line.split()
-    mount = df_values[-1]
-
-    disk_info = {header: value for header, value in zip(df_headers, df_values)}
-
-    output["df"].append(disk_info)
+output["df"] = [
+    {header.lower(): value for header, value in zip(df_headers, line.split())}
+    for line in df_lines[1:]
+]
 
 json_output = json.dumps(output, indent=2)
 print(json_output)

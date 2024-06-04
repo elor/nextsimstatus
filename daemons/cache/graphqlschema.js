@@ -176,7 +176,7 @@ type DiskFree {
   kbytes: String
   used: String
   available: String
-  use: String
+  use_percent: String
   mounted: String
 }
 `)
