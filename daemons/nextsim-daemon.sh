@@ -13,13 +13,19 @@ EOF
 	exit 1
 fi
 
+function renew_tokens() {
+	:
+}
+
 host=nextsimstatus.etit.tu-chemnitz.de
 dataset="$1"
 mqtt_password=""
+kinit_password=""
 if ((${#@} == 2)); then
 	secrets_file="$2"
 	if [ -s "$secrets_file" ]; then
 		mqtt_password=$(jq -r .mqtt "$secrets_file")
+		kinit_password=$(jq -r .kinit "$secrets_file")
 	fi
 else
 	secrets_file=""
@@ -46,6 +52,11 @@ quota)
 	topic="lustre/quota"
 	interval=60
 	hard_interval=120
+
+	function renew_tokens() {
+		echo "renewing kinit token"
+		klist -s || kinit >/dev/null <<<"$kinit_password"
+	}
 	;;
 *)
 	echo "DATASET must be one of 'nodes', 'jobs', 'racks' or 'quota', not \"$dataset\"" >&2
@@ -68,6 +79,7 @@ old_data=""
 last_data=0
 
 while true; do
+	renew_tokens
 	data_json="$($runfile "$secrets_file" | gzip -c | base64)"
 
 	now=$(date +%s)
