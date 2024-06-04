@@ -11,7 +11,7 @@ type Query {
   users: [User]
   simpcs: [SimPC]
   racks: [Rack]
-  quotas: [Quota]
+  quotas: Quota
 }
 
 type Node {
