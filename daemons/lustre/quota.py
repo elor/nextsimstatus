@@ -16,7 +16,7 @@ for line in lines:
         # One of the three headers
         headers = line.split()
         category = headers[0].lower()
-        output[category] = {}
+        output[category] = []
         continue
 
     if not line:
@@ -26,13 +26,14 @@ for line in lines:
         continue
 
     values = re.split(r"\s{2,}", line.strip())
-    name = values[0]
 
-    output[category][name] = {
-        header: (int(value) if value.isdigit() else value)
-        for header, value in zip(headers, values)
-        if value not in ["-", ""]
-    }
+    output[category].append(
+        {
+            header: (int(value) if value.isdigit() else value)
+            for header, value in zip(headers, values)
+            if value not in ["-", ""]
+        }
+    )
 
 # Execute df -k /home command to get disk usage in KB
 lustre_mounts = [
@@ -47,7 +48,7 @@ df_lines = df_output.strip().split("\n")
 
 # Parse df output and add it to the 'disk' category
 df_headers = df_lines[0].split()
-output["df"] = {}
+output["df"] = []
 
 for line in df_lines[1:]:
     df_values = line.split()
@@ -58,7 +59,7 @@ for line in df_lines[1:]:
     for header, value in zip(df_headers, df_values):
         disk_info[header] = int(value) if value.isdigit() else value
 
-    output["df"][mount] = disk_info
+    output["df"].append(disk_info)
 
 json_output = json.dumps(output, indent=2)
 print(json_output)
