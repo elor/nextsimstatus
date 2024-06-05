@@ -56,8 +56,8 @@ export default new Router({
   {
     path: '/apps/periodyfier',
     name: 'Periodyfier',
+    icon: 'fa-atom',
     component: Periodinator,
-    hidden: true
   },
   {
     path: '/apps/periodinator',
