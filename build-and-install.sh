@@ -4,6 +4,8 @@ set -e -u
 
 cd "$(dirname "$(readlink -f "$0")")"
 
+git pull || :
+
 # copy daemons over
 rsync -rv --delete ./daemons/ /opt/nextsimstatus
 
