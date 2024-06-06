@@ -17,6 +17,7 @@ function renew_tokens() {
 	:
 }
 
+echo "Running as $(whoami)"
 host=nextsimstatus.etit.tu-chemnitz.de
 dataset="$1"
 mqtt_password=""
@@ -57,6 +58,18 @@ quota)
 		echo "renewing kinit token"
 		klist -s || kinit >/dev/null <<<"$kinit_password"
 	}
+	;;
+usernames)
+	runfile="./usernames/usernames.sh"
+	topic="usernames"
+	interval=60
+	hard_interval=120
+
+	function renew_tokens() {
+		echo "renewing kinit token"
+		klist -s || kinit >/dev/null <<<"$kinit_password"
+	}
+	secrets_file=""
 	;;
 *)
 	echo "DATASET must be one of 'nodes', 'jobs', 'racks' or 'quota', not \"$dataset\"" >&2
