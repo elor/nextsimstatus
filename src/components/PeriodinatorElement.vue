@@ -102,7 +102,7 @@ export default {
   font-size: 24pt;
   font-weight: bold;
   position: absolute;
-  top: 16pt;
+  top: 20pt;
   text-align: center;
   width: 100%;
 }
