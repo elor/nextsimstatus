@@ -5,13 +5,8 @@
         <v-layout wrap>
           <v-spacer></v-spacer>
           <v-flex xs="12" md="6">
-            <v-text-field
-              append-icon="fa-search"
-              label="Search"
-              single-line
-              hide-details
-              v-model="search"
-            ></v-text-field>
+            <v-text-field append-icon="fa-search" label="Search" single-line hide-details
+              v-model="search"></v-text-field>
           </v-flex>
         </v-layout>
       </v-card-title>
@@ -22,15 +17,15 @@
         </template>
 
         <template v-slot:item.JobCount.Running="props">
-          <router-link :to="`/users/${props.item.UserName}`">{{props.item.JobCount.Running}}</router-link>
+          <router-link :to="`/users/${props.item.UserName}`">{{ props.item.JobCount.Running }}</router-link>
         </template>
 
         <template v-slot:item.NodeNames="props">
           <node-load v-for="node in nodes(props.item)" :key="node.NodeName" :node="node"></node-load>
         </template>
 
-        <template v-slot:item.JobCount.Other="props">
-          <router-link :to="`/users/${props.item.UserName}`">{{props.item.JobCount.Other}}</router-link>
+        <template v-slot:item.Storage.kbytes="props">
+          <span>{{ formatSIbytes(props.item.Storage.kbytes) }}</span>
         </template>
       </v-data-table>
     </v-card>
@@ -41,6 +36,7 @@
 import { mapGetters } from 'vuex'
 import NodeLoad from '@/components/NodeLoad'
 import UserChip from '@/components/UserChip'
+import formatSIbytes from '@/utils/formatsibytes'
 
 export default {
   components: {
@@ -73,6 +69,12 @@ export default {
           align: 'left',
           sortable: true,
           value: 'NodeNames'
+        },
+        {
+          text: 'Storage',
+          align: 'left',
+          sortable: true,
+          value: 'Storage.kbytes'
         }
       ],
       search: ''
@@ -82,6 +84,7 @@ export default {
     ...mapGetters(['userstatus', 'nodestatus'])
   },
   methods: {
+    formatSIbytes,
     nodes(user) {
       return this.nodestatus.filter(node => node.users.includes(user.UserName))
     }

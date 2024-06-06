@@ -7,6 +7,7 @@
 import { mapState } from 'vuex'
 import PieChart from '@/components/PieChart'
 import usercolor from '@/utils/usercolor'
+import formatSIbytes from '@/utils/formatsibytes'
 
 import { sortBy } from 'lodash'
 
@@ -50,21 +51,10 @@ export default {
   },
   methods: {
     tooltip({ datasetIndex, index }, { labels, datasets }) {
-      let suffix = 'kB'
-      let count = datasets[datasetIndex].data[index]
-      if (count > 1024 ** 3) {
-        count /= 1024 ** 3
-        suffix = 'TB'
-      } else if (count > 1024 ** 2) {
-        count /= 1024 ** 2
-        suffix = 'GB'
-      } else if (count > 1024) {
-        count /= 1024
-        suffix = 'MB'
-      }
+      const kbytes = datasets[datasetIndex].data[index]
 
       const username = labels[index]
-      return `${username}: ${count.toFixed(2)} ${suffix}`
+      return `${username}: ${formatSIbytes(kbytes)}`
     }
   }
 }

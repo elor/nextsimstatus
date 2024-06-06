@@ -286,6 +286,14 @@ export default new Vuex.Store({
               user.FailedJobs.length
           }
         }))
+        .map(user => ({
+          ...user,
+          Storage: {
+            kbytes: state.quotas.user.find(quota => quota.user === user.UserName)?.kbytes || 0,
+            quota: state.quotas.user.find(quota => quota.user === user.UserName)?.quota || 0
+          }
+
+        }))
       return sortBy(users, 'UserName')
     },
     simpcstatus(state) { // 3

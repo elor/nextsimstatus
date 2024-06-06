@@ -1,30 +1,18 @@
 <template>
   <v-card>
     <v-card-title>
-      {{title}}
-      <span v-if="can_select_anything">({{selected.length}} selected)</span>
+      {{ title }}
+      <span v-if="can_select_anything">({{ selected.length }} selected)</span>
       <v-spacer></v-spacer>
 
       <job-action-block :jobs="selected" />
       <v-spacer></v-spacer>
       <v-flex xs="12" md="6" lg="4">
-        <v-text-field
-          append-icon="fa-search"
-          label="Search"
-          single-line
-          hide-details
-          v-model="search"
-        ></v-text-field>
+        <v-text-field append-icon="fa-search" label="Search" single-line hide-details v-model="search"></v-text-field>
       </v-flex>
     </v-card-title>
-    <v-data-table
-      :headers="headers"
-      :items="items"
-      item-key="JobId"
-      :search="search"
-      :show-select="can_select_anything"
-      v-model="selected"
-    >
+    <v-data-table :headers="headers" :items="items" item-key="JobId" :search="search" :show-select="can_select_anything"
+      v-model="selected">
       <template v-slot:item.JobId="props">
         <job-chip :job="props.item" />
       </template>
@@ -36,15 +24,15 @@
       <template v-slot:item.JobState="props">
         <v-tooltip right>
           <template v-slot:activator="{ on }">
-            <span v-on="on">{{capitalize(props.item.JobState)}}</span>
+            <span v-on="on">{{ capitalize(props.item.JobState) }}</span>
           </template>
-          Reason: {{props.item.Reason}}
+          Reason: {{ props.item.Reason }}
         </v-tooltip>
       </template>
 
       <template v-slot:item.NodeNames="props">
         <span v-for="node in props.item.NodeNames" :key="node">
-          <router-link :to="`/node/${node}`">{{node}}</router-link>&nbsp;
+          <router-link :to="`/node/${node}`">{{ node }}</router-link>&nbsp;
         </span>
       </template>
 
