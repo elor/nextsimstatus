@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-card>
       <v-card-title>
-        <h2>User {{username}}</h2>
+        <h2>User {{ username }}</h2>
         <v-spacer></v-spacer>
         <source-view v-if="User" :title="`User ${username}`" :value="User"></source-view>
       </v-card-title>
@@ -10,18 +10,15 @@
       <v-card-text>
         <v-layout row wrap v-if="User">
           <grid-card title="User">
-            <user-chip :login="User.UserName"/>
+            <user-chip :login="User.UserName" />
           </grid-card>
 
           <grid-card title="Job Stats">
             <p>
-              <span
-                v-for="[key, value] in Object.entries(User.JobCount).filter(a => a[1])"
-                :key="key"
-                class="mx-2"
-              >{{value}} {{key}}</span>
+              <span v-for="[key, value] in Object.entries(User.JobCount).filter(a => a[1])" :key="key" class="mx-2">{{
+          value }} {{ key }}</span>
             </p>
-            <p>{{User.NumCPUs}} Cores</p>
+            <p>{{ User.NumCPUs }} Cores</p>
           </grid-card>
 
           <grid-card title="Nodes">
@@ -29,6 +26,11 @@
               <node-load v-for="node in nodes" :key="node.NodeName" :node="node"></node-load>
             </template>
             <template v-else>Keine reservierten Knoten</template>
+          </grid-card>
+
+          <grid-card title="Storage">
+            <p> Used: {{ formatSIbytes(User.Storage.kbytes) }} </p>
+            <p> Quota: {{ formatSIbytes(User.Storage.quota) }} </p>
           </grid-card>
 
         </v-layout>
@@ -47,6 +49,7 @@ import JobList from '@/components/JobList'
 import SourceView from '@/components/SourceView'
 import NodeLoad from '@/components/NodeLoad'
 import UserChip from '@/components/UserChip'
+import formatSIbytes from '@/utils/formatsibytes'
 
 export default {
   components: {
@@ -71,6 +74,9 @@ export default {
         node.users.includes(this.User.UserName)
       )
     }
+  },
+  methods: {
+    formatSIbytes
   }
 }
 </script>
