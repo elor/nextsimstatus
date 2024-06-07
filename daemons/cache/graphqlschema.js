@@ -72,7 +72,8 @@ type Job {
 }
 
 type User {
-  Name: String
+  Login: String
+  FullName: String
 }
 
 type SimPC {
@@ -178,10 +179,5 @@ type DiskFree {
   available: String
   use_percent: String
   mounted: String
-}
-
-type Usernames {
-  user: String
-  fullname: String
 }
 `)

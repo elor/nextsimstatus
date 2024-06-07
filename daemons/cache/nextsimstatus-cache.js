@@ -8,15 +8,14 @@ const args = require('minimist')(process.argv.slice(-1))
 const PORT = Number(args._[0]) || 8080
 
 let store = {
-  nodes: {},
-  jobs: {},
+  nodes: [],
+  jobs: [],
   users: {},
   simpcs: {},
   racks: [],
   quotas: {},
   lastupdate: new Date(0),
-  cachestart: new Date(),
-  usernames: []
+  cachestart: new Date()
 }
 
 const receiveFuncs = {
@@ -38,10 +37,8 @@ const receiveFuncs = {
   quotas (quotas) {
     store.quotas = quotas
   },
-  usernames(usernames) {
-    // convert usernames object to array:
-    //  { username: "fullname"} --> [ { user: username, fullname: fullname} ]
-    store.usernames = Object.entries(usernames).map((array, index) => ({user:array[0], fullname:array[1]}))
+  users (users) {
+    store.users = users
   },
   newError(error) {
     console.log(error)

@@ -34,9 +34,6 @@ exports.connect = function (receive) {
         case 'slurm/jobs':
           receive('jobs', unpack64(message))
           break
-        case 'slurm/users':
-          receive('users', unpack64(message))
-          break
         case (topic.match(/simpc\/simpc\d+/) || {}).input:
           receive('simpc', unpack(message))
           break
@@ -47,7 +44,7 @@ exports.connect = function (receive) {
           receive('quotas', unpack64(message))
           break
         case 'usernames':
-          receive('usernames', unpack64(message))
+          receive('users', unpack64(message))
           break
       }
     } catch (err) {
