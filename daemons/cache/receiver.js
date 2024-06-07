@@ -46,6 +46,9 @@ exports.connect = function (receive) {
         case 'lustre/quota':
           receive('quotas', unpack64(message))
           break
+        case 'usernames':
+          receive('usernames', unpack64(message))
+          break
       }
     } catch (err) {
       console.error(err)

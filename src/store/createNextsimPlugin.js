@@ -89,6 +89,7 @@ function registerMQTT(store) {
       mqttClient.subscribe('simpc/#')
       mqttClient.subscribe('racks/racks')
       mqttClient.subscribe('lustre/quota')
+      mqttClient.subscribe('usernames')
     }
   })
 
@@ -118,6 +119,10 @@ function registerMQTT(store) {
           break
         case 'lustre/quota':
           store.commit('updateQuota', unpack64(message))
+          break
+        case 'usernames':
+          store.commit('updateUsernames', unpack64(message))
+          break
       }
     } catch (error) {
       store.commit('newError', error)

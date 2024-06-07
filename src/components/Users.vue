@@ -47,10 +47,16 @@ export default {
     return {
       headers: [
         {
-          text: 'Name',
+          text: 'User',
           align: 'left',
           sortable: true,
           value: 'UserName'
+        },
+        {
+          text: 'Name',
+          align: 'left',
+          sortable: true,
+          value: 'FullName'
         },
         {
           text: 'Cores',

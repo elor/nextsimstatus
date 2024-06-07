@@ -179,4 +179,9 @@ type DiskFree {
   use_percent: String
   mounted: String
 }
+
+type Usernames {
+  user: String
+  fullname: String
+}
 `)

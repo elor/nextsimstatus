@@ -15,7 +15,8 @@ let store = {
   racks: [],
   quotas: {},
   lastupdate: new Date(0),
-  cachestart: new Date()
+  cachestart: new Date(),
+  usernames: []
 }
 
 const receiveFuncs = {
@@ -37,6 +38,11 @@ const receiveFuncs = {
   quotas (quotas) {
     store.quotas = quotas
   },
+  usernames(usernames) {
+    // convert usernames object to array:
+    //  { username: "fullname"} --> [ { user: username, fullname: fullname} ]
+    store.usernames = Object.entries(usernames).map((array, index) => ({user:array[0], fullname:array[1]}))
+  }
   newError(error) {
     console.log(error)
   }

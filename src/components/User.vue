@@ -11,6 +11,7 @@
         <v-layout row wrap v-if="User">
           <grid-card title="User">
             <user-chip :login="User.UserName" />
+            <p>{{ User.FullName }}</p>
           </grid-card>
 
           <grid-card title="Job Stats">

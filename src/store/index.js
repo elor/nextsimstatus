@@ -67,6 +67,9 @@ export default new Vuex.Store({
       jobs: new Date(0),
       now: new Date()
     },
+    usernames: {
+      elor: 'Erik E. Lorenz'
+    },
     quotas: {
       user: [
         {
@@ -249,6 +252,7 @@ export default new Vuex.Store({
       ])
         .map(UserName => ({
           UserName,
+          FullName: state.usernames[UserName] || 'unknown',
           color: usercolor(UserName),
           Jobs: getters.jobstatus.filter(job => job.UserName === UserName),
           PCs: getters.simpcstatus.filter(pc => pc.usernames.includes(UserName))
@@ -389,6 +393,14 @@ export default new Vuex.Store({
     },
     updateQuotas(state, quotas) {
       state.quotas = quotas
+    },
+    updateUsernames(state, usernames) {
+      // usernames is an array of objects: [{user, fullname}]
+      // It must be converted to an object: {user: fullname}
+      state.usernames = usernames.reduce((acc, { user, fullname }) => {
+        acc[user] = fullname
+        return acc
+      }, {})
     },
     updateRacks(state, racks) {
       racks = racks.map(rack => rack.error ? { error: rack.error } : rack)

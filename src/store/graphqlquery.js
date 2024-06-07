@@ -121,5 +121,10 @@ export default `
       mounted
     }
   }
+
+  usernames {
+    user
+    fullname
+  }
 }
 `
