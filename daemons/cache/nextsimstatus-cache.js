@@ -42,7 +42,7 @@ const receiveFuncs = {
     // convert usernames object to array:
     //  { username: "fullname"} --> [ { user: username, fullname: fullname} ]
     store.usernames = Object.entries(usernames).map((array, index) => ({user:array[0], fullname:array[1]}))
-  }
+  },
   newError(error) {
     console.log(error)
   }
