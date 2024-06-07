@@ -9,5 +9,5 @@ export default [
   'I watch rainbows',
   'Find more unusual sentences',
   'This page has no serious use',
-  'ich bin ungern gegangen'
+  'Unsere Frisuren sind von teuren Friseuren und Friseuren'
 ]
