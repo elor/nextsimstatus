@@ -78,7 +78,7 @@
 
     <v-card class="mb-3">
       <v-card-title>
-        <v-btn>Storage</v-btn>
+        <v-btn to="/quota">Storage</v-btn>
       </v-card-title>
       <v-card-text>
         <QuotaPieChart height="240" :hidelegend="false" />
