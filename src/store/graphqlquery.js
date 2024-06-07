@@ -122,9 +122,9 @@ export default `
     }
   }
 
-  usernames {
-    user
-    fullname
+  users {
+    Login
+    FullName
   }
 }
 `

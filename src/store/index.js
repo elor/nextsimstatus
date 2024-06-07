@@ -67,8 +67,11 @@ export default new Vuex.Store({
       jobs: new Date(0),
       now: new Date()
     },
-    usernames: {
-      elor: 'Erik E. Lorenz'
+    users: {
+      elor: {
+        Login: 'elor',
+        FullName: 'Erik E. Lorenz'
+      }
     },
     quotas: {
       user: [
@@ -246,13 +249,14 @@ export default new Vuex.Store({
     },
     userstatus(state, getters) { // 5
       const users = uniq([
+        ...Object.keys(state.users),
         ...getters.jobstatus.map(job => job.UserName),
         ...flatten(getters.simpcstatus.map(pc => pc.usernames)),
         ...state.quotas.user.map(user => user.user)
       ])
         .map(UserName => ({
           UserName,
-          FullName: state.usernames[UserName] || 'unknown',
+          FullName: state.users[UserName]?.FullName || `${UserName} (full name not found)`,
           color: usercolor(UserName),
           Jobs: getters.jobstatus.filter(job => job.UserName === UserName),
           PCs: getters.simpcstatus.filter(pc => pc.usernames.includes(UserName))
@@ -394,8 +398,8 @@ export default new Vuex.Store({
     updateQuotas(state, quotas) {
       state.quotas = quotas
     },
-    updateUsernames(state, usernames) {
-      state.usernames = usernames
+    updateUsers(state, users) {
+      state.users = users
     },
     updateRacks(state, racks) {
       racks = racks.map(rack => rack.error ? { error: rack.error } : rack)

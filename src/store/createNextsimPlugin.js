@@ -54,8 +54,8 @@ function fetch(store) {
 
       // data.usernames is an array of objects: [{user, fullname}]
       // It must be converted to an object: {user: fullname}
-      store.commit('updateUsernames', data.usernames.reduce((acc, { user, fullname }) => {
-        acc[user] = fullname
+      store.commit('updateUsers', data.users.reduce((acc, { Login, FullName }) => {
+        acc[Login] = { Login, FullName }
         return acc
       }, {}))
     })
@@ -128,7 +128,7 @@ function registerMQTT(store) {
           store.commit('updateQuota', unpack64(message))
           break
         case 'usernames':
-          store.commit('updateUsernames', unpack64(message))
+          store.commit('updateUsers', unpack64(message))
           break
       }
     } catch (error) {
