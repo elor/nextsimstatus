@@ -51,6 +51,13 @@ function fetch(store) {
       data.simpcs.forEach(simpc => store.commit('updateSimPC', simpc))
       store.commit('updateRacks', data.racks)
       store.commit('updateQuotas', data.quotas)
+
+      // data.usernames is an array of objects: [{user, fullname}]
+      // It must be converted to an object: {user: fullname}
+      store.commit('updateUsernames', data.usernames.reduce((acc, { user, fullname }) => {
+        acc[user] = fullname
+        return acc
+      }, {})
     })
     .catch(error => store.commit('newError', error))
 

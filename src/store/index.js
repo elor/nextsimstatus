@@ -395,12 +395,7 @@ export default new Vuex.Store({
       state.quotas = quotas
     },
     updateUsernames(state, usernames) {
-      // usernames is an array of objects: [{user, fullname}]
-      // It must be converted to an object: {user: fullname}
-      state.usernames = usernames.reduce((acc, { user, fullname }) => {
-        acc[user] = fullname
-        return acc
-      }, {})
+      state.usernames = usernames
     },
     updateRacks(state, racks) {
       racks = racks.map(rack => rack.error ? { error: rack.error } : rack)
