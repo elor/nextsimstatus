@@ -11,6 +11,7 @@ import Nodes from '@/components/Nodes'
 import Periodinator from '@/components/Periodinator'
 import Users from '@/components/Users'
 import User from '@/components/User'
+import Quota from '@/components/Quota'
 import Test from '@/components/Test'
 
 Vue.use(Router)
@@ -45,6 +46,12 @@ export default new Router({
     name: 'Users',
     component: Users,
     icon: 'fa-users'
+  },
+  {
+    path: '/quota',
+    name: 'Quota',
+    component: Quota,
+    icon: 'fa-save'
   },
   {
     path: '/test',
