@@ -57,7 +57,7 @@ function fetch(store) {
       store.commit('updateUsernames', data.usernames.reduce((acc, { user, fullname }) => {
         acc[user] = fullname
         return acc
-      }, {})
+      }, {}))
     })
     .catch(error => store.commit('newError', error))
 
