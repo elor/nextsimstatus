@@ -8,10 +8,6 @@
           </v-flex>
 
           <v-flex xs="12" md="6" lg="4">
-            <NodeList />
-          </v-flex>
-
-          <v-flex xs="12" md="6" lg="4">
             <v-text-field
               append-icon="fa-search"
               label="Search"
@@ -92,7 +88,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import NodeList from '@/components/NodeList'
 import CpuLoad from '@/components/CpuLoad'
 import { capitalize } from '../utils/capitalize'
 import UserChip from '@/components/UserChip'
@@ -104,7 +99,6 @@ import { warnstates, failstates } from '../utils/nodeStates'
 
 export default {
   components: {
-    NodeList,
     CpuLoad,
     UserChip,
     JobChip,
