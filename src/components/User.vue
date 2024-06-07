@@ -10,8 +10,10 @@
       <v-card-text>
         <v-layout row wrap v-if="User">
           <grid-card title="User">
-            <user-chip :login="User.UserName" />
-            <p>{{ User.FullName }}</p>
+            <p>
+              <user-chip :login="User.UserName" />
+              {{ User.FullName }}
+            </p>
           </grid-card>
 
           <grid-card title="Job Stats">
