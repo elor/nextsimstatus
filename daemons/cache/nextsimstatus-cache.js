@@ -13,7 +13,12 @@ let store = {
   users: {},
   simpcs: {},
   racks: [],
-  quotas: {},
+  quotas: {
+    user: [],
+    group: [],
+    project: [],
+    df: []
+  },
   lastupdate: new Date(0),
   cachestart: new Date()
 }
