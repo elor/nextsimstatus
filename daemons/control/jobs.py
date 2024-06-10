@@ -98,10 +98,10 @@ def log(jobid, lines=20, user=None):
 
     return {
         "JobId": jobid,
-        "StdOutFile": files["StdOut"],
-        "StdOut": printlog(files["StdOut"], lines, user),
-        "StdErrFile": files["StdOut"],
-        "StdErr": printlog(files["StdErr"], lines, user)
+        "StdOutFile": StdOut,
+        "StdOut": printlog(StdOut, lines, user),
+        "StdErrFile": StdErr,
+        "StdErr": printlog(StdErr, lines, user)
         if StdErr != StdOut
         else "<same as StdOut>",
     }
