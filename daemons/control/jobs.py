@@ -111,8 +111,7 @@ def jobscript(jobid, user=None):
     return_code, out, err = run_command(
         ["scontrol", "write", "batch_script", str(jobid), "-"], user=user
     )
-    if return_code:
-        raise RuntimeError("NonZero Return Code {}: {}".format(return_code, err))
+    # explicitly ignoring return code: scontrol gives sensible and legible output
     return {"JobId": jobid, "JobScript": out.decode("utf-8")}
 
 
