@@ -79,17 +79,22 @@ def logfiles(jobid, user=None):
 
 
 def printlog(logfile, lines=20, user=None):
-    return_code, out, err = run_command(["tail", "-n", str(lines), logfile], user=user)
-    if return_code:
-        raise RuntimeError("NonZero Return Code {}: {}".format(return_code, err))
-    return out.decode("utf-8")
+    if logfile == "interactive":
+        return "Job is run interactively. Output cannot be captured."
+    else:
+        return_code, out, err = run_command(
+            ["tail", "-n", str(lines), logfile], user=user
+        )
+        if return_code:
+            raise RuntimeError("NonZero Return Code {}: {}".format(return_code, err))
+        return out.decode("utf-8")
 
 
 def log(jobid, lines=20, user=None):
     files = logfiles(jobid, user)
 
-    StdOut = files["StdOut"]
-    StdErr = files["StdErr"]
+    StdOut = files["StdOut"] if "StdOut" in files else "interactive"
+    StdErr = files["StdErr"] if "StdErr" in files else "interactive"
 
     return {
         "JobId": jobid,
