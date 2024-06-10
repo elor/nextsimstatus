@@ -1,5 +1,6 @@
 <template>
-  <v-data-table :headers="headers" :items="userstatus" :search="search" :items-per-page="-1" hide-default-footer>
+  <v-data-table :headers="headers" :items="userstatus" :search="search" :items-per-page="-1" :sort-by="sortBy"
+    :sort-desc="sortDesc" hide-default-footer>
     <template v-slot:item.UserName="props">
       <user-chip :login="props.item.UserName" />
     </template>
@@ -57,7 +58,9 @@ export default {
           sortable: true,
           value: 'Storage.quota'
         }
-      ]
+      ],
+      sortBy: ['Storage.kbytes'],
+      sortDesc: [true]
     }
   },
   computed: {

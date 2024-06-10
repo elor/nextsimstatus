@@ -1,5 +1,6 @@
 <template>
-  <v-data-table :headers="headers" :items="quotas.group" :search="search" :items-per-page="-1" hide-default-footer>
+  <v-data-table :headers="headers" :items="quotas.group" :search="search" :items-per-page="-1" :sort-by="sortBy"
+    :sort-desc="sortDesc" hide-default-footer>
     <template v-slot:item.group="props">
       <group-chip :group="props.item.group" />
     </template>
@@ -51,7 +52,9 @@ export default {
           sortable: true,
           value: 'quota'
         }
-      ]
+      ],
+      sortBy: ['kbytes'],
+      sortDesc: [true]
     }
   },
   computed: {
